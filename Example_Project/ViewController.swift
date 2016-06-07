@@ -3,7 +3,7 @@ import SnapImagePicker
 
 class ViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView?
-    
+
     @IBAction func openImagePickerTapped(sender: UIButton) {
         let picker = SnapImagePicker(delegate: self)
         self.presentViewController(picker, animated: true, completion: nil)
@@ -23,7 +23,7 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: SnapImagePickerDelegate {
-    
+
     func pickedImage(image: UIImage) {
         imageView.image = image
     }
