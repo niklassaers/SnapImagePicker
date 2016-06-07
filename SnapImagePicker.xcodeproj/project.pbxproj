@@ -1,0 +1,507 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D883007D1D06C72600399612 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D883007C1D06C72600399612 /* AppDelegate.swift */; };
+		D883007F1D06C72600399612 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D883007E1D06C72600399612 /* ViewController.swift */; };
+		D88300821D06C72600399612 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D88300801D06C72600399612 /* Main.storyboard */; };
+		D88300841D06C72600399612 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D88300831D06C72600399612 /* Assets.xcassets */; };
+		D88300871D06C72600399612 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D88300851D06C72600399612 /* LaunchScreen.storyboard */; };
+		D88300921D06C72600399612 /* SnapImagePickerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88300911D06C72600399612 /* SnapImagePickerTests.swift */; };
+		D883009D1D06C72600399612 /* SnapImagePickerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D883009C1D06C72600399612 /* SnapImagePickerUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D883008E1D06C72600399612 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D88300711D06C72600399612 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D88300781D06C72600399612;
+			remoteInfo = SnapImagePicker;
+		};
+		D88300991D06C72600399612 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D88300711D06C72600399612 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D88300781D06C72600399612;
+			remoteInfo = SnapImagePicker;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		D88300791D06C72600399612 /* SnapImagePicker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SnapImagePicker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D883007C1D06C72600399612 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D883007E1D06C72600399612 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D88300811D06C72600399612 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D88300831D06C72600399612 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D88300861D06C72600399612 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D88300881D06C72600399612 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D883008D1D06C72600399612 /* SnapImagePickerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SnapImagePickerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D88300911D06C72600399612 /* SnapImagePickerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapImagePickerTests.swift; sourceTree = "<group>"; };
+		D88300931D06C72600399612 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D88300981D06C72600399612 /* SnapImagePickerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SnapImagePickerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D883009C1D06C72600399612 /* SnapImagePickerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapImagePickerUITests.swift; sourceTree = "<group>"; };
+		D883009E1D06C72600399612 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D88300761D06C72600399612 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D883008A1D06C72600399612 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D88300951D06C72600399612 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D88300701D06C72600399612 = {
+			isa = PBXGroup;
+			children = (
+				D883007B1D06C72600399612 /* SnapImagePicker */,
+				D88300901D06C72600399612 /* SnapImagePickerTests */,
+				D883009B1D06C72600399612 /* SnapImagePickerUITests */,
+				D883007A1D06C72600399612 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D883007A1D06C72600399612 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D88300791D06C72600399612 /* SnapImagePicker.app */,
+				D883008D1D06C72600399612 /* SnapImagePickerTests.xctest */,
+				D88300981D06C72600399612 /* SnapImagePickerUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D883007B1D06C72600399612 /* SnapImagePicker */ = {
+			isa = PBXGroup;
+			children = (
+				D883007C1D06C72600399612 /* AppDelegate.swift */,
+				D883007E1D06C72600399612 /* ViewController.swift */,
+				D88300801D06C72600399612 /* Main.storyboard */,
+				D88300831D06C72600399612 /* Assets.xcassets */,
+				D88300851D06C72600399612 /* LaunchScreen.storyboard */,
+				D88300881D06C72600399612 /* Info.plist */,
+			);
+			path = SnapImagePicker;
+			sourceTree = "<group>";
+		};
+		D88300901D06C72600399612 /* SnapImagePickerTests */ = {
+			isa = PBXGroup;
+			children = (
+				D88300911D06C72600399612 /* SnapImagePickerTests.swift */,
+				D88300931D06C72600399612 /* Info.plist */,
+			);
+			path = SnapImagePickerTests;
+			sourceTree = "<group>";
+		};
+		D883009B1D06C72600399612 /* SnapImagePickerUITests */ = {
+			isa = PBXGroup;
+			children = (
+				D883009C1D06C72600399612 /* SnapImagePickerUITests.swift */,
+				D883009E1D06C72600399612 /* Info.plist */,
+			);
+			path = SnapImagePickerUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D88300781D06C72600399612 /* SnapImagePicker */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D88300A11D06C72600399612 /* Build configuration list for PBXNativeTarget "SnapImagePicker" */;
+			buildPhases = (
+				D88300751D06C72600399612 /* Sources */,
+				D88300761D06C72600399612 /* Frameworks */,
+				D88300771D06C72600399612 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SnapImagePicker;
+			productName = SnapImagePicker;
+			productReference = D88300791D06C72600399612 /* SnapImagePicker.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D883008C1D06C72600399612 /* SnapImagePickerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D88300A41D06C72600399612 /* Build configuration list for PBXNativeTarget "SnapImagePickerTests" */;
+			buildPhases = (
+				D88300891D06C72600399612 /* Sources */,
+				D883008A1D06C72600399612 /* Frameworks */,
+				D883008B1D06C72600399612 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D883008F1D06C72600399612 /* PBXTargetDependency */,
+			);
+			name = SnapImagePickerTests;
+			productName = SnapImagePickerTests;
+			productReference = D883008D1D06C72600399612 /* SnapImagePickerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		D88300971D06C72600399612 /* SnapImagePickerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D88300A71D06C72600399612 /* Build configuration list for PBXNativeTarget "SnapImagePickerUITests" */;
+			buildPhases = (
+				D88300941D06C72600399612 /* Sources */,
+				D88300951D06C72600399612 /* Frameworks */,
+				D88300961D06C72600399612 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D883009A1D06C72600399612 /* PBXTargetDependency */,
+			);
+			name = SnapImagePickerUITests;
+			productName = SnapImagePickerUITests;
+			productReference = D88300981D06C72600399612 /* SnapImagePickerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D88300711D06C72600399612 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "Snapsale AS";
+				TargetAttributes = {
+					D88300781D06C72600399612 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+					D883008C1D06C72600399612 = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = D88300781D06C72600399612;
+					};
+					D88300971D06C72600399612 = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = D88300781D06C72600399612;
+					};
+				};
+			};
+			buildConfigurationList = D88300741D06C72600399612 /* Build configuration list for PBXProject "SnapImagePicker" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D88300701D06C72600399612;
+			productRefGroup = D883007A1D06C72600399612 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D88300781D06C72600399612 /* SnapImagePicker */,
+				D883008C1D06C72600399612 /* SnapImagePickerTests */,
+				D88300971D06C72600399612 /* SnapImagePickerUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D88300771D06C72600399612 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D88300871D06C72600399612 /* LaunchScreen.storyboard in Resources */,
+				D88300841D06C72600399612 /* Assets.xcassets in Resources */,
+				D88300821D06C72600399612 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D883008B1D06C72600399612 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D88300961D06C72600399612 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D88300751D06C72600399612 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D883007F1D06C72600399612 /* ViewController.swift in Sources */,
+				D883007D1D06C72600399612 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D88300891D06C72600399612 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D88300921D06C72600399612 /* SnapImagePickerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D88300941D06C72600399612 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D883009D1D06C72600399612 /* SnapImagePickerUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D883008F1D06C72600399612 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D88300781D06C72600399612 /* SnapImagePicker */;
+			targetProxy = D883008E1D06C72600399612 /* PBXContainerItemProxy */;
+		};
+		D883009A1D06C72600399612 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D88300781D06C72600399612 /* SnapImagePicker */;
+			targetProxy = D88300991D06C72600399612 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		D88300801D06C72600399612 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D88300811D06C72600399612 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		D88300851D06C72600399612 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D88300861D06C72600399612 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D883009F1D06C72600399612 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D88300A01D06C72600399612 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D88300A21D06C72600399612 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = SnapImagePicker/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.snapsale.SnapImagePicker;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		D88300A31D06C72600399612 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = SnapImagePicker/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.snapsale.SnapImagePicker;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		D88300A51D06C72600399612 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = SnapImagePickerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.snapsale.SnapImagePickerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SnapImagePicker.app/SnapImagePicker";
+			};
+			name = Debug;
+		};
+		D88300A61D06C72600399612 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = SnapImagePickerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.snapsale.SnapImagePickerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SnapImagePicker.app/SnapImagePicker";
+			};
+			name = Release;
+		};
+		D88300A81D06C72600399612 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = SnapImagePickerUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.snapsale.SnapImagePickerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = SnapImagePicker;
+			};
+			name = Debug;
+		};
+		D88300A91D06C72600399612 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = SnapImagePickerUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.snapsale.SnapImagePickerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = SnapImagePicker;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D88300741D06C72600399612 /* Build configuration list for PBXProject "SnapImagePicker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D883009F1D06C72600399612 /* Debug */,
+				D88300A01D06C72600399612 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D88300A11D06C72600399612 /* Build configuration list for PBXNativeTarget "SnapImagePicker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D88300A21D06C72600399612 /* Debug */,
+				D88300A31D06C72600399612 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		D88300A41D06C72600399612 /* Build configuration list for PBXNativeTarget "SnapImagePickerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D88300A51D06C72600399612 /* Debug */,
+				D88300A61D06C72600399612 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		D88300A71D06C72600399612 /* Build configuration list for PBXNativeTarget "SnapImagePickerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D88300A81D06C72600399612 /* Debug */,
+				D88300A91D06C72600399612 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D88300711D06C72600399612 /* Project object */;
+}
