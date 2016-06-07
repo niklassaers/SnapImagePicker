@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D88300781D06C72600399612"
-               BuildableName = "SnapImagePicker.app"
-               BlueprintName = "SnapImagePicker"
+               BuildableName = "Example_Project.app"
+               BlueprintName = "Example_Project"
                ReferencedContainer = "container:SnapImagePicker.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -33,8 +33,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D883008C1D06C72600399612"
-               BuildableName = "SnapImagePickerTests.xctest"
-               BlueprintName = "SnapImagePickerTests"
+               BuildableName = "Example_Project_Unit_Tests.xctest"
+               BlueprintName = "Example_Project_Unit_Tests"
                ReferencedContainer = "container:SnapImagePicker.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -43,8 +43,18 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D88300971D06C72600399612"
-               BuildableName = "SnapImagePickerUITests.xctest"
-               BlueprintName = "SnapImagePickerUITests"
+               BuildableName = "Example_Project_UI_Tests.xctest"
+               BlueprintName = "Example_Project_UI_Tests"
+               ReferencedContainer = "container:SnapImagePicker.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D89D6FEE1D06CC06007DD132"
+               BuildableName = "SnapImagePickerTests.xctest"
+               BlueprintName = "SnapImagePickerTests"
                ReferencedContainer = "container:SnapImagePicker.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -53,8 +63,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D88300781D06C72600399612"
-            BuildableName = "SnapImagePicker.app"
-            BlueprintName = "SnapImagePicker"
+            BuildableName = "Example_Project.app"
+            BlueprintName = "Example_Project"
             ReferencedContainer = "container:SnapImagePicker.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -76,8 +86,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D88300781D06C72600399612"
-            BuildableName = "SnapImagePicker.app"
-            BlueprintName = "SnapImagePicker"
+            BuildableName = "Example_Project.app"
+            BlueprintName = "Example_Project"
             ReferencedContainer = "container:SnapImagePicker.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -95,8 +105,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D88300781D06C72600399612"
-            BuildableName = "SnapImagePicker.app"
-            BlueprintName = "SnapImagePicker"
+            BuildableName = "Example_Project.app"
+            BlueprintName = "Example_Project"
             ReferencedContainer = "container:SnapImagePicker.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

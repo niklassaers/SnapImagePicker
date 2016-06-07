@@ -1,15 +1,7 @@
-//
-//  SnapImagePickerTests.swift
-//  SnapImagePickerTests
-//
-//  Created by Esten Leonardsen on 07/06/16.
-//  Copyright © 2016 Snapsale AS. All rights reserved.
-//
-
 import XCTest
 @testable import SnapImagePicker
 
-class SnapImagePickerTests: XCTestCase {
+class SnapImagePickerExampleTests: XCTestCase {
     
     override func setUp() {
         super.setUp()

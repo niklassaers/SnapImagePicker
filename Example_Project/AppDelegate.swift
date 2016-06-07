@@ -1,11 +1,3 @@
-//
-//  AppDelegate.swift
-//  SnapImagePicker
-//
-//  Created by Esten Leonardsen on 07/06/16.
-//  Copyright © 2016 Snapsale AS. All rights reserved.
-//
-
 import UIKit
 
 @UIApplicationMain

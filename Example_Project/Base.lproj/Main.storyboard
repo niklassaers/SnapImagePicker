@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Example_Project" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bT2-1x-wmI">
+                                <rect key="frame" x="235" y="285" width="130" height="30"/>
+                                <state key="normal" title="Open Image Picker"/>
+                                <connections>
+                                    <action selector="openImagePickerTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ACM-YY-B3B"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0R2-sD-Bpn">
+                                <rect key="frame" x="20" y="323" width="560" height="277"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="0R2-sD-Bpn" firstAttribute="top" secondItem="bT2-1x-wmI" secondAttribute="bottom" constant="8" id="0bm-Fa-ypJ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="0R2-sD-Bpn" secondAttribute="trailing" id="7L3-EI-kqx"/>
+                            <constraint firstItem="bT2-1x-wmI" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="HeI-tC-222"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="0R2-sD-Bpn" secondAttribute="bottom" id="aKD-ep-GdA"/>
+                            <constraint firstItem="bT2-1x-wmI" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="dNf-rd-gBf"/>
+                            <constraint firstItem="0R2-sD-Bpn" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="dsH-wr-M0J"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="0R2-sD-Bpn" id="H7O-Jy-QsL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+</document>
