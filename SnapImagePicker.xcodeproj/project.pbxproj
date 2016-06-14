@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D83B8C1B1D0DE2E300C6995A /* AlbumSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83B8C1A1D0DE2E300C6995A /* AlbumSelectorViewController.swift */; };
+		D83B8C1D1D0EB90C00C6995A /* PhotoAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83B8C1C1D0EB90C00C6995A /* PhotoAlbum.swift */; };
+		D83B8C1F1D0EB9FF00C6995A /* AlbumSelectorInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83B8C1E1D0EB9FF00C6995A /* AlbumSelectorInteractor.swift */; };
+		D83B8C211D0EBA1F00C6995A /* AlbumSelectorPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83B8C201D0EBA1F00C6995A /* AlbumSelectorPresenter.swift */; };
+		D83B8C231D0EC8D300C6995A /* PhotoLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83B8C221D0EC8D300C6995A /* PhotoLoader.swift */; };
+		D83B8C251D0ED28900C6995A /* AlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83B8C241D0ED28900C6995A /* AlbumCell.swift */; };
+		D83B8C281D0EDE7C00C6995A /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83B8C271D0EDE7C00C6995A /* AlbumViewController.swift */; };
+		D83B8C2A1D0EE4D700C6995A /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83B8C291D0EE4D700C6995A /* ImageCell.swift */; };
+		D83B8C2C1D0EE89500C6995A /* AlbumInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83B8C2B1D0EE89500C6995A /* AlbumInteractor.swift */; };
+		D83B8C2E1D0EE8B300C6995A /* AlbumPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83B8C2D1D0EE8B300C6995A /* AlbumPresenter.swift */; };
 		D883007D1D06C72600399612 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D883007C1D06C72600399612 /* AppDelegate.swift */; };
 		D883007F1D06C72600399612 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D883007E1D06C72600399612 /* ViewController.swift */; };
 		D88300821D06C72600399612 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D88300801D06C72600399612 /* Main.storyboard */; };
@@ -77,6 +87,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D83B8C1A1D0DE2E300C6995A /* AlbumSelectorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumSelectorViewController.swift; sourceTree = "<group>"; };
+		D83B8C1C1D0EB90C00C6995A /* PhotoAlbum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoAlbum.swift; sourceTree = "<group>"; };
+		D83B8C1E1D0EB9FF00C6995A /* AlbumSelectorInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumSelectorInteractor.swift; sourceTree = "<group>"; };
+		D83B8C201D0EBA1F00C6995A /* AlbumSelectorPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumSelectorPresenter.swift; sourceTree = "<group>"; };
+		D83B8C221D0EC8D300C6995A /* PhotoLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLoader.swift; sourceTree = "<group>"; };
+		D83B8C241D0ED28900C6995A /* AlbumCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumCell.swift; sourceTree = "<group>"; };
+		D83B8C271D0EDE7C00C6995A /* AlbumViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
+		D83B8C291D0EE4D700C6995A /* ImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
+		D83B8C2B1D0EE89500C6995A /* AlbumInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumInteractor.swift; sourceTree = "<group>"; };
+		D83B8C2D1D0EE8B300C6995A /* AlbumPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumPresenter.swift; sourceTree = "<group>"; };
 		D88300791D06C72600399612 /* Example_Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example_Project.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D883007C1D06C72600399612 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D883007E1D06C72600399612 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -142,6 +162,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D83B8C261D0EDD9000C6995A /* AlbumSelector */ = {
+			isa = PBXGroup;
+			children = (
+				D83B8C241D0ED28900C6995A /* AlbumCell.swift */,
+				D83B8C1E1D0EB9FF00C6995A /* AlbumSelectorInteractor.swift */,
+				D83B8C201D0EBA1F00C6995A /* AlbumSelectorPresenter.swift */,
+				D83B8C1A1D0DE2E300C6995A /* AlbumSelectorViewController.swift */,
+			);
+			name = AlbumSelector;
+			sourceTree = "<group>";
+		};
+		D83B8C2F1D0EF4F100C6995A /* Album */ = {
+			isa = PBXGroup;
+			children = (
+				D83B8C271D0EDE7C00C6995A /* AlbumViewController.swift */,
+				D83B8C2B1D0EE89500C6995A /* AlbumInteractor.swift */,
+				D83B8C2D1D0EE8B300C6995A /* AlbumPresenter.swift */,
+				D83B8C291D0EE4D700C6995A /* ImageCell.swift */,
+			);
+			name = Album;
+			sourceTree = "<group>";
+		};
 		D88300701D06C72600399612 = {
 			isa = PBXGroup;
 			children = (
@@ -203,8 +245,12 @@
 				D89D6FEA1D06CC06007DD132 /* Info.plist */,
 				D89D6FE81D06CC06007DD132 /* SnapImagePicker.h */,
 				D89D70081D06CFAC007DD132 /* SnapImagePicker.storyboard */,
+				D83B8C261D0EDD9000C6995A /* AlbumSelector */,
 				D89D70041D06CEF1007DD132 /* SnapImagePicker.swift */,
 				D89D70061D06CF2E007DD132 /* SnapImagePickerDelegate.swift */,
+				D83B8C221D0EC8D300C6995A /* PhotoLoader.swift */,
+				D83B8C1C1D0EB90C00C6995A /* PhotoAlbum.swift */,
+				D83B8C2F1D0EF4F100C6995A /* Album */,
 			);
 			path = SnapImagePicker;
 			sourceTree = "<group>";
@@ -336,6 +382,7 @@
 				TargetAttributes = {
 					D88300781D06C72600399612 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 56BWKD5WD8;
 					};
 					D883008C1D06C72600399612 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -449,7 +496,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				D89D70071D06CF2E007DD132 /* SnapImagePickerDelegate.swift in Sources */,
+				D83B8C1D1D0EB90C00C6995A /* PhotoAlbum.swift in Sources */,
 				D89D70051D06CEF1007DD132 /* SnapImagePicker.swift in Sources */,
+				D83B8C281D0EDE7C00C6995A /* AlbumViewController.swift in Sources */,
+				D83B8C2E1D0EE8B300C6995A /* AlbumPresenter.swift in Sources */,
+				D83B8C251D0ED28900C6995A /* AlbumCell.swift in Sources */,
+				D83B8C211D0EBA1F00C6995A /* AlbumSelectorPresenter.swift in Sources */,
+				D83B8C2C1D0EE89500C6995A /* AlbumInteractor.swift in Sources */,
+				D83B8C231D0EC8D300C6995A /* PhotoLoader.swift in Sources */,
+				D83B8C1F1D0EB9FF00C6995A /* AlbumSelectorInteractor.swift in Sources */,
+				D83B8C1B1D0DE2E300C6995A /* AlbumSelectorViewController.swift in Sources */,
+				D83B8C2A1D0EE4D700C6995A /* ImageCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -602,11 +659,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = Example_Project/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.snapsale.SnapImagePicker.ExampleProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -614,11 +674,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = Example_Project/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.snapsale.SnapImagePicker.ExampleProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

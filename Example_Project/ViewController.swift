@@ -2,13 +2,15 @@ import UIKit
 import SnapImagePicker
 
 class ViewController: UIViewController {
-    @IBOutlet weak var imageView: UIImageView?
+    @IBOutlet weak var imageView: UIImageView!
 
     @IBAction func openImagePickerTapped(sender: UIButton) {
-        let picker = SnapImagePicker(delegate: self)
-        self.presentViewController(picker, animated: true, completion: nil)
+        
+        if let imagePicker = SnapImagePicker.imagePicker(delegate: self) {
+            self.presentViewController(imagePicker, animated: true, completion: nil)
+        }
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -18,13 +20,12 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
 }
 
 extension ViewController: SnapImagePickerDelegate {
-
     func pickedImage(image: UIImage) {
-        imageView.image = image
+        if let imageView = imageView {
+            imageView.image = image
+        }
     }
 }

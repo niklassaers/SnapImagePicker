@@ -1,27 +1,127 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="UhC-ed-Td5">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
-        <!--Snap Image Picker-->
-        <scene sceneID="TvV-BR-4i4">
+        <!--Albums-->
+        <scene sceneID="sPx-6Z-8pw">
             <objects>
-                <viewController id="7Gn-Id-fIM" customClass="SnapImagePicker" customModule="SnapImagePicker" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Gxv-zD-U54"/>
-                        <viewControllerLayoutGuide type="bottom" id="eQR-YY-DWy"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="7W0-Ft-sAf">
+                <navigationController title="Albums" id="UhC-ed-Td5" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="gcH-uh-Lzc">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="nPM-ZB-Yx1" kind="relationship" relationship="rootViewController" id="7dN-vM-DT5"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xJd-yH-83L" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1003" y="5"/>
+        </scene>
+        <!--Album Selector View Controller-->
+        <scene sceneID="X0F-QW-ERQ">
+            <objects>
+                <tableViewController storyboardIdentifier="AlbumSelectorViewController" id="nPM-ZB-Yx1" customClass="AlbumSelectorViewController" customModule="SnapImagePicker" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="J4u-6s-AmX">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="xa1-IP-lhT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Album Cell" id="7uP-1e-gkL" customClass="AlbumCell" customModule="SnapImagePicker" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7uP-1e-gkL" id="KyO-u0-KBN">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bse-Qr-TVZ">
+                                            <rect key="frame" x="94" y="0.0" width="506" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Size" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lGr-vH-soL">
+                                            <rect key="frame" x="94" y="23" width="506" height="21"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                            <color key="textColor" red="0.37911076570680624" green="0.37911076570680624" blue="0.37911076570680624" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e9I-0X-OZA">
+                                            <rect key="frame" x="0.0" y="0.0" width="91" height="44"/>
+                                        </imageView>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="firstImageView" destination="e9I-0X-OZA" id="ixN-fD-w05"/>
+                                    <outlet property="nameLabel" destination="bse-Qr-TVZ" id="k7G-y7-Ikq"/>
+                                    <outlet property="sizeLabel" destination="lGr-vH-soL" id="JmE-zf-76Z"/>
+                                    <segue destination="hmz-k0-trG" kind="show" identifier="Show Album" id="ZZg-RR-GSA"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="nPM-ZB-Yx1" id="uHJ-V9-k6t"/>
+                            <outlet property="delegate" destination="nPM-ZB-Yx1" id="OSF-ii-aBl"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="ZNl-KZ-ake"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uRS-kJ-plh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="227" y="329"/>
+            <point key="canvasLocation" x="-302" y="5"/>
+        </scene>
+        <!--Album View Controller-->
+        <scene sceneID="fIV-Mw-tFr">
+            <objects>
+                <collectionViewController id="hmz-k0-trG" customClass="AlbumViewController" customModule="SnapImagePicker" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="Len-fm-EC7">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="yCG-0i-XuO">
+                            <size key="itemSize" width="200" height="200"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Image Cell" id="pv2-bh-4vJ" customClass="ImageCell" customModule="SnapImagePicker" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="64" width="60" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0IL-Yv-D4J">
+                                            <rect key="frame" x="0.0" y="0.0" width="200" height="60"/>
+                                        </imageView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <color key="backgroundColor" red="1" green="0.97520884392976703" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="0IL-Yv-D4J" firstAttribute="leading" secondItem="pv2-bh-4vJ" secondAttribute="leading" id="Cco-8m-yib"/>
+                                    <constraint firstItem="0IL-Yv-D4J" firstAttribute="top" secondItem="pv2-bh-4vJ" secondAttribute="top" id="Jf5-g3-gae"/>
+                                    <constraint firstAttribute="trailing" secondItem="0IL-Yv-D4J" secondAttribute="trailing" id="OUu-Pu-gO6"/>
+                                    <constraint firstAttribute="bottom" secondItem="0IL-Yv-D4J" secondAttribute="bottom" id="r56-Ib-FKC"/>
+                                </constraints>
+                                <size key="customSize" width="60" height="60"/>
+                                <connections>
+                                    <outlet property="imageView" destination="0IL-Yv-D4J" id="Z7g-x0-0Vo"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="hmz-k0-trG" id="bqy-FF-v7K"/>
+                            <outlet property="delegate" destination="hmz-k0-trG" id="vvb-YP-T8o"/>
+                        </connections>
+                    </collectionView>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kkN-kq-3eS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="351" y="5"/>
         </scene>
     </scenes>
 </document>
