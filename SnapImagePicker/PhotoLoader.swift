@@ -80,17 +80,12 @@ extension PhotoLoader: AlbumCollectionLoader {
 extension PhotoLoader: AlbumLoader {
     func fetchAlbumWithHandler(albumTitle: String, handler: UIImage -> Void) {
         album = [UIImage]()
-        print("Fetching")
         if let fetchResult = getFetchResultForAlbum(albumTitle) {
-            print("Found fetch")
             fetchResult.enumerateObjectsUsingBlock { (object: AnyObject, count: Int, stop: UnsafeMutablePointer<ObjCBool>) in
-                print("Count: \(count)")
                 if let asset = object as? PHAsset {
-                    print("Is asset")
                     PHImageManager.defaultManager().requestImageForAsset(asset, targetSize: CGSize(), contentMode: .Default, options: nil) {
                         (image: UIImage?, data: [NSObject : AnyObject]?) in
                         if let image = image {
-                            print("Is image")
                             self.album.append(image)
                             handler(image)
                         }

@@ -1,6 +1,7 @@
 import Foundation
 
 public class SnapImagePicker {
+    var color = 
     private enum Names: String {
         case SnapImagePickerStoryboard = "SnapImagePicker"
         case AlbumSelectorViewController = "AlbumSelectorViewController"
@@ -25,5 +26,14 @@ public class SnapImagePicker {
         }
         
         return nil;
+    }
+    
+    static func setupAlbumViewController(vc: AlbumViewController) {
+        let interactor = AlbumInteractor()
+        let presenter = AlbumPresenter()
+        vc.interactor = interactor
+        interactor.loader = PhotoLoader()
+        interactor.presenter = presenter
+        presenter.viewController = vc
     }
 }

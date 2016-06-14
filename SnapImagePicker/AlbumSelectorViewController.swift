@@ -53,7 +53,7 @@ extension AlbumSelectorViewController: AlbumSelectorViewControllerInput {
     func displayAlbum(album: PhotoAlbum) {
         if let currentAlbums = self.albums {
             if !currentAlbums.contains(album) {
-                self.albums?.append(album)
+                self.albums?.append(album) 
             }
         } else {
             self.albums = [album]
@@ -67,15 +67,12 @@ extension AlbumSelectorViewController {
             switch identifier {
             case "Show Album":
                 if let cell = sender as? AlbumCell,
-                    let vc = segue.destinationViewController as? AlbumViewController {
-                    vc.title = cell.nameLabel?.text
-                    
-                    let presenter = AlbumPresenter()
-                    presenter.viewController = vc
-                    let interactor = AlbumInteractor()
-                    interactor.presenter = presenter
-                    interactor.loader = PhotoLoader()
-                    vc.interactor = interactor
+                   let vc = segue.destinationViewController as? ImageSelectorViewController {
+                    if let image = cell.firstImageView?.image {
+                        vc.selectedImage = image
+                        vc.title = cell.nameLabel?.text
+                        vc.delegate = delegate
+                    }
                 }
             default: break
             }
