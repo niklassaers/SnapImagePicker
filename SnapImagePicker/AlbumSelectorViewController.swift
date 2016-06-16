@@ -61,21 +61,21 @@ extension AlbumSelectorViewController: AlbumSelectorViewControllerInput {
     }
 }
 
-extension AlbumSelectorViewController {
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let identifier = segue.identifier {
-            switch identifier {
-            case "Show Album":
-                if let cell = sender as? AlbumCell,
-                   let vc = segue.destinationViewController as? ImageSelectorViewController {
-                    if let image = cell.firstImageView?.image {
-                        vc.selectedImage = image
-                        vc.title = cell.nameLabel?.text
-                        vc.delegate = delegate
-                    }
-                }
-            default: break
-            }
-        }
-    }
-}
+//extension AlbumSelectorViewController {
+//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        if let identifier = segue.identifier {
+//            switch identifier {
+//            case "Show Album":
+//                if let cell = sender as? AlbumCell,
+//                   let vc = segue.destinationViewController as? ImageSelectorViewController {
+//                    if let image = cell.firstImageView?.image {
+//                        vc.selectedImage = image
+//                        vc.title = cell.nameLabel?.text
+//                        vc.delegate = delegate
+//                    }
+//                }
+//            default: break
+//            }
+//        }
+//    }
+//}
