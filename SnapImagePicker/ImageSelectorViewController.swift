@@ -1,45 +1,91 @@
 import UIKit
 
 class ImageSelectorViewController: UIViewController {
-    @IBOutlet weak var selectedImageView: UIImageView?
-    var selectedImage: UIImage? {
+    @IBOutlet weak var spacingBetweenViews: NSLayoutConstraint?
+    @IBOutlet weak var selectedImageScrollView: SelectedImageScrollView? {
         didSet {
-            if let imageView = selectedImageView {
-                imageView.image = selectedImage
+            print("Sat selected image view")
+            if let selectedImageScrollView = selectedImageScrollView {
+                selectedImageScrollView.delegate = selectedImageScrollView
             }
         }
     }
-    var albumName: String?
+    var selectedImage: UIImage? {
+        didSet {
+            print("Sat selected image")
+            if let selectedImageScrollView = selectedImageScrollView {
+                selectedImageScrollView.image = selectedImage
+            }
+        }
+    }
+    var threshold = 300
+    var locked: CGFloat = 100.0
+    var albumName = "Album"
     var delegate: SnapImagePickerDelegate?
+    var albumViewController: UICollectionViewController?
     
-    override func viewDidLoad() {
-        let vc = AlbumViewController()
-        let presenter = AlbumPresenter()
-        let interactor = AlbumInteractor()
-        
-        vc.interactor = interactor
-        interactor.presenter = presenter
-        presenter.viewController = vc
-        
-        if let selectedImageView = selectedImageView,
-           let selectedImage = selectedImage {
-            selectedImageView.image = selectedImage
-        }
-        
-        if let albumName = albumName {
-            title = albumName
-            vc.title = title
-        }
-        print("Vc: \(vc)")
-        addChildViewController(vc)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Select", style: .Plain, target: self, action: #selector(selectTapped))
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        title = albumName
     }
     
-    func selectTapped() {
-        if let selectedImage = selectedImage {
-            delegate?.pickedImage(selectedImage)
+    @IBAction func selectTapped(sender: UIButton) {
+        if let text = sender.currentTitle,
+           let selectedImage = selectedImage {
+            switch text {
+            case "Neste":
+                delegate?.pickedImage(selectedImage)
+                fallthrough
+            case "X":
+                dismissViewControllerAnimated(true) {}
+            default:
+                break
+            }
         }
-        dismissViewControllerAnimated(true) {}
+    }
+    
+    
+    override func viewDidLoad() {
+        let recognizer = UIPanGestureRecognizer(target: self, action: #selector(pan(_:)))
+        view.addGestureRecognizer(recognizer)
+    }
+    
+    func pan(recognizer: UIPanGestureRecognizer) {
+        switch recognizer.state {
+        case .Began:
+            print("Began")
+        case .Changed:
+            updateVerticalPositionByAmount(recognizer.translationInView(view).y)
+            print("Moved by \(recognizer.translationInView(view).y)")
+            recognizer.setTranslation(CGPointZero, inView: view)
+        case .Ended, .Cancelled, .Failed:
+            lockImageView()
+        default: print("default")
+        }
+    }
+    
+
+    private func updateVerticalPositionByAmount(amount: CGFloat) {
+        if let selectedImageScrollView = selectedImageScrollView,
+           let albumViewController = albumViewController {
+            let oldSelectedImageFrame = selectedImageScrollView.frame
+            selectedImageScrollView.frame = CGRect(x: oldSelectedImageFrame.minX,
+                                                   y: oldSelectedImageFrame.minY,
+                                                   width: oldSelectedImageFrame.width,
+                                                   height: oldSelectedImageFrame.height + amount)
+        }
+    }
+    
+    private func lockImageView() {
+        if let selectedImageScrollView = selectedImageScrollView {
+            let oldSelectedImageFrame = selectedImageScrollView.frame
+            if oldSelectedImageFrame.height < CGFloat(threshold) {
+                selectedImageScrollView.frame = CGRect(x: oldSelectedImageFrame.minX,
+                                                       y: oldSelectedImageFrame.minY,
+                                                       width: oldSelectedImageFrame.width,
+                                                       height: locked)
+            }
+        }
     }
 }
 
@@ -50,6 +96,7 @@ extension ImageSelectorViewController {
             case "Show Images":
                 if let vc = segue.destinationViewController as? AlbumViewController {
                     SnapImagePicker.setupAlbumViewController(vc)
+                    albumViewController = vc
                     vc.delegate = self
                     vc.title = title
                 }
@@ -61,6 +108,8 @@ extension ImageSelectorViewController {
 
 extension ImageSelectorViewController: AlbumViewControllerDelegate {
     func displaySelectedImage(image: UIImage) {
-        selectedImage = image
+        dispatch_async(dispatch_get_main_queue()) {
+            self.selectedImage = image
+        }
     }
 }

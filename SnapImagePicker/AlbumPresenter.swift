@@ -5,11 +5,16 @@ class AlbumPresenter {
 }
 
 protocol AlbumPresenterInput : class {
-    func presentImage(image: UIImage)
+    func presentAlbumImage(response: Image_Response)
+    func presentMainImage(response: Image_Response)
 }
 
 extension AlbumPresenter: AlbumPresenterInput {
-    func presentImage(image: UIImage) {
-        viewController?.displayImage(image)
+    func presentAlbumImage(response: Image_Response) {
+        viewController?.displayAlbumImage(response)
+    }
+    
+    func presentMainImage(response: Image_Response) {
+        viewController?.displayMainImage(response)
     }
 }

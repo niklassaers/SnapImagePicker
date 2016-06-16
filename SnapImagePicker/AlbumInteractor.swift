@@ -6,15 +6,25 @@ class AlbumInteractor {
 }
 
 protocol AlbumInteractorInput : class {
-    func fetchImages(albumName: String)
+    func fetchAlbum(request: Album_Request)
+    func fetchImage(request: Image_Request)
 }
 
 extension AlbumInteractor: AlbumInteractorInput {
-    func fetchImages(albumName: String) {
+    func fetchAlbum(request: Album_Request) {
         if let loader = loader {
-            loader.fetchAlbumWithHandler(albumName) {
-                (image: UIImage) in
-                self.presenter?.presentImage(image)
+            loader.fetchAlbumWithHandler(request.title, withTargetSize: request.size) {
+                (image: UIImage, id: String) in
+                self.presenter?.presentAlbumImage(Image_Response(image: image, id: id))
+            }
+        }
+    }
+    
+    func fetchImage(request: Image_Request) {
+        if let loader = loader {
+            loader.fetchImageFromId(request.id, withTargetSize: request.size) {
+                (image: UIImage, id: String) in
+                self.presenter?.presentMainImage(Image_Response(image: image, id: id))
             }
         }
     }

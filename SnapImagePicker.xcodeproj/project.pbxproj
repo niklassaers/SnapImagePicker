@@ -34,6 +34,10 @@
 		D89D70091D06CFAC007DD132 /* SnapImagePicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D89D70081D06CFAC007DD132 /* SnapImagePicker.storyboard */; };
 		D8A688B71D1005CA00734E92 /* ImageSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A688B61D1005CA00734E92 /* ImageSelectorViewController.swift */; };
 		D8A688B91D10210600734E92 /* AlbumViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A688B81D10210600734E92 /* AlbumViewControllerDelegate.swift */; };
+		D8A688BD1D1046BC00734E92 /* Album_Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A688BC1D1046BC00734E92 /* Album_Request.swift */; };
+		D8A688BF1D10472B00734E92 /* Image_Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A688BE1D10472B00734E92 /* Image_Request.swift */; };
+		D8A688C11D10474800734E92 /* Image_Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A688C01D10474800734E92 /* Image_Response.swift */; };
+		D8A688C31D104DC900734E92 /* SelectedImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A688C21D104DC900734E92 /* SelectedImageScrollView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,6 +127,10 @@
 		D89D70081D06CFAC007DD132 /* SnapImagePicker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SnapImagePicker.storyboard; sourceTree = "<group>"; };
 		D8A688B61D1005CA00734E92 /* ImageSelectorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSelectorViewController.swift; sourceTree = "<group>"; };
 		D8A688B81D10210600734E92 /* AlbumViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumViewControllerDelegate.swift; sourceTree = "<group>"; };
+		D8A688BC1D1046BC00734E92 /* Album_Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Album_Request.swift; sourceTree = "<group>"; };
+		D8A688BE1D10472B00734E92 /* Image_Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Image_Request.swift; sourceTree = "<group>"; };
+		D8A688C01D10474800734E92 /* Image_Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Image_Response.swift; sourceTree = "<group>"; };
+		D8A688C21D104DC900734E92 /* SelectedImageScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedImageScrollView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,6 +193,9 @@
 				D83B8C2D1D0EE8B300C6995A /* AlbumPresenter.swift */,
 				D83B8C291D0EE4D700C6995A /* ImageCell.swift */,
 				D8A688B81D10210600734E92 /* AlbumViewControllerDelegate.swift */,
+				D8A688BC1D1046BC00734E92 /* Album_Request.swift */,
+				D8A688BE1D10472B00734E92 /* Image_Request.swift */,
+				D8A688C01D10474800734E92 /* Image_Response.swift */,
 			);
 			name = Album;
 			sourceTree = "<group>";
@@ -257,6 +268,7 @@
 				D83B8C1C1D0EB90C00C6995A /* PhotoAlbum.swift */,
 				D83B8C2F1D0EF4F100C6995A /* Album */,
 				D8A688B61D1005CA00734E92 /* ImageSelectorViewController.swift */,
+				D8A688C21D104DC900734E92 /* SelectedImageScrollView.swift */,
 			);
 			path = SnapImagePicker;
 			sourceTree = "<group>";
@@ -510,7 +522,11 @@
 				D83B8C2E1D0EE8B300C6995A /* AlbumPresenter.swift in Sources */,
 				D83B8C251D0ED28900C6995A /* AlbumCell.swift in Sources */,
 				D83B8C211D0EBA1F00C6995A /* AlbumSelectorPresenter.swift in Sources */,
+				D8A688BF1D10472B00734E92 /* Image_Request.swift in Sources */,
+				D8A688C31D104DC900734E92 /* SelectedImageScrollView.swift in Sources */,
+				D8A688C11D10474800734E92 /* Image_Response.swift in Sources */,
 				D83B8C2C1D0EE89500C6995A /* AlbumInteractor.swift in Sources */,
+				D8A688BD1D1046BC00734E92 /* Album_Request.swift in Sources */,
 				D83B8C231D0EC8D300C6995A /* PhotoLoader.swift in Sources */,
 				D83B8C1F1D0EB9FF00C6995A /* AlbumSelectorInteractor.swift in Sources */,
 				D83B8C1B1D0DE2E300C6995A /* AlbumSelectorViewController.swift in Sources */,
