@@ -1,7 +1,6 @@
 import UIKit
 
 class SnapImagePickerViewController: UIViewController {
-    @IBOutlet weak var navBar: UINavigationBar?
     @IBOutlet weak var mainScrollView: UIScrollView?
     @IBOutlet weak var selectedImageScrollView: UIScrollView?
     @IBOutlet weak var selectedImageView: UIImageView? {
@@ -60,7 +59,7 @@ class SnapImagePickerViewController: UIViewController {
         }
     }
     
-    private let OffsetThreshold = 0.5
+    private let OffsetThreshold = CGFloat(0.65)
     enum DisplayState: Double {
         case Image = 0.0
         case Album = 0.85
@@ -118,7 +117,6 @@ extension SnapImagePickerViewController {
         if let mainScrollView = mainScrollView {
             mainScrollView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
             mainScrollView.contentSize = CGSize(width: view.frame.width, height: view.frame.height * 2)
-            mainScrollView.bounces = false
         }
     }
     
@@ -128,7 +126,6 @@ extension SnapImagePickerViewController {
             albumCollectionView.dataSource = self
             albumCollectionView.delegate = self
             albumCollectionView.backgroundColor = UIConstants.BackgroundColor
-            albumCollectionView.bounces = false
 
             if let interactor = interactor {
                 let imageCellWidth = UIConstants.CellWidthInView(albumCollectionView)
@@ -263,21 +260,13 @@ extension SnapImagePickerViewController {
             if let offset = mainScrollView?.contentOffset.y,
                let height = selectedImageScrollView?.bounds.height {
                 let ratio = (height - offset) / height
-                if ratio < CGFloat(OffsetThreshold) {
+                if ratio < OffsetThreshold {
                     setMainOffsetFor(.Album)
                 } else {
                     setMainOffsetFor(.Image)
                 }
             }
         default: break
-        }
-    }
-    
-    func panInAlbumView(recognizer: UIPanGestureRecognizer) {
-        if state == .Image {
-            pan(recognizer)
-        } else {
-            
         }
     }
     
@@ -293,6 +282,17 @@ extension SnapImagePickerViewController {
 
 extension SnapImagePickerViewController: UIGestureRecognizerDelegate {
     func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
-        return state == .Image
+        let albumCanScrollFurtherUp = albumCollectionView?.contentOffset.y > 0
+        var userIsScrollingUpwards = false
+        if let panRecognizer = gestureRecognizer as? UIPanGestureRecognizer {
+            userIsScrollingUpwards = panRecognizer.translationInView(albumCollectionView).y > 0
+        }
+        if userIsScrollingUpwards {
+            albumCollectionView?.bounces = false
+        } else {
+            albumCollectionView?.bounces = true
+        }
+
+        return state == .Image || (userIsScrollingUpwards && !albumCanScrollFurtherUp)
     }
 }

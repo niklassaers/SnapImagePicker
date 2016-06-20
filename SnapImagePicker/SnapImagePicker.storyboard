@@ -18,38 +18,54 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m6c-Qz-RpW">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="au1-sD-HRM" customClass="SnapImagePickerTopBarView" customModule="SnapImagePicker" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="600" height="44"/>
-                                <items>
-                                    <navigationItem title="Album" id="D74-sI-vFj">
-                                        <barButtonItem key="leftBarButtonItem" style="plain" id="7oJ-Py-d0F">
-                                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Rha-Au-mvc">
-                                                <rect key="frame" x="20" y="7" width="133" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" title="X"/>
-                                                <connections>
-                                                    <action selector="cancelButtonPressed:" destination="c38-3V-MrA" eventType="touchUpInside" id="zJN-Z8-r39"/>
-                                                </connections>
-                                            </button>
-                                        </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" style="plain" id="GIE-VT-e24">
-                                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="l2v-k0-1EK">
-                                                <rect key="frame" x="447" y="7" width="133" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <state key="normal" title="Neste"/>
-                                                <connections>
-                                                    <action selector="acceptImageButtonPressed:" destination="c38-3V-MrA" eventType="touchUpInside" id="FNQ-Ed-uQZ"/>
-                                                </connections>
-                                            </button>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iz0-PF-GmV">
-                                <rect key="frame" x="0.0" y="64" width="600" height="528"/>
                                 <subviews>
-                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QXt-kQ-wp3">
-                                        <rect key="frame" x="0.0" y="20" width="600" height="600"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hnh-wZ-Zj5">
+                                        <rect key="frame" x="20" y="7" width="30" height="30"/>
+                                        <state key="normal" title="X">
+                                            <color key="titleColor" white="0.36841967281879195" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="cancelButtonPressed:" destination="c38-3V-MrA" eventType="touchUpInside" id="ykL-42-xhC"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B5t-Kh-JZm">
+                                        <rect key="frame" x="539" y="7" width="41" height="30"/>
+                                        <state key="normal" title="Neste">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="acceptImageButtonPressed:" destination="c38-3V-MrA" eventType="touchUpInside" id="VxO-cP-JOh"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="B5t-Kh-JZm" secondAttribute="trailing" constant="20" symbolic="YES" id="9ty-wE-gM1"/>
+                                    <constraint firstItem="hnh-wZ-Zj5" firstAttribute="centerY" secondItem="au1-sD-HRM" secondAttribute="centerY" id="FSz-54-IGM"/>
+                                    <constraint firstItem="B5t-Kh-JZm" firstAttribute="centerY" secondItem="au1-sD-HRM" secondAttribute="centerY" id="S6A-mS-pZj"/>
+                                    <constraint firstItem="hnh-wZ-Zj5" firstAttribute="leading" secondItem="au1-sD-HRM" secondAttribute="leading" constant="20" symbolic="YES" id="eEb-Kh-KaJ"/>
+                                    <constraint firstItem="B5t-Kh-JZm" firstAttribute="top" secondItem="au1-sD-HRM" secondAttribute="top" constant="20" symbolic="YES" id="kHa-bQ-kZa"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="kHa-bQ-kZa"/>
+                                    </mask>
+                                </variation>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vq8-B6-saD">
+                                <rect key="frame" x="278" y="27" width="44" height="30"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                <state key="normal" title="Album">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                            </button>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iz0-PF-GmV">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <subviews>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QXt-kQ-wp3">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8KY-q1-kEk">
                                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
@@ -72,7 +88,7 @@
                                         </variation>
                                     </scrollView>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="8yJ-mA-ucX">
-                                        <rect key="frame" x="0.0" y="628" width="600" height="528"/>
+                                        <rect key="frame" x="0.0" y="608" width="600" height="536"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="2" minimumInteritemSpacing="2" id="7eb-Gr-JgR">
                                             <size key="itemSize" width="50" height="50"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -107,41 +123,54 @@
                                         </cells>
                                     </collectionView>
                                 </subviews>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="8yJ-mA-ucX" firstAttribute="centerX" secondItem="iz0-PF-GmV" secondAttribute="centerX" id="2Rf-Wp-sNh"/>
                                     <constraint firstItem="8yJ-mA-ucX" firstAttribute="width" secondItem="iz0-PF-GmV" secondAttribute="width" id="8r8-5z-m5i"/>
-                                    <constraint firstItem="QXt-kQ-wp3" firstAttribute="top" secondItem="iz0-PF-GmV" secondAttribute="top" constant="20" symbolic="YES" id="FzZ-hG-L1e"/>
                                     <constraint firstItem="8yJ-mA-ucX" firstAttribute="height" secondItem="iz0-PF-GmV" secondAttribute="height" id="PN4-Xt-M9y"/>
                                     <constraint firstItem="QXt-kQ-wp3" firstAttribute="centerX" secondItem="iz0-PF-GmV" secondAttribute="centerX" id="QKX-i0-o1Z"/>
+                                    <constraint firstItem="QXt-kQ-wp3" firstAttribute="top" secondItem="iz0-PF-GmV" secondAttribute="top" id="Qc3-fA-M9N"/>
+                                    <constraint firstItem="8yJ-mA-ucX" firstAttribute="top" secondItem="iz0-PF-GmV" secondAttribute="top" constant="628" id="T59-iR-faW"/>
                                     <constraint firstItem="QXt-kQ-wp3" firstAttribute="width" secondItem="iz0-PF-GmV" secondAttribute="width" id="XPt-6E-gwS"/>
+                                    <constraint firstAttribute="trailing" secondItem="8yJ-mA-ucX" secondAttribute="trailing" id="c4e-RB-HAb"/>
                                     <constraint firstAttribute="trailing" secondItem="QXt-kQ-wp3" secondAttribute="trailing" id="he0-wx-hwf"/>
                                     <constraint firstAttribute="bottom" secondItem="QXt-kQ-wp3" secondAttribute="bottom" constant="163" id="l1m-sS-bUj"/>
+                                    <constraint firstAttribute="bottom" secondItem="8yJ-mA-ucX" secondAttribute="bottom" constant="-628" id="psB-c8-MqD"/>
                                     <constraint firstItem="8yJ-mA-ucX" firstAttribute="top" secondItem="QXt-kQ-wp3" secondAttribute="bottom" constant="8" symbolic="YES" id="z5d-z4-tlm"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="he0-wx-hwf"/>
                                         <exclude reference="l1m-sS-bUj"/>
+                                        <exclude reference="T59-iR-faW"/>
                                     </mask>
                                 </variation>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="bYe-D0-P6V" firstAttribute="top" secondItem="iz0-PF-GmV" secondAttribute="bottom" constant="8" symbolic="YES" id="EV9-LB-6Uf"/>
-                            <constraint firstItem="iz0-PF-GmV" firstAttribute="top" secondItem="m6c-Qz-RpW" secondAttribute="bottom" symbolic="YES" id="PnK-2a-9ve"/>
+                            <constraint firstItem="iz0-PF-GmV" firstAttribute="top" secondItem="ZlG-Yg-XsQ" secondAttribute="top" constant="64" id="6Zo-5Y-PpA"/>
+                            <constraint firstItem="Vq8-B6-saD" firstAttribute="centerX" secondItem="au1-sD-HRM" secondAttribute="centerX" id="8hV-nz-5QG"/>
+                            <constraint firstItem="bYe-D0-P6V" firstAttribute="top" secondItem="iz0-PF-GmV" secondAttribute="bottom" id="EV9-LB-6Uf"/>
+                            <constraint firstItem="8KY-q1-kEk" firstAttribute="top" secondItem="au1-sD-HRM" secondAttribute="bottom" id="Enr-vy-I8d"/>
+                            <constraint firstItem="Vq8-B6-saD" firstAttribute="centerY" secondItem="au1-sD-HRM" secondAttribute="centerY" id="G3P-s6-vca"/>
                             <constraint firstItem="iz0-PF-GmV" firstAttribute="width" secondItem="ZlG-Yg-XsQ" secondAttribute="width" id="US5-mn-ts7"/>
+                            <constraint firstItem="au1-sD-HRM" firstAttribute="width" secondItem="ZlG-Yg-XsQ" secondAttribute="width" id="Yka-EZ-ulv"/>
+                            <constraint firstItem="iz0-PF-GmV" firstAttribute="top" secondItem="au1-sD-HRM" secondAttribute="bottom" id="Zo9-69-V2f"/>
+                            <constraint firstItem="au1-sD-HRM" firstAttribute="top" secondItem="lCQ-Jb-mA1" secondAttribute="bottom" id="a4q-OU-OGc"/>
                             <constraint firstItem="iz0-PF-GmV" firstAttribute="centerX" secondItem="ZlG-Yg-XsQ" secondAttribute="centerX" id="eUT-ah-v9g"/>
-                            <constraint firstItem="m6c-Qz-RpW" firstAttribute="top" secondItem="lCQ-Jb-mA1" secondAttribute="bottom" id="f6F-Ac-ZlJ"/>
-                            <constraint firstItem="m6c-Qz-RpW" firstAttribute="width" secondItem="ZlG-Yg-XsQ" secondAttribute="width" id="hNh-sA-Cln"/>
-                            <constraint firstItem="m6c-Qz-RpW" firstAttribute="centerX" secondItem="ZlG-Yg-XsQ" secondAttribute="centerX" id="iJe-UB-4tC"/>
+                            <constraint firstItem="au1-sD-HRM" firstAttribute="centerX" secondItem="ZlG-Yg-XsQ" secondAttribute="centerX" id="ocO-Gs-B9U"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Enr-vy-I8d"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="X9A-iE-upj"/>
                     <connections>
                         <outlet property="albumCollectionView" destination="8yJ-mA-ucX" id="swR-iQ-in0"/>
                         <outlet property="mainScrollView" destination="iz0-PF-GmV" id="bdT-lL-eKS"/>
-                        <outlet property="navBar" destination="m6c-Qz-RpW" id="WTh-XE-Cf2"/>
                         <outlet property="selectedImageScrollView" destination="QXt-kQ-wp3" id="UUj-KL-5BZ"/>
                         <outlet property="selectedImageView" destination="8KY-q1-kEk" id="o8k-nH-G05"/>
                     </connections>
