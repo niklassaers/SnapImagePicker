@@ -53,6 +53,7 @@ class SnapImagePickerViewController: UIViewController {
         static let NumberOfColumns = 4
         static let BackgroundColor = UIColor.whiteColor()
         static let MaxZoomScale = 5.0
+        static let CellBorderWidth = CGFloat(3.0)
         
         static func CellWidthInView(collectionView: UICollectionView) -> CGFloat {
             return (collectionView.bounds.width - (Spacing * CGFloat(NumberOfColumns - 1))) / CGFloat(NumberOfColumns)
@@ -127,6 +128,7 @@ extension SnapImagePickerViewController {
             albumCollectionView.dataSource = self
             albumCollectionView.delegate = self
             albumCollectionView.backgroundColor = UIConstants.BackgroundColor
+            albumCollectionView.bounces = false
 
             if let interactor = interactor {
                 let imageCellWidth = UIConstants.CellWidthInView(albumCollectionView)
@@ -174,8 +176,10 @@ extension SnapImagePickerViewController: UICollectionViewDataSource {
             let index = indexPathToArrayIndex(indexPath)
             if index < images.count {
                 if index == currentlySelectedIndex {
-                    cell.imageView?.frame = CGRect(x: 5, y: 5, width: cell.bounds.width - 10, height: cell.bounds.height - 10)
+                    let border = UIConstants.CellBorderWidth
+                    cell.imageView?.frame = CGRect(x: border, y: border, width: cell.bounds.width - (2 * border), height: cell.bounds.height - (2 * border))
                     cell.backgroundColor = SnapImagePicker.color
+                    print("Cell background color: \(cell.backgroundColor)")
                 } else {
                     cell.imageView?.frame = CGRect(x: 0, y: 0, width: cell.bounds.width, height: cell.bounds.height)
                 }
