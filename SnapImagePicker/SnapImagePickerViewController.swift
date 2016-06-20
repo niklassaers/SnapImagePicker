@@ -179,7 +179,6 @@ extension SnapImagePickerViewController: UICollectionViewDataSource {
                     let border = UIConstants.CellBorderWidth
                     cell.imageView?.frame = CGRect(x: border, y: border, width: cell.bounds.width - (2 * border), height: cell.bounds.height - (2 * border))
                     cell.backgroundColor = SnapImagePicker.color
-                    print("Cell background color: \(cell.backgroundColor)")
                 } else {
                     cell.imageView?.frame = CGRect(x: 0, y: 0, width: cell.bounds.width, height: cell.bounds.height)
                 }
