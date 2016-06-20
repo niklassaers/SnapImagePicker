@@ -21,13 +21,34 @@
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m6c-Qz-RpW">
                                 <rect key="frame" x="0.0" y="20" width="600" height="44"/>
                                 <items>
-                                    <navigationItem title="Album" id="D74-sI-vFj"/>
+                                    <navigationItem title="Album" id="D74-sI-vFj">
+                                        <barButtonItem key="leftBarButtonItem" style="plain" id="7oJ-Py-d0F">
+                                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Rha-Au-mvc">
+                                                <rect key="frame" x="20" y="7" width="133" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="X"/>
+                                                <connections>
+                                                    <action selector="cancelButtonPressed:" destination="c38-3V-MrA" eventType="touchUpInside" id="zJN-Z8-r39"/>
+                                                </connections>
+                                            </button>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" style="plain" id="GIE-VT-e24">
+                                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="l2v-k0-1EK">
+                                                <rect key="frame" x="447" y="7" width="133" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Neste"/>
+                                                <connections>
+                                                    <action selector="acceptImageButtonPressed:" destination="c38-3V-MrA" eventType="touchUpInside" id="FNQ-Ed-uQZ"/>
+                                                </connections>
+                                            </button>
+                                        </barButtonItem>
+                                    </navigationItem>
                                 </items>
                             </navigationBar>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iz0-PF-GmV">
                                 <rect key="frame" x="0.0" y="64" width="600" height="528"/>
                                 <subviews>
-                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QXt-kQ-wp3" customClass="SelectedImageScrollView" customModule="SnapImagePicker" customModuleProvider="target">
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QXt-kQ-wp3">
                                         <rect key="frame" x="0.0" y="20" width="600" height="600"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8KY-q1-kEk">
@@ -50,7 +71,7 @@
                                             </mask>
                                         </variation>
                                     </scrollView>
-                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="8yJ-mA-ucX" customClass="AlbumCollectionView" customModule="SnapImagePicker" customModuleProvider="target">
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="8yJ-mA-ucX">
                                         <rect key="frame" x="0.0" y="628" width="600" height="528"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="2" minimumInteritemSpacing="2" id="7eb-Gr-JgR">
                                             <size key="itemSize" width="50" height="50"/>
@@ -72,6 +93,7 @@
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
+                                                <color key="backgroundColor" red="0.99690271229664429" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstItem="hbd-Y2-dql" firstAttribute="width" secondItem="52x-w6-x3g" secondAttribute="width" id="5vM-73-PC2"/>
                                                     <constraint firstItem="hbd-Y2-dql" firstAttribute="centerY" secondItem="52x-w6-x3g" secondAttribute="centerY" id="KNC-qw-1m7"/>

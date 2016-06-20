@@ -1,7 +1,7 @@
 import Foundation
 
 public class SnapImagePicker {
-    var color = UIColor.init(red: 0xFF, green: 0x00, blue: 0x58, alpha: 0)
+    static var color = UIColor.init(red: 0xFF, green: 0x00, blue: 0x58, alpha: 0)
     private enum Names: String {
         case SnapImagePickerStoryboard = "SnapImagePicker"
         case AlbumSelectorViewController = "AlbumSelectorViewController"
@@ -11,6 +11,7 @@ public class SnapImagePicker {
         let bundle = NSBundle(forClass: SnapImagePicker.self)
         let storyboard = UIStoryboard(name: Names.SnapImagePickerStoryboard.rawValue, bundle: bundle)
         if let viewController = storyboard.instantiateInitialViewController() as? SnapImagePickerViewController {
+            viewController.delegate = delegate
             return viewController
         }
         

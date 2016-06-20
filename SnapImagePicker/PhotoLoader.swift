@@ -71,7 +71,6 @@ extension PhotoLoader: AlbumCollectionLoader {
 extension PhotoLoader: AlbumLoader {
     func fetchAlbumWithHandler(albumTitle: String, withTargetSize targetSize: CGSize, handler: (UIImage, String) -> Void) {
         album = [UIImage]()
-        print("Fetching album with title \(albumTitle)")
         if let fetchResult = getFetchResultForAlbum(albumTitle) {
             fetchResult.enumerateObjectsUsingBlock { (object: AnyObject, count: Int, stop: UnsafeMutablePointer<ObjCBool>) in
                 if let asset = object as? PHAsset {
