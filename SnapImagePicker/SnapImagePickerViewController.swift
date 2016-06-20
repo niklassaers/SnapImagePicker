@@ -34,10 +34,8 @@ class SnapImagePickerViewController: UIViewController {
             switch state {
             case .Image:
                 selectedImageScrollView?.userInteractionEnabled = true
-                albumCollectionView?.userInteractionEnabled = false
             case .Album:
                 selectedImageScrollView?.userInteractionEnabled = false
-                albumCollectionView?.userInteractionEnabled = true
             }
         }
     }
@@ -74,25 +72,19 @@ class SnapImagePickerViewController: UIViewController {
         setupGestureRecognizers()
         
         selectedImageScrollView?.userInteractionEnabled = true
-        albumCollectionView?.userInteractionEnabled = false
     }
     
     @IBAction func acceptImageButtonPressed(sender: UIButton) {
         if let selectedImageScrollView = selectedImageScrollView,
            let selectedImageView = selectedImageView,
            let selectedImage = selectedImageView.image {
-            print("Image view frame: \(selectedImageView.frame)")
-            print("Image view bounds: \(selectedImageView.bounds)")
-            print("Image size. \(selectedImage.size)")
             let visibleRect = selectedImageScrollView.convertRect(selectedImageScrollView.bounds, toView: selectedImageView)
             let ratio = max(selectedImage.size.width, selectedImage.size.height) / selectedImageView.bounds.width
             let transformedVisibleRect = CGRect(x: visibleRect.minX * ratio,
                                                 y: visibleRect.minY * ratio,
                                                 width: visibleRect.width * ratio,
                                                 height: visibleRect.height * ratio)
-            print("VisibleRect: \(visibleRect)")
-            print("Ratio: \(ratio)")
-            print("Transformed: \(transformedVisibleRect)")
+
             var verticalOffset = CGFloat(0.0)
             var horizontalOffset = CGFloat(0.0)
             if selectedImage.size.width > selectedImage.size.height {
@@ -105,7 +97,7 @@ class SnapImagePickerViewController: UIViewController {
                                   y: transformedVisibleRect.minY - verticalOffset,
                                   width: transformedVisibleRect.width,
                                   height: transformedVisibleRect.height)
-            print("Croprect: \(cropRect)")
+            
             delegate?.pickedImage(selectedImage, withBounds: cropRect)
         }
         dismiss()
@@ -135,6 +127,7 @@ extension SnapImagePickerViewController {
             albumCollectionView.dataSource = self
             albumCollectionView.delegate = self
             albumCollectionView.backgroundColor = UIConstants.BackgroundColor
+
             if let interactor = interactor {
                 let imageCellWidth = UIConstants.CellWidthInView(albumCollectionView)
                 interactor.fetchAlbum(Album_Request(title: title, size: CGSize(width: imageCellWidth, height: imageCellWidth)))
@@ -249,6 +242,9 @@ extension SnapImagePickerViewController: UIScrollViewDelegate {
 extension SnapImagePickerViewController {
     private func setupGestureRecognizers() {
         mainScrollView?.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(pan(_:))))
+        let gesture = UIPanGestureRecognizer(target: self, action: #selector(pan(_:)))
+        gesture.delegate = self
+        albumCollectionView?.addGestureRecognizer(gesture)
     }
     
     func pan(recognizer: UIPanGestureRecognizer) {
@@ -274,6 +270,14 @@ extension SnapImagePickerViewController {
         }
     }
     
+    func panInAlbumView(recognizer: UIPanGestureRecognizer) {
+        if state == .Image {
+            pan(recognizer)
+        } else {
+            
+        }
+    }
+    
     private func setMainOffsetFor(state: DisplayState) {
         if let selectedImageScrollView = selectedImageScrollView,
            let mainScrollView = mainScrollView {
@@ -281,5 +285,11 @@ extension SnapImagePickerViewController {
             mainScrollView.setContentOffset(CGPoint(x: mainScrollView.contentOffset.x, y: height * CGFloat(state.rawValue)), animated: true)
             self.state = state
         }
+    }
+}
+
+extension SnapImagePickerViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return state == .Image
     }
 }
