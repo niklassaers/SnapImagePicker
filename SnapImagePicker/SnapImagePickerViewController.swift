@@ -9,12 +9,22 @@ class SnapImagePickerViewController: UIViewController {
         }
     }
     @IBOutlet weak var albumCollectionView: UICollectionView?
+    @IBOutlet weak var albumSelectorView: AlbumSelectorView?
 
-    var collectionTitle = "Album" {
+    var albums = [PhotoAlbum]() {
         didSet {
-            setupAlbumCollectionView(collectionTitle)
+            albumSelectorView?.albums = albums
         }
     }
+    var currentlySelectedAlbum = 0 {
+        didSet {
+            if currentlySelectedAlbum < albums.count {
+                state = .Image
+                setupAlbumCollectionView(albums[currentlySelectedAlbum].title)
+            }
+        }
+    }
+    
     var selectedImage: UIImage? {
         didSet {
             setupSelectedImageScrollView()
@@ -30,13 +40,20 @@ class SnapImagePickerViewController: UIViewController {
     
     private var state = DisplayState.Image {
         didSet {
-            switch state {
-            case .Image:
-                selectedImageScrollView?.userInteractionEnabled = true
-            case .Album:
-                selectedImageScrollView?.userInteractionEnabled = false
-            }
+            setMainOffsetFor(state)
         }
+    }
+    
+    private var collectionsAreShowing: Bool {
+        return false
+    }
+    
+    @IBAction func collectionsButtonClicked(sender: UIButton) {
+//        if collectionsAreShowing {
+//            hideCollectionsView()
+//        } else {
+//            showCollectionsView()
+//        }
     }
     
     var currentlySelectedIndex = 0 {
@@ -44,6 +61,7 @@ class SnapImagePickerViewController: UIViewController {
             albumCollectionView?.reloadData()
         }
     }
+    
     var interactor: AlbumInteractorInput?
     var delegate: SnapImagePickerDelegate?
     
@@ -53,6 +71,7 @@ class SnapImagePickerViewController: UIViewController {
         static let BackgroundColor = UIColor.whiteColor()
         static let MaxZoomScale = 5.0
         static let CellBorderWidth = CGFloat(3.0)
+        static let TopBarHeight = CGFloat(64.0)
         
         static func CellWidthInView(collectionView: UICollectionView) -> CGFloat {
             return (collectionView.bounds.width - (Spacing * CGFloat(NumberOfColumns - 1))) / CGFloat(NumberOfColumns)
@@ -66,10 +85,13 @@ class SnapImagePickerViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        setupMainScrollView()
+        mainScrollView!.contentSize = CGSize(width: 300, height: 300)
         setupSelectedImageScrollView()
-        setupAlbumCollectionView(collectionTitle)
+        setupAlbumCollectionView("Album")
         setupGestureRecognizers()
+        setupCollectionsView()
+        //hideCollectionsView()
+        interactor?.fetchAlbumPreviews()
         
         selectedImageScrollView?.userInteractionEnabled = true
     }
@@ -113,27 +135,21 @@ class SnapImagePickerViewController: UIViewController {
 }
 
 extension SnapImagePickerViewController {
-    private func setupMainScrollView() {
-        if let mainScrollView = mainScrollView {
-            mainScrollView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
-            mainScrollView.contentSize = CGSize(width: view.frame.width, height: view.frame.height * 2)
-        }
-    }
-    
-    private func setupAlbumCollectionView(title: String) {
-        if let albumCollectionView = albumCollectionView {
-            SnapImagePicker.setupAlbumViewController(self)
-            albumCollectionView.dataSource = self
-            albumCollectionView.delegate = self
-            albumCollectionView.backgroundColor = UIConstants.BackgroundColor
+//    private func showCollectionsView() {
+//        print("Album selector view: \(albumSelectorView)")
+//        UIView.animateWithDuration(NSTimeInterval(0.5)) {
+//            self.albumSelectorViewTopConstraint?.constant = UIConstants.TopBarHeight
+//        }
+//    }
+//    
+//    private func hideCollectionsView() {
+//        UIView.animateWithDuration(NSTimeInterval(0.5)) {
+//            self.albumSelectorViewTopConstraint?.constant = self.view.frame.height
+//        }
+//    }
+}
 
-            if let interactor = interactor {
-                let imageCellWidth = UIConstants.CellWidthInView(albumCollectionView)
-                interactor.fetchAlbum(Album_Request(title: title, size: CGSize(width: imageCellWidth, height: imageCellWidth)))
-            }
-        }
-    }
-    
+extension SnapImagePickerViewController {
     private func setupSelectedImageScrollView() {
         if let scrollView = selectedImageScrollView,
            let imageView = selectedImageView,
@@ -155,6 +171,29 @@ extension SnapImagePickerViewController {
             scrollView.minimumZoomScale = 1.0
             scrollView.maximumZoomScale = CGFloat(UIConstants.MaxZoomScale)
             scrollView.delegate = self
+        }
+    }
+    
+    private func setupAlbumCollectionView(title: String) {
+        if let albumCollectionView = albumCollectionView {
+            SnapImagePicker.setupAlbumViewController(self)
+            albumCollectionView.dataSource = self
+            albumCollectionView.delegate = self
+            albumCollectionView.backgroundColor = UIConstants.BackgroundColor
+            if let interactor = interactor {
+                images = [(id: String, image: UIImage)]()
+                let imageCellWidth = UIConstants.CellWidthInView(albumCollectionView)
+                interactor.fetchAlbum(Album_Request(title: title, size: CGSize(width: imageCellWidth, height: imageCellWidth)))
+            }
+        }
+    }
+    
+    private func setupCollectionsView() {
+        if let albumSelectorView = albumSelectorView {
+            view.addSubview(albumSelectorView)
+            albumSelectorView.dataSource = albumSelectorView
+            albumSelectorView.albums = albums
+            albumSelectorView.delegate = self
         }
     }
 }
@@ -214,6 +253,7 @@ extension SnapImagePickerViewController: UICollectionViewDelegate {
 protocol AlbumViewControllerInput : class {
     func displayAlbumImage(response: Image_Response)
     func displayMainImage(response: Image_Response)
+    func addAlbumPreview(album: PhotoAlbum)
 }
 
 extension SnapImagePickerViewController: AlbumViewControllerInput {
@@ -230,6 +270,11 @@ extension SnapImagePickerViewController: AlbumViewControllerInput {
     
     func displayMainImage(response: Image_Response) {
         selectedImage = response.image
+    }
+    
+    func addAlbumPreview(album: PhotoAlbum) {
+        print("Adding album \(album)")
+        albums.append(album)
     }
 }
 
@@ -261,9 +306,9 @@ extension SnapImagePickerViewController {
                let height = selectedImageScrollView?.bounds.height {
                 let ratio = (height - offset) / height
                 if ratio < OffsetThreshold {
-                    setMainOffsetFor(.Album)
+                    state = .Album
                 } else {
-                    setMainOffsetFor(.Image)
+                    state = .Image
                 }
             }
         default: break
@@ -275,7 +320,13 @@ extension SnapImagePickerViewController {
            let mainScrollView = mainScrollView {
             let height = selectedImageScrollView.bounds.height
             mainScrollView.setContentOffset(CGPoint(x: mainScrollView.contentOffset.x, y: height * CGFloat(state.rawValue)), animated: true)
-            self.state = state
+            
+            switch state {
+            case .Image:
+                selectedImageScrollView.userInteractionEnabled = true
+            case .Album:
+                selectedImageScrollView.userInteractionEnabled = false
+            }
         }
     }
 }
@@ -294,5 +345,12 @@ extension SnapImagePickerViewController: UIGestureRecognizerDelegate {
         }
 
         return state == .Image || (userIsScrollingUpwards && !albumCanScrollFurtherUp)
+    }
+}
+
+extension SnapImagePickerViewController: UITableViewDelegate {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        currentlySelectedAlbum = indexPath.row
+        //hideCollectionsView()
     }
 }

@@ -7,6 +7,7 @@ class AlbumPresenter {
 protocol AlbumPresenterInput : class {
     func presentAlbumImage(response: Image_Response)
     func presentMainImage(response: Image_Response)
+    func presentAlbumPreview(album: PhotoAlbum)
 }
 
 extension AlbumPresenter: AlbumPresenterInput {
@@ -16,5 +17,9 @@ extension AlbumPresenter: AlbumPresenterInput {
     
     func presentMainImage(response: Image_Response) {
         viewController?.displayMainImage(response)
+    }
+    
+    func presentAlbumPreview(album: PhotoAlbum) {
+        viewController?.addAlbumPreview(album)
     }
 }

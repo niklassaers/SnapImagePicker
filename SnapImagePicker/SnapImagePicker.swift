@@ -21,9 +21,11 @@ public class SnapImagePicker {
     static func setupAlbumViewController(vc: SnapImagePickerViewController) {
         let interactor = AlbumInteractor()
         let presenter = AlbumPresenter()
+        let photoLoader = PhotoLoader()
+        
         vc.interactor = interactor
-        interactor.loader = PhotoLoader()
         interactor.presenter = presenter
+        interactor.albumLoader = photoLoader
         presenter.viewController = vc
     }
 }
