@@ -7,6 +7,8 @@ public class SnapImagePicker {
         case AlbumSelectorViewController = "AlbumSelectorViewController"
     }
     
+    static var photoLoader: PhotoLoader?
+    
     public static func imagePicker(delegate delegate: SnapImagePickerDelegate) -> UIViewController? {
         let bundle = NSBundle(forClass: SnapImagePicker.self)
         let storyboard = UIStoryboard(name: Names.SnapImagePickerStoryboard.rawValue, bundle: bundle)

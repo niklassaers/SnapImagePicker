@@ -20,7 +20,9 @@ class SnapImagePickerViewController: UIViewController {
         didSet {
             if currentlySelectedAlbum < albums.count {
                 state = .Image
-                setupAlbumCollectionView(albums[currentlySelectedAlbum].title)
+                let title = albums[currentlySelectedAlbum].title
+                setupAlbumCollectionView(title)
+                mainAlbumTitle?.titleLabel?.text = title
             }
         }
     }
@@ -38,22 +40,26 @@ class SnapImagePickerViewController: UIViewController {
         }
     }
     
+    @IBOutlet weak var albumSelectorTopConstraint: NSLayoutConstraint?
+    @IBOutlet weak var imageAndAlbumSpacingConstraint: NSLayoutConstraint?
+    
+    
     private var state = DisplayState.Image {
         didSet {
             setMainOffsetFor(state)
         }
     }
     
-    private var collectionsAreShowing: Bool {
-        return false
+    private var albumSelectorIsShowing: Bool {
+        return albumSelectorTopConstraint?.constant == UIConstants.TopBarHeight
     }
     
     @IBAction func collectionsButtonClicked(sender: UIButton) {
-//        if collectionsAreShowing {
-//            hideCollectionsView()
-//        } else {
-//            showCollectionsView()
-//        }
+        if albumSelectorIsShowing {
+            hideCollectionsView()
+       } else {
+            showCollectionsView()
+        }
     }
     
     var currentlySelectedIndex = 0 {
@@ -71,7 +77,7 @@ class SnapImagePickerViewController: UIViewController {
         static let BackgroundColor = UIColor.whiteColor()
         static let MaxZoomScale = 5.0
         static let CellBorderWidth = CGFloat(3.0)
-        static let TopBarHeight = CGFloat(64.0)
+        static let TopBarHeight = CGFloat(44.0)
         
         static func CellWidthInView(collectionView: UICollectionView) -> CGFloat {
             return (collectionView.bounds.width - (Spacing * CGFloat(NumberOfColumns - 1))) / CGFloat(NumberOfColumns)
@@ -90,8 +96,9 @@ class SnapImagePickerViewController: UIViewController {
         setupAlbumCollectionView("Album")
         setupGestureRecognizers()
         setupCollectionsView()
-        //hideCollectionsView()
+        hideCollectionsView()
         interactor?.fetchAlbumPreviews()
+        imageAndAlbumSpacingConstraint?.constant = UIConstants.Spacing
         
         selectedImageScrollView?.userInteractionEnabled = true
     }
@@ -125,6 +132,7 @@ class SnapImagePickerViewController: UIViewController {
         dismiss()
     }
     
+    @IBOutlet weak var mainAlbumTitle: UIButton?
     @IBAction func cancelButtonPressed(sender: UIButton) {
         dismiss()
     }
@@ -135,18 +143,20 @@ class SnapImagePickerViewController: UIViewController {
 }
 
 extension SnapImagePickerViewController {
-//    private func showCollectionsView() {
-//        print("Album selector view: \(albumSelectorView)")
-//        UIView.animateWithDuration(NSTimeInterval(0.5)) {
-//            self.albumSelectorViewTopConstraint?.constant = UIConstants.TopBarHeight
-//        }
-//    }
-//    
-//    private func hideCollectionsView() {
-//        UIView.animateWithDuration(NSTimeInterval(0.5)) {
-//            self.albumSelectorViewTopConstraint?.constant = self.view.frame.height
-//        }
-//    }
+
+    private func showCollectionsView() {
+        albumSelectorTopConstraint?.constant = UIConstants.TopBarHeight
+        UIView.animateWithDuration(NSTimeInterval(0.5)) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    private func hideCollectionsView() {
+        albumSelectorTopConstraint?.constant = self.view.frame.height
+        UIView.animateWithDuration(NSTimeInterval(0.5)) {
+            self.view.layoutIfNeeded()
+        }
+    }
 }
 
 extension SnapImagePickerViewController {
@@ -202,9 +212,9 @@ extension SnapImagePickerViewController: UICollectionViewDataSource {
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return (images.count / UIConstants.NumberOfColumns) + 1
     }
-    
+
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return UIConstants.NumberOfColumns
+        return min(UIConstants.NumberOfColumns, images.count)
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -273,7 +283,6 @@ extension SnapImagePickerViewController: AlbumViewControllerInput {
     }
     
     func addAlbumPreview(album: PhotoAlbum) {
-        print("Adding album \(album)")
         albums.append(album)
     }
 }
@@ -350,7 +359,8 @@ extension SnapImagePickerViewController: UIGestureRecognizerDelegate {
 
 extension SnapImagePickerViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        print("Pressed \(indexPath.row)")
         currentlySelectedAlbum = indexPath.row
-        //hideCollectionsView()
+        hideCollectionsView()
     }
 }
