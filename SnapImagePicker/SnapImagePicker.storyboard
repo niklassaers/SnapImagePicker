@@ -20,58 +20,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="au1-sD-HRM">
-                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hnh-wZ-Zj5">
-                                        <rect key="frame" x="20" y="7" width="30" height="30"/>
-                                        <state key="normal" title="✕">
-                                            <color key="titleColor" white="0.36841967281879195" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="cancelButtonPressed:" destination="c38-3V-MrA" eventType="touchUpInside" id="ykL-42-xhC"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B5t-Kh-JZm">
-                                        <rect key="frame" x="539" y="7" width="41" height="30"/>
-                                        <state key="normal" title="Neste">
-                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="acceptImageButtonPressed:" destination="c38-3V-MrA" eventType="touchUpInside" id="VxO-cP-JOh"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Vq8-B6-saD">
-                                        <rect key="frame" x="278" y="7" width="44" height="30"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
-                                        <state key="normal" title="Album">
-                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="collectionsButtonClicked:" destination="c38-3V-MrA" eventType="touchUpInside" id="oyZ-3J-afK"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="B5t-Kh-JZm" secondAttribute="trailing" constant="20" symbolic="YES" id="9ty-wE-gM1"/>
-                                    <constraint firstItem="hnh-wZ-Zj5" firstAttribute="centerY" secondItem="au1-sD-HRM" secondAttribute="centerY" id="FSz-54-IGM"/>
-                                    <constraint firstItem="B5t-Kh-JZm" firstAttribute="centerY" secondItem="au1-sD-HRM" secondAttribute="centerY" id="S6A-mS-pZj"/>
-                                    <constraint firstItem="Vq8-B6-saD" firstAttribute="centerY" secondItem="au1-sD-HRM" secondAttribute="centerY" id="d5A-ki-Wdy"/>
-                                    <constraint firstItem="Vq8-B6-saD" firstAttribute="centerX" secondItem="au1-sD-HRM" secondAttribute="centerX" id="e7A-Wj-6nd"/>
-                                    <constraint firstItem="hnh-wZ-Zj5" firstAttribute="leading" secondItem="au1-sD-HRM" secondAttribute="leading" constant="20" symbolic="YES" id="eEb-Kh-KaJ"/>
-                                    <constraint firstItem="B5t-Kh-JZm" firstAttribute="top" secondItem="au1-sD-HRM" secondAttribute="top" constant="20" symbolic="YES" id="kHa-bQ-kZa"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="kHa-bQ-kZa"/>
-                                    </mask>
-                                </variation>
-                            </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="1500" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iz0-PF-GmV">
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <subviews>
-                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QXt-kQ-wp3">
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QXt-kQ-wp3">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8KY-q1-kEk">
@@ -80,12 +32,16 @@
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="8KY-q1-kEk" firstAttribute="centerY" secondItem="QXt-kQ-wp3" secondAttribute="centerY" id="01x-7L-rFD"/>
+                                            <constraint firstAttribute="trailing" secondItem="8KY-q1-kEk" secondAttribute="trailing" id="0Ja-hf-bvH"/>
                                             <constraint firstAttribute="height" id="Fa0-wg-MzR"/>
                                             <constraint firstItem="8KY-q1-kEk" firstAttribute="height" secondItem="QXt-kQ-wp3" secondAttribute="height" id="LX1-aG-49w"/>
                                             <constraint firstItem="8KY-q1-kEk" firstAttribute="centerX" secondItem="QXt-kQ-wp3" secondAttribute="centerX" id="Ogt-KJ-7Sz"/>
                                             <constraint firstItem="8KY-q1-kEk" firstAttribute="width" secondItem="QXt-kQ-wp3" secondAttribute="width" id="TS2-6a-tq7"/>
+                                            <constraint firstItem="8KY-q1-kEk" firstAttribute="top" secondItem="QXt-kQ-wp3" secondAttribute="top" id="TwU-7u-Uap"/>
+                                            <constraint firstAttribute="bottom" secondItem="8KY-q1-kEk" secondAttribute="bottom" id="WJJ-l6-ny6"/>
                                             <constraint firstAttribute="width" secondItem="QXt-kQ-wp3" secondAttribute="height" multiplier="1:1" id="efS-lP-HL8"/>
                                             <constraint firstItem="8KY-q1-kEk" firstAttribute="height" secondItem="QXt-kQ-wp3" secondAttribute="height" id="pK3-vS-oS8"/>
+                                            <constraint firstItem="8KY-q1-kEk" firstAttribute="leading" secondItem="QXt-kQ-wp3" secondAttribute="leading" id="zjE-8U-JKG"/>
                                         </constraints>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -137,32 +93,28 @@
                                         </cells>
                                     </collectionView>
                                 </subviews>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="1" green="0.082854430532979806" blue="0.36872894896727837" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="8yJ-mA-ucX" firstAttribute="centerX" secondItem="iz0-PF-GmV" secondAttribute="centerX" id="2Rf-Wp-sNh"/>
                                     <constraint firstItem="8yJ-mA-ucX" firstAttribute="width" secondItem="iz0-PF-GmV" secondAttribute="width" id="8r8-5z-m5i"/>
-                                    <constraint firstItem="8yJ-mA-ucX" firstAttribute="height" secondItem="iz0-PF-GmV" secondAttribute="height" multiplier="0.88" constant="0.5" id="PN4-Xt-M9y"/>
+                                    <constraint firstAttribute="bottom" secondItem="8yJ-mA-ucX" secondAttribute="bottom" id="DhK-pX-rcr"/>
+                                    <constraint firstItem="QXt-kQ-wp3" firstAttribute="leading" secondItem="iz0-PF-GmV" secondAttribute="leading" id="Jko-rQ-0fw"/>
                                     <constraint firstItem="QXt-kQ-wp3" firstAttribute="centerX" secondItem="iz0-PF-GmV" secondAttribute="centerX" id="QKX-i0-o1Z"/>
                                     <constraint firstItem="QXt-kQ-wp3" firstAttribute="top" secondItem="iz0-PF-GmV" secondAttribute="top" id="Qc3-fA-M9N"/>
-                                    <constraint firstItem="8yJ-mA-ucX" firstAttribute="top" secondItem="iz0-PF-GmV" secondAttribute="top" constant="628" id="T59-iR-faW"/>
                                     <constraint firstItem="QXt-kQ-wp3" firstAttribute="width" secondItem="iz0-PF-GmV" secondAttribute="width" id="XPt-6E-gwS"/>
                                     <constraint firstAttribute="trailing" secondItem="8yJ-mA-ucX" secondAttribute="trailing" id="c4e-RB-HAb"/>
-                                    <constraint firstAttribute="trailing" secondItem="QXt-kQ-wp3" secondAttribute="trailing" id="he0-wx-hwf"/>
-                                    <constraint firstAttribute="bottom" secondItem="QXt-kQ-wp3" secondAttribute="bottom" constant="163" id="l1m-sS-bUj"/>
+                                    <constraint firstAttribute="trailing" secondItem="QXt-kQ-wp3" secondAttribute="trailing" id="gu9-aF-G7C"/>
                                     <constraint firstAttribute="bottom" secondItem="8yJ-mA-ucX" secondAttribute="bottom" id="psB-c8-MqD"/>
                                     <constraint firstItem="8yJ-mA-ucX" firstAttribute="top" secondItem="QXt-kQ-wp3" secondAttribute="bottom" constant="8" symbolic="YES" id="z5d-z4-tlm"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="he0-wx-hwf"/>
-                                        <exclude reference="l1m-sS-bUj"/>
-                                        <exclude reference="PN4-Xt-M9y"/>
-                                        <exclude reference="T59-iR-faW"/>
+                                        <exclude reference="psB-c8-MqD"/>
                                     </mask>
                                 </variation>
                             </scrollView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="uNo-Td-Gk7" customClass="AlbumSelectorView" customModule="SnapImagePicker" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="236" width="600" height="600"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="uNo-Td-Gk7" customClass="AlbumSelectorView" customModule="SnapImagePicker" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="236" width="600" height="500"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Album Preview Cell" rowHeight="100" id="1FT-IU-YxU" customClass="AlbumSelectorViewCell" customModule="SnapImagePicker" customModuleProvider="target">
@@ -218,35 +170,76 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="au1-sD-HRM">
+                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hnh-wZ-Zj5">
+                                        <rect key="frame" x="20" y="7" width="30" height="30"/>
+                                        <state key="normal" title="✕">
+                                            <color key="titleColor" white="0.36841967281879195" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="cancelButtonPressed:" destination="c38-3V-MrA" eventType="touchUpInside" id="ykL-42-xhC"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Vq8-B6-saD">
+                                        <rect key="frame" x="278" y="7" width="44" height="30"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                        <state key="normal" title="Album">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="collectionsButtonClicked:" destination="c38-3V-MrA" eventType="touchUpInside" id="oyZ-3J-afK"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B5t-Kh-JZm">
+                                        <rect key="frame" x="539" y="7" width="41" height="30"/>
+                                        <state key="normal" title="Neste">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="acceptImageButtonPressed:" destination="c38-3V-MrA" eventType="touchUpInside" id="VxO-cP-JOh"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="B5t-Kh-JZm" secondAttribute="trailing" constant="20" symbolic="YES" id="9ty-wE-gM1"/>
+                                    <constraint firstItem="hnh-wZ-Zj5" firstAttribute="centerY" secondItem="au1-sD-HRM" secondAttribute="centerY" id="FSz-54-IGM"/>
+                                    <constraint firstItem="B5t-Kh-JZm" firstAttribute="centerY" secondItem="au1-sD-HRM" secondAttribute="centerY" id="S6A-mS-pZj"/>
+                                    <constraint firstItem="Vq8-B6-saD" firstAttribute="centerY" secondItem="au1-sD-HRM" secondAttribute="centerY" id="d5A-ki-Wdy"/>
+                                    <constraint firstItem="Vq8-B6-saD" firstAttribute="centerX" secondItem="au1-sD-HRM" secondAttribute="centerX" id="e7A-Wj-6nd"/>
+                                    <constraint firstItem="hnh-wZ-Zj5" firstAttribute="leading" secondItem="au1-sD-HRM" secondAttribute="leading" constant="20" symbolic="YES" id="eEb-Kh-KaJ"/>
+                                    <constraint firstItem="B5t-Kh-JZm" firstAttribute="top" secondItem="au1-sD-HRM" secondAttribute="top" constant="20" symbolic="YES" id="kHa-bQ-kZa"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="kHa-bQ-kZa"/>
+                                    </mask>
+                                </variation>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="iz0-PF-GmV" firstAttribute="top" secondItem="ZlG-Yg-XsQ" secondAttribute="top" constant="64" id="6Zo-5Y-PpA"/>
-                            <constraint firstItem="uNo-Td-Gk7" firstAttribute="top" secondItem="lCQ-Jb-mA1" secondAttribute="bottom" constant="216" id="APq-vc-jFI"/>
                             <constraint firstItem="bYe-D0-P6V" firstAttribute="top" secondItem="iz0-PF-GmV" secondAttribute="bottom" id="EV9-LB-6Uf"/>
-                            <constraint firstItem="8KY-q1-kEk" firstAttribute="top" secondItem="au1-sD-HRM" secondAttribute="bottom" id="Enr-vy-I8d"/>
                             <constraint firstItem="uNo-Td-Gk7" firstAttribute="height" secondItem="ZlG-Yg-XsQ" secondAttribute="height" id="M6w-2a-uFI"/>
                             <constraint firstItem="uNo-Td-Gk7" firstAttribute="centerX" secondItem="ZlG-Yg-XsQ" secondAttribute="centerX" id="Phw-m1-bdg"/>
+                            <constraint firstItem="uNo-Td-Gk7" firstAttribute="top" secondItem="lCQ-Jb-mA1" secondAttribute="bottom" constant="216" id="SYZ-Wf-YZO"/>
                             <constraint firstItem="iz0-PF-GmV" firstAttribute="width" secondItem="ZlG-Yg-XsQ" secondAttribute="width" id="US5-mn-ts7"/>
                             <constraint firstItem="au1-sD-HRM" firstAttribute="width" secondItem="ZlG-Yg-XsQ" secondAttribute="width" id="Yka-EZ-ulv"/>
                             <constraint firstItem="iz0-PF-GmV" firstAttribute="top" secondItem="au1-sD-HRM" secondAttribute="bottom" id="Zo9-69-V2f"/>
                             <constraint firstItem="au1-sD-HRM" firstAttribute="top" secondItem="lCQ-Jb-mA1" secondAttribute="bottom" id="a4q-OU-OGc"/>
                             <constraint firstItem="iz0-PF-GmV" firstAttribute="centerX" secondItem="ZlG-Yg-XsQ" secondAttribute="centerX" id="eUT-ah-v9g"/>
-                            <constraint firstItem="uNo-Td-Gk7" firstAttribute="top" secondItem="iz0-PF-GmV" secondAttribute="bottom" id="fz2-mc-U3g"/>
                             <constraint firstItem="au1-sD-HRM" firstAttribute="centerX" secondItem="ZlG-Yg-XsQ" secondAttribute="centerX" id="ocO-Gs-B9U"/>
                             <constraint firstItem="uNo-Td-Gk7" firstAttribute="width" secondItem="ZlG-Yg-XsQ" secondAttribute="width" id="paX-Xr-OjY"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="Enr-vy-I8d"/>
-                                <exclude reference="fz2-mc-U3g"/>
-                            </mask>
-                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="X9A-iE-upj"/>
                     <connections>
                         <outlet property="albumCollectionView" destination="8yJ-mA-ucX" id="swR-iQ-in0"/>
-                        <outlet property="albumSelectorTopConstraint" destination="APq-vc-jFI" id="TLO-7u-1kl"/>
+                        <outlet property="albumCollectionViewHeightConstraint" destination="1Ay-g4-qZ6" id="CeX-vh-r1y"/>
+                        <outlet property="albumSelectorTopConstraint" destination="SYZ-Wf-YZO" id="yau-37-jBF"/>
                         <outlet property="albumSelectorView" destination="uNo-Td-Gk7" id="cEd-eT-YkZ"/>
                         <outlet property="imageAndAlbumSpacingConstraint" destination="z5d-z4-tlm" id="kqt-Wh-bJ4"/>
                         <outlet property="mainAlbumTitleButton" destination="Vq8-B6-saD" id="VKc-Ph-euV"/>

@@ -14,8 +14,6 @@ public class SnapImagePicker {
         case AlbumSelectorViewController = "AlbumSelectorViewController"
     }
     
-    static var photoLoader: PhotoLoader?
-    
     public static func imagePicker(delegate delegate: SnapImagePickerDelegate) -> UIViewController? {
         let bundle = NSBundle(forClass: SnapImagePicker.self)
         let storyboard = UIStoryboard(name: Names.SnapImagePickerStoryboard.rawValue, bundle: bundle)
@@ -30,7 +28,7 @@ public class SnapImagePicker {
     static func setupAlbumViewController(vc: SnapImagePickerViewController) {
         let interactor = AlbumInteractor()
         let presenter = AlbumPresenter()
-        let photoLoader = PhotoLoader()
+        let photoLoader = PhotoLoaderFake()
         
         vc.interactor = interactor
         interactor.presenter = presenter

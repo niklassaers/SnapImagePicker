@@ -24,6 +24,7 @@ class SnapImagePickerViewController: UIViewController {
         }
     }
     
+    @IBOutlet weak var albumCollectionViewHeightConstraint: NSLayoutConstraint?
     @IBOutlet weak var albumSelectorTopConstraint: NSLayoutConstraint?
     @IBOutlet weak var imageAndAlbumSpacingConstraint: NSLayoutConstraint?
     
@@ -98,10 +99,15 @@ class SnapImagePickerViewController: UIViewController {
     override func viewDidLoad() {
         print("View did load")
         setupSelectedImageScrollView()
+        print("Setup 1")
         setupAlbumCollectionView(PhotoLoader.DefaultAlbumNames.AllPhotos)
+        print("Setup 2")
         setupGestureRecognizers()
+        print("Setup 3")
         setupAlbumSelectorView()
+        print("Setup 4")
         interactor?.fetchAlbumPreviews()
+        print("Setup 5")
         
         imageAndAlbumSpacingConstraint?.constant = UIConstants.Spacing
         selectedImageScrollView?.userInteractionEnabled = true
@@ -182,6 +188,8 @@ extension SnapImagePickerViewController {
             albumCollectionView.dataSource = self
             albumCollectionView.delegate = self
             albumCollectionView.backgroundColor = UIConstants.BackgroundColor
+            print("Before: \(albumCollectionViewHeightConstraint?.constant)")
+            //albumCollectionViewHeightConstraint?.constant = mainScrollView!.bounds.height - selectedImageScrollView!.frame.height - UIConstants.Spacing
             loadAlbum(title)
         }
     }
