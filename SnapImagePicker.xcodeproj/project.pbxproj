@@ -280,11 +280,11 @@
 		D89D6FE71D06CC06007DD132 /* SnapImagePicker */ = {
 			isa = PBXGroup;
 			children = (
+				D83774341D1BE13B00509277 /* Data */,
 				D83B8C2B1D0EE89500C6995A /* AlbumInteractor.swift */,
 				D83B8C2D1D0EE8B300C6995A /* AlbumPresenter.swift */,
 				D83B8C291D0EE4D700C6995A /* ImageCell.swift */,
 				D88255C91D12A0FD00FB327D /* SnapImagePickerViewController.swift */,
-				D83774341D1BE13B00509277 /* Data */,
 				D88255CF1D17D34200FB327D /* dummy.jpeg */,
 				D89D6FEA1D06CC06007DD132 /* Info.plist */,
 				D89D6FE81D06CC06007DD132 /* SnapImagePicker.h */,

@@ -20,6 +20,7 @@ extension AlbumPresenter: AlbumPresenterInput {
     }
     
     func presentAlbumPreview(album: PhotoAlbum) {
+        print("Presenting album preview")
         viewController?.addAlbumPreview(album)
     }
 }

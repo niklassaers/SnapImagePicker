@@ -1,7 +1,11 @@
 import UIKit
 
 class AlbumSelectorView: UITableView {
-    var albums: [PhotoAlbum]?
+    var albums: [PhotoAlbum]? {
+        didSet {
+            reloadData()
+        }
+    }
 }
 
 extension AlbumSelectorView: UITableViewDataSource {
@@ -10,22 +14,19 @@ extension AlbumSelectorView: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let albums = albums {
-            return albums.count
-        }
-        return 0
+        return albums?.count ?? 0
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = dequeueReusableCellWithIdentifier("Album Preview Cell", forIndexPath: indexPath)
+        
         if let albums = albums,
-           let cell = dequeueReusableCellWithIdentifier("Album Preview Cell", forIndexPath: indexPath) as? AlbumSelectorViewCell
+           let albumCell = cell as? AlbumSelectorViewCell
            where indexPath.row < albums.count {
-            cell.album = albums[indexPath.row]
-            
-            return cell
+            albumCell.album = albums[indexPath.row]
         }
         
-        return UITableViewCell()
+        return cell
     }
 }
 

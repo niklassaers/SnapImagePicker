@@ -97,21 +97,22 @@ class SnapImagePickerViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        print("View did load")
         setupSelectedImageScrollView()
-        print("Setup 1")
         setupAlbumCollectionView(PhotoLoader.DefaultAlbumNames.AllPhotos)
-        print("Setup 2")
         setupGestureRecognizers()
-        print("Setup 3")
         setupAlbumSelectorView()
-        print("Setup 4")
-        interactor?.fetchAlbumPreviews()
-        print("Setup 5")
+        setupViewSizes()
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
+            [weak self] in
+            self?.interactor?.fetchAlbumPreviews()
+        }
         
         imageAndAlbumSpacingConstraint?.constant = UIConstants.Spacing
         selectedImageScrollView?.userInteractionEnabled = true
-        print("Finished setup")
+    }
+    
+    override func shouldAutorotate() -> Bool {
+        return UIDevice.currentDevice().userInterfaceIdiom == .Pad
     }
     
     @IBAction func acceptImageButtonPressed(sender: UIButton) {
@@ -188,18 +189,18 @@ extension SnapImagePickerViewController {
             albumCollectionView.dataSource = self
             albumCollectionView.delegate = self
             albumCollectionView.backgroundColor = UIConstants.BackgroundColor
-            print("Before: \(albumCollectionViewHeightConstraint?.constant)")
-            //albumCollectionViewHeightConstraint?.constant = mainScrollView!.bounds.height - selectedImageScrollView!.frame.height - UIConstants.Spacing
             loadAlbum(title)
         }
     }
     
     private func loadAlbum(title: String) {
-        if let albumCollectionView = albumCollectionView,
-           let interactor = interactor {
+        if let albumCollectionView = albumCollectionView {
             images = [(id: String, image: UIImage)]()
             let imageCellWidth = UIConstants.CellWidthInView(albumCollectionView)
-            interactor.fetchAlbum(Album_Request(title: title, size: CGSize(width: imageCellWidth, height: imageCellWidth)))
+            dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
+                [weak self] in
+                self?.interactor?.fetchAlbum(Album_Request(title: title, size: CGSize(width: imageCellWidth, height: imageCellWidth)))
+            }
         }
     }
     
@@ -212,6 +213,16 @@ extension SnapImagePickerViewController {
             albumSelectorView.albums = albums
             
             hideAlbumSelectorView()
+        }
+    }
+    
+    private func setupViewSizes() {
+        if let mainFrame = mainScrollView?.frame,
+            let imageFrame = selectedImageScrollView?.frame {
+            let imageSizeWhenDisplayed = imageFrame.height * CGFloat(DisplayState.Album.rawValue)
+            let imageSizeWhenHidden = imageFrame.height * (1 - CGFloat(DisplayState.Album.rawValue))
+            mainScrollView?.contentSize = CGSize(width: mainFrame.width, height: mainFrame.height + imageSizeWhenDisplayed)
+            albumCollectionViewHeightConstraint?.constant = mainFrame.height - imageSizeWhenHidden - UIConstants.Spacing
         }
     }
 }
@@ -266,7 +277,10 @@ extension SnapImagePickerViewController: UICollectionViewDelegate {
     private func requestMainImageFromIndex(index: Int) {
         let size = CGSize(width: SnapImagePicker.Theme.maxImageSize, height: SnapImagePicker.Theme.maxImageSize)
         dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
-            self.interactor?.fetchImage(Image_Request(id: self.images[index].id, size: size))
+            [weak self] in
+            if let strongSelf = self {
+                strongSelf.interactor?.fetchImage(Image_Request(id: strongSelf.images[index].id, size: size))
+            }
         }
         setMainOffsetFor(.Image)
         currentlySelectedIndex = index
@@ -281,7 +295,7 @@ protocol AlbumViewControllerInput : class {
 
 extension SnapImagePickerViewController: AlbumViewControllerInput {
     func displayAlbumImage(response: Image_Response) {
-        self.images.append((id: response.id, image: response.image))
+        images.append((id: response.id, image: response.image))
         if images.count == 1 {
             requestMainImageFromIndex(0)
         }
