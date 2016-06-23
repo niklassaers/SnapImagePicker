@@ -251,6 +251,7 @@
                         <outlet property="imageAndAlbumSpacingConstraint" destination="z5d-z4-tlm" id="kqt-Wh-bJ4"/>
                         <outlet property="mainAlbumTitleButton" destination="Vq8-B6-saD" id="VKc-Ph-euV"/>
                         <outlet property="mainScrollView" destination="iz0-PF-GmV" id="bdT-lL-eKS"/>
+                        <outlet property="nextButton" destination="B5t-Kh-JZm" id="LOk-q4-xc0"/>
                         <outlet property="selectedImageScrollView" destination="QXt-kQ-wp3" id="UUj-KL-5BZ"/>
                         <outlet property="selectedImageView" destination="8KY-q1-kEk" id="o8k-nH-G05"/>
                     </connections>

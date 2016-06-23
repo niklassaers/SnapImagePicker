@@ -30,9 +30,23 @@ extension AlbumSelectorView: UITableViewDataSource {
 }
 
 class AlbumSelectorViewCell: UITableViewCell {
-    @IBOutlet weak var albumNameLabel: UILabel?
     @IBOutlet weak var albumPreviewImageView: UIImageView?
-    @IBOutlet weak var albumSizeLabel: UILabel?
+    @IBOutlet weak var albumNameLabel: UILabel? {
+        didSet {
+            if let font = SnapImagePicker.Theme.font {
+                albumNameLabel?.font = font.fontWithSize(15)
+            }
+        }
+    }
+    @IBOutlet weak var albumSizeLabel: UILabel? {
+        didSet {
+            if let font = SnapImagePicker.Theme.font {
+                albumSizeLabel?.font = font.fontWithSize(12)
+                albumSizeLabel?.textColor = UIColor.grayColor()
+            }
+        }
+    }
+    
     var album: PhotoAlbum? {
         didSet {
             if let album = album {

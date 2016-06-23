@@ -16,6 +16,13 @@ class SnapImagePickerViewController: UIViewController {
             mainAlbumTitleButton?.titleLabel?.font = SnapImagePicker.Theme.font
         }
     }
+    @IBOutlet weak var nextButton: UIButton? {
+        didSet {
+            if let font = SnapImagePicker.Theme.font {
+                nextButton?.titleLabel?.font = font.fontWithSize(15)
+            }
+        }
+    }
     
     @IBOutlet weak var albumSelectorTopConstraint: NSLayoutConstraint?
     @IBOutlet weak var imageAndAlbumSpacingConstraint: NSLayoutConstraint?
@@ -89,6 +96,7 @@ class SnapImagePickerViewController: UIViewController {
     }
     
     override func viewDidLoad() {
+        print("View did load")
         setupSelectedImageScrollView()
         setupAlbumCollectionView(PhotoLoader.DefaultAlbumNames.AllPhotos)
         setupGestureRecognizers()
@@ -97,6 +105,7 @@ class SnapImagePickerViewController: UIViewController {
         
         imageAndAlbumSpacingConstraint?.constant = UIConstants.Spacing
         selectedImageScrollView?.userInteractionEnabled = true
+        print("Finished setup")
     }
     
     @IBAction func acceptImageButtonPressed(sender: UIButton) {
