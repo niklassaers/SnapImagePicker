@@ -25,8 +25,6 @@ class ViewController: UIViewController {
 extension ViewController: SnapImagePickerDelegate {
     func pickedImage(image: UIImage, withBounds bounds: CGRect) {
         imageView?.contentMode = .ScaleAspectFit
-        print("ImageView frame: \(imageView?.frame)")
         imageView?.image = UIImage(CGImage: CGImageCreateWithImageInRect(image.CGImage, bounds)!)
-        print("ImageView frame: \(imageView?.frame)")
     }
 }

@@ -97,7 +97,7 @@ extension PhotoLoader: AlbumLoader {
     func fetchImageFromId(id: String, withTargetSize targetSize: CGSize, handler: (UIImage, String) -> Void) {
         let fetchResult = PHAsset.fetchAssetsWithLocalIdentifiers([id], options: nil)
         if let asset = fetchResult.firstObject as? PHAsset{
-            PHImageManager.defaultManager().requestImageForAsset(asset, targetSize: targetSize, contentMode: .Default, options: nil) {
+            PHImageManager.defaultManager().requestImageForAsset(asset, targetSize: CGSize(width: 2000, height: 2000), contentMode: .Default, options: nil) {
                 (image: UIImage?, data: [NSObject : AnyObject]?) in
                 if let image = image {
                     handler(image, asset.localIdentifier)

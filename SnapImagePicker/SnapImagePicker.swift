@@ -2,6 +2,8 @@ import Foundation
 
 public class SnapImagePicker {
     static var color = UIColor.init(red: 0xFF, green: 0x00, blue: 0x58, alpha: 1)
+    static var maxImageSize = 2000
+    
     private enum Names: String {
         case SnapImagePickerStoryboard = "SnapImagePicker"
         case AlbumSelectorViewController = "AlbumSelectorViewController"

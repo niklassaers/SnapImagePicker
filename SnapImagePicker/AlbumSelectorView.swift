@@ -20,9 +20,7 @@ extension AlbumSelectorView: UITableViewDataSource {
         if let albums = albums,
            let cell = dequeueReusableCellWithIdentifier("Album Preview Cell", forIndexPath: indexPath) as? AlbumSelectorViewCell
            where indexPath.row < albums.count {
-            cell.albumNameLabel?.text = albums[indexPath.row].title
-            cell.albumSizeLabel?.text = String(albums[indexPath.row].size)
-            cell.albumPreviewImageView?.image = albums[indexPath.row].image
+            cell.album = albums[indexPath.row]
             
             return cell
         }
@@ -35,4 +33,19 @@ class AlbumSelectorViewCell: UITableViewCell {
     @IBOutlet weak var albumNameLabel: UILabel?
     @IBOutlet weak var albumPreviewImageView: UIImageView?
     @IBOutlet weak var albumSizeLabel: UILabel?
+    var album: PhotoAlbum? {
+        didSet {
+            if let album = album {
+                albumNameLabel?.text = album.title
+                albumPreviewImageView?.image = album.image
+                albumSizeLabel?.text = formatAlbumSize(album.size)
+            }
+        }
+    }
+    
+    private func formatAlbumSize(size: Int) -> String {
+        let suffix = size == 1 ? "image" : "images"
+        
+        return String(size) + " " + suffix
+    }
 }
