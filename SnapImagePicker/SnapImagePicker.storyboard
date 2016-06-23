@@ -41,12 +41,24 @@
                                             <action selector="acceptImageButtonPressed:" destination="c38-3V-MrA" eventType="touchUpInside" id="VxO-cP-JOh"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Vq8-B6-saD">
+                                        <rect key="frame" x="278" y="7" width="44" height="30"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                        <state key="normal" title="Album">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="collectionsButtonClicked:" destination="c38-3V-MrA" eventType="touchUpInside" id="oyZ-3J-afK"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="B5t-Kh-JZm" secondAttribute="trailing" constant="20" symbolic="YES" id="9ty-wE-gM1"/>
                                     <constraint firstItem="hnh-wZ-Zj5" firstAttribute="centerY" secondItem="au1-sD-HRM" secondAttribute="centerY" id="FSz-54-IGM"/>
                                     <constraint firstItem="B5t-Kh-JZm" firstAttribute="centerY" secondItem="au1-sD-HRM" secondAttribute="centerY" id="S6A-mS-pZj"/>
+                                    <constraint firstItem="Vq8-B6-saD" firstAttribute="centerY" secondItem="au1-sD-HRM" secondAttribute="centerY" id="d5A-ki-Wdy"/>
+                                    <constraint firstItem="Vq8-B6-saD" firstAttribute="centerX" secondItem="au1-sD-HRM" secondAttribute="centerX" id="e7A-Wj-6nd"/>
                                     <constraint firstItem="hnh-wZ-Zj5" firstAttribute="leading" secondItem="au1-sD-HRM" secondAttribute="leading" constant="20" symbolic="YES" id="eEb-Kh-KaJ"/>
                                     <constraint firstItem="B5t-Kh-JZm" firstAttribute="top" secondItem="au1-sD-HRM" secondAttribute="top" constant="20" symbolic="YES" id="kHa-bQ-kZa"/>
                                 </constraints>
@@ -56,16 +68,6 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Vq8-B6-saD">
-                                <rect key="frame" x="278" y="27" width="44" height="30"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
-                                <state key="normal" title="Album">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="collectionsButtonClicked:" destination="c38-3V-MrA" eventType="touchUpInside" id="oyZ-3J-afK"/>
-                                </connections>
-                            </button>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="1500" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iz0-PF-GmV">
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <subviews>
@@ -220,11 +222,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="iz0-PF-GmV" firstAttribute="top" secondItem="ZlG-Yg-XsQ" secondAttribute="top" constant="64" id="6Zo-5Y-PpA"/>
-                            <constraint firstItem="Vq8-B6-saD" firstAttribute="centerX" secondItem="au1-sD-HRM" secondAttribute="centerX" id="8hV-nz-5QG"/>
                             <constraint firstItem="uNo-Td-Gk7" firstAttribute="top" secondItem="lCQ-Jb-mA1" secondAttribute="bottom" constant="216" id="APq-vc-jFI"/>
                             <constraint firstItem="bYe-D0-P6V" firstAttribute="top" secondItem="iz0-PF-GmV" secondAttribute="bottom" id="EV9-LB-6Uf"/>
                             <constraint firstItem="8KY-q1-kEk" firstAttribute="top" secondItem="au1-sD-HRM" secondAttribute="bottom" id="Enr-vy-I8d"/>
-                            <constraint firstItem="Vq8-B6-saD" firstAttribute="centerY" secondItem="au1-sD-HRM" secondAttribute="centerY" id="G3P-s6-vca"/>
                             <constraint firstItem="uNo-Td-Gk7" firstAttribute="height" secondItem="ZlG-Yg-XsQ" secondAttribute="height" id="M6w-2a-uFI"/>
                             <constraint firstItem="uNo-Td-Gk7" firstAttribute="centerX" secondItem="ZlG-Yg-XsQ" secondAttribute="centerX" id="Phw-m1-bdg"/>
                             <constraint firstItem="iz0-PF-GmV" firstAttribute="width" secondItem="ZlG-Yg-XsQ" secondAttribute="width" id="US5-mn-ts7"/>
@@ -249,7 +249,7 @@
                         <outlet property="albumSelectorTopConstraint" destination="APq-vc-jFI" id="TLO-7u-1kl"/>
                         <outlet property="albumSelectorView" destination="uNo-Td-Gk7" id="cEd-eT-YkZ"/>
                         <outlet property="imageAndAlbumSpacingConstraint" destination="z5d-z4-tlm" id="kqt-Wh-bJ4"/>
-                        <outlet property="mainAlbumTitle" destination="Vq8-B6-saD" id="Xf2-Tf-h2a"/>
+                        <outlet property="mainAlbumTitleButton" destination="Vq8-B6-saD" id="VKc-Ph-euV"/>
                         <outlet property="mainScrollView" destination="iz0-PF-GmV" id="bdT-lL-eKS"/>
                         <outlet property="selectedImageScrollView" destination="QXt-kQ-wp3" id="UUj-KL-5BZ"/>
                         <outlet property="selectedImageView" destination="8KY-q1-kEk" id="o8k-nH-G05"/>

@@ -1,0 +1,6 @@
+framework module SnapFonts_iOS {
+  umbrella header "SnapFonts-iOS-umbrella.h"
+
+  export *
+  module * { export * }
+}

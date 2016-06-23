@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>Pods-Example_Project.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-SnapImagePicker.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-SnapImagePickerTests.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SnapFonts-iOS-Fonts.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SnapFonts-iOS.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>4295AC3A4B70AE97170FBAAFD3D0CE19</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>75ADAE02EEBF95C063070FECA2EBB48F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>80DCB0E3C99889138A9B081D51D76F22</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B3CCD68350F0882E3F949B250122AB36</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C88A72B6A07ABFB0D3E5EF89C7EA8233</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>

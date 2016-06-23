@@ -11,7 +11,11 @@ class SnapImagePickerViewController: UIViewController {
     @IBOutlet weak var albumCollectionView: UICollectionView?
     @IBOutlet weak var albumSelectorView: AlbumSelectorView?
 
-    @IBOutlet weak var mainAlbumTitle: UIButton?
+    @IBOutlet weak var mainAlbumTitleButton: UIButton? {
+        didSet {
+            mainAlbumTitleButton?.titleLabel?.font = SnapImagePicker.Theme.font
+        }
+    }
     
     @IBOutlet weak var albumSelectorTopConstraint: NSLayoutConstraint?
     @IBOutlet weak var imageAndAlbumSpacingConstraint: NSLayoutConstraint?
@@ -28,7 +32,7 @@ class SnapImagePickerViewController: UIViewController {
                 state = .Image
                 let title = albums[currentlySelectedAlbum].title
                 loadAlbum(title)
-                mainAlbumTitle?.setTitle(title, forState: .Normal)
+                mainAlbumTitleButton?.setTitle(title, forState: .Normal)
             }
         }
     }
@@ -90,8 +94,8 @@ class SnapImagePickerViewController: UIViewController {
         setupGestureRecognizers()
         setupAlbumSelectorView()
         interactor?.fetchAlbumPreviews()
-        imageAndAlbumSpacingConstraint?.constant = UIConstants.Spacing
         
+        imageAndAlbumSpacingConstraint?.constant = UIConstants.Spacing
         selectedImageScrollView?.userInteractionEnabled = true
     }
     
@@ -118,7 +122,7 @@ class SnapImagePickerViewController: UIViewController {
     }
     
     private func dismiss() {
-        self.dismissViewControllerAnimated(false, completion: nil)
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
 }
 
@@ -243,7 +247,7 @@ extension SnapImagePickerViewController: UICollectionViewDelegate {
     }
     
     private func requestMainImageFromIndex(index: Int) {
-        let size = CGSize(width: SnapImagePicker.maxImageSize, height: SnapImagePicker.maxImageSize)
+        let size = CGSize(width: SnapImagePicker.Theme.maxImageSize, height: SnapImagePicker.Theme.maxImageSize)
         dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
             self.interactor?.fetchImage(Image_Request(id: self.images[index].id, size: size))
         }

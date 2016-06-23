@@ -1,0 +1,6 @@
+framework module Pods_SnapImagePicker {
+  umbrella header "Pods-SnapImagePicker-umbrella.h"
+
+  export *
+  module * { export * }
+}
