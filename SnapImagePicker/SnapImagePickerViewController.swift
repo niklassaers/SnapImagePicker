@@ -3,11 +3,7 @@ import UIKit
 class SnapImagePickerViewController: UIViewController {
     @IBOutlet weak var mainScrollView: UIScrollView?
     @IBOutlet weak var selectedImageScrollView: UIScrollView?
-    @IBOutlet weak var selectedImageView: UIImageView? {
-        didSet {
-            selectedImageView?.frame = CGRect(x: 0, y: 0, width: 320, height: 320)
-        }
-    }
+    @IBOutlet weak var selectedImageView: UIImageView?
     @IBOutlet weak var albumCollectionView: UICollectionView?
     @IBOutlet weak var albumSelectorView: AlbumSelectorView?
 
@@ -91,9 +87,23 @@ class SnapImagePickerViewController: UIViewController {
     }
     
     private let OffsetThreshold = CGFloat(0.35)...CGFloat(0.65)
-    enum DisplayState: Double {
-        case Image = 0.0
-        case Album = 0.85
+    enum DisplayState {
+        case Image
+        case Album
+        
+        var offset: CGFloat {
+            switch self {
+            case Image: return 0.0
+            case Album: return 0.85
+            }
+        }
+        
+        var fadeRatio: Double {
+            switch self {
+            case Image: return 0.0
+            case Album: return 0.85
+            }
+        }
     }
     
     override func viewDidLoad() {
@@ -111,8 +121,8 @@ class SnapImagePickerViewController: UIViewController {
         selectedImageScrollView?.userInteractionEnabled = true
     }
     
-    override func shouldAutorotate() -> Bool {
-        return UIDevice.currentDevice().userInterfaceIdiom == .Pad
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.Portrait
     }
     
     @IBAction func acceptImageButtonPressed(sender: UIButton) {
@@ -217,11 +227,12 @@ extension SnapImagePickerViewController {
     }
     
     private func setupViewSizes() {
-        if let mainFrame = mainScrollView?.frame,
+        if let mainScrollView = mainScrollView,
             let imageFrame = selectedImageScrollView?.frame {
-            let imageSizeWhenDisplayed = imageFrame.height * CGFloat(DisplayState.Album.rawValue)
-            let imageSizeWhenHidden = imageFrame.height * (1 - CGFloat(DisplayState.Album.rawValue))
-            mainScrollView?.contentSize = CGSize(width: mainFrame.width, height: mainFrame.height + imageSizeWhenDisplayed)
+            let mainFrame = mainScrollView.frame
+            let imageSizeWhenDisplayed = imageFrame.height * CGFloat(DisplayState.Album.offset)
+            let imageSizeWhenHidden = imageFrame.height * (1 - DisplayState.Album.offset)
+            mainScrollView.contentSize = CGSize(width: mainFrame.width, height: mainFrame.height + imageSizeWhenDisplayed)
             albumCollectionViewHeightConstraint?.constant = mainFrame.height - imageSizeWhenHidden - UIConstants.Spacing
         }
     }
@@ -255,6 +266,7 @@ extension SnapImagePickerViewController: UICollectionViewDataSource {
             
             imageCell.imageView?.contentMode = .ScaleAspectFill
             imageCell.imageView?.image = image
+            print("Cell size: \(imageCell.bounds)")
         }
         return cell
     }
@@ -296,6 +308,7 @@ protocol AlbumViewControllerInput : class {
 extension SnapImagePickerViewController: AlbumViewControllerInput {
     func displayAlbumImage(response: Image_Response) {
         images.append((id: response.id, image: response.image))
+        print("Loaded an album image!")
         if images.count == 1 {
             requestMainImageFromIndex(0)
         }
@@ -362,7 +375,7 @@ extension SnapImagePickerViewController {
         if let selectedImageScrollView = selectedImageScrollView,
            let mainScrollView = mainScrollView {
             let height = selectedImageScrollView.bounds.height
-            mainScrollView.setContentOffset(CGPoint(x: mainScrollView.contentOffset.x, y: height * CGFloat(state.rawValue)), animated: true)
+            mainScrollView.setContentOffset(CGPoint(x: mainScrollView.contentOffset.x, y: height * CGFloat(state.offset)), animated: true)
             
             switch state {
             case .Image:
