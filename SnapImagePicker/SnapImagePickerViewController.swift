@@ -9,6 +9,7 @@ class SnapImagePickerViewController: UIViewController {
         static let CellBorderWidth = CGFloat(2.0)
         static let NavBarHeight = CGFloat(-64.0)
         static let OffsetThreshold = CGFloat(0.30)...CGFloat(0.70)
+        static let MaxImageFadeRatio = CGFloat(0.9)
     
         static func CellWidthInView(collectionView: UICollectionView) -> CGFloat {
             return (collectionView.bounds.width - (Spacing * CGFloat(NumberOfColumns - 1))) / CGFloat(NumberOfColumns)
@@ -22,7 +23,7 @@ class SnapImagePickerViewController: UIViewController {
         }
     }
     @IBOutlet weak var selectedImageView: UIImageView?
-    @IBOutlet weak var selectedImageScrollView: SelectedImageScrollView?
+    @IBOutlet weak var selectedImageScrollView: UIScrollView?
     @IBOutlet weak var mainScrollView: UIScrollView?
     @IBOutlet weak var albumCollectionViewHeightConstraint: NSLayoutConstraint?
     
@@ -30,6 +31,12 @@ class SnapImagePickerViewController: UIViewController {
         didSet {
             imageGridView?.userInteractionEnabled = false
             imageGridView?.setNeedsDisplay()
+        }
+    }
+    @IBOutlet weak var blackOverlayView: UIView? {
+        didSet {
+            imageGridView?.userInteractionEnabled = false
+            blackOverlayView?.alpha = 0.0
         }
     }
     @IBOutlet weak var imageGridViewHorizontalCenter: NSLayoutConstraint?
@@ -173,18 +180,27 @@ extension SnapImagePickerViewController: UIScrollViewDelegate {
     }
     
     func scrollViewWillBeginDragging(scrollView: UIScrollView) {
-        setImageGridViewAlpha(0.2)
+        if scrollView == selectedImageScrollView {
+            setImageGridViewAlpha(0.2)
+        }
     }
     
-    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        setImageGridViewAlpha(0.0)
+    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate
+        decelerate: Bool) {
+        if scrollView == selectedImageScrollView {
+            setImageGridViewAlpha(0.0)
+        }
     }
     func scrollViewWillBeginZooming(scrollView: UIScrollView, withView view: UIView?) {
-        setImageGridViewAlpha(0.2)
+        if scrollView == selectedImageScrollView {
+            setImageGridViewAlpha(0.2)
+        }
     }
     
     func scrollViewDidEndZooming(scrollView: UIScrollView, withView view: UIView?, atScale scale: CGFloat) {
-        setImageGridViewAlpha(0.0)
+        if scrollView == selectedImageScrollView {
+            setImageGridViewAlpha(0.0)
+        }
     }
     
     private func setImageGridViewAlpha(alpha: CGFloat) {
@@ -211,9 +227,13 @@ extension SnapImagePickerViewController {
         case .Changed:
             let translation = recognizer.translationInView(mainScrollView)
             if let old = mainScrollView?.contentOffset.y
-                where old - translation.y > 0 {
-                mainScrollView?.contentOffset = CGPoint(x: 0, y: old - translation.y)
+               where old - translation.y > 0 {
+                let offset = old - translation.y
+                mainScrollView?.setContentOffset(CGPoint(x: 0, y: offset), animated: false)
                 recognizer.setTranslation(CGPointZero, inView: mainScrollView)
+                if let height = selectedImageView?.frame.height {
+                    blackOverlayView?.alpha = (offset / height) * UIConstants.MaxImageFadeRatio
+                }
             }
         case .Ended, .Cancelled, .Failed:
             panEnded()
@@ -243,7 +263,11 @@ extension SnapImagePickerViewController {
     private func setMainOffsetForState(state: DisplayState) {
         if let height = selectedImageScrollView?.bounds.height {
             let offset = UIConstants.NavBarHeight + (height * CGFloat(state.offset))
-            mainScrollView?.setContentOffset(CGPoint(x: 0, y: offset), animated: true)
+            UIView.animateWithDuration(0.3) {
+                [weak self] in
+                self?.mainScrollView?.contentOffset = CGPoint(x: 0, y: offset)
+                self?.blackOverlayView?.alpha = (offset / height) * UIConstants.MaxImageFadeRatio
+            }
         }
     }
 }

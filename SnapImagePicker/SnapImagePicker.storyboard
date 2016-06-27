@@ -84,6 +84,10 @@
                                     <constraint firstAttribute="width" secondItem="Fma-Hu-M78" secondAttribute="height" multiplier="1:1" id="eG2-V4-L3e"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jfu-sj-ks5">
+                                <rect key="frame" x="180" y="236" width="240" height="128"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -92,11 +96,15 @@
                             <constraint firstItem="Fma-Hu-M78" firstAttribute="height" secondItem="TOw-dc-Dkh" secondAttribute="height" id="5JF-iA-Iwq"/>
                             <constraint firstItem="TOw-dc-Dkh" firstAttribute="centerX" secondItem="nWZ-x0-ung" secondAttribute="centerX" id="62F-uV-yXp"/>
                             <constraint firstItem="1Kd-hF-p6C" firstAttribute="centerX" secondItem="nWZ-x0-ung" secondAttribute="centerX" id="8pQ-LN-3fU"/>
+                            <constraint firstItem="Jfu-sj-ks5" firstAttribute="height" secondItem="Fma-Hu-M78" secondAttribute="height" id="AAi-ot-0bX"/>
                             <constraint firstItem="TOw-dc-Dkh" firstAttribute="width" secondItem="nWZ-x0-ung" secondAttribute="width" id="B38-jY-uzx"/>
+                            <constraint firstItem="Jfu-sj-ks5" firstAttribute="centerX" secondItem="Fma-Hu-M78" secondAttribute="centerX" id="Gzc-kA-n1w"/>
                             <constraint firstItem="1Kd-hF-p6C" firstAttribute="width" secondItem="nWZ-x0-ung" secondAttribute="width" id="LUL-ga-KYI"/>
+                            <constraint firstItem="Jfu-sj-ks5" firstAttribute="width" secondItem="Fma-Hu-M78" secondAttribute="width" id="PAa-eO-mP4"/>
                             <constraint firstItem="Fma-Hu-M78" firstAttribute="top" secondItem="Fnf-u5-0oM" secondAttribute="bottom" id="dhR-vP-eJr"/>
                             <constraint firstItem="1Kd-hF-p6C" firstAttribute="top" secondItem="TOw-dc-Dkh" secondAttribute="bottom" id="khT-Fr-xcU"/>
                             <constraint firstItem="Fma-Hu-M78" firstAttribute="width" secondItem="nWZ-x0-ung" secondAttribute="width" id="nEp-RK-9Op"/>
+                            <constraint firstItem="Jfu-sj-ks5" firstAttribute="centerY" secondItem="Fma-Hu-M78" secondAttribute="centerY" id="paE-NJ-laJ"/>
                             <constraint firstItem="TOw-dc-Dkh" firstAttribute="top" secondItem="Fnf-u5-0oM" secondAttribute="bottom" id="tR1-Xe-bPS"/>
                         </constraints>
                         <variation key="default">
@@ -120,6 +128,7 @@
                     <connections>
                         <outlet property="albumCollectionView" destination="1Kd-hF-p6C" id="mLK-ep-lwP"/>
                         <outlet property="albumCollectionViewHeightConstraint" destination="8Qg-uJ-5f0" id="fr8-Kp-4b5"/>
+                        <outlet property="blackOverlayView" destination="Jfu-sj-ks5" id="hp6-Xm-yXf"/>
                         <outlet property="imageGridView" destination="Fma-Hu-M78" id="Ey8-4q-NjH"/>
                         <outlet property="mainScrollView" destination="nWZ-x0-ung" id="Op1-C8-y8E"/>
                         <outlet property="selectedImageScrollView" destination="TOw-dc-Dkh" id="Zv4-91-LsP"/>
