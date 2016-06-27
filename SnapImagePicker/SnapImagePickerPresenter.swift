@@ -61,4 +61,9 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
             display()
         }
     }
+    
+    func userScrolledToState(state: DisplayState) {
+        self.state = state
+        display()
+    }
 }

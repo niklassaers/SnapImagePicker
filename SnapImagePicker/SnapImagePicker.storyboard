@@ -15,18 +15,18 @@
                         <viewControllerLayoutGuide type="top" id="Fnf-u5-0oM"/>
                         <viewControllerLayoutGuide type="bottom" id="dsf-Ng-6ae"/>
                     </layoutGuides>
-                    <scrollView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" id="nWZ-x0-ung">
+                    <scrollView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="nWZ-x0-ung">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TOw-dc-Dkh">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TOw-dc-Dkh" customClass="SelectedImageScrollView" customModule="SnapImagePicker" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="128" width="600" height="600"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gCa-3y-aIB">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="gCa-3y-aIB" firstAttribute="height" secondItem="TOw-dc-Dkh" secondAttribute="height" id="4Sr-Ge-tpU"/>
                                     <constraint firstItem="gCa-3y-aIB" firstAttribute="width" secondItem="TOw-dc-Dkh" secondAttribute="width" id="4nB-tx-vO0"/>
@@ -35,13 +35,13 @@
                                     <constraint firstAttribute="width" secondItem="TOw-dc-Dkh" secondAttribute="height" multiplier="1:1" id="l0h-Kf-sUT"/>
                                 </constraints>
                             </scrollView>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="1Kd-hF-p6C">
-                                <rect key="frame" x="0.0" y="729" width="600" height="128"/>
-                                <color key="backgroundColor" red="0.17628389596939087" green="0.085401661694049835" blue="0.72108262777328491" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="1Kd-hF-p6C">
+                                <rect key="frame" x="0.0" y="728" width="600" height="128"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="128" id="8Qg-uJ-5f0"/>
                                 </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="2" id="joR-MQ-XR7">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="2" minimumInteritemSpacing="2" id="joR-MQ-XR7">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -77,16 +77,34 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fma-Hu-M78" customClass="ImageGridView" customModule="SnapImagePicker" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="128" width="600" height="600"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Fma-Hu-M78" secondAttribute="height" multiplier="1:1" id="eG2-V4-L3e"/>
+                                </constraints>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="Fma-Hu-M78" firstAttribute="centerX" secondItem="nWZ-x0-ung" secondAttribute="centerX" id="061-0W-Y7Y"/>
+                            <constraint firstItem="Fma-Hu-M78" firstAttribute="width" secondItem="TOw-dc-Dkh" secondAttribute="width" id="32m-7q-sUu"/>
+                            <constraint firstItem="Fma-Hu-M78" firstAttribute="height" secondItem="TOw-dc-Dkh" secondAttribute="height" id="5JF-iA-Iwq"/>
                             <constraint firstItem="TOw-dc-Dkh" firstAttribute="centerX" secondItem="nWZ-x0-ung" secondAttribute="centerX" id="62F-uV-yXp"/>
                             <constraint firstItem="1Kd-hF-p6C" firstAttribute="centerX" secondItem="nWZ-x0-ung" secondAttribute="centerX" id="8pQ-LN-3fU"/>
                             <constraint firstItem="TOw-dc-Dkh" firstAttribute="width" secondItem="nWZ-x0-ung" secondAttribute="width" id="B38-jY-uzx"/>
                             <constraint firstItem="1Kd-hF-p6C" firstAttribute="width" secondItem="nWZ-x0-ung" secondAttribute="width" id="LUL-ga-KYI"/>
-                            <constraint firstItem="1Kd-hF-p6C" firstAttribute="top" secondItem="TOw-dc-Dkh" secondAttribute="bottom" constant="1" id="khT-Fr-xcU"/>
+                            <constraint firstItem="Fma-Hu-M78" firstAttribute="top" secondItem="Fnf-u5-0oM" secondAttribute="bottom" id="dhR-vP-eJr"/>
+                            <constraint firstItem="1Kd-hF-p6C" firstAttribute="top" secondItem="TOw-dc-Dkh" secondAttribute="bottom" id="khT-Fr-xcU"/>
+                            <constraint firstItem="Fma-Hu-M78" firstAttribute="width" secondItem="nWZ-x0-ung" secondAttribute="width" id="nEp-RK-9Op"/>
                             <constraint firstItem="TOw-dc-Dkh" firstAttribute="top" secondItem="Fnf-u5-0oM" secondAttribute="bottom" id="tR1-Xe-bPS"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="32m-7q-sUu"/>
+                                <exclude reference="5JF-iA-Iwq"/>
+                            </mask>
+                        </variation>
                     </scrollView>
                     <navigationItem key="navigationItem" id="DeZ-xg-qaT">
                         <nil key="title"/>
@@ -102,6 +120,7 @@
                     <connections>
                         <outlet property="albumCollectionView" destination="1Kd-hF-p6C" id="mLK-ep-lwP"/>
                         <outlet property="albumCollectionViewHeightConstraint" destination="8Qg-uJ-5f0" id="fr8-Kp-4b5"/>
+                        <outlet property="imageGridView" destination="Fma-Hu-M78" id="Ey8-4q-NjH"/>
                         <outlet property="mainScrollView" destination="nWZ-x0-ung" id="Op1-C8-y8E"/>
                         <outlet property="selectedImageScrollView" destination="TOw-dc-Dkh" id="Zv4-91-LsP"/>
                         <outlet property="selectedImageView" destination="gCa-3y-aIB" id="8mx-cD-S8Y"/>

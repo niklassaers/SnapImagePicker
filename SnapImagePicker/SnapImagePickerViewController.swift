@@ -22,9 +22,18 @@ class SnapImagePickerViewController: UIViewController {
         }
     }
     @IBOutlet weak var selectedImageView: UIImageView?
-    @IBOutlet weak var selectedImageScrollView: UIScrollView?
+    @IBOutlet weak var selectedImageScrollView: SelectedImageScrollView?
     @IBOutlet weak var mainScrollView: UIScrollView?
     @IBOutlet weak var albumCollectionViewHeightConstraint: NSLayoutConstraint?
+    
+    @IBOutlet weak var imageGridView: ImageGridView? {
+        didSet {
+            imageGridView?.userInteractionEnabled = false
+            imageGridView?.setNeedsDisplay()
+        }
+    }
+    @IBOutlet weak var imageGridViewHorizontalCenter: NSLayoutConstraint?
+    @IBOutlet weak var imageGridViewVerticalCenter: NSLayoutConstraint?
     
     var eventHandler: SnapImagePickerEventHandlerProtocol?
     
@@ -35,9 +44,23 @@ class SnapImagePickerViewController: UIViewController {
         }
     }
     
+    private var albumCollectionViewPanRecognizer: UIPanGestureRecognizer? {
+        didSet {
+            if let recognizer = albumCollectionViewPanRecognizer {
+                albumCollectionView?.addGestureRecognizer(recognizer)
+            }
+        }
+    }
+    private var selectedImageViewPanRecognizer: UIPanGestureRecognizer? {
+        didSet {
+            if let recognizer = selectedImageViewPanRecognizer {
+                selectedImageScrollView?.addGestureRecognizer(recognizer)
+            }
+        }
+    }
+    
     override func viewWillAppear(animated: Bool) {
         eventHandler?.viewWillAppear()
-        selectedImageScrollView?.userInteractionEnabled = false
         calculateViewSizes()
         setupGestureRecognizers()
     }
@@ -56,12 +79,16 @@ class SnapImagePickerViewController: UIViewController {
 
 extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
     func display(viewModel: SnapImagePickerViewModel) {
-        if let mainImage = viewModel.mainImage {
+        if let mainImage = viewModel.mainImage
+           where mainImage != selectedImageView?.image {
             displayMainImage(mainImage)
         }
         images = viewModel.albumImages
         currentlySelectedIndex = viewModel.selectedIndex
         setMainOffsetForState(viewModel.displayState)
+        
+        albumCollectionViewPanRecognizer?.enabled = viewModel.displayState == .Image
+        selectedImageViewPanRecognizer?.enabled = viewModel.displayState == .Album
     }
     
     private func displayMainImage(mainImage: UIImage) {
@@ -72,13 +99,16 @@ extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
             selectedImageView.image = mainImage
             selectedImageView.frame = CGRect(x: 0, y: 0, width: selectedImageScrollView.frame.width, height: selectedImageScrollView.frame.height)
             selectedImageScrollView.contentSize = CGSize(width: selectedImageView.bounds.width, height: selectedImageView.bounds.height)
-        
+            
             let zoomScale = findZoomScale(mainImage)
         
             selectedImageScrollView.setZoomScale(zoomScale, animated: false)
             selectedImageScrollView.minimumZoomScale = 1.0
             selectedImageScrollView.maximumZoomScale = CGFloat(5.0)
             selectedImageScrollView.delegate = self
+            
+            imageGridViewVerticalCenter?.constant = 0
+            imageGridViewHorizontalCenter?.constant = 0
         }
     }
     
@@ -141,6 +171,27 @@ extension SnapImagePickerViewController: UIScrollViewDelegate {
     func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
         return selectedImageView
     }
+    
+    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        setImageGridViewAlpha(0.2)
+    }
+    
+    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        setImageGridViewAlpha(0.0)
+    }
+    func scrollViewWillBeginZooming(scrollView: UIScrollView, withView view: UIView?) {
+        setImageGridViewAlpha(0.2)
+    }
+    
+    func scrollViewDidEndZooming(scrollView: UIScrollView, withView view: UIView?, atScale scale: CGFloat) {
+        setImageGridViewAlpha(0.0)
+    }
+    
+    private func setImageGridViewAlpha(alpha: CGFloat) {
+        UIView.animateWithDuration(0.3) {
+            [weak self] in self?.imageGridView?.alpha = alpha
+        }
+    }
 }
 
 extension SnapImagePickerViewController {
@@ -150,6 +201,9 @@ extension SnapImagePickerViewController {
     
     private func setupGestureRecognizers() {
         mainScrollView?.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(pan(_:))))
+        
+        albumCollectionViewPanRecognizer = UIPanGestureRecognizer(target: self, action: #selector(pan(_:)))
+        selectedImageViewPanRecognizer = UIPanGestureRecognizer(target: self, action: #selector(pan(_:)))
     }
     
     func pan(recognizer: UIPanGestureRecognizer) {
@@ -182,7 +236,7 @@ extension SnapImagePickerViewController {
                 state = (prevState == .Image) ? .Album : .Image
             }
             
-            setMainOffsetForState(state)
+            eventHandler?.userScrolledToState(state)
         }
     }
     
