@@ -1,4 +1,4 @@
-struct Image_Response {
-    let image: UIImage
-    let id: String
-}
+//struct Image_Response {
+//    let image: UIImage
+//    let id: String
+//}
