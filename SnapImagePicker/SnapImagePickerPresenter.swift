@@ -13,8 +13,8 @@ class SnapImagePickerPresenter {
         }
         return images
     }
-    private var selectedIndex = 0
     
+    private var selectedIndex = 0
     private var state: DisplayState = .Image
     
     init(view: SnapImagePickerViewControllerProtocol) {
@@ -58,7 +58,6 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
         if index < imagesWithIdentifiers.count {
             self.selectedIndex = index
             interactor?.loadImageWithLocalIdentifier(imagesWithIdentifiers[index].id, withTargetSize: CGSize(width: 2000, height: 2000))
-            state = .Album
             display()
         }
     }

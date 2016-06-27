@@ -38,7 +38,6 @@
 		D847B4551D1D5C9400D58E2C /* SnapImagePickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D847B4541D1D5C9400D58E2C /* SnapImagePickerViewModel.swift */; };
 		D847B4571D1D5D3500D58E2C /* DisplayState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D847B4561D1D5D3500D58E2C /* DisplayState.swift */; };
 		D847B45A1D1D644000D58E2C /* UIImage+square.swift in Sources */ = {isa = PBXBuildFile; fileRef = D847B4591D1D644000D58E2C /* UIImage+square.swift */; };
-		D84B26361D210DA5009D7698 /* SnapImagePickerGestureRecognizers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84B26351D210DA5009D7698 /* SnapImagePickerGestureRecognizers.swift */; };
 		D88255CA1D12A0FD00FB327D /* SnapImagePickerViewControllerLegacy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88255C91D12A0FD00FB327D /* SnapImagePickerViewControllerLegacy.swift */; };
 		D88255D01D17D34200FB327D /* dummy.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = D88255CF1D17D34200FB327D /* dummy.jpeg */; };
 		D883007D1D06C72600399612 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D883007C1D06C72600399612 /* AppDelegate.swift */; };
@@ -154,7 +153,6 @@
 		D847B4541D1D5C9400D58E2C /* SnapImagePickerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapImagePickerViewModel.swift; sourceTree = "<group>"; };
 		D847B4561D1D5D3500D58E2C /* DisplayState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayState.swift; sourceTree = "<group>"; };
 		D847B4591D1D644000D58E2C /* UIImage+square.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+square.swift"; sourceTree = "<group>"; };
-		D84B26351D210DA5009D7698 /* SnapImagePickerGestureRecognizers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapImagePickerGestureRecognizers.swift; sourceTree = "<group>"; };
 		D88255C91D12A0FD00FB327D /* SnapImagePickerViewControllerLegacy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapImagePickerViewControllerLegacy.swift; sourceTree = "<group>"; };
 		D88255CF1D17D34200FB327D /* dummy.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = dummy.jpeg; sourceTree = "<group>"; };
 		D88300791D06C72600399612 /* Example_Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example_Project.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -322,7 +320,6 @@
 				D847B4241D1D283600D58E2C /* AlbumSelectorViewController.swift */,
 				D847B43C1D1D35EE00D58E2C /* SnapImagePickerViewController.swift */,
 				D847B4561D1D5D3500D58E2C /* DisplayState.swift */,
-				D84B26351D210DA5009D7698 /* SnapImagePickerGestureRecognizers.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -941,7 +938,6 @@
 				D847B43D1D1D35EE00D58E2C /* SnapImagePickerViewController.swift in Sources */,
 				D83B8C2A1D0EE4D700C6995A /* ImageCell.swift in Sources */,
 				D847B43F1D1D368400D58E2C /* AlbumSelectorPresenterProtocol.swift in Sources */,
-				D84B26361D210DA5009D7698 /* SnapImagePickerGestureRecognizers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
