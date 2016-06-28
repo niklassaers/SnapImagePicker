@@ -4,8 +4,19 @@ class SnapImagePickerPresenter {
     private weak var view: SnapImagePickerViewControllerProtocol?
     private var interactor: SnapImagePickerInteractorProtocol?
     
-    private var mainImage: UIImage?
-    private var imagesWithIdentifiers = [(image: UIImage, id: String)]()
+    weak var connector: SnapImagePickerConnectorProtocol?
+    
+    var albumTitle = PhotoLoader.AlbumNames.AllPhotos
+    private var mainImage: UIImage? {
+        didSet {
+            display()
+        }
+    }
+    private var imagesWithIdentifiers = [(image: UIImage, id: String)]() {
+        didSet {
+            display()
+        }
+    }
     private var albumImages: [UIImage] {
         var images = [UIImage]()
         for (image, _) in imagesWithIdentifiers {
@@ -14,8 +25,16 @@ class SnapImagePickerPresenter {
         return images
     }
     
-    private var selectedIndex = 0
-    private var state: DisplayState = .Image
+    private var selectedIndex = 0 {
+        didSet {
+            display()
+        }
+    }
+    private var state: DisplayState = .Image {
+        didSet {
+            display()
+        }
+    }
     
     init(view: SnapImagePickerViewControllerProtocol) {
         self.view = view
@@ -23,10 +42,11 @@ class SnapImagePickerPresenter {
     }
     
     private func display() {
-        view?.display(SnapImagePickerViewModel(mainImage: mainImage,
-                      albumImages: albumImages,
-                      displayState: state,
-                      selectedIndex: selectedIndex))
+        view?.display(SnapImagePickerViewModel(albumTitle: albumTitle,
+            mainImage: mainImage,
+            albumImages: albumImages,
+            displayState: state,
+            selectedIndex: selectedIndex))
     }
 }
 
@@ -34,7 +54,6 @@ extension SnapImagePickerPresenter: SnapImagePickerPresenterProtocol {
     func presentMainImage(image: UIImage) {
         mainImage = image
         state = .Image
-        display()
     }
     
     func presentAlbumImage(image: UIImage, id: String) {
@@ -51,19 +70,26 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
     }
     
     func viewWillAppear() {
-        interactor?.loadAlbumWithLocalIdentifier(SnapImagePickerEntityGateway.AlbumNames.AllPhotos, withTargetSize: CGSize(width: 64, height: 64))
+        loadAlbum()
+    }
+    
+    private func loadAlbum() {
+        imagesWithIdentifiers = [(image: UIImage, id: String)]()
+        interactor?.loadAlbumWithLocalIdentifier(albumTitle, withTargetSize: CGSize(width: 64, height: 64))
     }
     
     func albumIndexClicked(index: Int) {
         if index < imagesWithIdentifiers.count {
             self.selectedIndex = index
             interactor?.loadImageWithLocalIdentifier(imagesWithIdentifiers[index].id, withTargetSize: CGSize(width: 2000, height: 2000))
-            display()
         }
     }
     
     func userScrolledToState(state: DisplayState) {
         self.state = state
-        display()
+    }
+    
+    func albumTitleClicked(destinationViewController: UIViewController) {
+        connector?.prepareSegueToAlbumSelector(destinationViewController)
     }
 }

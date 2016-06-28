@@ -15,6 +15,12 @@ class SnapImagePickerViewController: UIViewController {
             return (collectionView.bounds.width - (Spacing * CGFloat(NumberOfColumns - 1))) / CGFloat(NumberOfColumns)
         }
     }
+    @IBOutlet weak var titleButton: UIButton? {
+        didSet {
+            titleButton?.setTitleColor(UIColor.blackColor(), forState: .Normal)
+            titleButton?.titleLabel?.font = SnapImagePickerConnector.Theme.font
+        }
+    }
     
     @IBOutlet weak var albumCollectionView: UICollectionView? {
         didSet {
@@ -22,6 +28,7 @@ class SnapImagePickerViewController: UIViewController {
             albumCollectionView?.dataSource = self
         }
     }
+    
     @IBOutlet weak var selectedImageView: UIImageView?
     @IBOutlet weak var selectedImageScrollView: UIScrollView?
     @IBOutlet weak var mainScrollView: UIScrollView?
@@ -39,8 +46,6 @@ class SnapImagePickerViewController: UIViewController {
             blackOverlayView?.alpha = 0.0
         }
     }
-    @IBOutlet weak var imageGridViewHorizontalCenter: NSLayoutConstraint?
-    @IBOutlet weak var imageGridViewVerticalCenter: NSLayoutConstraint?
     
     var eventHandler: SnapImagePickerEventHandlerProtocol?
     
@@ -72,6 +77,15 @@ class SnapImagePickerViewController: UIViewController {
         setupGestureRecognizers()
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let identifier = segue.identifier {
+            switch identifier {
+            case SnapImagePickerConnector.Names.ShowAlbumSelector.rawValue: eventHandler?.albumTitleClicked(segue.destinationViewController)
+            default: break
+            }
+        }
+    }
+    
     private func calculateViewSizes() {
         if let mainScrollView = mainScrollView,
             let imageFrame = selectedImageScrollView?.frame {
@@ -86,10 +100,13 @@ class SnapImagePickerViewController: UIViewController {
 
 extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
     func display(viewModel: SnapImagePickerViewModel) {
+        titleButton?.setTitle(viewModel.albumTitle, forState: .Normal)
+        
         if let mainImage = viewModel.mainImage
            where mainImage != selectedImageView?.image {
             displayMainImage(mainImage)
         }
+        
         images = viewModel.albumImages
         currentlySelectedIndex = viewModel.selectedIndex
         setMainOffsetForState(viewModel.displayState)
@@ -113,9 +130,6 @@ extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
             selectedImageScrollView.minimumZoomScale = 1.0
             selectedImageScrollView.maximumZoomScale = CGFloat(5.0)
             selectedImageScrollView.delegate = self
-            
-            imageGridViewVerticalCenter?.constant = 0
-            imageGridViewHorizontalCenter?.constant = 0
         }
     }
     
@@ -144,7 +158,7 @@ extension SnapImagePickerViewController: UICollectionViewDataSource {
             let image = images[index].square()
             
             if index == currentlySelectedIndex {
-                imageCell.backgroundColor = SnapImagePicker.Theme.color
+                imageCell.backgroundColor = SnapImagePickerConnector.Theme.color
                 imageCell.spacing = UIConstants.CellBorderWidth
             } else {
                 imageCell.spacing = 0
@@ -208,6 +222,15 @@ extension SnapImagePickerViewController: UIScrollViewDelegate {
             [weak self] in self?.imageGridView?.alpha = alpha
         }
     }
+    
+    func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        if scrollView == albumCollectionView {
+            let targetOffset = targetContentOffset.memory
+            if targetOffset.y == 0 {
+                albumCollectionView?.userInteractionEnabled = false
+            }
+        }
+    }
 }
 
 extension SnapImagePickerViewController {
@@ -216,8 +239,9 @@ extension SnapImagePickerViewController {
     }
     
     private func setupGestureRecognizers() {
-        mainScrollView?.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(pan(_:))))
-        
+        let mainScrollViewPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(pan(_:)))
+        mainScrollView?.addGestureRecognizer(mainScrollViewPanGestureRecognizer)
+        mainScrollViewPanGestureRecognizer.delegate = self
         albumCollectionViewPanRecognizer = UIPanGestureRecognizer(target: self, action: #selector(pan(_:)))
         selectedImageViewPanRecognizer = UIPanGestureRecognizer(target: self, action: #selector(pan(_:)))
     }
@@ -226,8 +250,7 @@ extension SnapImagePickerViewController {
         switch recognizer.state {
         case .Changed:
             let translation = recognizer.translationInView(mainScrollView)
-            if let old = mainScrollView?.contentOffset.y
-               where old - translation.y > 0 {
+            if let old = mainScrollView?.contentOffset.y {
                 let offset = old - translation.y
                 mainScrollView?.setContentOffset(CGPoint(x: 0, y: offset), animated: false)
                 recognizer.setTranslation(CGPointZero, inView: mainScrollView)
@@ -246,10 +269,10 @@ extension SnapImagePickerViewController {
            let height = selectedImageScrollView?.bounds.height,
            let prevState = eventHandler?.displayState {
             let ratio = (height - offset) / height
-            var offset = CGFloat(0.0)...UIConstants.OffsetThreshold.end
+            var offset = CGFloat.min...UIConstants.OffsetThreshold.end
         
             if prevState == .Album {
-                offset = UIConstants.OffsetThreshold.start...CGFloat(1)
+                offset = UIConstants.OffsetThreshold.start...CGFloat.max
             }
             var state = prevState
             if offset ~= ratio {
@@ -269,5 +292,17 @@ extension SnapImagePickerViewController {
                 self?.blackOverlayView?.alpha = (offset / height) * UIConstants.MaxImageFadeRatio
             }
         }
+    }
+}
+
+extension SnapImagePickerViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if let panGesture = gestureRecognizer as? UIPanGestureRecognizer {
+            if albumCollectionView?.userInteractionEnabled == false && panGesture.translationInView(albumCollectionView).y < 0 {
+                albumCollectionView?.userInteractionEnabled = true
+                return true
+            }
+        }
+        return true
     }
 }

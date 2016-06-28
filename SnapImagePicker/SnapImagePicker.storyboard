@@ -5,6 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Album-->
@@ -19,7 +20,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TOw-dc-Dkh" customClass="SelectedImageScrollView" customModule="SnapImagePicker" customModuleProvider="target">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TOw-dc-Dkh">
                                 <rect key="frame" x="0.0" y="128" width="600" height="600"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gCa-3y-aIB">
@@ -119,9 +120,11 @@
                         <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="UCe-ma-ap9">
                             <rect key="frame" x="277" y="7" width="46" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Button"/>
+                            <state key="normal" title="Button">
+                                <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
                             <connections>
-                                <segue destination="4Kn-0i-ITU" kind="show" id="pR0-Ll-ZUN"/>
+                                <segue destination="qnA-aw-o6y" kind="show" identifier="Show Album Selector" id="rxF-Pz-dVm"/>
                             </connections>
                         </button>
                     </navigationItem>
@@ -133,6 +136,7 @@
                         <outlet property="mainScrollView" destination="nWZ-x0-ung" id="Op1-C8-y8E"/>
                         <outlet property="selectedImageScrollView" destination="TOw-dc-Dkh" id="Zv4-91-LsP"/>
                         <outlet property="selectedImageView" destination="gCa-3y-aIB" id="8mx-cD-S8Y"/>
+                        <outlet property="titleButton" destination="UCe-ma-ap9" id="ubT-y0-3zb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w2C-PZ-6v9" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -140,12 +144,70 @@
             <point key="canvasLocation" x="257" y="95"/>
         </scene>
         <!--Album Selector View Controller-->
-        <scene sceneID="aBP-QV-3DU">
+        <scene sceneID="nCX-04-IwQ">
             <objects>
-                <viewController id="4Kn-0i-ITU" customClass="AlbumSelectorViewController" customModule="SnapImagePicker" customModuleProvider="target" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3u8-LE-mNv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="qnA-aw-o6y" customClass="AlbumSelectorViewController" customModule="SnapImagePicker" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" id="Kki-Xp-Unn">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Album Cell" rowHeight="100" id="1wb-s0-FWG" customClass="AlbumCell" customModule="SnapImagePicker" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="92" width="600" height="100"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1wb-s0-FWG" id="IKq-MQ-RRC">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1yU-Ed-2C1">
+                                            <rect key="frame" x="8" y="2" width="94" height="95"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="1yU-Ed-2C1" secondAttribute="height" multiplier="1:1" id="d7B-Ps-3e8"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="&gt;" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zak-fW-21a">
+                                            <rect key="frame" x="573" y="39" width="11" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                            <color key="textColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X1N-YH-TN8">
+                                            <rect key="frame" x="124" y="31" width="441" height="21"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Size" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ond-i9-juU">
+                                            <rect key="frame" x="124" y="47" width="441" height="21"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                            <color key="textColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailingMargin" secondItem="zak-fW-21a" secondAttribute="trailing" constant="8" id="IOe-pA-KsG"/>
+                                        <constraint firstItem="1yU-Ed-2C1" firstAttribute="leading" secondItem="IKq-MQ-RRC" secondAttribute="leadingMargin" id="RPC-DS-LYL"/>
+                                        <constraint firstItem="1yU-Ed-2C1" firstAttribute="height" secondItem="IKq-MQ-RRC" secondAttribute="height" multiplier="95:100" id="SyZ-Tj-PrM"/>
+                                        <constraint firstItem="1yU-Ed-2C1" firstAttribute="centerY" secondItem="IKq-MQ-RRC" secondAttribute="centerY" id="aEH-rM-2o8"/>
+                                        <constraint firstItem="zak-fW-21a" firstAttribute="centerY" secondItem="IKq-MQ-RRC" secondAttribute="centerY" id="fnN-GV-Jyx"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="albumNameLabel" destination="X1N-YH-TN8" id="rgo-ik-8Ue"/>
+                                    <outlet property="albumPreviewImageView" destination="1yU-Ed-2C1" id="N2h-Vg-dDM"/>
+                                    <outlet property="albumSizeLabel" destination="ond-i9-juU" id="FUV-ea-POq"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="qnA-aw-o6y" id="LO7-4e-hxC"/>
+                            <outlet property="delegate" destination="qnA-aw-o6y" id="8vY-ad-CWW"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Zfu-3E-1Xl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="906" y="95"/>
+            <point key="canvasLocation" x="913" y="95"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="T7W-OQ-tbe">
