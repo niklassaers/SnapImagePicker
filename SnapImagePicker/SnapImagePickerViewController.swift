@@ -86,6 +86,11 @@ class SnapImagePickerViewController: UIViewController {
         }
     }
     
+    // TODO: Remove
+    override func shouldAutorotate() -> Bool {
+        return false
+    }
+    
     private func calculateViewSizes() {
         if let mainScrollView = mainScrollView,
             let imageFrame = selectedImageScrollView?.frame {
@@ -108,9 +113,12 @@ extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
         }
         
         images = viewModel.albumImages
+        if (viewModel.displayState == .Image  && currentlySelectedIndex != viewModel.selectedIndex) {
+            scrollToIndex(viewModel.selectedIndex)
+        }
         currentlySelectedIndex = viewModel.selectedIndex
         setMainOffsetForState(viewModel.displayState)
-        
+
         albumCollectionViewPanRecognizer?.enabled = viewModel.displayState == .Image
         selectedImageViewPanRecognizer?.enabled = viewModel.displayState == .Album
     }
@@ -172,6 +180,15 @@ extension SnapImagePickerViewController: UICollectionViewDataSource {
     
     private func indexPathToArrayIndex(indexPath: NSIndexPath) -> Int {
         return indexPath.section * UIConstants.NumberOfColumns + indexPath.row
+    }
+    
+    private func scrollToIndex(index: Int) {
+        var row = index / UIConstants.NumberOfColumns
+        if (row == images.count / UIConstants.NumberOfColumns) {
+            row = max(0, row - 1)
+        }
+        let offset = CGFloat(row) * (UIConstants.CellWidthInView(albumCollectionView!) + UIConstants.Spacing)
+        albumCollectionView?.setContentOffset(CGPoint(x: 0, y: offset), animated: true)
     }
 }
 

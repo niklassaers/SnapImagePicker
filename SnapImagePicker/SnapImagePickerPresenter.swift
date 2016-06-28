@@ -9,6 +9,7 @@ class SnapImagePickerPresenter {
     var albumTitle = PhotoLoader.AlbumNames.AllPhotos
     private var mainImage: UIImage? {
         didSet {
+            print("Changed main image")
             display()
         }
     }
@@ -25,16 +26,8 @@ class SnapImagePickerPresenter {
         return images
     }
     
-    private var selectedIndex = 0 {
-        didSet {
-            display()
-        }
-    }
-    private var state: DisplayState = .Image {
-        didSet {
-            display()
-        }
-    }
+    private var selectedIndex = 0
+    private var state: DisplayState = .Image
     
     init(view: SnapImagePickerViewControllerProtocol) {
         self.view = view
@@ -52,8 +45,8 @@ class SnapImagePickerPresenter {
 
 extension SnapImagePickerPresenter: SnapImagePickerPresenterProtocol {
     func presentMainImage(image: UIImage) {
-        mainImage = image
         state = .Image
+        mainImage = image
     }
     
     func presentAlbumImage(image: UIImage, id: String) {
@@ -87,6 +80,7 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
     
     func userScrolledToState(state: DisplayState) {
         self.state = state
+        display()
     }
     
     func albumTitleClicked(destinationViewController: UIViewController) {
