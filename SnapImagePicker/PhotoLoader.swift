@@ -3,7 +3,7 @@ import Photos
 
 class PhotoLoader {
     struct AlbumNames {
-        static let AllPhotos = "Album"
+        static let AllPhotos = "All Photos"
         static let Favorites = "Favorites"
     }
     

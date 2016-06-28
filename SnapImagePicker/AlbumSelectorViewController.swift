@@ -3,6 +3,18 @@ import UIKit
 class AlbumSelectorViewController: UITableViewController {
     var eventHandler: AlbumSelectorEventHandler?
     
+    private struct Header {
+        static let Height = CGFloat(40)
+        static let FontSize = CGFloat(18)
+        static let Font = SnapImagePickerConnector.Theme.font?.fontWithSize(FontSize)
+        static let Indentation = CGFloat(8)
+    }
+    
+    private struct Cell {
+        static let FontSize = CGFloat(15)
+        static let Font = SnapImagePickerConnector.Theme.font?.fontWithSize(FontSize)
+    }
+    
     private var collectionTitles = [String]()
     private var collections = [[Album]]() {
         didSet {
@@ -39,6 +51,7 @@ class AlbumSelectorViewController: UITableViewController {
         
         if let albumCell = cell as? AlbumCell {
             albumCell.album = collections[indexPath.section][indexPath.row]
+            albumCell.displayFont = Cell.Font
         }
         
         return cell
@@ -52,15 +65,17 @@ class AlbumSelectorViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 30.0
+        return Header.Height
     }
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView()
-        view.frame = CGRectMake(0, 0, tableView.frame.width, 30)
-        view.backgroundColor = UIColor.greenColor()
+        view.frame = CGRectMake(0, 0, tableView.frame.width, Header.Height)
+        view.backgroundColor = UIColor.whiteColor()
+        
         let label = UILabel()
-//        label.frame = CGRectMake(0, 0, view.frame.width, 30)
+        label.frame = CGRectMake(Header.Indentation, 0, tableView.frame.width, Header.Height)
+        label.font = Header.Font
         label.text = collectionTitles[section]
         view.addSubview(label)
         

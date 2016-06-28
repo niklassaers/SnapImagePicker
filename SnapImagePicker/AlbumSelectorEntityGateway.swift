@@ -4,8 +4,9 @@ class AlbumSelectorEntityGateway {
     private weak var interactor: AlbumSelectorInteractorProtocol?
     
     enum CollectionNames {
-        static let General = "Camera Roll"
-        static let UserDefined = "User Defined"
+        static let General = "Cameraroll"
+        static let UserDefined = "Albums"
+        static let SmartAlbums = "Smart Albums"
     }
     
     init(interactor: AlbumSelectorInteractorProtocol) {
@@ -18,6 +19,7 @@ extension AlbumSelectorEntityGateway: AlbumSelectorEntityGatewayProtocol {
         fetchAllPhotosPreview(targetSize, handler: handler)
         fetchFavoritesPreview(targetSize, handler: handler)
         fetchAllUserAlbumPreviews(targetSize, handler: handler)
+        fetchAllSmartAlbumPreviews(targetSize, handler: handler)
     }
 }
 
@@ -50,6 +52,31 @@ extension AlbumSelectorEntityGateway {
             }
         }
     }
+    
+
+    private func fetchAllSmartAlbumPreviews(targetSize: CGSize, handler: (String, Album) -> Void) {
+        let smartAlbums = PHAssetCollection.fetchAssetCollectionsWithType(.SmartAlbum, subtype: .Any, options: nil)
+        print("Smart albums.size: \(smartAlbums.count)")
+        smartAlbums.enumerateObjectsUsingBlock() {
+            (element: AnyObject, index: Int, _: UnsafeMutablePointer<ObjCBool>) in print("Heii")
+            
+            if let collection = element as? PHAssetCollection,
+               let title = collection.localizedTitle
+               where title != PhotoLoader.AlbumNames.AllPhotos && title != PhotoLoader.AlbumNames.Favorites {
+                print("Collection: \(title), \(PhotoLoader.AlbumNames.AllPhotos), \(title != PhotoLoader.AlbumNames.AllPhotos)")
+                let onlyImagesOptions = PHFetchOptions()
+                onlyImagesOptions.predicate = NSPredicate(format: "mediaType = %i", PHAssetMediaType.Image.rawValue)
+                if let result = PHAsset.fetchKeyAssetsInAssetCollection(collection, options: onlyImagesOptions)
+                   where result.count > 0 {
+                    AlbumSelectorEntityGateway.createAlbumFromFetchResult(result, withTitle: title, inCollection: CollectionNames.SmartAlbums, previewImageTargetSize: targetSize, handler: handler)
+                }
+            }
+        }
+    }
+//        PHFetchResult *smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:nil];
+//        [smartAlbums enumerateObjectsUsingBlock:^(PHAssetCollection *collection, NSUInteger idx, BOOL *stop) {
+//            NSLog(@"album title %@", collection.localizedTitle);
+//            }];
     
     private static func createAlbumFromFetchResult(fetchResult: PHFetchResult, withTitle title: String, inCollection collectionTitle: String, previewImageTargetSize targetSize: CGSize, handler: (String, Album) -> Void) {
         if let asset = fetchResult.firstObject as? PHAsset {

@@ -1,4 +1,5 @@
 import UIKit
+import Foundation
 
 class AlbumCell: UITableViewCell {
     @IBOutlet weak var albumPreviewImageView: UIImageView? {
@@ -8,6 +9,12 @@ class AlbumCell: UITableViewCell {
     }
     @IBOutlet weak var albumNameLabel: UILabel?
     @IBOutlet weak var albumSizeLabel: UILabel?
+    var displayFont: UIFont? {
+        didSet {
+            albumNameLabel?.font = displayFont
+            albumSizeLabel?.font = displayFont
+        }
+    }
     
     var album: Album? {
         didSet {
