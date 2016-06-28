@@ -6,7 +6,11 @@ class AlbumSelectorPresenter {
     
     private var interactor: AlbumSelectorInteractorProtocol?
     
-    private var collections = [String: [Album]]()
+    private var collections: [String: [Album]] = [
+        AlbumSelectorEntityGateway.CollectionNames.General: [Album](),
+        AlbumSelectorEntityGateway.CollectionNames.UserDefined: [Album](),
+        AlbumSelectorEntityGateway.CollectionNames.SmartAlbums: [Album]()
+    ]
     
     init(view: AlbumSelectorViewControllerProtocol) {
         self.view = view
@@ -16,14 +20,33 @@ class AlbumSelectorPresenter {
 
 extension AlbumSelectorPresenter: AlbumSelectorPresenterProtocol {
     func presentAlbumPreview(collectionTitle: String, album: Album) {
-        var oldCollection = collections[collectionTitle]
-        if oldCollection == nil {
-            collections[collectionTitle] = [album]
-        } else {
-            oldCollection!.append(album)
-            collections[collectionTitle] = oldCollection!
+        if collections[collectionTitle] != nil {
+            collections[collectionTitle]!.append(album)
         }
-        view?.display(collections)
+        
+        view?.display(sortAndCollapseCollections(collections))
+    }
+    
+    // The order given in this function decides the sort order for the collections!
+    private func sortAndCollapseCollections(collections: [String: [Album]]) -> [(title: String, albums: [Album])] {
+        var formattedCollections = [(title: String, albums: [Album])]()
+        
+        if let general = collections[AlbumSelectorEntityGateway.CollectionNames.General]
+           where general.count > 0 {
+            formattedCollections.append((title: AlbumSelectorEntityGateway.CollectionNames.General, albums: general))
+        }
+        
+        if let userDefined = collections[AlbumSelectorEntityGateway.CollectionNames.UserDefined]
+           where userDefined.count > 0 {
+            formattedCollections.append((title: AlbumSelectorEntityGateway.CollectionNames.UserDefined, albums: userDefined))
+        }
+        
+        if let smartAlbums = collections[AlbumSelectorEntityGateway.CollectionNames.SmartAlbums]
+           where smartAlbums.count > 0 {
+            formattedCollections.append((title: AlbumSelectorEntityGateway.CollectionNames.SmartAlbums, albums: smartAlbums))
+        }
+        
+        return formattedCollections
     }
 }
 

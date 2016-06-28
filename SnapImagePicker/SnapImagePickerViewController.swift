@@ -9,7 +9,7 @@ class SnapImagePickerViewController: UIViewController {
         static let CellBorderWidth = CGFloat(2.0)
         static let NavBarHeight = CGFloat(-64.0)
         static let OffsetThreshold = CGFloat(0.30)...CGFloat(0.70)
-        static let MaxImageFadeRatio = CGFloat(0.9)
+        static let MaxImageFadeRatio = CGFloat(1.2)
     
         static func CellWidthInView(collectionView: UICollectionView) -> CGFloat {
             return (collectionView.bounds.width - (Spacing * CGFloat(NumberOfColumns - 1))) / CGFloat(NumberOfColumns)
@@ -21,6 +21,8 @@ class SnapImagePickerViewController: UIViewController {
             titleButton?.titleLabel?.font = SnapImagePickerConnector.Theme.font
         }
     }
+    @IBOutlet weak var selectButton: UIBarButtonItem?
+    @IBOutlet weak var cancelButton: UIBarButtonItem?
     
     @IBOutlet weak var albumCollectionView: UICollectionView? {
         didSet {
@@ -91,6 +93,22 @@ class SnapImagePickerViewController: UIViewController {
         return false
     }
     
+    @IBAction func selectButtonPressed(sender: UIBarButtonItem) {
+        if let cropRect = selectedImageScrollView?.getImageBoundsForImageView(selectedImageView),
+           let image = selectedImageView?.image {
+            eventHandler?.selectButtonPressed(image, withCropRect: cropRect)
+        }
+        dismiss()
+    }
+    
+    @IBAction func cancelButtonPressed(sender: UIBarButtonItem) {
+        dismiss()
+    }
+
+    private func dismiss() {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     private func calculateViewSizes() {
         if let mainScrollView = mainScrollView,
             let imageFrame = selectedImageScrollView?.frame {
@@ -116,6 +134,7 @@ extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
         if (viewModel.displayState == .Image  && currentlySelectedIndex != viewModel.selectedIndex) {
             scrollToIndex(viewModel.selectedIndex)
         }
+        
         currentlySelectedIndex = viewModel.selectedIndex
         setMainOffsetForState(viewModel.displayState)
 
@@ -129,15 +148,19 @@ extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
             selectedImageScrollView.setZoomScale(1.0, animated: false)
             selectedImageView.contentMode = .ScaleAspectFit
             selectedImageView.image = mainImage
-            selectedImageView.frame = CGRect(x: 0, y: 0, width: selectedImageScrollView.frame.width, height: selectedImageScrollView.frame.height)
-            selectedImageScrollView.contentSize = CGSize(width: selectedImageView.bounds.width, height: selectedImageView.bounds.height)
+            selectedImageView.frame = CGRect(x: 0,
+                                             y: 0,
+                                             width: selectedImageScrollView.frame.width,
+                                             height: selectedImageScrollView.frame.height)
+            selectedImageScrollView.contentSize = CGSize(width: selectedImageView.bounds.width,
+                                                         height: selectedImageView.bounds.height)
             
             let zoomScale = findZoomScale(mainImage)
-        
-            selectedImageScrollView.setZoomScale(zoomScale, animated: false)
+            
+            selectedImageScrollView.delegate = self
             selectedImageScrollView.minimumZoomScale = 1.0
             selectedImageScrollView.maximumZoomScale = CGFloat(5.0)
-            selectedImageScrollView.delegate = self
+            selectedImageScrollView.setZoomScale(zoomScale, animated: false)
         }
     }
     
@@ -251,10 +274,6 @@ extension SnapImagePickerViewController: UIScrollViewDelegate {
 }
 
 extension SnapImagePickerViewController {
-    var displayState: DisplayState? {
-        return eventHandler?.displayState
-    }
-    
     private func setupGestureRecognizers() {
         let mainScrollViewPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(pan(_:)))
         mainScrollView?.addGestureRecognizer(mainScrollViewPanGestureRecognizer)

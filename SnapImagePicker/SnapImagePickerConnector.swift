@@ -1,4 +1,4 @@
-import Foundation
+import UIKit
 import SnapFonts_iOS
 
 public protocol SnapImagePickerProtocol {
@@ -7,6 +7,8 @@ public protocol SnapImagePickerProtocol {
 
 protocol SnapImagePickerConnectorProtocol: class {
     func prepareSegueToAlbumSelector(viewController: UIViewController)
+    func prepareSegueToImagePicker(title: String)
+    func setChosenImage(image: UIImage, withCropRect cropRect: CGRect)
 }
 
 public class SnapImagePickerConnector {
@@ -25,6 +27,7 @@ public class SnapImagePickerConnector {
     private var presenter: SnapImagePickerPresenter?
     private let navigationDelegate = NavigationControllerDelegate()
     
+    var delegate: SnapImagePickerDelegate?
     // Why is this needed?
     public init() {
         
@@ -40,6 +43,7 @@ extension SnapImagePickerConnector: SnapImagePickerProtocol {
                 presenter = SnapImagePickerPresenter(view: snapImagePickerViewController)
                 presenter?.connector = self
                 snapImagePickerViewController.eventHandler = presenter
+                self.delegate = delegate
                 return viewController
             }
         }
@@ -57,5 +61,9 @@ extension SnapImagePickerConnector: SnapImagePickerConnectorProtocol {
     
     func prepareSegueToImagePicker(title: String) {
         presenter?.albumTitle = title
+    }
+    
+    func setChosenImage(image: UIImage, withCropRect cropRect: CGRect) {
+        delegate?.pickedImage(image, withBounds: cropRect)
     }
 }

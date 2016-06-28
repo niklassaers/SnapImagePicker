@@ -2,6 +2,7 @@ import Photos
 
 class AlbumSelectorEntityGateway {
     private weak var interactor: AlbumSelectorInteractorProtocol?
+    private let SmartCollections = ["Recently Added", "Selfies", "Panoramas"]
     
     enum CollectionNames {
         static let General = "Cameraroll"
@@ -58,11 +59,12 @@ extension AlbumSelectorEntityGateway {
         let smartAlbums = PHAssetCollection.fetchAssetCollectionsWithType(.SmartAlbum, subtype: .Any, options: nil)
         print("Smart albums.size: \(smartAlbums.count)")
         smartAlbums.enumerateObjectsUsingBlock() {
-            (element: AnyObject, index: Int, _: UnsafeMutablePointer<ObjCBool>) in print("Heii")
+            [weak self] (element: AnyObject, index: Int, _: UnsafeMutablePointer<ObjCBool>) in print("Heii")
             
             if let collection = element as? PHAssetCollection,
-               let title = collection.localizedTitle
-               where title != PhotoLoader.AlbumNames.AllPhotos && title != PhotoLoader.AlbumNames.Favorites {
+               let title = collection.localizedTitle,
+               let smartCollections = self?.SmartCollections
+               where smartCollections.contains(title) {
                 print("Collection: \(title), \(PhotoLoader.AlbumNames.AllPhotos), \(title != PhotoLoader.AlbumNames.AllPhotos)")
                 let onlyImagesOptions = PHFetchOptions()
                 onlyImagesOptions.predicate = NSPredicate(format: "mediaType = %i", PHAssetMediaType.Image.rawValue)
@@ -73,11 +75,7 @@ extension AlbumSelectorEntityGateway {
             }
         }
     }
-//        PHFetchResult *smartAlbums = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeAlbumRegular options:nil];
-//        [smartAlbums enumerateObjectsUsingBlock:^(PHAssetCollection *collection, NSUInteger idx, BOOL *stop) {
-//            NSLog(@"album title %@", collection.localizedTitle);
-//            }];
-    
+ 
     private static func createAlbumFromFetchResult(fetchResult: PHFetchResult, withTitle title: String, inCollection collectionTitle: String, previewImageTargetSize targetSize: CGSize, handler: (String, Album) -> Void) {
         if let asset = fetchResult.firstObject as? PHAsset {
             PHImageManager.defaultManager().requestImageForAsset(asset, targetSize: targetSize, contentMode: .Default, options: nil) {

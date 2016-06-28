@@ -117,6 +117,11 @@
                     </scrollView>
                     <navigationItem key="navigationItem" id="DeZ-xg-qaT">
                         <nil key="title"/>
+                        <barButtonItem key="leftBarButtonItem" title="X" id="wug-RY-2Gy">
+                            <connections>
+                                <action selector="cancelButtonPressed:" destination="Wid-Ke-N4r" id="mp4-8x-AMp"/>
+                            </connections>
+                        </barButtonItem>
                         <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="UCe-ma-ap9">
                             <rect key="frame" x="277" y="7" width="46" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -127,6 +132,11 @@
                                 <segue destination="qnA-aw-o6y" kind="show" identifier="Show Album Selector" id="rxF-Pz-dVm"/>
                             </connections>
                         </button>
+                        <barButtonItem key="rightBarButtonItem" title="Select" id="nOJ-pL-qVS">
+                            <connections>
+                                <action selector="selectButtonPressed:" destination="Wid-Ke-N4r" id="DHq-dH-n8O"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="albumCollectionView" destination="1Kd-hF-p6C" id="mLK-ep-lwP"/>
@@ -134,6 +144,7 @@
                         <outlet property="blackOverlayView" destination="Jfu-sj-ks5" id="hp6-Xm-yXf"/>
                         <outlet property="imageGridView" destination="Fma-Hu-M78" id="Ey8-4q-NjH"/>
                         <outlet property="mainScrollView" destination="nWZ-x0-ung" id="Op1-C8-y8E"/>
+                        <outlet property="selectButton" destination="nOJ-pL-qVS" id="qIw-Wx-wOB"/>
                         <outlet property="selectedImageScrollView" destination="TOw-dc-Dkh" id="Zv4-91-LsP"/>
                         <outlet property="selectedImageView" destination="gCa-3y-aIB" id="8mx-cD-S8Y"/>
                         <outlet property="titleButton" destination="UCe-ma-ap9" id="ubT-y0-3zb"/>
