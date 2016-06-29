@@ -55,25 +55,11 @@ class SnapImagePickerViewController: UIViewController {
     
     var eventHandler: SnapImagePickerEventHandlerProtocol?
     
+    private var albumCollectionShouldScrollUpwards = false
     private var currentlySelectedIndex = 0
     private var images = [UIImage]() {
         didSet {
             albumCollectionView?.reloadData()
-        }
-    }
-    
-    private var albumCollectionViewPanRecognizer: UIPanGestureRecognizer? {
-        didSet {
-            if let recognizer = albumCollectionViewPanRecognizer {
-                albumCollectionView?.addGestureRecognizer(recognizer)
-            }
-        }
-    }
-    private var selectedImageViewPanRecognizer: UIPanGestureRecognizer? {
-        didSet {
-            if let recognizer = selectedImageViewPanRecognizer {
-                selectedImageScrollView?.addGestureRecognizer(recognizer)
-            }
         }
     }
     
@@ -142,9 +128,8 @@ extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
         
         currentlySelectedIndex = viewModel.selectedIndex
         setMainOffsetForState(viewModel.displayState)
-
-        albumCollectionViewPanRecognizer?.enabled = viewModel.displayState == .Image
-        selectedImageViewPanRecognizer?.enabled = viewModel.displayState == .Album
+        
+        albumCollectionShouldScrollUpwards = viewModel.displayState == .Album
     }
     
     private func displayMainImage(mainImage: UIImage) {
@@ -299,7 +284,7 @@ extension SnapImagePickerViewController: UIScrollViewDelegate {
         if scrollView == albumCollectionView {
             let targetOffset = targetContentOffset.memory
             if targetOffset.y == 0 {
-                albumCollectionView?.userInteractionEnabled = false
+                albumCollectionShouldScrollUpwards = false
             }
         }
     }
@@ -309,9 +294,9 @@ extension SnapImagePickerViewController {
     private func setupGestureRecognizers() {
         let mainScrollViewPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(pan(_:)))
         mainScrollView?.addGestureRecognizer(mainScrollViewPanGestureRecognizer)
-        mainScrollViewPanGestureRecognizer.delegate = self
-        albumCollectionViewPanRecognizer = UIPanGestureRecognizer(target: self, action: #selector(pan(_:)))
-        selectedImageViewPanRecognizer = UIPanGestureRecognizer(target: self, action: #selector(pan(_:)))
+        let albumCollectionPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(pan(_:)))
+        albumCollectionPanGestureRecognizer.delegate = self
+        albumCollectionView?.addGestureRecognizer(albumCollectionPanGestureRecognizer)
     }
     
     func pan(recognizer: UIPanGestureRecognizer) {
@@ -369,12 +354,6 @@ extension SnapImagePickerViewController {
 
 extension SnapImagePickerViewController: UIGestureRecognizerDelegate {
     func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
-        if let panGesture = gestureRecognizer as? UIPanGestureRecognizer {
-            if albumCollectionView?.userInteractionEnabled == false && panGesture.translationInView(albumCollectionView).y < 0 {
-                albumCollectionView?.userInteractionEnabled = true
-                return true
-            }
-        }
-        return true
+        return eventHandler?.displayState == .Image
     }
 }
