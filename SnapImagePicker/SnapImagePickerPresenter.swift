@@ -9,7 +9,6 @@ class SnapImagePickerPresenter {
     var albumTitle = PhotoLoader.AlbumNames.AllPhotos
     private var mainImage: UIImage? {
         didSet {
-            print("Changed main image")
             display()
         }
     }
@@ -89,5 +88,15 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
     
     func selectButtonPressed(image: UIImage, withCropRect cropRect: CGRect) {
         connector?.setChosenImage(image, withCropRect: cropRect)
+    }
+    
+    func scrolledToOffsetRatio(ratio: Double) {
+        if state == .Album && ratio < 0.7 {
+            state = .Image
+        } else if state == .Image && ratio > 0.2 {
+            state = .Album
+        }
+        
+        display()
     }
 }

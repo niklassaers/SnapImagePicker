@@ -5,6 +5,7 @@ protocol SnapImagePickerEventHandlerProtocol: class {
     func viewWillAppear()
     func albumIndexClicked(index: Int)
     func userScrolledToState(state: DisplayState)
+    func scrolledToOffsetRatio(ratio: Double)
     func albumTitleClicked(destinationViewController: UIViewController)
     func selectButtonPressed(image: UIImage, withCropRect cropRect: CGRect)
 }
