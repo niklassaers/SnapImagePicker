@@ -281,13 +281,12 @@ extension SnapImagePickerViewController: UIScrollViewDelegate {
         }
     }
     
-    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate
-        decelerate: Bool) {
+    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if scrollView == selectedImageScrollView {
             setImageGridViewAlpha(0.0)
             
             if let imageView = selectedImageView {
-                if scrollView.contentOffset.y >= 0 && scrollView.contentOffset.y <= scrollView.contentSize.width && scrollView.contentOffset.x >= 0 && scrollView.contentSize.height <= scrollView.contentSize.height {
+                if scrollView.contentOffset.y >= 0 && scrollView.contentOffset.y <= scrollView.contentSize.width && scrollView.contentOffset.x >= 0 && scrollView.contentOffset.x <= scrollView.contentSize.height {
                     correctImageViewInScrollView(scrollView, imageView: imageView)
                 }
             }

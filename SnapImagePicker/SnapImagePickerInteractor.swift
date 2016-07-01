@@ -6,7 +6,7 @@ class SnapImagePickerInteractor {
     
     init(presenter: SnapImagePickerPresenterProtocol) {
         self.presenter = presenter
-        entityGateway = SnapImagePickerEntityGateway(interactor: self)
+        entityGateway = SnapImagePickerEntityGatewayFake(interactor: self)
     }
 }
 

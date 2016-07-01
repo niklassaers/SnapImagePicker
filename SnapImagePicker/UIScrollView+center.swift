@@ -21,7 +21,7 @@ extension UIScrollView {
             self.zoomScale = 1
             self.contentOffset = CGPoint(x: 0, y: 0)
             self.zoomScale = oldZoomScale
-            self.contentOffset = CGPoint(x: oldHorizontalPosition, y: scrollView.contentOffset.y)
+            self.contentOffset = CGPoint(x: oldHorizontalPosition, y: self.contentOffset.y)
         }
     }
 }
