@@ -5,10 +5,10 @@ class SnapImagePickerViewController: UIViewController {
         static let Spacing = CGFloat(2)
         static let NumberOfColumns = 4
         static let BackgroundColor = UIColor.whiteColor()
-        static let MaxZoomScale = 5.0
-        static let CellBorderWidth = CGFloat(2.0)
-        static let NavBarHeight = CGFloat(64.0)
-        static let OffsetThreshold = CGFloat(0.20)...CGFloat(0.80)
+        static let MaxZoomScale = CGFloat(5)
+        static let CellBorderWidth = CGFloat(2)
+        static let NavBarHeight = CGFloat(64)
+        static let OffsetThreshold = CGFloat(0.2)...CGFloat(0.8)
         static let MaxImageFadeRatio = CGFloat(1.2)
     
         static func CellWidthInView(collectionView: UICollectionView) -> CGFloat {
@@ -139,6 +139,8 @@ extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
             selectedImageScrollView.setZoomScale(1.0, animated: false)
             selectedImageView.contentMode = .ScaleAspectFit
             selectedImageView.image = mainImage
+            
+            // Necessary circularity?
             selectedImageView.frame = CGRect(x: 0,
                                              y: 0,
                                              width: selectedImageScrollView.frame.width,
@@ -147,16 +149,23 @@ extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
                                                          height: selectedImageView.bounds.height)
             
             let zoomScale = findZoomScale(mainImage)
+            let offset = findCenteredOffsetForImage(mainImage, withZoomScale: zoomScale)
+            let scaledOffset = offset * selectedImageView.bounds.width / max(mainImage.size.width, mainImage.size.height)
             
             selectedImageScrollView.delegate = self
             selectedImageScrollView.minimumZoomScale = 1.0
-            selectedImageScrollView.maximumZoomScale = CGFloat(5.0)
+            selectedImageScrollView.maximumZoomScale = UIConstants.MaxZoomScale
             selectedImageScrollView.setZoomScale(zoomScale, animated: false)
+            selectedImageScrollView.setContentOffset(CGPoint(x: scaledOffset, y: scaledOffset), animated: false)
         }
     }
     
     private func findZoomScale(image: UIImage) -> CGFloat {
         return max(image.size.width, image.size.height)/min(image.size.width, image.size.height)
+    }
+    
+    private func findCenteredOffsetForImage(image: UIImage, withZoomScale zoomScale: CGFloat) -> CGFloat {
+        return abs(image.size.height - image.size.width) * zoomScale / 2
     }
 }
 
@@ -352,7 +361,7 @@ extension SnapImagePickerViewController {
                 }
                 
                 let heightRatio = imageView.bounds.width / image.size.height
-                let topMargin = currentlyVisibleRect.minY
+                let topMargin = currentlyVisibleRect.minY * heightRatio
                 let bottomMargin = scrollView.bounds.height - (currentlyVisibleRect.maxY * heightRatio)
                 if (topMargin < 0 || bottomMargin < 0) && topMargin != bottomMargin {
                     let imageHeight = image.size.height * maxRatio

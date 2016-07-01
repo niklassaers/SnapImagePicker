@@ -44,6 +44,7 @@ class SnapImagePickerPresenter {
 
 extension SnapImagePickerPresenter: SnapImagePickerPresenterProtocol {
     func presentMainImage(image: UIImage) {
+        print("Presenting main image")
         state = .Image
         mainImage = image
     }

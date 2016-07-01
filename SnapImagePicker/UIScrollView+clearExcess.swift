@@ -4,8 +4,11 @@ extension UIScrollView {
     func clearExcessVerticalMarginForImage(image: UIImage, withMargins margins: (top: CGFloat, bottom: CGFloat)) {
         let margin = (margins.top < 0) ? margins.top : margins.bottom
         let direction = (margins.top < 0) ? -1 : 1
+        print("Top margin: \(margins.top)")
+        print("Old offset: \(self.contentOffset)")
         let verticalOffset = CGFloat(direction) * margin * (self.zoomScale / (image.size.width / image.size.height))
         let targetOffset = CGPoint(x: self.contentOffset.x, y: self.contentOffset.y + verticalOffset)
+        print("Vertical offset: \(targetOffset)")
         
         self.setContentOffset(targetOffset, animated: true)
     }

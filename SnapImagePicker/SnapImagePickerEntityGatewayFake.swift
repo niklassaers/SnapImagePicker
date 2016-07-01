@@ -16,7 +16,9 @@ class SnapImagePickerEntityGatewayFake: SnapImagePickerEntityGatewayProtocol {
     }
     
     func loadImageWithLocalIdentifier(localIdentifier: String, withTargetSize targetSize: CGSize) {
-        if let image = UIImage(named: "dummy.jpeg") {
+        print("Loading")
+        if let image = UIImage(named: "dummy.jpeg", inBundle: NSBundle(forClass: SnapImagePickerConnector.self), compatibleWithTraitCollection: nil) {
+            print("Loaded image")
             interactor?.loadedMainImage(image)
         }
     }
