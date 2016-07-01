@@ -15,20 +15,14 @@
 		D82468591D215D09009DB2A4 /* PhotoLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82468581D215D09009DB2A4 /* PhotoLoader.swift */; };
 		D824685B1D215F0B009DB2A4 /* AlbumSelectorEventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D824685A1D215F0B009DB2A4 /* AlbumSelectorEventHandler.swift */; };
 		D824685D1D22A55F009DB2A4 /* UIScrollView+getBounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = D824685C1D22A55F009DB2A4 /* UIScrollView+getBounds.swift */; };
-		D83B8C1D1D0EB90C00C6995A /* PhotoAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83B8C1C1D0EB90C00C6995A /* PhotoAlbum.swift */; };
-		D83B8C231D0EC8D300C6995A /* PhotoEntityGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83B8C221D0EC8D300C6995A /* PhotoEntityGateway.swift */; };
 		D83B8C2A1D0EE4D700C6995A /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83B8C291D0EE4D700C6995A /* ImageCell.swift */; };
-		D83B8C2C1D0EE89500C6995A /* AlbumInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83B8C2B1D0EE89500C6995A /* AlbumInteractor.swift */; };
-		D83B8C2E1D0EE8B300C6995A /* AlbumPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83B8C2D1D0EE8B300C6995A /* AlbumPresenter.swift */; };
 		D847B4191D1D20FC00D58E2C /* ImageGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D847B4181D1D20FC00D58E2C /* ImageGridView.swift */; };
 		D847B41F1D1D24A900D58E2C /* SnapImagePickerViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D847B41E1D1D24A900D58E2C /* SnapImagePickerViewControllerProtocol.swift */; };
-		D847B4211D1D25B000D58E2C /* AlbumPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D847B4201D1D25B000D58E2C /* AlbumPresenterProtocol.swift */; };
 		D847B4231D1D281D00D58E2C /* AlbumSelectorViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D847B4221D1D281D00D58E2C /* AlbumSelectorViewControllerProtocol.swift */; };
 		D847B4251D1D283600D58E2C /* AlbumSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D847B4241D1D283600D58E2C /* AlbumSelectorViewController.swift */; };
 		D847B4271D1D28F000D58E2C /* SnapImagePickerPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D847B4261D1D28F000D58E2C /* SnapImagePickerPresenterProtocol.swift */; };
 		D847B4291D1D298900D58E2C /* SnapImagePickerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D847B4281D1D298900D58E2C /* SnapImagePickerPresenter.swift */; };
 		D847B42D1D1D2A6100D58E2C /* SnapImagePickerInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D847B42C1D1D2A6100D58E2C /* SnapImagePickerInteractor.swift */; };
-		D847B42F1D1D2B6500D58E2C /* AlbumEventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D847B42E1D1D2B6500D58E2C /* AlbumEventHandler.swift */; };
 		D847B4311D1D2B7500D58E2C /* SnapImagePickerEventHandlerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D847B4301D1D2B7500D58E2C /* SnapImagePickerEventHandlerProtocol.swift */; };
 		D847B43D1D1D35EE00D58E2C /* SnapImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D847B43C1D1D35EE00D58E2C /* SnapImagePickerViewController.swift */; };
 		D847B43F1D1D368400D58E2C /* AlbumSelectorPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D847B43E1D1D368400D58E2C /* AlbumSelectorPresenterProtocol.swift */; };
@@ -44,9 +38,6 @@
 		D847B4571D1D5D3500D58E2C /* DisplayState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D847B4561D1D5D3500D58E2C /* DisplayState.swift */; };
 		D847B45A1D1D644000D58E2C /* UIImage+square.swift in Sources */ = {isa = PBXBuildFile; fileRef = D847B4591D1D644000D58E2C /* UIImage+square.swift */; };
 		D87999F61D23CCF400683406 /* UIScrollView+fakeBounce.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87999F51D23CCF400683406 /* UIScrollView+fakeBounce.swift */; };
-		D87999FA1D256E7A00683406 /* UIScrollView+center.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87999F91D256E7A00683406 /* UIScrollView+center.swift */; };
-		D87999FC1D256EE100683406 /* UIScrollView+clearExcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87999FB1D256EE100683406 /* UIScrollView+clearExcess.swift */; };
-		D88255CA1D12A0FD00FB327D /* SnapImagePickerViewControllerLegacy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88255C91D12A0FD00FB327D /* SnapImagePickerViewControllerLegacy.swift */; };
 		D88255D01D17D34200FB327D /* dummy.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = D88255CF1D17D34200FB327D /* dummy.jpeg */; };
 		D883007D1D06C72600399612 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D883007C1D06C72600399612 /* AppDelegate.swift */; };
 		D883007F1D06C72600399612 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D883007E1D06C72600399612 /* ViewController.swift */; };
@@ -63,10 +54,8 @@
 		D89D70051D06CEF1007DD132 /* SnapImagePickerConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89D70041D06CEF1007DD132 /* SnapImagePickerConnector.swift */; };
 		D89D70071D06CF2E007DD132 /* SnapImagePickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89D70061D06CF2E007DD132 /* SnapImagePickerDelegate.swift */; };
 		D89D70091D06CFAC007DD132 /* SnapImagePicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D89D70081D06CFAC007DD132 /* SnapImagePicker.storyboard */; };
-		D8A14BE61D1C0D1C00A8AF52 /* PhotoLoaderFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A14BE51D1C0D1C00A8AF52 /* PhotoLoaderFake.swift */; };
-		D8A688C11D10474800734E92 /* Image_Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A688C01D10474800734E92 /* Image_Response.swift */; };
 		D8BF9CA31D265A6E00DC1F02 /* SnapImagePickerEntityGatewayFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BF9CA21D265A6E00DC1F02 /* SnapImagePickerEntityGatewayFake.swift */; };
-		D8D7A22E1D193AC4009D7081 /* AlbumSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D7A22D1D193AC4009D7081 /* AlbumSelectorView.swift */; };
+		D8BF9CA51D266BA100DC1F02 /* UIScrollView+correction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BF9CA41D266BA100DC1F02 /* UIScrollView+correction.swift */; };
 		E511673E9D74C7B9199F50EC /* Pods_Example_Project.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CE3607CF98B3315460607FC /* Pods_Example_Project.framework */; };
 /* End PBXBuildFile section */
 
@@ -139,20 +128,14 @@
 		D82468581D215D09009DB2A4 /* PhotoLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLoader.swift; sourceTree = "<group>"; };
 		D824685A1D215F0B009DB2A4 /* AlbumSelectorEventHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumSelectorEventHandler.swift; sourceTree = "<group>"; };
 		D824685C1D22A55F009DB2A4 /* UIScrollView+getBounds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+getBounds.swift"; sourceTree = "<group>"; };
-		D83B8C1C1D0EB90C00C6995A /* PhotoAlbum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoAlbum.swift; sourceTree = "<group>"; };
-		D83B8C221D0EC8D300C6995A /* PhotoEntityGateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoEntityGateway.swift; sourceTree = "<group>"; };
 		D83B8C291D0EE4D700C6995A /* ImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
-		D83B8C2B1D0EE89500C6995A /* AlbumInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumInteractor.swift; sourceTree = "<group>"; };
-		D83B8C2D1D0EE8B300C6995A /* AlbumPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumPresenter.swift; sourceTree = "<group>"; };
 		D847B4181D1D20FC00D58E2C /* ImageGridView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageGridView.swift; sourceTree = "<group>"; };
 		D847B41E1D1D24A900D58E2C /* SnapImagePickerViewControllerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapImagePickerViewControllerProtocol.swift; sourceTree = "<group>"; };
-		D847B4201D1D25B000D58E2C /* AlbumPresenterProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumPresenterProtocol.swift; sourceTree = "<group>"; };
 		D847B4221D1D281D00D58E2C /* AlbumSelectorViewControllerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumSelectorViewControllerProtocol.swift; sourceTree = "<group>"; };
 		D847B4241D1D283600D58E2C /* AlbumSelectorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumSelectorViewController.swift; sourceTree = "<group>"; };
 		D847B4261D1D28F000D58E2C /* SnapImagePickerPresenterProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapImagePickerPresenterProtocol.swift; sourceTree = "<group>"; };
 		D847B4281D1D298900D58E2C /* SnapImagePickerPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapImagePickerPresenter.swift; sourceTree = "<group>"; };
 		D847B42C1D1D2A6100D58E2C /* SnapImagePickerInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapImagePickerInteractor.swift; sourceTree = "<group>"; };
-		D847B42E1D1D2B6500D58E2C /* AlbumEventHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumEventHandler.swift; sourceTree = "<group>"; };
 		D847B4301D1D2B7500D58E2C /* SnapImagePickerEventHandlerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapImagePickerEventHandlerProtocol.swift; sourceTree = "<group>"; };
 		D847B43C1D1D35EE00D58E2C /* SnapImagePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapImagePickerViewController.swift; sourceTree = "<group>"; };
 		D847B43E1D1D368400D58E2C /* AlbumSelectorPresenterProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumSelectorPresenterProtocol.swift; sourceTree = "<group>"; };
@@ -168,9 +151,6 @@
 		D847B4561D1D5D3500D58E2C /* DisplayState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayState.swift; sourceTree = "<group>"; };
 		D847B4591D1D644000D58E2C /* UIImage+square.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+square.swift"; sourceTree = "<group>"; };
 		D87999F51D23CCF400683406 /* UIScrollView+fakeBounce.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+fakeBounce.swift"; sourceTree = "<group>"; };
-		D87999F91D256E7A00683406 /* UIScrollView+center.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+center.swift"; sourceTree = "<group>"; };
-		D87999FB1D256EE100683406 /* UIScrollView+clearExcess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+clearExcess.swift"; sourceTree = "<group>"; };
-		D88255C91D12A0FD00FB327D /* SnapImagePickerViewControllerLegacy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapImagePickerViewControllerLegacy.swift; sourceTree = "<group>"; };
 		D88255CF1D17D34200FB327D /* dummy.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = dummy.jpeg; sourceTree = "<group>"; };
 		D88300791D06C72600399612 /* Example_Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example_Project.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D883007C1D06C72600399612 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -194,10 +174,8 @@
 		D89D70041D06CEF1007DD132 /* SnapImagePickerConnector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapImagePickerConnector.swift; sourceTree = "<group>"; };
 		D89D70061D06CF2E007DD132 /* SnapImagePickerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapImagePickerDelegate.swift; sourceTree = "<group>"; };
 		D89D70081D06CFAC007DD132 /* SnapImagePicker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SnapImagePicker.storyboard; sourceTree = "<group>"; };
-		D8A14BE51D1C0D1C00A8AF52 /* PhotoLoaderFake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLoaderFake.swift; sourceTree = "<group>"; };
-		D8A688C01D10474800734E92 /* Image_Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Image_Response.swift; sourceTree = "<group>"; };
 		D8BF9CA21D265A6E00DC1F02 /* SnapImagePickerEntityGatewayFake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapImagePickerEntityGatewayFake.swift; sourceTree = "<group>"; };
-		D8D7A22D1D193AC4009D7081 /* AlbumSelectorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumSelectorView.swift; sourceTree = "<group>"; };
+		D8BF9CA41D266BA100DC1F02 /* UIScrollView+correction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+correction.swift"; sourceTree = "<group>"; };
 		F9C9B4A498547EF670FB28EC /* Pods-SnapImagePickerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapImagePickerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SnapImagePickerTests/Pods-SnapImagePickerTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -382,63 +360,6 @@
 			name = Data;
 			sourceTree = "<group>";
 		};
-		D83774341D1BE13B00509277 /* Data */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Data;
-			sourceTree = "<group>";
-		};
-		D847B41A1D1D243A00D58E2C /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = View;
-			sourceTree = "<group>";
-		};
-		D847B41B1D1D244300D58E2C /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Presenter;
-			sourceTree = "<group>";
-		};
-		D847B41C1D1D245400D58E2C /* Interactor */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Interactor;
-			sourceTree = "<group>";
-		};
-		D847B41D1D1D245C00D58E2C /* Entity Gateway */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Entity Gateway";
-			sourceTree = "<group>";
-		};
-		D847B4321D1D353D00D58E2C /* Legacy */ = {
-			isa = PBXGroup;
-			children = (
-				D847B41A1D1D243A00D58E2C /* View */,
-				D88255C91D12A0FD00FB327D /* SnapImagePickerViewControllerLegacy.swift */,
-				D8D7A22D1D193AC4009D7081 /* AlbumSelectorView.swift */,
-				D847B41B1D1D244300D58E2C /* Presenter */,
-				D83B8C2D1D0EE8B300C6995A /* AlbumPresenter.swift */,
-				D847B4201D1D25B000D58E2C /* AlbumPresenterProtocol.swift */,
-				D847B42E1D1D2B6500D58E2C /* AlbumEventHandler.swift */,
-				D847B41C1D1D245400D58E2C /* Interactor */,
-				D83B8C2B1D0EE89500C6995A /* AlbumInteractor.swift */,
-				D847B41D1D1D245C00D58E2C /* Entity Gateway */,
-				D83B8C221D0EC8D300C6995A /* PhotoEntityGateway.swift */,
-				D8A14BE51D1C0D1C00A8AF52 /* PhotoLoaderFake.swift */,
-				D83774341D1BE13B00509277 /* Data */,
-				D83B8C1C1D0EB90C00C6995A /* PhotoAlbum.swift */,
-				D8A688C01D10474800734E92 /* Image_Response.swift */,
-			);
-			name = Legacy;
-			sourceTree = "<group>";
-		};
 		D847B4531D1D539E00D58E2C /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -453,8 +374,7 @@
 				D847B4591D1D644000D58E2C /* UIImage+square.swift */,
 				D824685C1D22A55F009DB2A4 /* UIScrollView+getBounds.swift */,
 				D87999F51D23CCF400683406 /* UIScrollView+fakeBounce.swift */,
-				D87999F91D256E7A00683406 /* UIScrollView+center.swift */,
-				D87999FB1D256EE100683406 /* UIScrollView+clearExcess.swift */,
+				D8BF9CA41D266BA100DC1F02 /* UIScrollView+correction.swift */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -522,7 +442,6 @@
 				D824684A1D2159D0009DB2A4 /* AlbumSelector */,
 				D82468491D2159C7009DB2A4 /* ImagePicker */,
 				D847B4581D1D643300D58E2C /* Categories */,
-				D847B4321D1D353D00D58E2C /* Legacy */,
 				D88255CF1D17D34200FB327D /* dummy.jpeg */,
 				D89D6FEA1D06CC06007DD132 /* Info.plist */,
 				D89D6FE81D06CC06007DD132 /* SnapImagePicker.h */,
@@ -996,39 +915,29 @@
 			files = (
 				D847B4191D1D20FC00D58E2C /* ImageGridView.swift in Sources */,
 				D89D70071D06CF2E007DD132 /* SnapImagePickerDelegate.swift in Sources */,
-				D83B8C1D1D0EB90C00C6995A /* PhotoAlbum.swift in Sources */,
 				D82468481D2158F8009DB2A4 /* SnapImagePickerTransition.swift in Sources */,
 				D847B4471D1D375500D58E2C /* AlbumSelectorInteractor.swift in Sources */,
-				D8D7A22E1D193AC4009D7081 /* AlbumSelectorView.swift in Sources */,
 				D87999F61D23CCF400683406 /* UIScrollView+fakeBounce.swift in Sources */,
 				D847B4231D1D281D00D58E2C /* AlbumSelectorViewControllerProtocol.swift in Sources */,
 				D847B4571D1D5D3500D58E2C /* DisplayState.swift in Sources */,
 				D847B4311D1D2B7500D58E2C /* SnapImagePickerEventHandlerProtocol.swift in Sources */,
 				D824685B1D215F0B009DB2A4 /* AlbumSelectorEventHandler.swift in Sources */,
-				D88255CA1D12A0FD00FB327D /* SnapImagePickerViewControllerLegacy.swift in Sources */,
 				D847B4491D1D3A4B00D58E2C /* SnapImagePickerInteractorProtocol.swift in Sources */,
 				D847B4551D1D5C9400D58E2C /* SnapImagePickerViewModel.swift in Sources */,
+				D8BF9CA51D266BA100DC1F02 /* UIScrollView+correction.swift in Sources */,
 				D8BF9CA31D265A6E00DC1F02 /* SnapImagePickerEntityGatewayFake.swift in Sources */,
 				D89D70051D06CEF1007DD132 /* SnapImagePickerConnector.swift in Sources */,
 				D847B4511D1D3AF400D58E2C /* AlbumSelectorEntityGateway.swift in Sources */,
-				D83B8C2E1D0EE8B300C6995A /* AlbumPresenter.swift in Sources */,
 				D82468591D215D09009DB2A4 /* PhotoLoader.swift in Sources */,
-				D847B4211D1D25B000D58E2C /* AlbumPresenterProtocol.swift in Sources */,
 				D847B4451D1D373800D58E2C /* AlbumSelectorInteractorProtocol.swift in Sources */,
-				D8A14BE61D1C0D1C00A8AF52 /* PhotoLoaderFake.swift in Sources */,
 				D847B44F1D1D3AE100D58E2C /* AlbumSelectorEntityGatewayProtocol.swift in Sources */,
 				D824685D1D22A55F009DB2A4 /* UIScrollView+getBounds.swift in Sources */,
 				D847B41F1D1D24A900D58E2C /* SnapImagePickerViewControllerProtocol.swift in Sources */,
-				D87999FC1D256EE100683406 /* UIScrollView+clearExcess.swift in Sources */,
-				D8A688C11D10474800734E92 /* Image_Response.swift in Sources */,
 				D847B4271D1D28F000D58E2C /* SnapImagePickerPresenterProtocol.swift in Sources */,
 				D847B42D1D1D2A6100D58E2C /* SnapImagePickerInteractor.swift in Sources */,
-				D847B42F1D1D2B6500D58E2C /* AlbumEventHandler.swift in Sources */,
 				D847B44B1D1D3AA500D58E2C /* SnapImagePickerEntityGatewayProtocol.swift in Sources */,
 				D82468571D215B91009DB2A4 /* Album.swift in Sources */,
-				D83B8C2C1D0EE89500C6995A /* AlbumInteractor.swift in Sources */,
 				D847B4411D1D36B600D58E2C /* AlbumSelectorPresenter.swift in Sources */,
-				D83B8C231D0EC8D300C6995A /* PhotoEntityGateway.swift in Sources */,
 				D847B4251D1D283600D58E2C /* AlbumSelectorViewController.swift in Sources */,
 				D847B44D1D1D3ABA00D58E2C /* SnapImagePickerEntityGateway.swift in Sources */,
 				D847B4291D1D298900D58E2C /* SnapImagePickerPresenter.swift in Sources */,
@@ -1036,7 +945,6 @@
 				D847B43D1D1D35EE00D58E2C /* SnapImagePickerViewController.swift in Sources */,
 				D83B8C2A1D0EE4D700C6995A /* ImageCell.swift in Sources */,
 				D847B43F1D1D368400D58E2C /* AlbumSelectorPresenterProtocol.swift in Sources */,
-				D87999FA1D256E7A00683406 /* UIScrollView+center.swift in Sources */,
 				D82468541D215A90009DB2A4 /* AlbumCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

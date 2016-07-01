@@ -15,3 +15,13 @@ extension UIImage {
         return nil
     }
 }
+
+extension UIImage {
+    func findZoomScaleForLargestFullSquare() -> CGFloat {
+        return max(size.width, size.height)/min(size.width, size.height)
+    }
+    
+    func findCenteredOffsetForImageWithZoomScale(zoomScale: CGFloat) -> CGFloat {
+        return abs(size.height - size.width) * zoomScale / 2
+    }
+}

@@ -64,7 +64,6 @@ class SnapImagePickerViewController: UIViewController {
 
     private var userIsScrolling = false
     private var enqueuedBounce: (() -> Void)?
-    private var enqueuedMove: (() -> Void)?
     
     override func viewWillAppear(animated: Bool) {
         eventHandler?.viewWillAppear()
@@ -79,11 +78,6 @@ class SnapImagePickerViewController: UIViewController {
             default: break
             }
         }
-    }
-    
-    // TODO: Remove
-    override func shouldAutorotate() -> Bool {
-        return false
     }
     
     @IBAction func selectButtonPressed(sender: UIBarButtonItem) {
@@ -148,8 +142,8 @@ extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
             selectedImageScrollView.contentSize = CGSize(width: selectedImageView.bounds.width,
                                                          height: selectedImageView.bounds.height)
             
-            let zoomScale = findZoomScale(mainImage)
-            let offset = findCenteredOffsetForImage(mainImage, withZoomScale: zoomScale)
+            let zoomScale = mainImage.findZoomScaleForLargestFullSquare()
+            let offset = mainImage.findCenteredOffsetForImageWithZoomScale(zoomScale)
             let scaledOffset = offset * selectedImageView.bounds.width / max(mainImage.size.width, mainImage.size.height)
             
             selectedImageScrollView.delegate = self
@@ -158,14 +152,6 @@ extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
             selectedImageScrollView.setZoomScale(zoomScale, animated: false)
             selectedImageScrollView.setContentOffset(CGPoint(x: scaledOffset, y: scaledOffset), animated: false)
         }
-    }
-    
-    private func findZoomScale(image: UIImage) -> CGFloat {
-        return max(image.size.width, image.size.height)/min(image.size.width, image.size.height)
-    }
-    
-    private func findCenteredOffsetForImage(image: UIImage, withZoomScale zoomScale: CGFloat) -> CGFloat {
-        return abs(image.size.height - image.size.width) * zoomScale / 2
     }
 }
 
@@ -296,7 +282,7 @@ extension SnapImagePickerViewController: UIScrollViewDelegate {
             
             if let imageView = selectedImageView {
                 if scrollView.contentOffset.y >= 0 && scrollView.contentOffset.y <= scrollView.contentSize.width && scrollView.contentOffset.x >= 0 && scrollView.contentOffset.x <= scrollView.contentSize.height {
-                    correctImageViewInScrollView(scrollView, imageView: imageView)
+                    scrollView.correctBoundsForImageView(imageView)
                 }
             }
         } else if scrollView == albumCollectionView && !decelerate {
@@ -311,7 +297,7 @@ extension SnapImagePickerViewController: UIScrollViewDelegate {
             setImageGridViewAlpha(0.0)
             
             if let imageView = selectedImageView {
-                correctImageViewInScrollView(scrollView, imageView: imageView)
+                scrollView.correctBoundsForImageView(imageView)
             }
         }
     }
@@ -326,7 +312,7 @@ extension SnapImagePickerViewController: UIScrollViewDelegate {
         if scrollView == selectedImageScrollView {
             setImageGridViewAlpha(0.0)
             if let imageView = selectedImageView {
-                correctImageViewInScrollView(scrollView, imageView: imageView)
+                scrollView.correctBoundsForImageView(imageView)
             }
         }
     }
@@ -339,40 +325,6 @@ extension SnapImagePickerViewController {
             return Double((offset + UIConstants.NavBarHeight) / height)
         }
         return 0.0
-    }
-    
-    private func correctImageViewInScrollView(scrollView: UIScrollView, imageView: UIImageView) {
-        if let image = imageView.image,
-            let currentlyVisibleRect = scrollView.getImageBoundsForImageView(imageView) {
-            if imageView.bounds.width == imageView.bounds.height {
-                let maxRatio = imageView.bounds.width / max(image.size.width, image.size.height)
-                let scale = scrollView.zoomScale
-                
-                let widthRatio = imageView.bounds.width / image.size.width
-                let leftMargin = currentlyVisibleRect.minX * widthRatio
-                let rightMargin = scrollView.bounds.width - (currentlyVisibleRect.maxX * widthRatio)
-                if (leftMargin < 0 || rightMargin < 0) && leftMargin != rightMargin {
-                    let imageWidth = image.size.width * maxRatio
-                    if imageWidth * scale < imageView.bounds.width {
-                        scrollView.centerScrollViewHorizontally()
-                    } else {
-                        scrollView.clearExcessHorizontalMarginForImage(image, withMargins: (left: leftMargin, right: rightMargin))
-                    }
-                }
-                
-                let heightRatio = imageView.bounds.width / image.size.height
-                let topMargin = currentlyVisibleRect.minY * heightRatio
-                let bottomMargin = scrollView.bounds.height - (currentlyVisibleRect.maxY * heightRatio)
-                if (topMargin < 0 || bottomMargin < 0) && topMargin != bottomMargin {
-                    let imageHeight = image.size.height * maxRatio
-                    if imageHeight * scale < imageView.bounds.height {
-                        scrollView.centerScrollViewVertically()
-                    } else {
-                        scrollView.clearExcessVerticalMarginForImage(image, withMargins: (top: topMargin, bottom: bottomMargin))
-                    }
-                }
-            }
-        }
     }
     
     private func setImageGridViewAlpha(alpha: CGFloat) {
