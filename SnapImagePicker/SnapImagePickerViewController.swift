@@ -15,12 +15,10 @@ class SnapImagePickerViewController: UIViewController {
             return (collectionView.bounds.width - (Spacing * CGFloat(NumberOfColumns - 1))) / CGFloat(NumberOfColumns)
         }
     }
-    @IBOutlet weak var titleButton: UIButton? {
-        didSet {
-            titleButton?.setTitleColor(UIColor.blackColor(), forState: .Normal)
-            titleButton?.titleLabel?.font = SnapImagePickerConnector.Theme.font
-        }
-    }
+    @IBOutlet weak var titleView: UIView?
+    @IBOutlet weak var titleLabel: UILabel?
+    @IBOutlet weak var titleArrowView: DownwardsArrowView?
+
     @IBOutlet weak var selectButton: UIBarButtonItem?
     @IBOutlet weak var cancelButton: UIBarButtonItem?
     
@@ -55,6 +53,11 @@ class SnapImagePickerViewController: UIViewController {
     
     var eventHandler: SnapImagePickerEventHandlerProtocol?
     
+    private var albumTitle: String? {
+        didSet {
+            titleLabel?.text = albumTitle
+        }
+    }
     private var currentlySelectedIndex = 0
     private var images = [UIImage]() {
         didSet {
@@ -111,7 +114,7 @@ class SnapImagePickerViewController: UIViewController {
 
 extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
     func display(viewModel: SnapImagePickerViewModel) {
-        titleButton?.setTitle(viewModel.albumTitle, forState: .Normal)
+        albumTitle = viewModel.albumTitle
         
         if let mainImage = viewModel.mainImage
            where mainImage != selectedImageView?.image {

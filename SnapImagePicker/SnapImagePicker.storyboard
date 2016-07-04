@@ -122,16 +122,35 @@
                                 <action selector="cancelButtonPressed:" destination="Wid-Ke-N4r" id="mp4-8x-AMp"/>
                             </connections>
                         </barButtonItem>
-                        <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="UCe-ma-ap9">
-                            <rect key="frame" x="277" y="7" width="46" height="30"/>
+                        <view key="titleView" contentMode="scaleToFill" id="D6X-F2-YFL">
+                            <rect key="frame" x="180" y="5.5" width="240" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Button">
-                                <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            </state>
-                            <connections>
-                                <segue destination="qnA-aw-o6y" kind="show" identifier="Show Album Selector" id="rxF-Pz-dVm"/>
-                            </connections>
-                        </button>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TTs-IH-VdD">
+                                    <rect key="frame" x="99" y="6" width="42" height="21"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tNX-eO-r1F" customClass="DownwardsArrowView" customModule="SnapImagePicker" customModuleProvider="target">
+                                    <rect key="frame" x="149" y="0.0" width="33" height="33"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="tNX-eO-r1F" secondAttribute="height" multiplier="1:1" id="oyT-Qm-tuz"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="TTs-IH-VdD" firstAttribute="centerY" secondItem="D6X-F2-YFL" secondAttribute="centerY" id="5Xv-Gt-NVt"/>
+                                <constraint firstItem="tNX-eO-r1F" firstAttribute="centerY" secondItem="D6X-F2-YFL" secondAttribute="centerY" id="A6J-wJ-hyw"/>
+                                <constraint firstItem="tNX-eO-r1F" firstAttribute="height" secondItem="D6X-F2-YFL" secondAttribute="height" id="EUH-o0-hWi"/>
+                                <constraint firstItem="TTs-IH-VdD" firstAttribute="centerX" secondItem="D6X-F2-YFL" secondAttribute="centerX" id="RHm-od-pnC"/>
+                                <constraint firstItem="TTs-IH-VdD" firstAttribute="centerX" secondItem="D6X-F2-YFL" secondAttribute="centerX" id="k8v-vg-Fwt"/>
+                                <constraint firstItem="tNX-eO-r1F" firstAttribute="leading" secondItem="TTs-IH-VdD" secondAttribute="trailing" constant="8" symbolic="YES" id="lR8-1R-s7e"/>
+                                <constraint firstItem="TTs-IH-VdD" firstAttribute="centerX" secondItem="D6X-F2-YFL" secondAttribute="centerX" id="z8f-XK-4rh"/>
+                            </constraints>
+                        </view>
                         <barButtonItem key="rightBarButtonItem" title="Select" id="nOJ-pL-qVS">
                             <connections>
                                 <action selector="selectButtonPressed:" destination="Wid-Ke-N4r" id="DHq-dH-n8O"/>
@@ -147,7 +166,9 @@
                         <outlet property="selectButton" destination="nOJ-pL-qVS" id="qIw-Wx-wOB"/>
                         <outlet property="selectedImageScrollView" destination="TOw-dc-Dkh" id="Zv4-91-LsP"/>
                         <outlet property="selectedImageView" destination="gCa-3y-aIB" id="8mx-cD-S8Y"/>
-                        <outlet property="titleButton" destination="UCe-ma-ap9" id="ubT-y0-3zb"/>
+                        <outlet property="titleArrowView" destination="tNX-eO-r1F" id="EDA-CH-0pl"/>
+                        <outlet property="titleLabel" destination="TTs-IH-VdD" id="xYI-hM-eX8"/>
+                        <outlet property="titleView" destination="D6X-F2-YFL" id="Pz0-jO-0nY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w2C-PZ-6v9" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -164,7 +185,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Album Cell" rowHeight="100" id="1wb-s0-FWG" customClass="AlbumCell" customModule="SnapImagePicker" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="92" width="600" height="100"/>
+                                <rect key="frame" x="0.0" y="28" width="600" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1wb-s0-FWG" id="IKq-MQ-RRC">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
