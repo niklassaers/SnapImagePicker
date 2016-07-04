@@ -16,9 +16,15 @@ class SnapImagePickerViewController: UIViewController {
         }
     }
     @IBOutlet weak var titleView: UIView?
-    @IBOutlet weak var titleLabel: UILabel?
     @IBOutlet weak var titleArrowView: DownwardsArrowView?
-
+    @IBOutlet weak var titleButton: UIButton? {
+        didSet {
+            titleButton?.titleLabel?.font = SnapImagePickerConnector.Theme.font
+            titleButton?.titleLabel?.font.fontWithSize(17)
+            titleButton?.setTitle(PhotoLoader.AlbumNames.AllPhotos, forState: .Normal)
+        }
+    }
+    
     @IBOutlet weak var selectButton: UIBarButtonItem?
     @IBOutlet weak var cancelButton: UIBarButtonItem?
     
@@ -55,7 +61,7 @@ class SnapImagePickerViewController: UIViewController {
     
     private var albumTitle: String? {
         didSet {
-            titleLabel?.text = albumTitle
+            titleButton?.setTitle(albumTitle, forState: .Normal)
         }
     }
     private var currentlySelectedIndex = 0
@@ -77,7 +83,8 @@ class SnapImagePickerViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let identifier = segue.identifier {
             switch identifier {
-            case SnapImagePickerConnector.Names.ShowAlbumSelector.rawValue: eventHandler?.albumTitleClicked(segue.destinationViewController)
+            case SnapImagePickerConnector.Names.ShowAlbumSelector.rawValue:
+                eventHandler?.albumTitleClicked(segue.destinationViewController)
             default: break
             }
         }

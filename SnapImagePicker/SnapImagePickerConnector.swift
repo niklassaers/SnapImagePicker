@@ -29,9 +29,7 @@ public class SnapImagePickerConnector {
     
     var delegate: SnapImagePickerDelegate?
     // Why is this needed?
-    public init() {
-        
-    }
+    public init() {}
 }
 extension SnapImagePickerConnector: SnapImagePickerProtocol {
     public func imagePicker(delegate delegate: SnapImagePickerDelegate) -> UIViewController? {

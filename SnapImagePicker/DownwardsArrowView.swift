@@ -3,11 +3,13 @@ import UIKit
 class DownwardsArrowView: UIView {
     override func drawRect(rect: CGRect) {
         let path = UIBezierPath()
-        let horizontalOffset = CGFloat(0.2)
-        let verticalOffset = CGFloat(0.15)
-        path.moveToPoint(CGPoint(x: (0.5 - horizontalOffset) * rect.maxX, y: (0.5 - verticalOffset) * rect.maxY))
-        path.addLineToPoint(CGPoint(x: 0.5 * rect.maxX, y: (0.5 + verticalOffset) * rect.maxY))
-        path.addLineToPoint(CGPoint(x: (0.5 + horizontalOffset) * rect.maxX, y: (0.5 - verticalOffset) * rect.maxY))
+        let horizontalDistance = CGFloat(0.15)
+        let verticalDistance = CGFloat(0.07)
+        let verticalOffset = CGFloat(0.05)
+        
+        path.moveToPoint(CGPoint(x: (0.5 - horizontalDistance) * rect.maxX, y: rect.maxY * (0.5 - verticalDistance + verticalOffset)))
+        path.addLineToPoint(CGPoint(x: 0.5 * rect.maxX, y: rect.maxY * (0.5 + verticalDistance + verticalOffset)))
+        path.addLineToPoint(CGPoint(x: (0.5 + horizontalDistance) * rect.maxX, y: rect.maxY * (0.5 - verticalDistance + verticalOffset)))
         UIColor.blackColor().set()
         path.stroke()
     }
