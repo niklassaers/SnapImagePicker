@@ -3,9 +3,11 @@ import Photos
 
 class SnapImagePickerEntityGateway {
     private weak var interactor: SnapImagePickerInteractorProtocol?
+    private weak var imageLoader: ImageLoader?
     
-    init(interactor: SnapImagePickerInteractorProtocol) {
+    init(interactor: SnapImagePickerInteractorProtocol, imageLoader: ImageLoader?) {
         self.interactor = interactor
+        self.imageLoader = imageLoader
     }
 }
 extension SnapImagePickerEntityGateway {
@@ -20,8 +22,8 @@ extension SnapImagePickerEntityGateway {
 }
 
 extension SnapImagePickerEntityGateway: SnapImagePickerEntityGatewayProtocol {
-    func loadAlbumWithLocalIdentifier(localIdentifier: String, withTargetSize targetSize: CGSize) {
-        if let fetchResult = PhotoLoader.fetchPhotosFromCollectionWithTitle(localIdentifier) {
+    func loadAlbumWithType(type: AlbumType, withTargetSize targetSize: CGSize) {
+        if let fetchResult = imageLoader?.fetchPhotosFromCollectionWithType(type) {
             fetchResult.enumerateObjectsUsingBlock { (object: AnyObject, count: Int, stop: UnsafeMutablePointer<ObjCBool>) in
                 if let asset = object as? PHAsset {
                     self.loadImageFromAsset(asset, withTargetSize: targetSize) {

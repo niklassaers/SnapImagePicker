@@ -21,7 +21,7 @@ class SnapImagePickerViewController: UIViewController {
         didSet {
             titleButton?.titleLabel?.font = SnapImagePickerConnector.Theme.font
             titleButton?.titleLabel?.font.fontWithSize(17)
-            titleButton?.setTitle(PhotoLoader.AlbumNames.AllPhotos, forState: .Normal)
+            titleButton?.setTitle(AlbumType.AlbumNames.AllPhotos, forState: .Normal)
         }
     }
     

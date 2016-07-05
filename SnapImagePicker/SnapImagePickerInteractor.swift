@@ -2,17 +2,18 @@ import UIKit
 
 class SnapImagePickerInteractor {
     private weak var presenter: SnapImagePickerPresenterProtocol?
-    private var entityGateway: SnapImagePickerEntityGatewayProtocol?
+    
+    var entityGateway: SnapImagePickerEntityGatewayProtocol?
     
     init(presenter: SnapImagePickerPresenterProtocol) {
         self.presenter = presenter
-        entityGateway = SnapImagePickerEntityGateway(interactor: self)
     }
 }
 
 extension SnapImagePickerInteractor: SnapImagePickerInteractorProtocol {
-    func loadAlbumWithLocalIdentifier(localIdentifier: String, withTargetSize targetSize: CGSize) {
-        entityGateway?.loadAlbumWithLocalIdentifier(localIdentifier, withTargetSize: targetSize)
+    func loadAlbumWithType(type: AlbumType, withTargetSize targetSize: CGSize) {
+        print("EntityGateway: \(entityGateway)")
+        entityGateway?.loadAlbumWithType(type, withTargetSize: targetSize)
     }
     
     func loadImageWithLocalIdentifier(localIdentifier: String, withTargetSize targetSize: CGSize) {

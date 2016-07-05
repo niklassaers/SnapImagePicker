@@ -2,11 +2,11 @@ import UIKit
 
 class SnapImagePickerPresenter {
     private weak var view: SnapImagePickerViewControllerProtocol?
-    private var interactor: SnapImagePickerInteractorProtocol?
     
+    var interactor: SnapImagePickerInteractorProtocol?
     weak var connector: SnapImagePickerConnectorProtocol?
     
-    var albumTitle = PhotoLoader.AlbumNames.AllPhotos
+    var albumType = AlbumType.AllPhotos
     private var mainImage: UIImage? {
         didSet {
             display()
@@ -30,11 +30,10 @@ class SnapImagePickerPresenter {
     
     init(view: SnapImagePickerViewControllerProtocol) {
         self.view = view
-        interactor = SnapImagePickerInteractor(presenter: self)
     }
     
     private func display() {
-        view?.display(SnapImagePickerViewModel(albumTitle: albumTitle,
+        view?.display(SnapImagePickerViewModel(albumTitle: albumType.getAlbumName(),
             mainImage: mainImage,
             albumImages: albumImages,
             displayState: state,
@@ -44,7 +43,6 @@ class SnapImagePickerPresenter {
 
 extension SnapImagePickerPresenter: SnapImagePickerPresenterProtocol {
     func presentMainImage(image: UIImage) {
-        print("Presenting main image")
         state = .Image
         mainImage = image
     }
@@ -68,7 +66,8 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
     
     private func loadAlbum() {
         imagesWithIdentifiers = [(image: UIImage, id: String)]()
-        interactor?.loadAlbumWithLocalIdentifier(albumTitle, withTargetSize: CGSize(width: 64, height: 64))
+        print("Interactor \(interactor)")
+        interactor?.loadAlbumWithType(albumType, withTargetSize: CGSize(width: 64, height: 64))
     }
     
     func albumIndexClicked(index: Int) {

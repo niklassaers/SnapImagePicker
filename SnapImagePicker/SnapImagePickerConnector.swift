@@ -7,7 +7,7 @@ public protocol SnapImagePickerProtocol {
 
 protocol SnapImagePickerConnectorProtocol: class {
     func prepareSegueToAlbumSelector(viewController: UIViewController)
-    func prepareSegueToImagePicker(title: String)
+    func prepareSegueToImagePicker(albumType: AlbumType)
     func setChosenImage(image: UIImage, withCropRect cropRect: CGRect)
 }
 
@@ -26,6 +26,7 @@ public class SnapImagePickerConnector {
     
     private var presenter: SnapImagePickerPresenter?
     private let navigationDelegate = NavigationControllerDelegate()
+    private let photoLoader = PhotoLoader()
     
     var delegate: SnapImagePickerDelegate?
     // Why is this needed?
@@ -38,10 +39,19 @@ extension SnapImagePickerConnector: SnapImagePickerProtocol {
         if let viewController = storyboard.instantiateInitialViewController() as? UINavigationController {
             viewController.delegate = navigationDelegate
             if let snapImagePickerViewController = viewController.viewControllers[0] as? SnapImagePickerViewController {
-                presenter = SnapImagePickerPresenter(view: snapImagePickerViewController)
-                presenter?.connector = self
+                let presenter = SnapImagePickerPresenter(view: snapImagePickerViewController)
+                presenter.connector = self
                 snapImagePickerViewController.eventHandler = presenter
+                
+                let interactor = SnapImagePickerInteractor(presenter: presenter)
+                presenter.interactor = interactor
+                
+                let entityGateway = SnapImagePickerEntityGateway(interactor: interactor, imageLoader: photoLoader)
+                interactor.entityGateway = entityGateway
+                
+                self.presenter = presenter
                 self.delegate = delegate
+                
                 return viewController
             }
         }
@@ -54,11 +64,17 @@ extension SnapImagePickerConnector: SnapImagePickerConnectorProtocol {
             let presenter = AlbumSelectorPresenter(view: albumSelectorViewController)
             presenter.connector = self
             albumSelectorViewController.eventHandler = presenter
+            
+            let interactor = AlbumSelectorInteractor(presenter: presenter)
+            presenter.interactor = interactor
+            
+            let entityGateway = AlbumSelectorEntityGateway(interactor: interactor, albumLoader: photoLoader)
+            interactor.entityGateway = entityGateway
         }
     }
     
-    func prepareSegueToImagePicker(title: String) {
-        presenter?.albumTitle = title
+    func prepareSegueToImagePicker(albumType: AlbumType) {
+        presenter?.albumType = albumType
     }
     
     func setChosenImage(image: UIImage, withCropRect cropRect: CGRect) {

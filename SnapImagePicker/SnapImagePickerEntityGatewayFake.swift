@@ -7,7 +7,7 @@ class SnapImagePickerEntityGatewayFake: SnapImagePickerEntityGatewayProtocol {
         self.interactor = interactor
     }
     
-    func loadAlbumWithLocalIdentifier(localIdentifier: String, withTargetSize targetSize: CGSize) {
+    func loadAlbumWithType(type: AlbumType, withTargetSize targetSize: CGSize) {
         for i in 0..<30 {
             if let image = UIImage(named: "dummy.jpeg", inBundle: NSBundle(forClass: SnapImagePickerConnector.self), compatibleWithTraitCollection: nil) {
                 interactor?.loadedAlbumImage(image, localIdentifier: String(i))

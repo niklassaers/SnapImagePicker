@@ -4,22 +4,23 @@ class AlbumSelectorPresenter {
     private weak var view: AlbumSelectorViewControllerProtocol?
     weak var connector: SnapImagePickerConnector?
     
-    private var interactor: AlbumSelectorInteractorProtocol?
+    var interactor: AlbumSelectorInteractorProtocol?
     
     private var collections: [String: [Album]] = [
-        AlbumSelectorEntityGateway.CollectionNames.General: [Album](),
-        AlbumSelectorEntityGateway.CollectionNames.UserDefined: [Album](),
-        AlbumSelectorEntityGateway.CollectionNames.SmartAlbums: [Album]()
+        AlbumType.CollectionNames.General: [Album](),
+        AlbumType.CollectionNames.UserDefined: [Album](),
+        AlbumType.CollectionNames.SmartAlbums: [Album]()
     ]
     
     init(view: AlbumSelectorViewControllerProtocol) {
         self.view = view
-        interactor = AlbumSelectorInteractor(presenter: self)
     }
 }
 
 extension AlbumSelectorPresenter: AlbumSelectorPresenterProtocol {
-    func presentAlbumPreview(collectionTitle: String, album: Album) {
+    func presentAlbumPreview(album: Album) {
+        let collectionTitle = album.collectionName
+        
         if collections[collectionTitle] != nil {
             collections[collectionTitle]!.append(album)
         }
@@ -31,19 +32,19 @@ extension AlbumSelectorPresenter: AlbumSelectorPresenterProtocol {
     private func sortAndCollapseCollections(collections: [String: [Album]]) -> [(title: String, albums: [Album])] {
         var formattedCollections = [(title: String, albums: [Album])]()
         
-        if let general = collections[AlbumSelectorEntityGateway.CollectionNames.General]
+        if let general = collections[AlbumType.CollectionNames.General]
            where general.count > 0 {
-            formattedCollections.append((title: AlbumSelectorEntityGateway.CollectionNames.General, albums: general))
+            formattedCollections.append((title: AlbumType.CollectionNames.General, albums: general))
         }
         
-        if let userDefined = collections[AlbumSelectorEntityGateway.CollectionNames.UserDefined]
+        if let userDefined = collections[AlbumType.CollectionNames.UserDefined]
            where userDefined.count > 0 {
-            formattedCollections.append((title: AlbumSelectorEntityGateway.CollectionNames.UserDefined, albums: userDefined))
+            formattedCollections.append((title: AlbumType.CollectionNames.UserDefined, albums: userDefined))
         }
         
-        if let smartAlbums = collections[AlbumSelectorEntityGateway.CollectionNames.SmartAlbums]
+        if let smartAlbums = collections[AlbumType.CollectionNames.SmartAlbums]
            where smartAlbums.count > 0 {
-            formattedCollections.append((title: AlbumSelectorEntityGateway.CollectionNames.SmartAlbums, albums: smartAlbums))
+            formattedCollections.append((title: AlbumType.CollectionNames.SmartAlbums, albums: smartAlbums))
         }
         
         return formattedCollections
@@ -55,7 +56,7 @@ extension AlbumSelectorPresenter: AlbumSelectorEventHandler {
         interactor?.fetchAlbumPreviewsWithTargetSize(CGSize(width: 64, height: 64))
     }
     
-    func albumSelected(title: String) {
-        connector?.prepareSegueToImagePicker(title)
+    func albumClicked(albumType: AlbumType) {
+        connector?.prepareSegueToImagePicker(albumType)
     }
 }

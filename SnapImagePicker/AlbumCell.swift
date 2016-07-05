@@ -20,7 +20,7 @@ class AlbumCell: UITableViewCell {
         didSet {
             if let album = album {
                 albumPreviewImageView?.image = album.image.square()
-                albumNameLabel?.text = album.title
+                albumNameLabel?.text = album.albumName
                 albumSizeLabel?.text = formatSizeLabelText(album.size)
             }
         }

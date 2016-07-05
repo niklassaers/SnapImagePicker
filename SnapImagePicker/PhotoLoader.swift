@@ -2,42 +2,30 @@ import Foundation
 import Photos
 
 class PhotoLoader {
-    struct AlbumNames {
-        static let AllPhotos = "All Photos"
-        static let Favorites = "Favorites"
-    }
-    
-    enum AlbumType {
-        case AllPhotos
-        case Favorites
-        case UserDefined(title: String)
-        
-        static func fromTitle(title: String) -> AlbumType {
-            switch title {
-            case AlbumNames.AllPhotos: return .AllPhotos
-            case AlbumNames.Favorites: return .Favorites
-            default: return UserDefined(title: title)
-            }
+    private static let SmartCollections = ["Recently Added", "Selfies", "Panoramas"]
+    private var albums = [String: PHFetchResult]()
+}
+
+extension PhotoLoader: ImageLoader {
+    func fetchPhotosFromCollectionWithType(type: AlbumType) -> PHFetchResult? {
+        if let album = albums[type.getAlbumName()] {
+            return album
         }
-    }
-    
-    static func fetchPhotosFromCollectionWithTitle(title: String) -> PHFetchResult? {
-        let type = AlbumType.fromTitle(title)
         let options = getFetchOptionsForCollection(type)
         
         switch type {
-        case .AllPhotos: fallthrough
+        case .AllPhotos:
+            fallthrough
         case .Favorites:
             return fetchPhotosWithOptions(options)
-        case .UserDefined(title):
+        case .UserDefined(let title):
             return fetchUserDefinedCollectionWithTitle(title, options: options)
-        default: break // Why are not all cases handled?
+        case .SmartAlbum(let title):
+            return fetchSmartAlbumWithTitle(title, options: options)
         }
-        
-        return nil
     }
     
-    private static func getFetchOptionsForCollection(type: AlbumType) -> PHFetchOptions {
+    private func getFetchOptionsForCollection(type: AlbumType) -> PHFetchOptions {
         let options = PHFetchOptions()
         options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
         
@@ -49,23 +37,98 @@ class PhotoLoader {
         return options
     }
     
-    private static func fetchPhotosWithOptions(options: PHFetchOptions? = nil) -> PHFetchResult {
+    private func fetchPhotosWithOptions(options: PHFetchOptions?) -> PHFetchResult {
         return PHAsset.fetchAssetsWithMediaType(.Image, options: options)
     }
     
-    private static func fetchUserDefinedCollectionWithTitle(title: String, options: PHFetchOptions?) -> PHFetchResult? {
+    private func fetchUserDefinedCollectionWithTitle(title: String, options: PHFetchOptions?) -> PHFetchResult? {
+        return fetchCollectionWithTitle(title, withType: .Album, andAssetOptions: options)
+    }
+    
+    private func fetchSmartAlbumWithTitle(title: String, options: PHFetchOptions?) -> PHFetchResult? {
+        return fetchCollectionWithTitle(title, withType: .SmartAlbum, andAssetOptions: options)
+    }
+    
+    private func fetchCollectionWithTitle(title: String, withType type: PHAssetCollectionType, andAssetOptions assetOptions: PHFetchOptions?) -> PHFetchResult? {
         let collectionOptions = PHFetchOptions()
         collectionOptions.predicate = NSPredicate(format: "localizedTitle == \"\(title)\"")
         
-        let collections = PHAssetCollection.fetchAssetCollectionsWithType(PHAssetCollectionType.Album, subtype: PHAssetCollectionSubtype.Any, options: collectionOptions)
+        let collections = PHAssetCollection.fetchAssetCollectionsWithType(type, subtype: PHAssetCollectionSubtype.Any, options: collectionOptions)
         if collections.count > 0 {
             if let collection = collections.firstObject as? PHAssetCollection {
-                if let result = PHAsset.fetchKeyAssetsInAssetCollection(collection, options: options) {
+                if let result = PHAsset.fetchKeyAssetsInAssetCollection(collection, options: assetOptions) {
                     return result
                 }
             }
         }
         
         return nil
+    }
+}
+
+extension PhotoLoader: AlbumLoader {
+    func fetchAllPhotosPreview(targetSize: CGSize, handler: Album -> Void) {
+        if let result = fetchPhotosFromCollectionWithType(AlbumType.AllPhotos) {
+            albums[AlbumType.AlbumNames.AllPhotos] = result
+            PhotoLoader.createAlbumFromFetchResult(result, withType: AlbumType.AllPhotos, previewImageTargetSize: targetSize, handler: handler)
+        }
+    }
+    
+    func fetchFavoritesPreview(targetSize: CGSize, handler: Album -> Void) {
+        if let result = fetchPhotosFromCollectionWithType(AlbumType.Favorites) {
+            albums[AlbumType.AlbumNames.Favorites] = result
+            PhotoLoader.createAlbumFromFetchResult(result, withType: AlbumType.Favorites, previewImageTargetSize: targetSize, handler: handler)
+        }
+    }
+    
+    func fetchAllUserAlbumPreviews(targetSize: CGSize, handler: Album -> Void) {
+        let userAlbumsOptions = PHFetchOptions()
+        userAlbumsOptions.predicate = NSPredicate(format: "estimatedAssetCount > 0")
+        let userAlbums = PHAssetCollection.fetchAssetCollectionsWithType(PHAssetCollectionType.Album, subtype: PHAssetCollectionSubtype.Any, options: userAlbumsOptions)
+        
+        userAlbums.enumerateObjectsUsingBlock() {
+            [weak self] in
+            if let collection = $0.0 as? PHAssetCollection,
+                let title = collection.localizedTitle {
+                let onlyImagesOptions = PHFetchOptions()
+                onlyImagesOptions.predicate = NSPredicate(format: "mediaType = %i", PHAssetMediaType.Image.rawValue)
+                if let result = PHAsset.fetchKeyAssetsInAssetCollection(collection, options: onlyImagesOptions) {
+                    self?.albums[title] = result
+                    PhotoLoader.createAlbumFromFetchResult(result, withType: AlbumType.UserDefined(title: title), previewImageTargetSize: targetSize, handler: handler)
+                }
+            }
+        }
+    }
+    
+    
+    func fetchAllSmartAlbumPreviews(targetSize: CGSize, handler: Album -> Void) {
+        let smartAlbums = PHAssetCollection.fetchAssetCollectionsWithType(.SmartAlbum, subtype: .Any, options: nil)
+        smartAlbums.enumerateObjectsUsingBlock() {
+            [weak self] (element: AnyObject, index: Int, _: UnsafeMutablePointer<ObjCBool>) in print("Heii")
+            
+            if let collection = element as? PHAssetCollection,
+                let title = collection.localizedTitle
+                where PhotoLoader.SmartCollections.contains(title) {
+                let onlyImagesOptions = PHFetchOptions()
+                onlyImagesOptions.predicate = NSPredicate(format: "mediaType = %i", PHAssetMediaType.Image.rawValue)
+                
+                if let result = PHAsset.fetchKeyAssetsInAssetCollection(collection, options: onlyImagesOptions)
+                    where result.count > 0 {
+                    self?.albums[title] = result
+                    PhotoLoader.createAlbumFromFetchResult(result, withType: AlbumType.SmartAlbum(title: title), previewImageTargetSize: targetSize, handler: handler)
+                }
+            }
+        }
+    }
+    
+    private static func createAlbumFromFetchResult(fetchResult: PHFetchResult, withType type: AlbumType, previewImageTargetSize targetSize: CGSize, handler: Album -> Void) {
+        if let asset = fetchResult.firstObject as? PHAsset {
+            PHImageManager.defaultManager().requestImageForAsset(asset, targetSize: targetSize, contentMode: .Default, options: nil) {
+                (image: UIImage?, data: [NSObject : AnyObject]?) in
+                if let image = image {
+                    handler(Album(size: fetchResult.count, image: image, type: type))
+                }
+            }
+        }
     }
 }
