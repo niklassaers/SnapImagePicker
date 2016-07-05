@@ -12,19 +12,26 @@ class SnapImagePickerInteractor {
 
 extension SnapImagePickerInteractor: SnapImagePickerInteractorProtocol {
     func loadAlbumWithType(type: AlbumType, withTargetSize targetSize: CGSize) {
-        print("EntityGateway: \(entityGateway)")
-        entityGateway?.loadAlbumWithType(type, withTargetSize: targetSize)
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
+            [weak self] in self?.entityGateway?.loadAlbumWithType(type, withTargetSize: targetSize)
+        }
     }
     
     func loadImageWithLocalIdentifier(localIdentifier: String, withTargetSize targetSize: CGSize) {
-        entityGateway?.loadImageWithLocalIdentifier(localIdentifier, withTargetSize: targetSize)
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
+            [weak self] in self?.entityGateway?.loadImageWithLocalIdentifier(localIdentifier, withTargetSize: targetSize)
+        }
     }
     
     func loadedAlbumImage(image: UIImage, localIdentifier: String) {
-        presenter?.presentAlbumImage(image, id: localIdentifier)
+        dispatch_async(dispatch_get_main_queue()) {
+            [weak self] in self?.presenter?.presentAlbumImage(image, id: localIdentifier)
+        }
     }
     
     func loadedMainImage(image: UIImage) {
-        presenter?.presentMainImage(image)
+        dispatch_async(dispatch_get_main_queue()) {
+            [weak self] in self?.presenter?.presentMainImage(image)
+        }
     }
 }

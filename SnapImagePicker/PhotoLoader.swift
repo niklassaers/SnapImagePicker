@@ -92,7 +92,8 @@ extension PhotoLoader: AlbumLoader {
                 let title = collection.localizedTitle {
                 let onlyImagesOptions = PHFetchOptions()
                 onlyImagesOptions.predicate = NSPredicate(format: "mediaType = %i", PHAssetMediaType.Image.rawValue)
-                if let result = PHAsset.fetchKeyAssetsInAssetCollection(collection, options: onlyImagesOptions) {
+                let result = PHAsset.fetchAssetsInAssetCollection(collection, options: onlyImagesOptions)
+                if result.count > 0 {
                     self?.albums[title] = result
                     PhotoLoader.createAlbumFromFetchResult(result, withType: AlbumType.UserDefined(title: title), previewImageTargetSize: targetSize, handler: handler)
                 }
@@ -112,8 +113,8 @@ extension PhotoLoader: AlbumLoader {
                 let onlyImagesOptions = PHFetchOptions()
                 onlyImagesOptions.predicate = NSPredicate(format: "mediaType = %i", PHAssetMediaType.Image.rawValue)
                 
-                if let result = PHAsset.fetchKeyAssetsInAssetCollection(collection, options: onlyImagesOptions)
-                    where result.count > 0 {
+                let result = PHAsset.fetchAssetsInAssetCollection(collection, options: onlyImagesOptions)
+                if result.count > 0 {
                     self?.albums[title] = result
                     PhotoLoader.createAlbumFromFetchResult(result, withType: AlbumType.SmartAlbum(title: title), previewImageTargetSize: targetSize, handler: handler)
                 }
