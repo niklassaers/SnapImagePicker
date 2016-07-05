@@ -2,10 +2,9 @@ import UIKit
 import Foundation
 
 extension UIScrollView {
-    func manuallyBounceBasedOnVelocity(velocity: CGPoint, withAnimationDuration duration: Double = 0.2) {
-        let originalOffset = contentOffset
-        
+    private func calculateOffsetFromVelocity(velocity: CGPoint) -> CGPoint {
         var offset = CGPointZero
+        
         let x = Double(velocity.x / abs(velocity.x)) * pow(Double(28 * log(abs(velocity.x)) + 25), 1.2) * 0.6
         let y = Double(velocity.y / abs(velocity.y)) * pow(Double(28 * log(abs(velocity.y)) + 25), 1.2) * 0.6
         if !x.isNaN {
@@ -14,6 +13,13 @@ extension UIScrollView {
         if !y.isNaN {
             offset.y = CGFloat(y)
         }
+        
+        return offset
+    }
+    func manuallyBounceBasedOnVelocity(velocity: CGPoint, withAnimationDuration duration: Double = 0.2) {
+        let originalOffset = contentOffset
+        
+        let offset = calculateOffsetFromVelocity(velocity)
     
         UIView.animateWithDuration(duration, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
             [weak self] in
