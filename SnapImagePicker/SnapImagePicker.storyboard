@@ -111,8 +111,8 @@
                             <constraint firstItem="TOw-dc-Dkh" firstAttribute="leading" secondItem="692-lI-ACh" secondAttribute="leading" constant="-10" id="OXR-hn-XPc"/>
                             <constraint firstItem="Jfu-sj-ks5" firstAttribute="width" secondItem="Fma-Hu-M78" secondAttribute="width" id="PAa-eO-mP4"/>
                             <constraint firstItem="Fma-Hu-M78" firstAttribute="top" secondItem="Fnf-u5-0oM" secondAttribute="bottom" id="dhR-vP-eJr"/>
+                            <constraint firstItem="Fma-Hu-M78" firstAttribute="width" secondItem="TOw-dc-Dkh" secondAttribute="width" id="jZF-W2-CRa"/>
                             <constraint firstItem="1Kd-hF-p6C" firstAttribute="top" secondItem="TOw-dc-Dkh" secondAttribute="bottom" id="khT-Fr-xcU"/>
-                            <constraint firstItem="Fma-Hu-M78" firstAttribute="width" secondItem="nWZ-x0-ung" secondAttribute="width" id="nEp-RK-9Op"/>
                             <constraint firstItem="Jfu-sj-ks5" firstAttribute="centerY" secondItem="Fma-Hu-M78" secondAttribute="centerY" id="paE-NJ-laJ"/>
                             <constraint firstItem="TOw-dc-Dkh" firstAttribute="top" secondItem="Fnf-u5-0oM" secondAttribute="bottom" id="tR1-Xe-bPS"/>
                             <constraint firstItem="TOw-dc-Dkh" firstAttribute="bottom" secondItem="692-lI-ACh" secondAttribute="bottom" constant="10" id="zUt-iR-AaK"/>
@@ -171,6 +171,7 @@
                         <outlet property="selectButton" destination="nOJ-pL-qVS" id="qIw-Wx-wOB"/>
                         <outlet property="selectedImageScrollView" destination="TOw-dc-Dkh" id="Zv4-91-LsP"/>
                         <outlet property="selectedImageView" destination="gCa-3y-aIB" id="8mx-cD-S8Y"/>
+                        <outlet property="selectedImageWidthRatio" destination="B38-jY-uzx" id="WK0-6z-p3F"/>
                         <outlet property="titleArrowView" destination="tNX-eO-r1F" id="EDA-CH-0pl"/>
                         <outlet property="titleButton" destination="9WX-Eh-hk3" id="zxh-z8-0aa"/>
                         <outlet property="titleView" destination="D6X-F2-YFL" id="Pz0-jO-0nY"/>

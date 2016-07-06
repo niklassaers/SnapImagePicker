@@ -25,13 +25,14 @@ class SnapImagePickerPresenter {
         self.view = view
     }
     
-    private func display(shouldFocus: Bool = true) {
+    private func display(shouldFocus: Bool = true, orientation: SnapImagePickerViewModel.Orientation = .Portrait) {
         view?.display(SnapImagePickerViewModel(albumTitle: albumType.getAlbumName(),
             mainImage: mainImage,
             albumImages: albumImages,
             displayState: state,
             selectedIndex: selectedIndex,
-            shouldFocusMainImage: shouldFocus))
+            shouldFocusMainImage: shouldFocus,
+            orientation: orientation))
     }
 }
 

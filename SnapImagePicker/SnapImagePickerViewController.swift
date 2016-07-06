@@ -4,7 +4,7 @@ import Foundation
 class SnapImagePickerViewController: UIViewController {
     private struct UIConstants {
         static let Spacing = CGFloat(2)
-        static let NumberOfColumns = 4
+        static var NumberOfColumns = 4
         static let BackgroundColor = UIColor.whiteColor()
         static let MaxZoomScale = CGFloat(5)
         static let CellBorderWidth = CGFloat(2)
@@ -18,6 +18,7 @@ class SnapImagePickerViewController: UIViewController {
     }
     @IBOutlet weak var titleView: UIView?
     @IBOutlet weak var titleArrowView: DownwardsArrowView?
+    @IBOutlet weak var selectedImageWidthRatio: NSLayoutConstraint?
     @IBOutlet weak var titleButton: UIButton? {
         didSet {
             titleButton?.titleLabel?.font = SnapImagePickerConnector.Theme.font
@@ -75,6 +76,10 @@ class SnapImagePickerViewController: UIViewController {
     private var userIsScrolling = false
     private var enqueuedBounce: (() -> Void)?
     
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        print("Swapping size")
+    }
+    
     @IBAction func flipImageButtonPressed(sender: UIButton) {
         UIView.animateWithDuration(0.3,
             animations: {
@@ -97,6 +102,7 @@ class SnapImagePickerViewController: UIViewController {
     }
     
     @IBAction func selectButtonPressed(sender: UIBarButtonItem) {
+        
         if let cropRect = selectedImageScrollView?.getImageBoundsForImageView(selectedImageView),
            let image = selectedImageView?.image {
             eventHandler?.selectButtonPressed(image, withCropRect: cropRect)
@@ -190,6 +196,9 @@ extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
             selectedImageScrollView.maximumZoomScale = UIConstants.MaxZoomScale
             selectedImageScrollView.setZoomScale(zoomScale, animated: false)
             selectedImageScrollView.setContentOffset(CGPoint(x: scaledOffset, y: scaledOffset), animated: false)
+        }
+        if UIDevice.currentDevice().orientation == .LandscapeLeft {
+            print("Landscape!")
         }
     }
 }

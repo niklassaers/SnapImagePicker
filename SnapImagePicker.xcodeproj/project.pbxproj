@@ -49,6 +49,7 @@
 		D88300871D06C72600399612 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D88300851D06C72600399612 /* LaunchScreen.storyboard */; };
 		D88300921D06C72600399612 /* SnapImagePickerExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88300911D06C72600399612 /* SnapImagePickerExampleTests.swift */; };
 		D883009D1D06C72600399612 /* SnapImagePickerExampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D883009C1D06C72600399612 /* SnapImagePickerExampleUITests.swift */; };
+		D893FA741D2D329600E71429 /* NSLayoutConstraint+changeMultiplier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D893FA731D2D329600E71429 /* NSLayoutConstraint+changeMultiplier.swift */; };
 		D89D6FE91D06CC06007DD132 /* SnapImagePicker.h in Headers */ = {isa = PBXBuildFile; fileRef = D89D6FE81D06CC06007DD132 /* SnapImagePicker.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D89D6FF01D06CC06007DD132 /* SnapImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D89D6FE61D06CC06007DD132 /* SnapImagePicker.framework */; };
 		D89D6FF71D06CC06007DD132 /* SnapImagePickerExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89D6FF61D06CC06007DD132 /* SnapImagePickerExampleTests.swift */; };
@@ -172,6 +173,7 @@
 		D88300981D06C72600399612 /* Example_Project_UI_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Example_Project_UI_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D883009C1D06C72600399612 /* SnapImagePickerExampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapImagePickerExampleUITests.swift; sourceTree = "<group>"; };
 		D883009E1D06C72600399612 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D893FA731D2D329600E71429 /* NSLayoutConstraint+changeMultiplier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSLayoutConstraint+changeMultiplier.swift"; sourceTree = "<group>"; };
 		D89D6FE61D06CC06007DD132 /* SnapImagePicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SnapImagePicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D89D6FE81D06CC06007DD132 /* SnapImagePicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SnapImagePicker.h; sourceTree = "<group>"; };
 		D89D6FEA1D06CC06007DD132 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -394,6 +396,7 @@
 				D87999F51D23CCF400683406 /* UIScrollView+fakeBounce.swift */,
 				D8BF9CA41D266BA100DC1F02 /* UIScrollView+correction.swift */,
 				D83E55FD1D2BFB9E00338F5D /* UIImage+rotate.swift */,
+				D893FA731D2D329600E71429 /* NSLayoutConstraint+changeMultiplier.swift */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -955,6 +958,7 @@
 				D8BF9CAB1D26B3DA00DC1F02 /* DownwardsArrowView.swift in Sources */,
 				D824685D1D22A55F009DB2A4 /* UIScrollView+getBounds.swift in Sources */,
 				D83E55FE1D2BFB9E00338F5D /* UIImage+rotate.swift in Sources */,
+				D893FA741D2D329600E71429 /* NSLayoutConstraint+changeMultiplier.swift in Sources */,
 				D847B41F1D1D24A900D58E2C /* SnapImagePickerViewControllerProtocol.swift in Sources */,
 				D847B4271D1D28F000D58E2C /* SnapImagePickerPresenterProtocol.swift in Sources */,
 				D847B42D1D1D2A6100D58E2C /* SnapImagePickerInteractor.swift in Sources */,
