@@ -9,7 +9,7 @@ public protocol SnapImagePickerProtocol {
 protocol SnapImagePickerConnectorProtocol: class {
     func prepareSegueToAlbumSelector(viewController: UIViewController)
     func prepareSegueToImagePicker(albumType: AlbumType)
-    func setChosenImage(image: UIImage, withCropRect cropRect: CGRect)
+    func setChosenImage(image: UIImage, withImageOptions: ImageOptions)
     func requestPhotosAccess()
 }
 
@@ -85,8 +85,8 @@ extension SnapImagePickerConnector: SnapImagePickerConnectorProtocol {
         presenter?.albumType = albumType
     }
     
-    func setChosenImage(image: UIImage, withCropRect cropRect: CGRect) {
-        delegate?.pickedImage(image, withBounds: cropRect)
+    func setChosenImage(image: UIImage, withImageOptions options: ImageOptions) {
+        delegate?.pickedImage(image, withImageOptions: options)
     }
     
     public func requestPhotosAccess() {

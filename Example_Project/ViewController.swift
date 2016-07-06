@@ -23,9 +23,15 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: SnapImagePickerDelegate {
-    func pickedImage(image: UIImage, withBounds bounds: CGRect) {
+    func pickedImage(image: UIImage, withImageOptions options: SnapImagePicker.ImageOptions) {
         imageView?.contentMode = .ScaleAspectFit
-        imageView?.image = UIImage(CGImage: CGImageCreateWithImageInRect(image.CGImage, bounds)!)
+        var orientation = UIImageOrientation.Up
+        switch options.rotation {
+        case 0: break
+        case 90: orientation = UIImageOrientation.Right
+        case
+        }
+        imageView?.image = UIImage(CGImage: CGImageCreateWithImageInRect(image.CGImage, options.cropRect)!, scale: 1, orientation: UIImageOrientation.options.rotation)
     }
     
     func requestPhotosAccess() {

@@ -3,5 +3,5 @@ import UIKit
 
 public protocol SnapImagePickerDelegate : class {
     func requestPhotosAccess()
-    func pickedImage(image: UIImage, withBounds: CGRect)
+    func pickedImage(image: UIImage, withImageOptions: ImageOptions)
 }

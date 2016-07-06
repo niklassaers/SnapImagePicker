@@ -19,20 +19,17 @@ class SnapImagePickerPresenter {
     }
     
     private var selectedIndex = 0
-    private var state: DisplayState = .Image
+    private var rotation = CGFloat(0)
     
     init(view: SnapImagePickerViewControllerProtocol) {
         self.view = view
     }
     
-    private func display(shouldFocus: Bool = true, orientation: SnapImagePickerViewModel.Orientation = .Portrait) {
+    private func display(shouldFocus: Bool = true) {
         view?.display(SnapImagePickerViewModel(albumTitle: albumType.getAlbumName(),
             mainImage: mainImage,
             albumImages: albumImages,
-            displayState: state,
-            selectedIndex: selectedIndex,
-            shouldFocusMainImage: shouldFocus,
-            orientation: orientation))
+            selectedIndex: selectedIndex))
     }
 }
 
@@ -64,7 +61,6 @@ extension SnapImagePickerPresenter {
 
 extension SnapImagePickerPresenter: SnapImagePickerPresenterProtocol {
     func presentMainImage(image: UIImage) {
-        state = .Image
         mainImage = image
         display()
     }
@@ -79,10 +75,6 @@ extension SnapImagePickerPresenter: SnapImagePickerPresenterProtocol {
 }
 
 extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
-    var displayState: DisplayState {
-        return state
-    }
-    
     func viewWillAppear() {
         checkPhotosAccessStatus()
     }
@@ -99,16 +91,8 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
         }
     }
     
-    func userScrolledToState(state: DisplayState) {
-        self.state = state
-        display()
-    }
-    
     func flipImageButtonPressed() {
-        if let mainImage = mainImage {
-            self.mainImage = mainImage.imageRotatedByDegrees(270, flip: false)
-            display(false)
-        }
+        rotation = (rotation + 270) % 360
     }
     
     func albumTitleClicked(destinationViewController: UIViewController) {
@@ -116,16 +100,7 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
     }
     
     func selectButtonPressed(image: UIImage, withCropRect cropRect: CGRect) {
-        connector?.setChosenImage(image, withCropRect: cropRect)
-    }
-    
-    func scrolledToOffsetRatio(ratio: Double) {
-        if state == .Album && ratio < 0.7 {
-            state = .Image
-        } else if state == .Image && ratio > 0.2 {
-            state = .Album
-        }
-        
-        display()
+        let options = ImageOptions(cropRect: cropRect, rotation: rotation)
+        connector?.setChosenImage(image, withImageOptions: options)
     }
 }
