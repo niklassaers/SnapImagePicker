@@ -3,12 +3,14 @@ import SnapFonts_iOS
 
 public protocol SnapImagePickerProtocol {
     func imagePicker(delegate delegate: SnapImagePickerDelegate) -> UIViewController?
+    func photosAccessStatusChanged()
 }
 
 protocol SnapImagePickerConnectorProtocol: class {
     func prepareSegueToAlbumSelector(viewController: UIViewController)
     func prepareSegueToImagePicker(albumType: AlbumType)
     func setChosenImage(image: UIImage, withCropRect cropRect: CGRect)
+    func requestPhotosAccess()
 }
 
 public class SnapImagePickerConnector {
@@ -29,9 +31,11 @@ public class SnapImagePickerConnector {
     private let photoLoader = PhotoLoader()
     
     var delegate: SnapImagePickerDelegate?
+    
     // Why is this needed?
     public init() {}
 }
+
 extension SnapImagePickerConnector: SnapImagePickerProtocol {
     public func imagePicker(delegate delegate: SnapImagePickerDelegate) -> UIViewController? {
         let bundle = NSBundle(forClass: SnapImagePickerConnector.self)
@@ -57,6 +61,10 @@ extension SnapImagePickerConnector: SnapImagePickerProtocol {
         }
         return nil;
     }
+    
+    public func photosAccessStatusChanged() {
+        presenter?.photosAccessStatusChanged()
+    }
 }
 extension SnapImagePickerConnector: SnapImagePickerConnectorProtocol {
     func prepareSegueToAlbumSelector(viewController: UIViewController) {
@@ -79,5 +87,9 @@ extension SnapImagePickerConnector: SnapImagePickerConnectorProtocol {
     
     func setChosenImage(image: UIImage, withCropRect cropRect: CGRect) {
         delegate?.pickedImage(image, withBounds: cropRect)
+    }
+    
+    public func requestPhotosAccess() {
+        delegate?.requestPhotosAccess()
     }
 }

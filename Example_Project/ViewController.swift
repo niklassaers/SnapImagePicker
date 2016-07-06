@@ -27,4 +27,8 @@ extension ViewController: SnapImagePickerDelegate {
         imageView?.contentMode = .ScaleAspectFit
         imageView?.image = UIImage(CGImage: CGImageCreateWithImageInRect(image.CGImage, bounds)!)
     }
+    
+    func requestPhotosAccess() {
+        print("Need to request access to photos")
+    }
 }

@@ -1,4 +1,5 @@
 import UIKit
+import Foundation
 
 class SnapImagePickerViewController: UIViewController {
     private struct UIConstants {
@@ -27,6 +28,7 @@ class SnapImagePickerViewController: UIViewController {
     
     @IBOutlet weak var selectButton: UIBarButtonItem?
     @IBOutlet weak var cancelButton: UIBarButtonItem?
+    @IBOutlet weak var rotateButton: UIButton?
     
     @IBOutlet weak var albumCollectionView: UICollectionView? {
         didSet {
@@ -56,7 +58,6 @@ class SnapImagePickerViewController: UIViewController {
             blackOverlayView?.alpha = 0.0
         }
     }
-    
     var eventHandler: SnapImagePickerEventHandlerProtocol?
     
     private var albumTitle: String? {
@@ -74,6 +75,39 @@ class SnapImagePickerViewController: UIViewController {
     private var userIsScrolling = false
     private var enqueuedBounce: (() -> Void)?
     
+    @IBAction func flipImageButtonPressed(sender: UIButton) {
+        UIView.animateWithDuration(0.3,
+            animations: {
+                self.selectedImageScrollView?.transform = CGAffineTransformMakeRotation(CGFloat(-M_PI/2))
+                sender.enabled = false
+            }, completion: {
+                [weak self] _ in
+                
+                if let selectedImageScrollView = self?.selectedImageScrollView {
+                    selectedImageScrollView.transform = CGAffineTransformMakeRotation(0)
+                    
+                    let x = selectedImageScrollView.contentOffset.y
+                    let y = selectedImageScrollView.contentSize.width - (selectedImageScrollView.contentOffset.x + selectedImageScrollView.bounds.width)
+                    self?.selectedImageScrollView?.setContentOffset(CGPoint(x: x, y: y), animated: false)
+                }
+                self?.eventHandler?.flipImageButtonPressed()
+                sender.enabled = true
+        })
+        
+    }
+    
+    @IBAction func selectButtonPressed(sender: UIBarButtonItem) {
+        if let cropRect = selectedImageScrollView?.getImageBoundsForImageView(selectedImageView),
+           let image = selectedImageView?.image {
+            eventHandler?.selectButtonPressed(image, withCropRect: cropRect)
+        }
+        dismiss()
+    }
+    
+    @IBAction func cancelButtonPressed(sender: UIBarButtonItem) {
+        dismiss()
+    }
+    
     override func viewWillAppear(animated: Bool) {
         eventHandler?.viewWillAppear()
         calculateViewSizes()
@@ -88,18 +122,6 @@ class SnapImagePickerViewController: UIViewController {
             default: break
             }
         }
-    }
-    
-    @IBAction func selectButtonPressed(sender: UIBarButtonItem) {
-        if let cropRect = selectedImageScrollView?.getImageBoundsForImageView(selectedImageView),
-           let image = selectedImageView?.image {
-            eventHandler?.selectButtonPressed(image, withCropRect: cropRect)
-        }
-        dismiss()
-    }
-    
-    @IBAction func cancelButtonPressed(sender: UIBarButtonItem) {
-        dismiss()
     }
 
     private func dismiss() {
@@ -125,13 +147,20 @@ extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
         
         if let mainImage = viewModel.mainImage
            where mainImage != selectedImageView?.image {
-            displayMainImage(mainImage)
+            if viewModel.shouldFocusMainImage {
+                displayMainImage(mainImage)
+            } else {
+                selectedImageView?.image = mainImage
+            }
         }
         
         images = viewModel.albumImages
         if (viewModel.displayState == .Image  && currentlySelectedIndex != viewModel.selectedIndex) {
             scrollToIndex(viewModel.selectedIndex)
         }
+        
+        rotateButton?.enabled = viewModel.displayState == .Image
+        rotateButton?.alpha = viewModel.displayState == .Image ? 1 : 0.5
         
         currentlySelectedIndex = viewModel.selectedIndex
         setMainOffsetForState(viewModel.displayState)

@@ -6,4 +6,5 @@ struct SnapImagePickerViewModel {
     let albumImages: [UIImage]
     let displayState: DisplayState
     let selectedIndex: Int
+    let shouldFocusMainImage: Bool
 }

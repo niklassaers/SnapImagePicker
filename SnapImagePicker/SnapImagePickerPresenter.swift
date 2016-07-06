@@ -1,4 +1,5 @@
 import UIKit
+import Photos
 
 class SnapImagePickerPresenter {
     private weak var view: SnapImagePickerViewControllerProtocol?
@@ -7,16 +8,8 @@ class SnapImagePickerPresenter {
     weak var connector: SnapImagePickerConnectorProtocol?
     
     var albumType = AlbumType.AllPhotos
-    private var mainImage: UIImage? {
-        didSet {
-            display()
-        }
-    }
-    private var imagesWithIdentifiers = [(image: UIImage, id: String)]() {
-        didSet {
-            display()
-        }
-    }
+    private var mainImage: UIImage?
+    private var imagesWithIdentifiers = [(image: UIImage, id: String)]()
     private var albumImages: [UIImage] {
         var images = [UIImage]()
         for (image, _) in imagesWithIdentifiers {
@@ -32,12 +25,39 @@ class SnapImagePickerPresenter {
         self.view = view
     }
     
-    private func display() {
+    private func display(shouldFocus: Bool = true) {
         view?.display(SnapImagePickerViewModel(albumTitle: albumType.getAlbumName(),
             mainImage: mainImage,
             albumImages: albumImages,
             displayState: state,
-            selectedIndex: selectedIndex))
+            selectedIndex: selectedIndex,
+            shouldFocusMainImage: shouldFocus))
+    }
+}
+
+extension SnapImagePickerPresenter {
+    func photosAccessStatusChanged() {
+        checkPhotosAccessStatus()
+    }
+    
+    private func checkPhotosAccessStatus() {
+        validatePhotosAccessStatus(PHPhotoLibrary.authorizationStatus())
+    }
+    
+    private func validatePhotosAccessStatus(availability: PHAuthorizationStatus, retry: Bool = true) {
+        switch availability {
+        case .Restricted: fallthrough
+        case .Authorized: loadAlbum()
+        case .Denied:connector?.requestPhotosAccess()
+        case .NotDetermined:
+            if retry {
+                PHPhotoLibrary.requestAuthorization() {
+                    [weak self] status in self?.validatePhotosAccessStatus(status, retry: false)
+                }
+            } else {
+                connector?.requestPhotosAccess()
+            }
+        }
     }
 }
 
@@ -45,6 +65,7 @@ extension SnapImagePickerPresenter: SnapImagePickerPresenterProtocol {
     func presentMainImage(image: UIImage) {
         state = .Image
         mainImage = image
+        display()
     }
     
     func presentAlbumImage(image: UIImage, id: String) {
@@ -52,6 +73,7 @@ extension SnapImagePickerPresenter: SnapImagePickerPresenterProtocol {
         if imagesWithIdentifiers.count == 1 {
             interactor?.loadImageWithLocalIdentifier(id, withTargetSize: CGSize(width: 2000, height: 2000))
         }
+        display()
     }
 }
 
@@ -61,12 +83,11 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
     }
     
     func viewWillAppear() {
-        loadAlbum()
+        checkPhotosAccessStatus()
     }
     
     private func loadAlbum() {
         imagesWithIdentifiers = [(image: UIImage, id: String)]()
-        print("Interactor \(interactor)")
         interactor?.loadAlbumWithType(albumType, withTargetSize: CGSize(width: 64, height: 64))
     }
     
@@ -80,6 +101,13 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
     func userScrolledToState(state: DisplayState) {
         self.state = state
         display()
+    }
+    
+    func flipImageButtonPressed() {
+        if let mainImage = mainImage {
+            self.mainImage = mainImage.imageRotatedByDegrees(270, flip: false)
+            display(false)
+        }
     }
     
     func albumTitleClicked(destinationViewController: UIViewController) {
