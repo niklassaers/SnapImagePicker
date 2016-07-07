@@ -255,6 +255,7 @@ extension SnapImagePickerViewController: UICollectionViewDelegateFlowLayout {
 
 extension SnapImagePickerViewController: UICollectionViewDelegate {
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        print("Did select item at index path \(indexPath)")
         eventHandler?.albumIndexClicked((indexPath.section * currentDisplay.NumberOfColumns) + indexPath.row)
     }
 }

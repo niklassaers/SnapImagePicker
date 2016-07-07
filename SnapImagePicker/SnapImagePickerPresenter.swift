@@ -61,9 +61,11 @@ extension SnapImagePickerPresenter {
 }
 
 extension SnapImagePickerPresenter: SnapImagePickerPresenterProtocol {
-    func presentMainImage(image: UIImage) {
-        mainImage = image
-        display()
+    func presentMainImage(image: UIImage, withLocalIdentifier identifier: String) {
+        if identifier == imagesWithIdentifiers[selectedIndex].id {
+            mainImage = image
+            display()
+        }
     }
     
     func presentAlbumImage(image: UIImage, id: String) {
@@ -88,7 +90,7 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
     
     func albumIndexClicked(index: Int) {
         if index < imagesWithIdentifiers.count {
-            self.selectedIndex = index
+            selectedIndex = index
             interactor?.loadImageWithLocalIdentifier(imagesWithIdentifiers[index].id, withTargetSize: CGSize(width: 2000, height: 2000))
         }
     }

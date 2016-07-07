@@ -42,11 +42,11 @@ extension SnapImagePickerEntityGateway: SnapImagePickerEntityGatewayProtocol {
         let fetchResult = PHAsset.fetchAssetsWithLocalIdentifiers([localIdentifier], options: nil)
         if let asset = fetchResult.firstObject as? PHAsset{
             let options = PHImageRequestOptions()
-            options.synchronous = true
+            options.networkAccessAllowed = true
             PHImageManager.defaultManager().requestImageForAsset(asset, targetSize: CGSize(width: 2000, height: 2000), contentMode: .Default, options: options) {
                 [weak self] (image: UIImage?, data: [NSObject : AnyObject]?) in
                 if let image = image {
-                    self?.interactor?.loadedMainImage(image)
+                    self?.interactor?.loadedMainImage(image, withLocalIdentifier: localIdentifier)
                 }
             }
         }

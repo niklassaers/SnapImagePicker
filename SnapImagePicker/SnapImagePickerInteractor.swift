@@ -29,9 +29,9 @@ extension SnapImagePickerInteractor: SnapImagePickerInteractorProtocol {
         }
     }
     
-    func loadedMainImage(image: UIImage) {
+    func loadedMainImage(image: UIImage, withLocalIdentifier identifier: String) {
         dispatch_async(dispatch_get_main_queue()) {
-            [weak self] in self?.presenter?.presentMainImage(image)
+            [weak self] in self?.presenter?.presentMainImage(image, withLocalIdentifier: identifier)
         }
     }
 }
