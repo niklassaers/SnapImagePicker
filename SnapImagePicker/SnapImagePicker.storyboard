@@ -25,9 +25,10 @@
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gCa-3y-aIB">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="gCa-3y-aIB" firstAttribute="height" secondItem="TOw-dc-Dkh" secondAttribute="height" id="4Sr-Ge-tpU"/>
                                     <constraint firstItem="gCa-3y-aIB" firstAttribute="width" secondItem="TOw-dc-Dkh" secondAttribute="width" id="4nB-tx-vO0"/>
@@ -122,7 +123,7 @@
                         <nil key="title"/>
                         <barButtonItem key="leftBarButtonItem" title="X" id="wug-RY-2Gy">
                             <connections>
-                                <action selector="cancelButtonPressed:" destination="Wid-Ke-N4r" id="mp4-8x-AMp"/>
+                                <action selector="cancelButtonPressed:" destination="Wid-Ke-N4r" id="huG-Jb-cem"/>
                             </connections>
                         </barButtonItem>
                         <view key="titleView" contentMode="scaleToFill" id="D6X-F2-YFL">
@@ -164,14 +165,16 @@
                     <connections>
                         <outlet property="albumCollectionView" destination="1Kd-hF-p6C" id="mLK-ep-lwP"/>
                         <outlet property="albumCollectionViewHeightConstraint" destination="8Qg-uJ-5f0" id="fr8-Kp-4b5"/>
+                        <outlet property="albumCollectionWidthConstraint" destination="LUL-ga-KYI" id="4kG-1q-6ra"/>
                         <outlet property="blackOverlayView" destination="Jfu-sj-ks5" id="hp6-Xm-yXf"/>
+                        <outlet property="cancelButton" destination="wug-RY-2Gy" id="Si5-yx-Pr2"/>
                         <outlet property="imageGridView" destination="Fma-Hu-M78" id="Ey8-4q-NjH"/>
                         <outlet property="mainScrollView" destination="nWZ-x0-ung" id="Op1-C8-y8E"/>
                         <outlet property="rotateButton" destination="692-lI-ACh" id="CSu-Zd-4jn"/>
                         <outlet property="selectButton" destination="nOJ-pL-qVS" id="qIw-Wx-wOB"/>
                         <outlet property="selectedImageScrollView" destination="TOw-dc-Dkh" id="Zv4-91-LsP"/>
                         <outlet property="selectedImageView" destination="gCa-3y-aIB" id="8mx-cD-S8Y"/>
-                        <outlet property="selectedImageWidthRatio" destination="B38-jY-uzx" id="WK0-6z-p3F"/>
+                        <outlet property="selectedImageWidthConstraint" destination="B38-jY-uzx" id="1bR-El-eo6"/>
                         <outlet property="titleArrowView" destination="tNX-eO-r1F" id="EDA-CH-0pl"/>
                         <outlet property="titleButton" destination="9WX-Eh-hk3" id="zxh-z8-0aa"/>
                         <outlet property="titleView" destination="D6X-F2-YFL" id="Pz0-jO-0nY"/>

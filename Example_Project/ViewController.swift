@@ -1,5 +1,6 @@
 import UIKit
 import SnapImagePicker
+import Foundation
 
 class ViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
@@ -28,10 +29,12 @@ extension ViewController: SnapImagePickerDelegate {
         var orientation = UIImageOrientation.Up
         switch options.rotation {
         case 0: break
-        case 90: orientation = UIImageOrientation.Right
-        case
+        case M_PI/2: orientation = UIImageOrientation.Right
+        case M_PI: orientation = UIImageOrientation.Down
+        case M_PI*1.5: orientation = UIImageOrientation.Left
+        default: print("Orientation: \(options.rotation)")
         }
-        imageView?.image = UIImage(CGImage: CGImageCreateWithImageInRect(image.CGImage, options.cropRect)!, scale: 1, orientation: UIImageOrientation.options.rotation)
+        imageView?.image = UIImage(CGImage: CGImageCreateWithImageInRect(image.CGImage, options.cropRect)!, scale: 1, orientation: orientation)
     }
     
     func requestPhotosAccess() {

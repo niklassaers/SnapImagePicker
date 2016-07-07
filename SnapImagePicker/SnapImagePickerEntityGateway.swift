@@ -10,6 +10,7 @@ class SnapImagePickerEntityGateway {
         self.imageLoader = imageLoader
     }
 }
+
 extension SnapImagePickerEntityGateway {
     private func loadImageFromAsset(asset: PHAsset, withTargetSize targetSize: CGSize, handler: (UIImage, String) -> Void) {
         PHImageManager.defaultManager().requestImageForAsset(asset, targetSize: targetSize, contentMode: .Default, options: nil) {

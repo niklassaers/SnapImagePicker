@@ -20,6 +20,7 @@ class SnapImagePickerPresenter {
     
     private var selectedIndex = 0
     private var rotation = CGFloat(0)
+    private var cellSize = CGSize(width: 64, height: 64)
     
     init(view: SnapImagePickerViewControllerProtocol) {
         self.view = view
@@ -75,13 +76,14 @@ extension SnapImagePickerPresenter: SnapImagePickerPresenterProtocol {
 }
 
 extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
-    func viewWillAppear() {
+    func viewWillAppearWithCellSize(cellSize: CGFloat) {
+        self.cellSize = CGSize(width: cellSize, height: cellSize)
         checkPhotosAccessStatus()
     }
     
     private func loadAlbum() {
         imagesWithIdentifiers = [(image: UIImage, id: String)]()
-        interactor?.loadAlbumWithType(albumType, withTargetSize: CGSize(width: 64, height: 64))
+        interactor?.loadAlbumWithType(albumType, withTargetSize: cellSize)
     }
     
     func albumIndexClicked(index: Int) {
@@ -91,16 +93,11 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
         }
     }
     
-    func flipImageButtonPressed() {
-        rotation = (rotation + 270) % 360
-    }
-    
     func albumTitleClicked(destinationViewController: UIViewController) {
         connector?.prepareSegueToAlbumSelector(destinationViewController)
     }
     
-    func selectButtonPressed(image: UIImage, withCropRect cropRect: CGRect) {
-        let options = ImageOptions(cropRect: cropRect, rotation: rotation)
+    func selectButtonPressed(image: UIImage, withImageOptions options: ImageOptions) {
         connector?.setChosenImage(image, withImageOptions: options)
     }
 }

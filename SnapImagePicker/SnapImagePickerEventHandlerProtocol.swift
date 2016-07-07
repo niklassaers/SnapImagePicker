@@ -1,9 +1,8 @@
 import UIKit
 
 protocol SnapImagePickerEventHandlerProtocol: class {
-    func viewWillAppear()
+    func viewWillAppearWithCellSize(cellSize: CGFloat)
     func albumIndexClicked(index: Int)
-    func flipImageButtonPressed()
     func albumTitleClicked(destinationViewController: UIViewController)
-    func selectButtonPressed(image: UIImage, withCropRect: CGRect)
+    func selectButtonPressed(image: UIImage, withImageOptions: ImageOptions)
 }
