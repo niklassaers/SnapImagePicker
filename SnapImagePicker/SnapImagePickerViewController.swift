@@ -39,22 +39,7 @@ class SnapImagePickerViewController: UIViewController {
     
     @IBOutlet weak var albumCollectionViewHeightConstraint: NSLayoutConstraint?
     @IBOutlet weak var albumCollectionWidthConstraint: NSLayoutConstraint?
-    @IBOutlet weak var selectedImageWidthConstraint: NSLayoutConstraint? {
-        willSet {
-            print("Image view frame before: \(selectedImageView?.frame)")
-            print("Scroll view content size before: \(selectedImageScrollView?.contentSize)")
-            print("Scroll view content offset before: \(selectedImageScrollView?.contentOffset)")
-            print("Zoom scale before: \(selectedImageScrollView?.zoomScale)")
-            print("Scroll view frame before: \(selectedImageScrollView?.frame)")
-        }
-        didSet {
-            print("Image view frame after: \(selectedImageView?.frame)")
-            print("Scroll view content size after: \(selectedImageScrollView?.contentSize)")
-            print("Scroll view content offset after: \(selectedImageScrollView?.contentOffset)")
-            print("Zoom scale after: \(selectedImageScrollView?.zoomScale)")
-            print("Scroll view frame after: \(selectedImageScrollView?.frame)")
-        }
-    }
+    @IBOutlet weak var selectedImageWidthConstraint: NSLayoutConstraint?
     
     @IBOutlet weak var imageGridView: ImageGridView? {
         didSet {
@@ -81,16 +66,12 @@ class SnapImagePickerViewController: UIViewController {
             scrollToIndex(currentlySelectedIndex)
         }
     }
-    private var images = [UIImage]() {
-        didSet {
-            albumCollectionView?.reloadData()
-        }
-    }
     
     private var selectedImageRotation = Double(0)
     private var state: DisplayState = .Image {
         didSet {
             setMainOffsetForState(state)
+            rotateButton?.alpha = state.rotateButtonAlpha
         }
     }
     private var currentDisplay = Display.Portrait {
@@ -172,49 +153,37 @@ extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
     func display(viewModel: SnapImagePickerViewModel) {
         albumTitle = viewModel.albumTitle
         
-        if let mainImage = viewModel.mainImage {
+        if let mainImage = viewModel.mainImage?.image {
             if mainImage != selectedImageView?.image {
-                selectedImageView?.image = viewModel.mainImage
+                selectedImageView?.image = mainImage
                 selectedImageScrollView?.centerFullImageInImageView(selectedImageView)
+                state = .Image
             }
-            self.state = .Image
         }
         
-        images = viewModel.albumImages
         if (currentlySelectedIndex != viewModel.selectedIndex) {
             currentlySelectedIndex = viewModel.selectedIndex
+            state = .Image
         }
+        
+        albumCollectionView?.reloadData()
     }
 }
 
 extension SnapImagePickerViewController: UICollectionViewDataSource {
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return (images.count / currentDisplay.NumberOfColumns) + 1
+        return eventHandler?.numberOfSectionsForNumberOfColumns(currentDisplay.NumberOfColumns) ?? 0
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let previouslyUsedImages = section * currentDisplay.NumberOfColumns
-        let remainingImages = images.count - previouslyUsedImages
-        let columns = min(currentDisplay.NumberOfColumns, remainingImages)
-        return columns
+        return eventHandler?.numberOfItemsInSection(section, withColumns: currentDisplay.NumberOfColumns) ?? 0
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let index = indexPathToArrayIndex(indexPath)
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Image Cell", forIndexPath: indexPath)
-        if let imageCell = cell as? ImageCell
-            where index < images.count  {
-            let image = images[index].square()
-            
-            if index == currentlySelectedIndex {
-                imageCell.backgroundColor = SnapImagePickerConnector.Theme.color
-                imageCell.spacing = currentDisplay.CellBorderWidth
-            } else {
-                imageCell.spacing = 0
-            }
-            
-            imageCell.imageView?.contentMode = .ScaleAspectFill
-            imageCell.imageView?.image = image
+        if let imageCell = cell as? ImageCell {
+            eventHandler?.presentCell(imageCell, atIndex: index)
         }
         return cell
     }
@@ -226,10 +195,7 @@ extension SnapImagePickerViewController: UICollectionViewDataSource {
     private func scrollToIndex(index: Int) {
         if let albumCollectionView = albumCollectionView,
            let mainScrollView = mainScrollView {
-            var row = index / currentDisplay.NumberOfColumns
-            if (row == images.count / currentDisplay.NumberOfColumns) {
-                row = max(0, row - 1)
-            }
+            let row = index / currentDisplay.NumberOfColumns
             var offset = CGFloat(row) * (currentDisplay.CellWidthInView(albumCollectionView) + currentDisplay.Spacing)
     
             let remainingAlbumCollectionHeight = albumCollectionView.contentSize.height - offset + (currentDisplay.CellWidthInView(albumCollectionView) + currentDisplay.Spacing)
@@ -255,8 +221,7 @@ extension SnapImagePickerViewController: UICollectionViewDelegateFlowLayout {
 
 extension SnapImagePickerViewController: UICollectionViewDelegate {
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        print("Did select item at index path \(indexPath)")
-        eventHandler?.albumIndexClicked((indexPath.section * currentDisplay.NumberOfColumns) + indexPath.row)
+        eventHandler?.albumImageClicked((indexPath.section * currentDisplay.NumberOfColumns) + indexPath.row)
     }
 }
 
@@ -272,7 +237,7 @@ extension SnapImagePickerViewController: UIScrollViewDelegate {
                     albumCollectionView.contentOffset = CGPoint(x: 0, y: albumCollectionView.contentOffset.y - offset)
                 }
             }
-        } else if (scrollView == albumCollectionView) {
+        } else if scrollView == albumCollectionView {
             if let mainScrollView = mainScrollView
                where scrollView.contentOffset.y < 0 {
                 if userIsScrolling {
@@ -285,6 +250,10 @@ extension SnapImagePickerViewController: UIScrollViewDelegate {
                     self.enqueuedBounce = nil
                 }
                 scrollView.contentOffset = CGPoint(x: scrollView.contentOffset.x, y: 0)
+            }
+            if let albumCollectionView = albumCollectionView {
+                let lastVisibleIndex = (Int((scrollView.contentOffset.y + scrollView.bounds.height) / currentDisplay.CellWidthInView(albumCollectionView)) + 1) * currentDisplay.NumberOfColumns
+                //TODO: DO PREFETCHING HERE
             }
         }
     }

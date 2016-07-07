@@ -4,10 +4,23 @@ import Photos
 class PhotoLoader {
     private static let SmartCollections = ["Recently Added", "Selfies", "Panoramas"]
     private var albums = [String: PHFetchResult]()
+    
+    static func loadImageFromAsset(asset: PHAsset, isPreview: Bool = false, withPreviewSize previewSize: CGSize = CGSizeZero, handler: (SnapImagePickerImage) -> Void) {
+        let options = PHImageRequestOptions()
+        options.networkAccessAllowed = true
+        options.deliveryMode = isPreview ? .Opportunistic : .HighQualityFormat
+        let targetSize = isPreview ? previewSize : PHImageManagerMaximumSize
+        PHImageManager.defaultManager().requestImageForAsset(asset, targetSize: targetSize, contentMode: .Default, options: options) {
+            (image: UIImage?, data: [NSObject : AnyObject]?) in
+            if let image = image {
+                handler(SnapImagePickerImage(image: image, localIdentifier: asset.localIdentifier, createdDate: asset.creationDate))
+            }
+        }
+    }
 }
 
 extension PhotoLoader: ImageLoader {
-    func fetchPhotosFromCollectionWithType(type: AlbumType) -> PHFetchResult? {
+    func fetchAssetsFromCollectionWithType(type: AlbumType) -> PHFetchResult? {
         if let album = albums[type.getAlbumName()] {
             return album
         }
@@ -19,15 +32,15 @@ extension PhotoLoader: ImageLoader {
         case .Favorites:
             return fetchPhotosWithOptions(options)
         case .UserDefined(let title):
-            return fetchUserDefinedCollectionWithTitle(title, options: options)
+            return fetchUserDefinedCollectionWithTitle(title, withOptions: options)
         case .SmartAlbum(let title):
-            return fetchSmartAlbumWithTitle(title, options: options)
+            return fetchSmartAlbumWithTitle(title, withOptions: options)
         }
     }
     
     private func getFetchOptionsForCollection(type: AlbumType) -> PHFetchOptions {
         let options = PHFetchOptions()
-        options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+        options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
         
         switch type {
         case .Favorites: options.predicate = NSPredicate(format: "favorite == YES")
@@ -41,11 +54,11 @@ extension PhotoLoader: ImageLoader {
         return PHAsset.fetchAssetsWithMediaType(.Image, options: options)
     }
     
-    private func fetchUserDefinedCollectionWithTitle(title: String, options: PHFetchOptions?) -> PHFetchResult? {
+    private func fetchUserDefinedCollectionWithTitle(title: String, withOptions options: PHFetchOptions?) -> PHFetchResult? {
         return fetchCollectionWithTitle(title, withType: .Album, andAssetOptions: options)
     }
     
-    private func fetchSmartAlbumWithTitle(title: String, options: PHFetchOptions?) -> PHFetchResult? {
+    private func fetchSmartAlbumWithTitle(title: String, withOptions options: PHFetchOptions?) -> PHFetchResult? {
         return fetchCollectionWithTitle(title, withType: .SmartAlbum, andAssetOptions: options)
     }
     
@@ -56,9 +69,7 @@ extension PhotoLoader: ImageLoader {
         let collections = PHAssetCollection.fetchAssetCollectionsWithType(type, subtype: PHAssetCollectionSubtype.Any, options: collectionOptions)
         if collections.count > 0 {
             if let collection = collections.firstObject as? PHAssetCollection {
-                if let result = PHAsset.fetchKeyAssetsInAssetCollection(collection, options: assetOptions) {
-                    return result
-                }
+                return PHAsset.fetchAssetsInAssetCollection(collection, options: assetOptions)
             }
         }
         
@@ -68,16 +79,16 @@ extension PhotoLoader: ImageLoader {
 
 extension PhotoLoader: AlbumLoader {
     func fetchAllPhotosPreview(targetSize: CGSize, handler: Album -> Void) {
-        if let result = fetchPhotosFromCollectionWithType(AlbumType.AllPhotos) {
+        if let result = fetchAssetsFromCollectionWithType(AlbumType.AllPhotos) {
             albums[AlbumType.AlbumNames.AllPhotos] = result
-            PhotoLoader.createAlbumFromFetchResult(result, withType: AlbumType.AllPhotos, previewImageTargetSize: targetSize, handler: handler)
+            createAlbumFromFetchResult(result, withType: AlbumType.AllPhotos, previewImageTargetSize: targetSize, handler: handler)
         }
     }
     
     func fetchFavoritesPreview(targetSize: CGSize, handler: Album -> Void) {
-        if let result = fetchPhotosFromCollectionWithType(AlbumType.Favorites) {
+        if let result = fetchAssetsFromCollectionWithType(AlbumType.Favorites) {
             albums[AlbumType.AlbumNames.Favorites] = result
-            PhotoLoader.createAlbumFromFetchResult(result, withType: AlbumType.Favorites, previewImageTargetSize: targetSize, handler: handler)
+            createAlbumFromFetchResult(result, withType: AlbumType.Favorites, previewImageTargetSize: targetSize, handler: handler)
         }
     }
     
@@ -95,7 +106,7 @@ extension PhotoLoader: AlbumLoader {
                 let result = PHAsset.fetchAssetsInAssetCollection(collection, options: onlyImagesOptions)
                 if result.count > 0 {
                     self?.albums[title] = result
-                    PhotoLoader.createAlbumFromFetchResult(result, withType: AlbumType.UserDefined(title: title), previewImageTargetSize: targetSize, handler: handler)
+                    self?.createAlbumFromFetchResult(result, withType: AlbumType.UserDefined(title: title), previewImageTargetSize: targetSize, handler: handler)
                 }
             }
         }
@@ -105,7 +116,7 @@ extension PhotoLoader: AlbumLoader {
     func fetchAllSmartAlbumPreviews(targetSize: CGSize, handler: Album -> Void) {
         let smartAlbums = PHAssetCollection.fetchAssetCollectionsWithType(.SmartAlbum, subtype: .Any, options: nil)
         smartAlbums.enumerateObjectsUsingBlock() {
-            [weak self] (element: AnyObject, index: Int, _: UnsafeMutablePointer<ObjCBool>) in print("Heii")
+            [weak self] (element: AnyObject, index: Int, _: UnsafeMutablePointer<ObjCBool>) in
             
             if let collection = element as? PHAssetCollection,
                 let title = collection.localizedTitle
@@ -116,19 +127,17 @@ extension PhotoLoader: AlbumLoader {
                 let result = PHAsset.fetchAssetsInAssetCollection(collection, options: onlyImagesOptions)
                 if result.count > 0 {
                     self?.albums[title] = result
-                    PhotoLoader.createAlbumFromFetchResult(result, withType: AlbumType.SmartAlbum(title: title), previewImageTargetSize: targetSize, handler: handler)
+                    self?.createAlbumFromFetchResult(result, withType: AlbumType.SmartAlbum(title: title), previewImageTargetSize: targetSize, handler: handler)
                 }
             }
         }
     }
     
-    private static func createAlbumFromFetchResult(fetchResult: PHFetchResult, withType type: AlbumType, previewImageTargetSize targetSize: CGSize, handler: Album -> Void) {
+    private func createAlbumFromFetchResult(fetchResult: PHFetchResult, withType type: AlbumType, previewImageTargetSize targetSize: CGSize, handler: Album -> Void) {
         if let asset = fetchResult.firstObject as? PHAsset {
-            PHImageManager.defaultManager().requestImageForAsset(asset, targetSize: targetSize, contentMode: .Default, options: nil) {
-                (image: UIImage?, data: [NSObject : AnyObject]?) in
-                if let image = image {
-                    handler(Album(size: fetchResult.count, image: image, type: type))
-                }
+            PhotoLoader.loadImageFromAsset(asset, isPreview: true, withPreviewSize: targetSize) {
+                (image: SnapImagePickerImage) in
+                handler(Album(size: fetchResult.count, image: image.image, type: type))
             }
         }
     }

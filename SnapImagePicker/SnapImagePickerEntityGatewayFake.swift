@@ -1,25 +1,23 @@
-import UIKit
-
-class SnapImagePickerEntityGatewayFake: SnapImagePickerEntityGatewayProtocol {
-    weak var interactor: SnapImagePickerInteractorProtocol?
-    
-    init(interactor: SnapImagePickerInteractorProtocol) {
-        self.interactor = interactor
-    }
-    
-    func loadAlbumWithType(type: AlbumType, withTargetSize targetSize: CGSize) {
-        for i in 0..<30 {
-            if let image = UIImage(named: "dummy.jpeg", inBundle: NSBundle(forClass: SnapImagePickerConnector.self), compatibleWithTraitCollection: nil) {
-                interactor?.loadedAlbumImage(image, localIdentifier: String(i))
-            }
-        }
-    }
-    
-    func loadImageWithLocalIdentifier(localIdentifier: String, withTargetSize targetSize: CGSize) {
-        print("Loading")
-        if let image = UIImage(named: "dummy.jpeg", inBundle: NSBundle(forClass: SnapImagePickerConnector.self), compatibleWithTraitCollection: nil) {
-            print("Loaded image")
-            interactor?.loadedMainImage(image, withLocalIdentifier: localIdentifier)
-        }
-    }
-}
+//import UIKit
+//
+//class SnapImagePickerEntityGatewayFake: SnapImagePickerEntityGatewayProtocol {
+//    weak var interactor: SnapImagePickerInteractorProtocol?
+//    
+//    init(interactor: SnapImagePickerInteractorProtocol) {
+//        self.interactor = interactor
+//    }
+//    
+//    func loadAlbumWithType(type: AlbumType, withTargetSize targetSize: CGSize, inRange range: Range<Int> = 0...30) {
+//        for i in range {
+//            if let image = UIImage(named: "dummy.jpeg", inBundle: NSBundle(forClass: SnapImagePickerConnector.self), compatibleWithTraitCollection: nil) {
+//                interactor?.loadedAlbumImage(SnapImagePickerImage(image: image, localIdentifier: String(i), createdDate: nil))
+//            }
+//        }
+//    }
+//    
+//    func loadImageWithLocalIdentifier(localIdentifier: String) {
+//        if let image = UIImage(named: "dummy.jpeg", inBundle: NSBundle(forClass: SnapImagePickerConnector.self), compatibleWithTraitCollection: nil) {
+//            interactor?.loadedMainImage(SnapImagePickerImage(image: image, localIdentifier: localIdentifier, createdDate: nil))
+//        }
+//    }
+//}

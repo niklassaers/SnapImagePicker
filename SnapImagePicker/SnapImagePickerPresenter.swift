@@ -7,29 +7,46 @@ class SnapImagePickerPresenter {
     var interactor: SnapImagePickerInteractorProtocol?
     weak var connector: SnapImagePickerConnectorProtocol?
     
-    var albumType = AlbumType.AllPhotos
-    private var mainImage: UIImage?
-    private var imagesWithIdentifiers = [(image: UIImage, id: String)]()
-    private var albumImages: [UIImage] {
-        var images = [UIImage]()
-        for (image, _) in imagesWithIdentifiers {
-            images.append(image)
+    var albumType = AlbumType.AllPhotos {
+        didSet {
+            loadAlbum()
         }
-        return images
     }
     
+    enum RequestStatus {
+        case None
+        case Requested
+        case Completed
+    }
+    
+    private var mainImage: SnapImagePickerImage?
+    private var requestedMainImage: String?
+    private var albumSize: Int?
+    private var albumImages: [(imageWrapper: SnapImagePickerImage?, status: RequestStatus)]?
+    private var indexes = [String: Int]()
+
     private var selectedIndex = 0
+    
     private var rotation = CGFloat(0)
     private var cellSize = CGSize(width: 64, height: 64)
+    
+    private let initialBatchSize = 50
+    private let buffer = 20
     
     init(view: SnapImagePickerViewControllerProtocol) {
         self.view = view
     }
+}
+
+extension SnapImagePickerPresenter {
+    private func loadAlbum() {
+        print("Loading album")
+        interactor?.loadInitialAlbum(albumType)
+    }
     
-    private func display(shouldFocus: Bool = true) {
+    private func display() {
         view?.display(SnapImagePickerViewModel(albumTitle: albumType.getAlbumName(),
             mainImage: mainImage,
-            albumImages: albumImages,
             selectedIndex: selectedIndex))
     }
 }
@@ -61,18 +78,23 @@ extension SnapImagePickerPresenter {
 }
 
 extension SnapImagePickerPresenter: SnapImagePickerPresenterProtocol {
-    func presentMainImage(image: UIImage, withLocalIdentifier identifier: String) {
-        if identifier == imagesWithIdentifiers[selectedIndex].id {
+    func presentInitialAlbum(image: SnapImagePickerImage, albumSize: Int) {
+        mainImage = image
+        albumImages = [(imageWrapper: SnapImagePickerImage?, status: RequestStatus)](count: albumSize,
+                                                                                     repeatedValue: (imageWrapper: nil, status: RequestStatus.None))
+        display()
+    }
+    
+    func presentMainImage(image: SnapImagePickerImage) {
+        if image.localIdentifier == requestedMainImage {
             mainImage = image
             display()
         }
     }
     
-    func presentAlbumImage(image: UIImage, id: String) {
-        imagesWithIdentifiers.append((image: image, id: id))
-        if imagesWithIdentifiers.count == 1 {
-            interactor?.loadImageWithLocalIdentifier(id, withTargetSize: CGSize(width: 2000, height: 2000))
-        }
+    func presentAlbumImage(image: SnapImagePickerImage, atIndex index: Int) {
+        print("Loaded image at index \(index)")
+        albumImages?[index] = (imageWrapper: image, status: RequestStatus.Completed)
         display()
     }
 }
@@ -82,24 +104,72 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
         self.cellSize = CGSize(width: cellSize, height: cellSize)
         checkPhotosAccessStatus()
     }
-    
-    private func loadAlbum() {
-        imagesWithIdentifiers = [(image: UIImage, id: String)]()
-        interactor?.loadAlbumWithType(albumType, withTargetSize: cellSize)
-    }
-    
-    func albumIndexClicked(index: Int) {
-        if index < imagesWithIdentifiers.count {
+
+    func albumImageClicked(index: Int) {
+        if let albumImages = albumImages
+           where index < albumImages.count {
             selectedIndex = index
-            interactor?.loadImageWithLocalIdentifier(imagesWithIdentifiers[index].id, withTargetSize: CGSize(width: 2000, height: 2000))
+            requestedMainImage = albumImages[index].imageWrapper!.localIdentifier
+            interactor?.loadImageWithLocalIdentifier(albumImages[index].imageWrapper!.localIdentifier)
         }
     }
     
     func albumTitleClicked(destinationViewController: UIViewController) {
         connector?.prepareSegueToAlbumSelector(destinationViewController)
     }
-    
+
     func selectButtonPressed(image: UIImage, withImageOptions options: ImageOptions) {
         connector?.setChosenImage(image, withImageOptions: options)
+    }
+    
+    func numberOfSectionsForNumberOfColumns(columns: Int) -> Int {
+        if let albumImages = albumImages {
+            return (albumImages.count / columns) + 1
+        }
+        
+        return 0
+    }
+    
+    func numberOfItemsInSection(section: Int, withColumns columns: Int) -> Int {
+        if let albumImages = albumImages {
+            let previouslyUsedImages = section * columns
+            let remainingImages = albumImages.count - previouslyUsedImages
+            let columns = min(columns, remainingImages)
+        
+            return columns
+        }
+        
+        return 0
+    }
+    
+    func presentCell(cell: ImageCell, atIndex index: Int) -> ImageCell {
+        if let albumImages = albumImages
+           where index < albumImages.count {
+            let albumImage = albumImages[index]
+            if let imageWrapper = albumImages[index].imageWrapper {
+                let image = imageWrapper.image.square()
+            
+                if index == selectedIndex {
+                    cell.backgroundColor = SnapImagePickerConnector.Theme.color
+                    cell.spacing = 2
+                } else {
+                    cell.spacing = 0
+                }
+            
+                cell.imageView?.contentMode = .ScaleAspectFill
+                cell.imageView?.image = image
+            } else {
+                switch albumImage.status {
+                case .None:
+                    print("Requesting image at index \(index)")
+                    self.albumImages?[index] = (imageWrapper: nil, status: RequestStatus.Requested)
+                    interactor?.loadAlbumImageWithType(albumType, withTargetSize: cellSize, atIndex: index)
+                default: break
+                }
+                cell.backgroundColor = UIColor.grayColor()
+            }
+        }
+        
+        return cell
     }
 }

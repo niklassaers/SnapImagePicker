@@ -11,27 +11,37 @@ class SnapImagePickerInteractor {
 }
 
 extension SnapImagePickerInteractor: SnapImagePickerInteractorProtocol {
-    func loadAlbumWithType(type: AlbumType, withTargetSize targetSize: CGSize) {
+    func loadInitialAlbum(type: AlbumType) {
         dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
-            [weak self] in self?.entityGateway?.loadAlbumWithType(type, withTargetSize: targetSize)
+            [weak self] in self?.entityGateway?.loadInitialAlbum(type)
         }
     }
     
-    func loadImageWithLocalIdentifier(localIdentifier: String, withTargetSize targetSize: CGSize) {
+    func loadAlbumImageWithType(type: AlbumType, withTargetSize targetSize: CGSize, atIndex index: Int) {
         dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
-            [weak self] in self?.entityGateway?.loadImageWithLocalIdentifier(localIdentifier, withTargetSize: targetSize)
+            [weak self] in self?.entityGateway?.loadAlbumImageWithType(type, withTargetSize: targetSize, atIndex: index)
         }
     }
     
-    func loadedAlbumImage(image: UIImage, localIdentifier: String) {
-        dispatch_async(dispatch_get_main_queue()) {
-            [weak self] in self?.presenter?.presentAlbumImage(image, id: localIdentifier)
+    func loadImageWithLocalIdentifier(localIdentifier: String) {
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
+            [weak self] in self?.entityGateway?.loadImageWithLocalIdentifier(localIdentifier)
         }
     }
     
-    func loadedMainImage(image: UIImage, withLocalIdentifier identifier: String) {
+    func initializedAlbum(image: SnapImagePickerImage, albumSize: Int) {
+        presenter?.presentInitialAlbum(image, albumSize: albumSize)
+    }
+    
+    func loadedAlbumImage(image: SnapImagePickerImage, atIndex index: Int) {
         dispatch_async(dispatch_get_main_queue()) {
-            [weak self] in self?.presenter?.presentMainImage(image, withLocalIdentifier: identifier)
+            [weak self] in self?.presenter?.presentAlbumImage(image, atIndex: index)
+        }
+    }
+    
+    func loadedMainImage(image: SnapImagePickerImage) {
+        dispatch_async(dispatch_get_main_queue()) {
+            [weak self] in self?.presenter?.presentMainImage(image)
         }
     }
 }

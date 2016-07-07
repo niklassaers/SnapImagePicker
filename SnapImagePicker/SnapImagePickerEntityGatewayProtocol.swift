@@ -2,6 +2,7 @@ import Foundation
 import Photos
 
 protocol SnapImagePickerEntityGatewayProtocol: class {
-    func loadAlbumWithType(type: AlbumType, withTargetSize targetSize: CGSize)
-    func loadImageWithLocalIdentifier(localIdentifier: String, withTargetSize targetSize: CGSize)
+    func loadInitialAlbum(type: AlbumType)
+    func loadAlbumImageWithType(type: AlbumType, withTargetSize targetSize: CGSize, atIndex: Int)
+    func loadImageWithLocalIdentifier(localIdentifier: String)
 }

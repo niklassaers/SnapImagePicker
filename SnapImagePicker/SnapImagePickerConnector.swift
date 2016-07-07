@@ -82,7 +82,10 @@ extension SnapImagePickerConnector: SnapImagePickerConnectorProtocol {
     }
     
     func prepareSegueToImagePicker(albumType: AlbumType) {
-        presenter?.albumType = albumType
+        if let presenterAlbumType = presenter?.albumType
+           where presenterAlbumType != albumType {
+            presenter?.albumType = albumType
+        }
     }
     
     func setChosenImage(image: UIImage, withImageOptions options: ImageOptions) {

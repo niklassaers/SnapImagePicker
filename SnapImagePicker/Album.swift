@@ -52,3 +52,10 @@ enum AlbumType {
     }
 }
 
+extension AlbumType: Equatable {}
+
+func ==(a: AlbumType, b: AlbumType) -> Bool {
+    return a.getAlbumName() == b.getAlbumName()
+}
+
+

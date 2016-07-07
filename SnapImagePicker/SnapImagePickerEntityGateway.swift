@@ -11,43 +11,36 @@ class SnapImagePickerEntityGateway {
     }
 }
 
-extension SnapImagePickerEntityGateway {
-    private func loadImageFromAsset(asset: PHAsset, withTargetSize targetSize: CGSize, handler: (UIImage, String) -> Void) {
-        PHImageManager.defaultManager().requestImageForAsset(asset, targetSize: targetSize, contentMode: .Default, options: nil) {
-            (image: UIImage?, data: [NSObject : AnyObject]?) in
-            if let image = image {
-                handler(image, asset.localIdentifier)
+extension SnapImagePickerEntityGateway: SnapImagePickerEntityGatewayProtocol {
+    func loadInitialAlbum(type: AlbumType) {
+        if let fetchResult = imageLoader?.fetchAssetsFromCollectionWithType(type) {
+            if let asset = fetchResult.firstObject as? PHAsset {
+                PhotoLoader.loadImageFromAsset(asset) {
+                    [weak self] (image: SnapImagePickerImage) in
+                    self?.interactor?.initializedAlbum(image, albumSize: fetchResult.count)
+                }
             }
         }
     }
-}
-
-extension SnapImagePickerEntityGateway: SnapImagePickerEntityGatewayProtocol {
-    func loadAlbumWithType(type: AlbumType, withTargetSize targetSize: CGSize) {
-        if let fetchResult = imageLoader?.fetchPhotosFromCollectionWithType(type) {
-            fetchResult.enumerateObjectsUsingBlock { (object: AnyObject, count: Int, stop: UnsafeMutablePointer<ObjCBool>) in
-                if let asset = object as? PHAsset {
-                    self.loadImageFromAsset(asset, withTargetSize: targetSize) {
-                        [weak self] (image: UIImage?, id: String) in
-                        if let image = image {
-                            self?.interactor?.loadedAlbumImage(image, localIdentifier: id)
-                        }
+    func loadAlbumImageWithType(type: AlbumType, withTargetSize targetSize: CGSize, atIndex index: Int) {
+        if let fetchResult = imageLoader?.fetchAssetsFromCollectionWithType(type) {
+            if index < fetchResult.count {
+                if let asset = fetchResult.objectAtIndex(index) as? PHAsset {
+                    PhotoLoader.loadImageFromAsset(asset, isPreview: true, withPreviewSize: targetSize) {
+                        [weak self] (image: SnapImagePickerImage) in
+                        self?.interactor?.loadedAlbumImage(image, atIndex: index)
                     }
                 }
             }
         }
     }
     
-    func loadImageWithLocalIdentifier(localIdentifier: String, withTargetSize targetSize: CGSize) {
+    func loadImageWithLocalIdentifier(localIdentifier: String) {
         let fetchResult = PHAsset.fetchAssetsWithLocalIdentifiers([localIdentifier], options: nil)
-        if let asset = fetchResult.firstObject as? PHAsset{
-            let options = PHImageRequestOptions()
-            options.networkAccessAllowed = true
-            PHImageManager.defaultManager().requestImageForAsset(asset, targetSize: CGSize(width: 2000, height: 2000), contentMode: .Default, options: options) {
-                [weak self] (image: UIImage?, data: [NSObject : AnyObject]?) in
-                if let image = image {
-                    self?.interactor?.loadedMainImage(image, withLocalIdentifier: localIdentifier)
-                }
+        if let asset = fetchResult.firstObject as? PHAsset {
+            PhotoLoader.loadImageFromAsset(asset) {
+                [weak self] (image: SnapImagePickerImage) in
+                self?.interactor?.loadedMainImage(image)
             }
         }
     }

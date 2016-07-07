@@ -1,6 +1,7 @@
 import UIKit
 
 protocol SnapImagePickerPresenterProtocol : class {
-    func presentMainImage(image: UIImage, withLocalIdentifier: String)
-    func presentAlbumImage(image: UIImage, id: String)
+    func presentInitialAlbum(image: SnapImagePickerImage, albumSize: Int)
+    func presentMainImage(image: SnapImagePickerImage)
+    func presentAlbumImage(image: SnapImagePickerImage, atIndex: Int)
 }
