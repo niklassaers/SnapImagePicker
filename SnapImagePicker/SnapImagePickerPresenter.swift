@@ -55,7 +55,7 @@ extension SnapImagePickerPresenter {
         view?.display(SnapImagePickerViewModel(albumTitle: albumType.getAlbumName(),
             mainImage: mainImage,
             selectedIndex: selectedIndex,
-            isLoading: requestedMainImage != nil && mainImage?.localIdentifier != requestedMainImage))
+            isLoading: mainImage?.localIdentifier != requestedMainImage))
     }
 }
 
@@ -88,6 +88,7 @@ extension SnapImagePickerPresenter {
 extension SnapImagePickerPresenter: SnapImagePickerPresenterProtocol {
     func presentInitialAlbum(image: SnapImagePickerImage, albumSize: Int) {
         mainImage = image
+        requestedMainImage = image.localIdentifier
         albumImages = [(imageWrapper: SnapImagePickerImage?, status: RequestStatus)](count: albumSize,
                                                                                      repeatedValue: (imageWrapper: nil, status: RequestStatus.None))
         display()
@@ -177,15 +178,6 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
     }
     
     func scrolledToIndex(index: Int) {
-//        let preloadRange = max(0, index - loadingBufferSize)..<min(albumImages?.count ?? 0, index + loadingBufferSize)
-//        if let albumImages = albumImages {
-//            for i in preloadRange {
-//                if !albumImages[i].status.isInitializedOrCompleted() {
-//                    print("Prefetching \(i)")
-//                    self.albumImages?[index] = (imageWrapper: nil, status: RequestStatus.Requested)
-//                    interactor?.loadAlbumImageWithType(albumType, withTargetSize: cellSize, atIndex: index)
-//                }
-//            }
-//        }
+
     }
 }

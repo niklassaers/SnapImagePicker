@@ -81,7 +81,10 @@ class SnapImagePickerViewController: UIViewController {
     }
     private var currentDisplay = Display.Portrait {
         didSet {
+            print("IMAGE FRAME BEFORE: \(selectedImageView?.frame)")
+            let ratio = currentDisplay.SelectedImageWidthMultiplier / oldValue.SelectedImageWidthMultiplier
             selectedImageWidthConstraint = selectedImageWidthConstraint?.changeMultiplier(currentDisplay.SelectedImageWidthMultiplier)
+            print("IMAGE FRAME AFTER: \(selectedImageView?.frame)")
             albumCollectionWidthConstraint = albumCollectionWidthConstraint?.changeMultiplier(currentDisplay.AlbumCollectionWidthMultiplier)
             albumCollectionView?.reloadData()
         }
