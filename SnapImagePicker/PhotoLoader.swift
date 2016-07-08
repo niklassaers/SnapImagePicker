@@ -4,22 +4,25 @@ import Photos
 class PhotoLoader {
     private static let SmartCollections = ["Recently Added", "Selfies", "Panoramas"]
     private var albums = [String: PHFetchResult]()
-    
-    static func loadImageFromAsset(asset: PHAsset, isPreview: Bool = false, withPreviewSize previewSize: CGSize = CGSizeZero, handler: (SnapImagePickerImage) -> Void) {
+    private var requests = [String: PHImageRequestID]()
+}
+
+extension PhotoLoader: ImageLoader {
+    func loadImageFromAsset(asset: PHAsset, isPreview: Bool = false, withPreviewSize previewSize: CGSize = CGSizeZero, handler: (SnapImagePickerImage) -> Void) {
         let options = PHImageRequestOptions()
         options.networkAccessAllowed = true
         options.deliveryMode = isPreview ? .Opportunistic : .HighQualityFormat
         let targetSize = isPreview ? previewSize : PHImageManagerMaximumSize
-        PHImageManager.defaultManager().requestImageForAsset(asset, targetSize: targetSize, contentMode: .Default, options: options) {
-            (image: UIImage?, data: [NSObject : AnyObject]?) in
+        let requestId = PHImageManager.defaultManager().requestImageForAsset(asset, targetSize: targetSize, contentMode: .Default, options: options) {
+            [weak self] (image: UIImage?, data: [NSObject : AnyObject]?) in
             if let image = image {
                 handler(SnapImagePickerImage(image: image, localIdentifier: asset.localIdentifier, createdDate: asset.creationDate))
             }
+            self?.requests.removeValueForKey(asset.localIdentifier)
         }
+        requests[asset.localIdentifier] = requestId
     }
-}
-
-extension PhotoLoader: ImageLoader {
+    
     func fetchAssetsFromCollectionWithType(type: AlbumType) -> PHFetchResult? {
         if let album = albums[type.getAlbumName()] {
             return album
@@ -36,6 +39,13 @@ extension PhotoLoader: ImageLoader {
         case .SmartAlbum(let title):
             return fetchSmartAlbumWithTitle(title, withOptions: options)
         }
+    }
+    
+    func clearPendingRequests() {
+        for (_, requestId) in requests {
+            PHImageManager.defaultManager().cancelImageRequest(requestId)
+        }
+        requests = [String: PHImageRequestID]()
     }
     
     private func getFetchOptionsForCollection(type: AlbumType) -> PHFetchOptions {
@@ -135,7 +145,7 @@ extension PhotoLoader: AlbumLoader {
     
     private func createAlbumFromFetchResult(fetchResult: PHFetchResult, withType type: AlbumType, previewImageTargetSize targetSize: CGSize, handler: Album -> Void) {
         if let asset = fetchResult.firstObject as? PHAsset {
-            PhotoLoader.loadImageFromAsset(asset, isPreview: true, withPreviewSize: targetSize) {
+            loadImageFromAsset(asset, isPreview: true, withPreviewSize: targetSize) {
                 (image: SnapImagePickerImage) in
                 handler(Album(size: fetchResult.count, image: image.image, type: type))
             }

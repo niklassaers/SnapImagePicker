@@ -9,6 +9,7 @@ class SnapImagePickerPresenter {
     
     var albumType = AlbumType.AllPhotos {
         didSet {
+            interactor?.clearPendingRequests()
             loadAlbum()
         }
     }
@@ -17,6 +18,14 @@ class SnapImagePickerPresenter {
         case None
         case Requested
         case Completed
+        
+        func isInitializedOrCompleted() -> Bool {
+            switch self {
+            case .None: return false
+            case .Requested: return true
+            case .Completed: return true
+            }
+        }
     }
     
     private var mainImage: SnapImagePickerImage?
@@ -30,8 +39,7 @@ class SnapImagePickerPresenter {
     private var rotation = CGFloat(0)
     private var cellSize = CGSize(width: 64, height: 64)
     
-    private let initialBatchSize = 50
-    private let buffer = 20
+    private let loadingBufferSize = 20
     
     init(view: SnapImagePickerViewControllerProtocol) {
         self.view = view
@@ -40,14 +48,14 @@ class SnapImagePickerPresenter {
 
 extension SnapImagePickerPresenter {
     private func loadAlbum() {
-        print("Loading album")
         interactor?.loadInitialAlbum(albumType)
     }
     
     private func display() {
         view?.display(SnapImagePickerViewModel(albumTitle: albumType.getAlbumName(),
             mainImage: mainImage,
-            selectedIndex: selectedIndex))
+            selectedIndex: selectedIndex,
+            isLoading: requestedMainImage != nil && mainImage?.localIdentifier != requestedMainImage))
     }
 }
 
@@ -93,9 +101,10 @@ extension SnapImagePickerPresenter: SnapImagePickerPresenterProtocol {
     }
     
     func presentAlbumImage(image: SnapImagePickerImage, atIndex index: Int) {
-        print("Loaded image at index \(index)")
-        albumImages?[index] = (imageWrapper: image, status: RequestStatus.Completed)
-        display()
+        if index < albumImages?.count {
+            albumImages?[index] = (imageWrapper: image, status: RequestStatus.Completed)
+            display()
+        }
     }
 }
 
@@ -158,18 +167,25 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
             
                 cell.imageView?.contentMode = .ScaleAspectFill
                 cell.imageView?.image = image
-            } else {
-                switch albumImage.status {
-                case .None:
-                    print("Requesting image at index \(index)")
-                    self.albumImages?[index] = (imageWrapper: nil, status: RequestStatus.Requested)
-                    interactor?.loadAlbumImageWithType(albumType, withTargetSize: cellSize, atIndex: index)
-                default: break
-                }
-                cell.backgroundColor = UIColor.grayColor()
+            } else if !albumImage.status.isInitializedOrCompleted() {
+                self.albumImages?[index] = (imageWrapper: nil, status: RequestStatus.Requested)
+                interactor?.loadAlbumImageWithType(albumType, withTargetSize: cellSize, atIndex: index)
             }
         }
         
         return cell
+    }
+    
+    func scrolledToIndex(index: Int) {
+//        let preloadRange = max(0, index - loadingBufferSize)..<min(albumImages?.count ?? 0, index + loadingBufferSize)
+//        if let albumImages = albumImages {
+//            for i in preloadRange {
+//                if !albumImages[i].status.isInitializedOrCompleted() {
+//                    print("Prefetching \(i)")
+//                    self.albumImages?[index] = (imageWrapper: nil, status: RequestStatus.Requested)
+//                    interactor?.loadAlbumImageWithType(albumType, withTargetSize: cellSize, atIndex: index)
+//                }
+//            }
+//        }
     }
 }

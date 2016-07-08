@@ -44,4 +44,10 @@ extension SnapImagePickerInteractor: SnapImagePickerInteractorProtocol {
             [weak self] in self?.presenter?.presentMainImage(image)
         }
     }
+    
+    func clearPendingRequests() {
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
+            [weak self] in self?.entityGateway?.clearPendingRequests()
+        }
+    }
 }

@@ -15,7 +15,7 @@ extension SnapImagePickerEntityGateway: SnapImagePickerEntityGatewayProtocol {
     func loadInitialAlbum(type: AlbumType) {
         if let fetchResult = imageLoader?.fetchAssetsFromCollectionWithType(type) {
             if let asset = fetchResult.firstObject as? PHAsset {
-                PhotoLoader.loadImageFromAsset(asset) {
+                imageLoader?.loadImageFromAsset(asset, isPreview: false, withPreviewSize: CGSizeZero) {
                     [weak self] (image: SnapImagePickerImage) in
                     self?.interactor?.initializedAlbum(image, albumSize: fetchResult.count)
                 }
@@ -26,7 +26,7 @@ extension SnapImagePickerEntityGateway: SnapImagePickerEntityGatewayProtocol {
         if let fetchResult = imageLoader?.fetchAssetsFromCollectionWithType(type) {
             if index < fetchResult.count {
                 if let asset = fetchResult.objectAtIndex(index) as? PHAsset {
-                    PhotoLoader.loadImageFromAsset(asset, isPreview: true, withPreviewSize: targetSize) {
+                    imageLoader?.loadImageFromAsset(asset, isPreview: true, withPreviewSize: targetSize) {
                         [weak self] (image: SnapImagePickerImage) in
                         self?.interactor?.loadedAlbumImage(image, atIndex: index)
                     }
@@ -38,10 +38,14 @@ extension SnapImagePickerEntityGateway: SnapImagePickerEntityGatewayProtocol {
     func loadImageWithLocalIdentifier(localIdentifier: String) {
         let fetchResult = PHAsset.fetchAssetsWithLocalIdentifiers([localIdentifier], options: nil)
         if let asset = fetchResult.firstObject as? PHAsset {
-            PhotoLoader.loadImageFromAsset(asset) {
+            imageLoader?.loadImageFromAsset(asset, isPreview: false, withPreviewSize: CGSizeZero) {
                 [weak self] (image: SnapImagePickerImage) in
                 self?.interactor?.loadedMainImage(image)
             }
         }
+    }
+    
+    func clearPendingRequests() {
+        imageLoader?.clearPendingRequests()
     }
 }

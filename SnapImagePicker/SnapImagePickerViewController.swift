@@ -12,7 +12,11 @@ class SnapImagePickerViewController: UIViewController {
         }
     }
     
-    @IBOutlet weak var selectButton: UIBarButtonItem?
+    @IBOutlet weak var selectButton: UIBarButtonItem? {
+        didSet {
+            selectButton?.style
+        }
+    }
     @IBOutlet weak var cancelButton: UIBarButtonItem?
     @IBOutlet weak var rotateButton: UIButton?
     
@@ -40,6 +44,7 @@ class SnapImagePickerViewController: UIViewController {
     @IBOutlet weak var albumCollectionViewHeightConstraint: NSLayoutConstraint?
     @IBOutlet weak var albumCollectionWidthConstraint: NSLayoutConstraint?
     @IBOutlet weak var selectedImageWidthConstraint: NSLayoutConstraint?
+    @IBOutlet weak var mainImageLoadIndicator: UIActivityIndicatorView?
     
     @IBOutlet weak var imageGridView: ImageGridView? {
         didSet {
@@ -167,6 +172,16 @@ extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
         }
         
         albumCollectionView?.reloadData()
+        
+        if state == .Image {
+            if viewModel.isLoading {
+                blackOverlayView?.alpha = 0.3
+                mainImageLoadIndicator?.startAnimating()
+            } else {
+                blackOverlayView?.alpha = 0
+                mainImageLoadIndicator?.stopAnimating()
+            }
+        }
     }
 }
 
@@ -253,7 +268,7 @@ extension SnapImagePickerViewController: UIScrollViewDelegate {
             }
             if let albumCollectionView = albumCollectionView {
                 let lastVisibleIndex = (Int((scrollView.contentOffset.y + scrollView.bounds.height) / currentDisplay.CellWidthInView(albumCollectionView)) + 1) * currentDisplay.NumberOfColumns
-                //TODO: DO PREFETCHING HERE
+                eventHandler?.scrolledToIndex(lastVisibleIndex)
             }
         }
     }
