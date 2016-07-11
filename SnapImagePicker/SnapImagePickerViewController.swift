@@ -49,12 +49,11 @@ class SnapImagePickerViewController: UIViewController {
     @IBOutlet weak var imageGridView: ImageGridView? {
         didSet {
             imageGridView?.userInteractionEnabled = false
-            imageGridView?.setNeedsDisplay()
         }
     }
     @IBOutlet weak var blackOverlayView: UIView? {
         didSet {
-            imageGridView?.userInteractionEnabled = false
+            blackOverlayView?.userInteractionEnabled = false
             blackOverlayView?.alpha = 0.0
         }
     }
@@ -81,19 +80,25 @@ class SnapImagePickerViewController: UIViewController {
     }
     private var currentDisplay = Display.Portrait {
         didSet {
-            print("IMAGE FRAME BEFORE: \(selectedImageView?.frame)")
-            let ratio = currentDisplay.SelectedImageWidthMultiplier / oldValue.SelectedImageWidthMultiplier
             selectedImageWidthConstraint = selectedImageWidthConstraint?.changeMultiplier(currentDisplay.SelectedImageWidthMultiplier)
-            print("IMAGE FRAME AFTER: \(selectedImageView?.frame)")
             albumCollectionWidthConstraint = albumCollectionWidthConstraint?.changeMultiplier(currentDisplay.AlbumCollectionWidthMultiplier)
             albumCollectionView?.reloadData()
         }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        //super.viewDidLayoutSubviews()
+        print("DID LAYOUT Selected image view frame: \(selectedImageView?.frame)")
+        print("DID LAYOUT Scroll view frame: \(selectedImageScrollView?.frame)")
+        print("DID LAYOUT Scroll view content size: \(selectedImageScrollView?.contentSize)")
+        print("DID LAYOUT Scroll view content offset: \(selectedImageScrollView?.contentOffset)")
     }
     
     private var userIsScrolling = false
     private var enqueuedBounce: (() -> Void)?
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
         let newDisplay = size.displayType()
         if newDisplay != currentDisplay {
             currentDisplay = newDisplay
@@ -125,12 +130,14 @@ class SnapImagePickerViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         eventHandler?.viewWillAppearWithCellSize(currentDisplay.CellWidthInViewWithWidth(view.bounds.width))
         calculateViewSizes()
         setupGestureRecognizers()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        super.prepareForSegue(segue, sender: sender)
         if let identifier = segue.identifier {
             switch identifier {
             case SnapImagePickerConnector.Names.ShowAlbumSelector.rawValue:
@@ -190,6 +197,10 @@ extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
 
 extension SnapImagePickerViewController: UICollectionViewDataSource {
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        print("IS SHOWING Selected image view frame: \(selectedImageView?.frame)")
+        print("IS SHOWING Scroll view frame: \(selectedImageScrollView?.frame)")
+        print("IS SHOWING Scroll view content size: \(selectedImageScrollView?.contentSize)")
+        print("IS SHOWING Scroll view content offset: \(selectedImageScrollView?.contentOffset)")
         return eventHandler?.numberOfSectionsForNumberOfColumns(currentDisplay.NumberOfColumns) ?? 0
     }
     
@@ -256,6 +267,7 @@ extension SnapImagePickerViewController: UIScrollViewDelegate {
                 }
             }
         } else if scrollView == albumCollectionView {
+            print("CONTENT SIZE: \(selectedImageScrollView?.contentSize)")
             if let mainScrollView = mainScrollView
                where scrollView.contentOffset.y < 0 {
                 if userIsScrolling {

@@ -1,6 +1,6 @@
 import UIKit
 
-enum Display {
+enum Display: CustomStringConvertible {
     case Portrait
     case Landscape
     
@@ -53,5 +53,12 @@ enum Display {
     
     func CellWidthInViewWithWidth(width: CGFloat) -> CGFloat {
         return (width - (Spacing * CGFloat(NumberOfColumns - 1))) / CGFloat(NumberOfColumns)
+    }
+    
+    var description: String {
+        switch self {
+        case .Portrait: return "Portrait"
+        case .Landscape: return "Landscape"
+        }
     }
 }
