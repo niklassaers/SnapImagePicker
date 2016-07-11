@@ -81,10 +81,16 @@ class SnapImagePickerViewController: UIViewController {
     }
     private var currentDisplay = Display.Portrait {
         didSet {
-            selectedImageWidthConstraint = selectedImageWidthConstraint?.changeMultiplier(currentDisplay.SelectedImageWidthMultiplier)
-            albumCollectionWidthConstraint = albumCollectionWidthConstraint?.changeMultiplier(currentDisplay.AlbumCollectionWidthMultiplier)
-            albumCollectionView?.reloadData()
-            selectedImageScrollView?.centerFullImageInImageView(selectedImageView)
+            if let contentSize = selectedImageScrollView?.contentSize,
+               let zoomScale = selectedImageScrollView?.zoomScale,
+               let contentOffset = selectedImageScrollView?.contentOffset,
+               let oldMultiplier = selectedImageWidthConstraint?.multiplier {
+                let ratio = currentDisplay.SelectedImageWidthMultiplier / oldMultiplier
+                selectedImageWidthConstraint = selectedImageWidthConstraint?.changeMultiplier(currentDisplay.SelectedImageWidthMultiplier)
+                albumCollectionWidthConstraint = albumCollectionWidthConstraint?.changeMultiplier(currentDisplay.AlbumCollectionWidthMultiplier)
+                albumCollectionView?.reloadData()
+                selectedImageScrollView?.contentSize = CGSize(width: contentSize.width * ratio / zoomScale, height: contentSize.height * ratio / zoomScale)
+            }
         }
     }
     
@@ -258,8 +264,6 @@ extension SnapImagePickerViewController: UICollectionViewDelegate {
 
 extension SnapImagePickerViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        print("SCROLL VIEW FRAME: \(selectedImageScrollView?.frame)")
-        print("IMAGE VIEW FRAME: \(selectedImageView?.frame)")
         if scrollView == mainScrollView {
             if let albumCollectionView = albumCollectionView,
                let mainScrollView = mainScrollView {

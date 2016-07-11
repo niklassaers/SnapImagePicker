@@ -127,6 +127,9 @@
                         <variation key="widthClass=regular" ambiguous="YES">
                             <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
                         </variation>
+                        <variation key="heightClass=regular-widthClass=regular" ambiguous="YES">
+                            <rect key="frame" x="0.0" y="0.0" width="800" height="800"/>
+                        </variation>
                     </scrollView>
                     <navigationItem key="navigationItem" id="DeZ-xg-qaT">
                         <nil key="title"/>
