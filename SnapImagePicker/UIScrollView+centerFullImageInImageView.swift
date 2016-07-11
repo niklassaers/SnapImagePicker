@@ -13,6 +13,7 @@ extension UIScrollView {
             
             setZoomScale(zoomScale, animated: false)
             setContentOffset(CGPoint(x: scaledOffset, y: scaledOffset), animated: false)
+            print("Offset_center: \(contentOffset)")
         }
     }
 }

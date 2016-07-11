@@ -124,6 +124,9 @@
                             <constraint firstItem="TOw-dc-Dkh" firstAttribute="top" secondItem="Fnf-u5-0oM" secondAttribute="bottom" id="tR1-Xe-bPS"/>
                             <constraint firstItem="TOw-dc-Dkh" firstAttribute="bottom" secondItem="692-lI-ACh" secondAttribute="bottom" constant="10" id="zUt-iR-AaK"/>
                         </constraints>
+                        <variation key="widthClass=regular" ambiguous="YES">
+                            <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
+                        </variation>
                     </scrollView>
                     <navigationItem key="navigationItem" id="DeZ-xg-qaT">
                         <nil key="title"/>
