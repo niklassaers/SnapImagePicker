@@ -99,9 +99,12 @@ class SnapImagePickerViewController: UIViewController {
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        let newDisplay = size.displayType()
+        // TODO: Where the fuck does these numbers come from
+        let newOffset = CGPoint(x: selectedImageScrollView!.contentOffset.x * ((newDisplay == .Landscape) ? 0.5 * 1.33 : 2.0 / 1.33),
+                                y: selectedImageScrollView!.contentOffset.y * ((newDisplay == .Landscape) ? 0.5 * 1.33 : 2.0 / 1.33))
         coordinator.animateAlongsideTransition({
             [weak self] _ in
-            let newDisplay = size.displayType()
             if newDisplay != self?.currentDisplay {
                 if let strongSelf = self,
                    let selectedImageScrollView = strongSelf.selectedImageScrollView {
@@ -113,7 +116,10 @@ class SnapImagePickerViewController: UIViewController {
                     strongSelf.currentDisplay = newDisplay
                 }
             }
-            }, completion: nil)
+            }, completion: {
+                [weak self] _ in
+                self?.selectedImageScrollView?.contentOffset = newOffset
+        })
     }
     
     @IBAction func flipImageButtonPressed(sender: UIButton) {
