@@ -83,7 +83,6 @@ class SnapImagePickerViewController: UIViewController {
         didSet {
             if let contentSize = selectedImageScrollView?.contentSize,
                let zoomScale = selectedImageScrollView?.zoomScale,
-               let contentOffset = selectedImageScrollView?.contentOffset,
                let oldMultiplier = selectedImageWidthConstraint?.multiplier {
                 let ratio = currentDisplay.SelectedImageWidthMultiplier / oldMultiplier
                 selectedImageWidthConstraint = selectedImageWidthConstraint?.changeMultiplier(currentDisplay.SelectedImageWidthMultiplier)
@@ -100,12 +99,13 @@ class SnapImagePickerViewController: UIViewController {
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
         let newDisplay = size.displayType()
-        // TODO: Where the fuck does these numbers come from
-        let newOffset = CGPoint(x: selectedImageScrollView!.contentOffset.x * ((newDisplay == .Landscape) ? 0.5 * 1.33 : 2.0 / 1.33),
-                                y: selectedImageScrollView!.contentOffset.y * ((newDisplay == .Landscape) ? 0.5 * 1.33 : 2.0 / 1.33))
-        coordinator.animateAlongsideTransition({
-            [weak self] _ in
-            if newDisplay != self?.currentDisplay {
+        if newDisplay != currentDisplay {
+            let ratio = newDisplay.SelectedImageWidthMultiplier / currentDisplay.SelectedImageWidthMultiplier
+            let newOffset = CGPoint(x: selectedImageScrollView!.contentOffset.x * ratio * ((newDisplay == .Landscape) ? 1 * 1.33 : 1 / 1.33),
+                                y: selectedImageScrollView!.contentOffset.y * ratio * ((newDisplay == .Landscape) ? 1 * 1.33 : 1 / 1.33))
+            coordinator.animateAlongsideTransition({
+                [weak self] _ in
+
                 if let strongSelf = self,
                    let selectedImageScrollView = strongSelf.selectedImageScrollView {
                     let ratio = newDisplay.SelectedImageWidthMultiplier / strongSelf.currentDisplay.SelectedImageWidthMultiplier
@@ -114,12 +114,11 @@ class SnapImagePickerViewController: UIViewController {
                     strongSelf.setMainOffsetForState(strongSelf.state, withHeight: newHeight, animated: false)
         
                     strongSelf.currentDisplay = newDisplay
+                    self?.selectedImageScrollView?.setContentOffset(newOffset, animated: true)
+                    
                 }
-            }
-            }, completion: {
-                [weak self] _ in
-                self?.selectedImageScrollView?.contentOffset = newOffset
-        })
+            }, completion: nil)
+        }
     }
     
     @IBAction func flipImageButtonPressed(sender: UIButton) {
