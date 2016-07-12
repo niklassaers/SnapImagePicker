@@ -30,7 +30,9 @@ extension SnapImagePickerInteractor: SnapImagePickerInteractorProtocol {
     }
     
     func initializedAlbum(image: SnapImagePickerImage, albumSize: Int) {
-        presenter?.presentInitialAlbum(image, albumSize: albumSize)
+        dispatch_async(dispatch_get_main_queue()) {
+            [weak self] in self?.presenter?.presentInitialAlbum(image, albumSize: albumSize)
+        }
     }
     
     func loadedAlbumImage(image: SnapImagePickerImage, atIndex index: Int) {

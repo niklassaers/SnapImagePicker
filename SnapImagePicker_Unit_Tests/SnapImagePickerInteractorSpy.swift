@@ -1,9 +1,86 @@
-//
-//  SnapImagePickerInteractorSpy.swift
-//  SnapImagePicker
-//
-//  Created by Esten Leonardsen on 12/07/16.
-//  Copyright © 2016 Snapsale AS. All rights reserved.
-//
+@testable import SnapImagePicker
+import UIKit
 
-import Foundation
+class SnapImagePickerInteractorSpy: SnapImagePickerInteractorProtocol {
+    var loadInitialAlbumCount = 0
+    var loadInitialAlbumType: AlbumType?
+    
+    var loadAlbumImageWithTypeCount = 0
+    var loadAlbumImageWithType: AlbumType?
+    var loadAlbumImageSize: CGSize?
+    var loadAlbumImageAtIndex: Int?
+    
+    var loadImageWithLocalIdentifierCount = 0
+    var loadImageWithLocalIdentifier: String?
+    
+    var clearPendingRequestsCount = 0
+    
+    var initializedAlbumCount = 0
+    var initializedAlbumImage: SnapImagePickerImage?
+    var initializedAlbumSize: Int?
+    
+    var loadedAlbumImageCount = 0
+    var loadedAlbumImage: SnapImagePickerImage?
+    var loadedAlbumImageAtIndex: Int?
+    
+    var loadedMainImageCount = 0
+    var loadedMainImage: SnapImagePickerImage?
+    
+    private var delegate: SnapImagePickerInteractorSpyDelegate?
+    
+    init(delegate: SnapImagePickerInteractorSpyDelegate) {
+        self.delegate = delegate
+    }
+    
+    func loadInitialAlbum(type: AlbumType) {
+        loadInitialAlbumCount += 1
+        loadInitialAlbumType = type
+        
+        delegate?.testExpectation?()
+    }
+    
+    func loadAlbumImageWithType(type: AlbumType, withTargetSize targetSize: CGSize, atIndex: Int) {
+        loadAlbumImageWithTypeCount += 1
+        loadAlbumImageWithType = type
+        loadAlbumImageSize = targetSize
+        loadAlbumImageAtIndex = atIndex
+        
+        delegate?.testExpectation?()
+    }
+    
+    func loadImageWithLocalIdentifier(localIdentifier: String) {
+        loadImageWithLocalIdentifierCount += 1
+        loadImageWithLocalIdentifier = localIdentifier
+        
+        delegate?.testExpectation?()
+    }
+    
+    func clearPendingRequests() {
+        clearPendingRequestsCount += 1
+        
+        delegate?.testExpectation?()
+    }
+    
+    func initializedAlbum(image: SnapImagePickerImage, albumSize: Int) {
+        initializedAlbumCount += 1
+        initializedAlbumImage = image
+        initializedAlbumSize = albumSize
+        
+        delegate?.testExpectation?()
+    }
+    
+    func loadedAlbumImage(image: SnapImagePickerImage, atIndex: Int) {
+        loadedAlbumImageCount += 1
+        loadedAlbumImage = image
+        loadedAlbumImageAtIndex = atIndex
+        
+        delegate?.testExpectation?()
+    }
+    
+    func loadedMainImage(image: SnapImagePickerImage) {
+        loadedMainImageCount += 1
+        loadedMainImage = image
+        
+        delegate?.testExpectation?()
+    }
+}

@@ -94,18 +94,25 @@ extension SnapImagePickerPresenter: SnapImagePickerPresenterProtocol {
         display()
     }
     
-    func presentMainImage(image: SnapImagePickerImage) {
+    func presentMainImage(image: SnapImagePickerImage) -> Bool {
         if image.localIdentifier == requestedMainImage {
             mainImage = image
+            
             display()
+            return true
         }
+        
+        return false
     }
     
-    func presentAlbumImage(image: SnapImagePickerImage, atIndex index: Int) {
-        if index < albumImages?.count {
+    func presentAlbumImage(image: SnapImagePickerImage, atIndex index: Int) -> Bool {
+        if index < albumImages?.count && index >= 0 {
             albumImages?[index] = (imageWrapper: image, status: RequestStatus.Completed)
-            display()
+            
+            return true
         }
+        
+        return false
     }
 }
 
@@ -115,13 +122,20 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
         checkPhotosAccessStatus()
     }
 
-    func albumImageClicked(index: Int) {
+    func albumImageClicked(index: Int) -> Bool {
         if let albumImages = albumImages
            where index < albumImages.count {
-            selectedIndex = index
-            requestedMainImage = albumImages[index].imageWrapper!.localIdentifier
-            interactor?.loadImageWithLocalIdentifier(albumImages[index].imageWrapper!.localIdentifier)
+            if let localIdentifier = albumImages[index].imageWrapper?.localIdentifier {
+                selectedIndex = index
+                requestedMainImage = localIdentifier
+                interactor?.loadImageWithLocalIdentifier(localIdentifier)
+                
+                display()
+                return true
+            }
         }
+        
+        return false
     }
     
     func albumTitleClicked(destinationViewController: UIViewController) {
@@ -134,7 +148,7 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
     
     func numberOfSectionsForNumberOfColumns(columns: Int) -> Int {
         if let albumImages = albumImages {
-            return (albumImages.count / columns) + 1
+            return max(albumImages.count / columns, 1)
         }
         
         return 0
@@ -144,7 +158,7 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
         if let albumImages = albumImages {
             let previouslyUsedImages = section * columns
             let remainingImages = albumImages.count - previouslyUsedImages
-            let columns = min(columns, remainingImages)
+            let columns = max(min(columns, remainingImages), 0)
         
             return columns
         }
@@ -175,9 +189,5 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
         }
         
         return cell
-    }
-    
-    func scrolledToIndex(index: Int) {
-
     }
 }

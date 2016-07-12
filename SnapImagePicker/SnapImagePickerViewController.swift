@@ -293,10 +293,6 @@ extension SnapImagePickerViewController: UIScrollViewDelegate {
                 }
                 scrollView.contentOffset = CGPoint(x: scrollView.contentOffset.x, y: 0)
             }
-            if let albumCollectionView = albumCollectionView {
-                let lastVisibleIndex = (Int((scrollView.contentOffset.y + scrollView.bounds.height) / currentDisplay.CellWidthInView(albumCollectionView)) + 1) * currentDisplay.NumberOfColumns
-                eventHandler?.scrolledToIndex(lastVisibleIndex)
-            }
         }
     }
     

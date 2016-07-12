@@ -2,13 +2,23 @@ import Photos
 
 class PHFetchResultStub: PHFetchResult {
     private let numberOfImages: Int
+    init(numberOfImages: Int) {
+        self.numberOfImages = numberOfImages
+    }
+    
     override var count: Int {
         get {
             return numberOfImages
         }
     }
     
-    init(numberOfImages: Int) {
-        self.numberOfImages = numberOfImages
+    override var firstObject: AnyObject? {
+        get {
+            return PHAsset()
+        }
+    }
+    
+    override func objectAtIndex(index: Int) -> AnyObject {
+        return PHAsset()
     }
 }
