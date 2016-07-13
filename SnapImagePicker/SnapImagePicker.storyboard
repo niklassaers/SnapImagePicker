@@ -11,7 +11,7 @@
         <!--Album-->
         <scene sceneID="P9o-QH-7g5">
             <objects>
-                <viewController title="Album" id="Wid-Ke-N4r" customClass="SnapImagePickerViewController" customModule="SnapImagePicker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Image Picker View Controller" title="Album" id="Wid-Ke-N4r" customClass="SnapImagePickerViewController" customModule="SnapImagePicker" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Fnf-u5-0oM"/>
                         <viewControllerLayoutGuide type="bottom" id="dsf-Ng-6ae"/>
@@ -200,7 +200,7 @@
         <!--Album Selector View Controller-->
         <scene sceneID="nCX-04-IwQ">
             <objects>
-                <tableViewController id="qnA-aw-o6y" customClass="AlbumSelectorViewController" customModule="SnapImagePicker" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="Album Selector View Controller" id="qnA-aw-o6y" customClass="AlbumSelectorViewController" customModule="SnapImagePicker" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" id="Kki-Xp-Unn">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

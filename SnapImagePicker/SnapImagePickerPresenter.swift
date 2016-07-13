@@ -109,6 +109,7 @@ extension SnapImagePickerPresenter: SnapImagePickerPresenterProtocol {
         if index < albumImages?.count && index >= 0 {
             albumImages?[index] = (imageWrapper: image, status: RequestStatus.Completed)
             
+            display()
             return true
         }
         

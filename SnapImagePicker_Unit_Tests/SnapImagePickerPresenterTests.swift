@@ -82,7 +82,7 @@ class SnapImagePickerPresenterTests: XCTestCase, SnapImagePickerInteractorSpyDel
             let mainImage = SnapImagePickerImage(image: rawImage, localIdentifier: "mainImage", createdDate: NSDate())
             
             var result = presenter?.presentMainImage(image)
-            XCTAssertEqual(0, viewController?.displayCount, "Presenter.presentMainImage did with invalid main image did trigger ViewController.display")
+            XCTAssertEqual(0, viewController?.displayCount, "Presenter.presentMainImage with invalid main image did trigger ViewController.display")
             XCTAssertFalse(result ?? true, "Presenter returned true when setting a non-requested main image")
             
             let size = 5
@@ -93,13 +93,13 @@ class SnapImagePickerPresenterTests: XCTestCase, SnapImagePickerInteractorSpyDel
             
             presenter?.presentAlbumImage(mainImage, atIndex: index)
             presenter?.albumImageClicked(index)
-            XCTAssertEqual(2, viewController?.displayCount, "Presenter.albumImageClicked did not trigger ViewController.display")
+            XCTAssertEqual(3, viewController?.displayCount, "Presenter.albumImageClicked did not trigger ViewController.display")
             XCTAssertEqual(index, viewController?.displayViewModel?.selectedIndex, "ViewModel.selectedImage does not match last clicked index")
             XCTAssertTrue(viewController?.displayViewModel?.isLoading ?? false, "ViewModel.isLoading set to false after requesting a new image")
             
             result = presenter?.presentMainImage(mainImage)
             XCTAssertTrue(result ?? false, "Presenter returned false when setting a requested main image")
-            XCTAssertEqual(3, viewController?.displayCount, "Presenter.presentMainImage did not trigger ViewController.display")
+            XCTAssertEqual(4, viewController?.displayCount, "Presenter.presentMainImage did not trigger ViewController.display")
             XCTAssertEqual(mainImage.image, viewController?.displayViewModel?.mainImage?.image, "ViewModel did not contain the latest requested main image")
             XCTAssertEqual(mainImage.localIdentifier, viewController?.displayViewModel?.mainImage?.localIdentifier, "ViewModel did not contain the latest requested main image")
             XCTAssertFalse(viewController?.displayViewModel?.isLoading ?? true, "ViewModel.isLoading set to true when displaying the currently requested main image")

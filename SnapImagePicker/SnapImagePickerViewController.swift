@@ -73,13 +73,17 @@ class SnapImagePickerViewController: UIViewController {
     }
     
     private var selectedImageRotation = Double(0)
-    private var state: DisplayState = .Image {
+    
+    // Should be private
+    var state: DisplayState = .Image {
         didSet {
             setMainOffsetForState(state)
             rotateButton?.alpha = state.rotateButtonAlpha
         }
     }
-    private var currentDisplay = Display.Portrait {
+    
+    // Should be private
+    var currentDisplay = Display.Portrait {
         didSet {
             if let contentSize = selectedImageScrollView?.contentSize,
                let zoomScale = selectedImageScrollView?.zoomScale,
@@ -90,34 +94,6 @@ class SnapImagePickerViewController: UIViewController {
                 albumCollectionView?.reloadData()
                 selectedImageScrollView?.contentSize = CGSize(width: contentSize.width * ratio / zoomScale, height: contentSize.height * ratio / zoomScale)
             }
-        }
-    }
-    
-    private var userIsScrolling = false
-    private var enqueuedBounce: (() -> Void)?
-    
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-        let newDisplay = size.displayType()
-        if newDisplay != currentDisplay {
-            let ratio = newDisplay.SelectedImageWidthMultiplier / currentDisplay.SelectedImageWidthMultiplier
-            let newOffset = CGPoint(x: selectedImageScrollView!.contentOffset.x * ratio * ((newDisplay == .Landscape) ? 1 * 1.33 : 1 / 1.33),
-                                y: selectedImageScrollView!.contentOffset.y * ratio * ((newDisplay == .Landscape) ? 1 * 1.33 : 1 / 1.33))
-            coordinator.animateAlongsideTransition({
-                [weak self] _ in
-
-                if let strongSelf = self,
-                   let selectedImageScrollView = strongSelf.selectedImageScrollView {
-                    let ratio = newDisplay.SelectedImageWidthMultiplier / strongSelf.currentDisplay.SelectedImageWidthMultiplier
-                    let height = selectedImageScrollView.frame.height
-                    let newHeight = height * ratio
-                    strongSelf.setMainOffsetForState(strongSelf.state, withHeight: newHeight, animated: false)
-        
-                    strongSelf.currentDisplay = newDisplay
-                    self?.selectedImageScrollView?.setContentOffset(newOffset, animated: true)
-                    
-                }
-            }, completion: nil)
         }
     }
     
@@ -145,12 +121,41 @@ class SnapImagePickerViewController: UIViewController {
         dismiss()
     }
     
+    private var userIsScrolling = false
+    private var enqueuedBounce: (() -> Void)?
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-
+        
+        currentDisplay = view.frame.size.displayType()
         eventHandler?.viewWillAppearWithCellSize(currentDisplay.CellWidthInViewWithWidth(view.bounds.width))
         calculateViewSizes()
         setupGestureRecognizers()
+    }
+    
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        let newDisplay = size.displayType()
+        if newDisplay != currentDisplay {
+            let ratio = newDisplay.SelectedImageWidthMultiplier / currentDisplay.SelectedImageWidthMultiplier
+            let newOffset = CGPoint(x: selectedImageScrollView!.contentOffset.x * ratio * ((newDisplay == .Landscape) ? 1 * 1.33 : 1 / 1.33),
+                                    y: selectedImageScrollView!.contentOffset.y * ratio * ((newDisplay == .Landscape) ? 1 * 1.33 : 1 / 1.33))
+            coordinator.animateAlongsideTransition({
+                [weak self] _ in
+                
+                if let strongSelf = self,
+                    let selectedImageScrollView = strongSelf.selectedImageScrollView {
+                    let ratio = newDisplay.SelectedImageWidthMultiplier / strongSelf.currentDisplay.SelectedImageWidthMultiplier
+                    let height = selectedImageScrollView.frame.height
+                    let newHeight = height * ratio
+                    strongSelf.setMainOffsetForState(strongSelf.state, withHeight: newHeight, animated: false)
+                    
+                    strongSelf.currentDisplay = newDisplay
+                    self?.selectedImageScrollView?.setContentOffset(newOffset, animated: true)
+                    
+                }
+                }, completion: nil)
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -168,7 +173,8 @@ class SnapImagePickerViewController: UIViewController {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    private func calculateViewSizes() {
+    // Should be private
+    func calculateViewSizes() {
         if let mainScrollView = mainScrollView,
            let imageFrame = selectedImageScrollView?.frame {
             let mainFrame = mainScrollView.frame
@@ -187,6 +193,7 @@ extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
         
         if let mainImage = viewModel.mainImage?.image {
             if mainImage != selectedImageView?.image {
+                print("Triggered animation because image")
                 selectedImageView?.image = mainImage
                 selectedImageScrollView?.centerFullImageInImageView(selectedImageView)
                 state = .Image
@@ -194,6 +201,7 @@ extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
         }
         
         if (currentlySelectedIndex != viewModel.selectedIndex) {
+            print("Triggered animation because currentlySelectedIndex != selectedIndex")
             currentlySelectedIndex = viewModel.selectedIndex
             state = .Image
         }
@@ -270,6 +278,7 @@ extension SnapImagePickerViewController: UICollectionViewDelegate {
 extension SnapImagePickerViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(scrollView: UIScrollView) {
         if scrollView == mainScrollView {
+            print("Main scroll view scrolled from \(scrollView.contentOffset)")
             if let albumCollectionView = albumCollectionView,
                let mainScrollView = mainScrollView {
                 let remainingAlbumCollectionHeight = albumCollectionView.contentSize.height - albumCollectionView.contentOffset.y
@@ -419,7 +428,8 @@ extension SnapImagePickerViewController {
         scrolledToOffsetRatio(calculateOffsetToImageHeightRatio())
     }
     
-    private func setMainOffsetForState(state: DisplayState, animated: Bool = true) {
+    // Should be private
+    func setMainOffsetForState(state: DisplayState, animated: Bool = true) {
         if let height = selectedImageScrollView?.bounds.height {
             setMainOffsetForState(state, withHeight: height, animated: animated)
         }

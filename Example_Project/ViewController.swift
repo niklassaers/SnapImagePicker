@@ -8,6 +8,7 @@ class ViewController: UIViewController {
 
     @IBAction func openImagePickerTapped(sender: UIButton) {
         if let imagePicker = snapImagePicker.imagePicker(delegate: self) {
+            print("Presenting")
             self.presentViewController(imagePicker, animated: true, completion: nil)
         }
     }

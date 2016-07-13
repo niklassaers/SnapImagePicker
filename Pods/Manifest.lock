@@ -1,12 +1,22 @@
 PODS:
+  - FBSnapshotTestCase (2.1.2):
+    - FBSnapshotTestCase/SwiftSupport (= 2.1.2)
+  - FBSnapshotTestCase/Core (2.1.2)
+  - FBSnapshotTestCase/SwiftSupport (2.1.2):
+    - FBSnapshotTestCase/Core
+  - SnapFBSnapshotBase (1.1.0):
+    - FBSnapshotTestCase
   - SnapFonts-iOS (1.0.0)
 
 DEPENDENCIES:
+  - SnapFBSnapshotBase
   - SnapFonts-iOS
 
 SPEC CHECKSUMS:
+  FBSnapshotTestCase: 918c55861356ee83aee7843d759f55a18ff6982b
+  SnapFBSnapshotBase: 41e9522e1c57f06b4b8683c36c6e03431a40abb6
   SnapFonts-iOS: d6eb7e76f92c78bfbe0830c706c66b631157d77e
 
-PODFILE CHECKSUM: d5051e0b575238ed90e2810b38520cbf4f5e2c66
+PODFILE CHECKSUM: 74829fcc2fc5fb76483176ed6651b5031955530c
 
 COCOAPODS: 1.0.1
