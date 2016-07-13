@@ -17,12 +17,12 @@
 		<key>SnapImagePicker_Snapshot_Tests.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>4</integer>
+			<integer>3</integer>
 		</dict>
 		<key>SnapImagePicker_UI_Tests.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>3</integer>
+			<integer>13</integer>
 		</dict>
 		<key>SnapImagePicker_Unit_Tests.xcscheme</key>
 		<dict>
@@ -53,6 +53,11 @@
 			<true/>
 		</dict>
 		<key>D829631E1D35381600AB32B7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D84613FF1D368B5E00B2A71D</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -12,7 +12,7 @@ class AlbumSelectorTest: SnapFBSnapshotBase {
             sut = viewController.view
             viewController.display(createCollections())
             
-            recordMode = super.recordAll || true
+            recordMode = super.recordAll || false
         }
     }
     

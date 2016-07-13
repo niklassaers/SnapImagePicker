@@ -10,10 +10,10 @@ class SnapImagePickerAlbumTest: SnapFBSnapshotBase {
         if let viewController = storyboard.instantiateViewControllerWithIdentifier("Image Picker View Controller") as? SnapImagePickerViewController {
             sutBackingViewController = viewController
             setup(viewController)
-            viewController.setMainOffsetForState(.Album, animated: false)
+            viewController.state = .Album
             sut = viewController.view
             
-            recordMode = super.recordAll || true
+            recordMode = super.recordAll || false
         }
     }
     
