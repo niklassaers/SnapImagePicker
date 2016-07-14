@@ -51,7 +51,7 @@ class SnapImagePickerPresenterTests: XCTestCase, SnapImagePickerTestExpectationD
             XCTAssertEqual(image.image, viewModel?.mainImage?.image, "ViewModel contains wrong image after Presenter.presentInitialAlbum")
             XCTAssertEqual(image.localIdentifier, viewModel?.mainImage?.localIdentifier, "ViewModel contains wrong image after Presenter.presentInitialAlbum")
             XCTAssertEqual(image.createdDate, viewModel?.mainImage?.createdDate, "ViewModel contains wrong image after Presenter.presentInitialAlbum")
-            XCTAssertEqual(0, viewModel?.selectedIndex, "ViewModel.selectedIndex is not 0 when presenting initial album")
+            XCTAssertEqual(0, viewModel?.selectedIndex, "ViewModel.selectedIndex is not 0 when presenting initial album with size \(albumSize)")
             XCTAssertFalse(viewModel?.isLoading ?? true, "ViewModel.isLoading is true when presenting initial album image")
             XCTAssertEqual(5, presenter?.numberOfSectionsForNumberOfColumns(6), "Presenter returned wrong number of sections")
             XCTAssertEqual(6, presenter?.numberOfItemsInSection(0, withColumns: 6), "Presenter returned wrong number of columns for a non-last section")

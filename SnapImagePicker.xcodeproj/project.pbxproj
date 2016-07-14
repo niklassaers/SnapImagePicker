@@ -444,8 +444,8 @@
 				D829630A1D35298000AB32B7 /* SnapImagePickerConnectorSpy.swift */,
 				D82963001D34F55700AB32B7 /* SnapImagePickerEntityGatewaySpy.swift */,
 				D82962F71D34D60200AB32B7 /* SnapImagePickerInteractorSpy.swift */,
-				D82962FE1D34F3D200AB32B7 /* SnapImagePickerPresenterSpy.swift */,
 				D82963041D35093A00AB32B7 /* SnapImagePickerViewControllerSpy.swift */,
+				D82962FE1D34F3D200AB32B7 /* SnapImagePickerPresenterSpy.swift */,
 				D89887E01D376BBC005066FC /* SnapImagePickerEventHandlerSpy.swift */,
 			);
 			path = TestDoubles;
@@ -654,6 +654,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D89D6FFD1D06CC06007DD132 /* Build configuration list for PBXNativeTarget "SnapImagePicker" */;
 			buildPhases = (
+				D89887E41D377D44005066FC /* Warnings */,
 				A25DFDFD683FEBBD348C8724 /* [CP] Check Pods Manifest.lock */,
 				D89D6FE11D06CC06007DD132 /* Sources */,
 				D89D6FE21D06CC06007DD132 /* Frameworks */,
@@ -938,6 +939,20 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SnapImagePicker_Snapshot_Tests/Pods-SnapImagePicker_Snapshot_Tests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		D89887E41D377D44005066FC /* Warnings */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Warnings;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "TAGS=\"TODO:|FIXME:\"\nfind \"${SRCROOT}\" -path \"${SRCROOT}/Pods\" -prune -o \\( -name \"*.h\" -or -name \"*.m\" -or -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"";
 		};
 		F17C8995973DC82171E28CDD /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;

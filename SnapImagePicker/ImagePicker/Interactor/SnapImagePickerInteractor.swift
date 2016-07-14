@@ -29,6 +29,11 @@ extension SnapImagePickerInteractor: SnapImagePickerInteractorProtocol {
         }
     }
     
+    func deleteRequestForId(index: Int, forAlbumType type: AlbumType) {
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
+            [weak self] in self?.entityGateway?.deleteRequestAtIndex(index, forAlbumType: type)
+        }
+    }
     func initializedAlbum(image: SnapImagePickerImage, albumSize: Int) {
         dispatch_async(dispatch_get_main_queue()) {
             [weak self] in self?.presenter?.presentInitialAlbum(image, albumSize: albumSize)
