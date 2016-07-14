@@ -2,7 +2,7 @@ import UIKit
 import SnapFonts_iOS
 
 public protocol SnapImagePickerProtocol {
-    func imagePicker(delegate delegate: SnapImagePickerDelegate) -> UIViewController?
+    static func initialize(delegate delegate: SnapImagePickerDelegate) -> UIViewController?
     func photosAccessStatusChanged()
 }
 
@@ -13,7 +13,7 @@ protocol SnapImagePickerConnectorProtocol: class {
     func requestPhotosAccess()
 }
 
-public class SnapImagePickerConnector {
+public class SnapImagePicker {
     public struct Theme {
         static var color = UIColor.init(red: 0xFF, green: 0x00, blue: 0x58, alpha: 1)
         static var maxImageSize = 2000
@@ -26,9 +26,8 @@ public class SnapImagePickerConnector {
         case ShowAlbumSelector = "Show Album Selector"
     }
     
-    private var presenter: SnapImagePickerPresenter?
-    private let navigationDelegate = NavigationControllerDelegate()
-    private let photoLoader = PhotoLoader()
+    var presenter: SnapImagePickerPresenter?
+    let photoLoader = PhotoLoader()
     
     var delegate: SnapImagePickerDelegate?
     
@@ -36,25 +35,26 @@ public class SnapImagePickerConnector {
     public init() {}
 }
 
-extension SnapImagePickerConnector: SnapImagePickerProtocol {
-    public func imagePicker(delegate delegate: SnapImagePickerDelegate) -> UIViewController? {
-        let bundle = NSBundle(forClass: SnapImagePickerConnector.self)
+extension SnapImagePicker: SnapImagePickerProtocol {
+    public static func initialize(delegate delegate: SnapImagePickerDelegate) -> UIViewController? {
+        let bundle = NSBundle(forClass: SnapImagePicker.self)
         let storyboard = UIStoryboard(name: Names.SnapImagePickerStoryboard.rawValue, bundle: bundle)
         if let viewController = storyboard.instantiateInitialViewController() as? UINavigationController {
-            viewController.delegate = navigationDelegate
+            viewController.delegate = NavigationControllerDelegate()
             if let snapImagePickerViewController = viewController.viewControllers[0] as? SnapImagePickerViewController {
+                let connector = SnapImagePicker()
                 let presenter = SnapImagePickerPresenter(view: snapImagePickerViewController)
-                presenter.connector = self
+                presenter.connector = connector
                 snapImagePickerViewController.eventHandler = presenter
                 
                 let interactor = SnapImagePickerInteractor(presenter: presenter)
                 presenter.interactor = interactor
                 
-                let entityGateway = SnapImagePickerEntityGateway(interactor: interactor, imageLoader: photoLoader)
+                let entityGateway = SnapImagePickerEntityGateway(interactor: interactor, imageLoader: connector.photoLoader)
                 interactor.entityGateway = entityGateway
                 
-                self.presenter = presenter
-                self.delegate = delegate
+                connector.presenter = presenter
+                connector.delegate = delegate
                 
                 return viewController
             }
@@ -66,7 +66,7 @@ extension SnapImagePickerConnector: SnapImagePickerProtocol {
         presenter?.photosAccessStatusChanged()
     }
 }
-extension SnapImagePickerConnector: SnapImagePickerConnectorProtocol {
+extension SnapImagePicker: SnapImagePickerConnectorProtocol {
     func prepareSegueToAlbumSelector(viewController: UIViewController) {
         if let albumSelectorViewController = viewController as? AlbumSelectorViewController {
             let presenter = AlbumSelectorPresenter(view: albumSelectorViewController)
@@ -92,7 +92,7 @@ extension SnapImagePickerConnector: SnapImagePickerConnectorProtocol {
         delegate?.pickedImage(image, withImageOptions: options)
     }
     
-    public func requestPhotosAccess() {
-        delegate?.requestPhotosAccess()
+    func requestPhotosAccess() {
+        delegate?.requestPhotosAccessForImagePicker(self)
     }
 }

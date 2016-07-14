@@ -11,7 +11,7 @@ class ImageLoaderStub: ImageLoader {
     }
     
     func loadImageFromAsset(asset: PHAsset, isPreview: Bool, withPreviewSize previewSize: CGSize , handler: (SnapImagePickerImage) -> Void) {
-        if let image = UIImage(named: "dummy.jpeg", inBundle: NSBundle(forClass: SnapImagePickerConnector.self), compatibleWithTraitCollection: nil) {
+        if let image = UIImage(named: "dummy.jpeg", inBundle: NSBundle(forClass: SnapImagePicker.self), compatibleWithTraitCollection: nil) {
             handler(SnapImagePickerImage(image: image, localIdentifier: "testImage", createdDate: nil))
         }
     }

@@ -54,7 +54,7 @@ extension SnapImagePickerImageTest: SnapImagePickerEventHandlerProtocol {
     func presentCell(cell: ImageCell, atIndex: Int) -> ImageCell {
         cell.imageView?.image = UIImage(named: "dress.jpg", inBundle: NSBundle(forClass: SnapImagePickerImageTest.self), compatibleWithTraitCollection: nil)
         if atIndex == 0 {
-            cell.backgroundColor = SnapImagePickerConnector.Theme.color
+            cell.backgroundColor = SnapImagePicker.Theme.color
             cell.spacing = 2
         }
         

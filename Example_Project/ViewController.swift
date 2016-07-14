@@ -4,11 +4,9 @@ import Foundation
 
 class ViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
-    private var snapImagePicker = SnapImagePickerConnector()
 
     @IBAction func openImagePickerTapped(sender: UIButton) {
-        if let imagePicker = snapImagePicker.imagePicker(delegate: self) {
-            print("Presenting")
+        if let imagePicker = SnapImagePicker.initialize(delegate: self) {
             self.presentViewController(imagePicker, animated: true, completion: nil)
         }
     }
@@ -25,7 +23,7 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: SnapImagePickerDelegate {
-    func pickedImage(image: UIImage, withImageOptions options: SnapImagePicker.ImageOptions) {
+    func pickedImage(image: UIImage, withImageOptions options: ImageOptions) {
         imageView?.contentMode = .ScaleAspectFit
         var orientation = UIImageOrientation.Up
         switch options.rotation {
@@ -38,7 +36,7 @@ extension ViewController: SnapImagePickerDelegate {
         imageView?.image = UIImage(CGImage: CGImageCreateWithImageInRect(image.CGImage, options.cropRect)!, scale: 1, orientation: orientation)
     }
     
-    func requestPhotosAccess() {
+    func requestPhotosAccessForImagePicker(callbackDelegate: SnapImagePicker) {
         print("Need to request access to photos")
     }
 }

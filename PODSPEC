@@ -1,0 +1,31 @@
+{
+  "name": "SnapImagePicker",
+  "version": "1.0.0",
+  "summary": "A module for selecting an image from the Photos framework",
+  "homepage": "https://github.com/skylib",
+  "license": {
+    "type": "BSD",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Esten Leonardsen": "esten@snapsale.com",
+  },
+  "social_media_url": "http://twitter.com/snapsale_com",
+  "source": {
+    "git": "https://github.com/skylib/SnapImagePicker.git",
+    "tag": "1.0.0"
+  },
+  "platforms": {
+    "ios": 8.0
+  },
+  "source_files": ["SnapImagePicker/**/*", "SnapImagePicker_Unit_Tests/**/*", "SnapImagePicker_Snapshot_Tests/**/*"],
+  "frameworks": [
+    "UIKit",
+    "XCTest",
+    "Photos"
+  ],
+  "requires_arc": true,
+  "dependencies": {
+	  "FBSnapshotTestCase": [ ]
+  }
+}

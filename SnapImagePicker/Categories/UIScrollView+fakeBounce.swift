@@ -1,5 +1,4 @@
 import UIKit
-import Foundation
 
 extension UIScrollView {
     private func calculateOffsetFromVelocity(velocity: CGPoint) -> CGPoint {

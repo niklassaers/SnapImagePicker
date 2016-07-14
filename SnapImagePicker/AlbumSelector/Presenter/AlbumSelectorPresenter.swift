@@ -2,7 +2,7 @@ import UIKit
 
 class AlbumSelectorPresenter {
     private weak var view: AlbumSelectorViewControllerProtocol?
-    weak var connector: SnapImagePickerConnector?
+    weak var connector: SnapImagePickerConnectorProtocol?
     
     var interactor: AlbumSelectorInteractorProtocol?
     

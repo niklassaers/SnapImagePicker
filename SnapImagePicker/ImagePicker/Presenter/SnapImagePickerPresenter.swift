@@ -175,7 +175,7 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
                 let image = imageWrapper.image.square()
             
                 if index == selectedIndex {
-                    cell.backgroundColor = SnapImagePickerConnector.Theme.color
+                    cell.backgroundColor = SnapImagePicker.Theme.color
                     cell.spacing = 2
                 } else {
                     cell.spacing = 0
