@@ -11,12 +11,6 @@ class SnapImagePickerConnectorSpy: SnapImagePickerConnectorProtocol {
     
     var requestPhotosAccessCount = 0
     
-    private let delegate: SnapImagePickerConnectorSpyDelegate?
-    
-    init(delegate: SnapImagePickerConnectorSpyDelegate) {
-        self.delegate = delegate
-    }
-    
     func prepareSegueToAlbumSelector(viewController: UIViewController) {
         prepareSegueToAlbumSelectorCount += 1
     }

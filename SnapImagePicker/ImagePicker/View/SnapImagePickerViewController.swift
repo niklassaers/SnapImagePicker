@@ -74,7 +74,7 @@ class SnapImagePickerViewController: UIViewController {
     
     private var selectedImageRotation = Double(0)
     
-    // Should be private
+    // TODO: Should be private
     var state: DisplayState = .Image {
         didSet {
             setMainOffsetForState(state)
@@ -82,7 +82,7 @@ class SnapImagePickerViewController: UIViewController {
         }
     }
     
-    // Should be private
+    // TODO: Should be private
     var currentDisplay = Display.Portrait {
         didSet {
             if let contentSize = selectedImageScrollView?.contentSize,
@@ -173,7 +173,7 @@ class SnapImagePickerViewController: UIViewController {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    // Should be private
+    // TODO: Should be private
     func calculateViewSizes() {
         if let mainScrollView = mainScrollView,
            let imageFrame = selectedImageScrollView?.frame {
@@ -278,7 +278,6 @@ extension SnapImagePickerViewController: UICollectionViewDelegate {
 extension SnapImagePickerViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(scrollView: UIScrollView) {
         if scrollView == mainScrollView {
-            print("Main scroll view scrolled from \(scrollView.contentOffset)")
             if let albumCollectionView = albumCollectionView,
                let mainScrollView = mainScrollView {
                 let remainingAlbumCollectionHeight = albumCollectionView.contentSize.height - albumCollectionView.contentOffset.y
@@ -428,7 +427,7 @@ extension SnapImagePickerViewController {
         scrolledToOffsetRatio(calculateOffsetToImageHeightRatio())
     }
     
-    // Should be private
+    // TODO: Should be private
     func setMainOffsetForState(state: DisplayState, animated: Bool = true) {
         if let height = selectedImageScrollView?.bounds.height {
             setMainOffsetForState(state, withHeight: height, animated: animated)

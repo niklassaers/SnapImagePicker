@@ -5,13 +5,13 @@ protocol SnapImagePickerInteractorSpyDelegate {
     var testExpectation: (Void -> Void)? { get }
 }
 
-class SnapImagePickerEntityGatewayTests: XCTestCase, SnapImagePickerInteractorSpyDelegate {
+class SnapImagePickerEntityGatewayTests: XCTestCase, SnapImagePickerTestExpectationDelegate {
     private var interactor: SnapImagePickerInteractorSpy?
     private var imageLoader: ImageLoaderStub?
     private var entityGateway: SnapImagePickerEntityGateway?
     
     private var asyncExpectation: XCTestExpectation?
-    var testExpectation: (Void -> Void)? {
+    var fulfillExpectation: (Void -> Void)? {
         get {
             return asyncExpectation?.fulfill
         }

@@ -15,10 +15,10 @@ class SnapImagePickerEntityGatewaySpy: SnapImagePickerEntityGatewayProtocol {
     
     var clearPendingRequestsCount = 0
     
-    private let delegate: SnapImagePickerEntityGatewaySpyDelegate?
+    private let delegate: SnapImagePickerTestExpectationDelegate?
     private let numberOfImagesInAlbums: Int?
     
-    init(delegate: SnapImagePickerEntityGatewaySpyDelegate, numberOfImagesInAlbums: Int) {
+    init(delegate: SnapImagePickerTestExpectationDelegate, numberOfImagesInAlbums: Int) {
         self.delegate = delegate
         self.numberOfImagesInAlbums = numberOfImagesInAlbums
     }
@@ -27,7 +27,7 @@ class SnapImagePickerEntityGatewaySpy: SnapImagePickerEntityGatewayProtocol {
         loadInitialAlbumCount += 1
         loadInitialAlbumType = type
         
-        delegate?.testExpectation?()
+        delegate?.fulfillExpectation?()
     }
     
     func loadAlbumImageWithType(type: AlbumType, withTargetSize targetSize: CGSize, atIndex: Int) -> Bool {
@@ -36,7 +36,7 @@ class SnapImagePickerEntityGatewaySpy: SnapImagePickerEntityGatewayProtocol {
         loadAlbumImageSize = targetSize
         loadAlbumImageAtIndex = atIndex
         
-        delegate?.testExpectation?()
+        delegate?.fulfillExpectation?()
         return true
     }
     
@@ -44,13 +44,13 @@ class SnapImagePickerEntityGatewaySpy: SnapImagePickerEntityGatewayProtocol {
         loadImageWithLocalIdentifierCount += 1
         loadImageWithLocalIdentifier = localIdentifier
         
-        delegate?.testExpectation?()
+        delegate?.fulfillExpectation?()
         return true
     }
     
     func clearPendingRequests() {
         clearPendingRequestsCount += 1
         
-        delegate?.testExpectation?()
+        delegate?.fulfillExpectation?()
     }
 }

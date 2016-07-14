@@ -26,9 +26,9 @@ class SnapImagePickerInteractorSpy: SnapImagePickerInteractorProtocol {
     var loadedMainImageCount = 0
     var loadedMainImage: SnapImagePickerImage?
     
-    private var delegate: SnapImagePickerInteractorSpyDelegate?
+    private var delegate: SnapImagePickerTestExpectationDelegate?
     
-    init(delegate: SnapImagePickerInteractorSpyDelegate) {
+    init(delegate: SnapImagePickerTestExpectationDelegate) {
         self.delegate = delegate
     }
     
@@ -36,7 +36,7 @@ class SnapImagePickerInteractorSpy: SnapImagePickerInteractorProtocol {
         loadInitialAlbumCount += 1
         loadInitialAlbumType = type
         
-        delegate?.testExpectation?()
+        delegate?.fulfillExpectation?()
     }
     
     func loadAlbumImageWithType(type: AlbumType, withTargetSize targetSize: CGSize, atIndex: Int) {
@@ -45,20 +45,20 @@ class SnapImagePickerInteractorSpy: SnapImagePickerInteractorProtocol {
         loadAlbumImageSize = targetSize
         loadAlbumImageAtIndex = atIndex
         
-        delegate?.testExpectation?()
+        delegate?.fulfillExpectation?()
     }
     
     func loadImageWithLocalIdentifier(localIdentifier: String) {
         loadImageWithLocalIdentifierCount += 1
         loadImageWithLocalIdentifier = localIdentifier
         
-        delegate?.testExpectation?()
+        delegate?.fulfillExpectation?()
     }
     
     func clearPendingRequests() {
         clearPendingRequestsCount += 1
         
-        delegate?.testExpectation?()
+        delegate?.fulfillExpectation?()
     }
     
     func initializedAlbum(image: SnapImagePickerImage, albumSize: Int) {
@@ -66,7 +66,7 @@ class SnapImagePickerInteractorSpy: SnapImagePickerInteractorProtocol {
         initializedAlbumImage = image
         initializedAlbumSize = albumSize
         
-        delegate?.testExpectation?()
+        delegate?.fulfillExpectation?()
     }
     
     func loadedAlbumImage(image: SnapImagePickerImage, atIndex: Int) {
@@ -74,13 +74,13 @@ class SnapImagePickerInteractorSpy: SnapImagePickerInteractorProtocol {
         loadedAlbumImage = image
         loadedAlbumImageAtIndex = atIndex
         
-        delegate?.testExpectation?()
+        delegate?.fulfillExpectation?()
     }
     
     func loadedMainImage(image: SnapImagePickerImage) {
         loadedMainImageCount += 1
         loadedMainImage = image
         
-        delegate?.testExpectation?()
+        delegate?.fulfillExpectation?()
     }
 }

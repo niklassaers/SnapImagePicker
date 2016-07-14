@@ -1,20 +1,14 @@
 @testable import SnapImagePicker
 import XCTest
 
-protocol SnapImagePickerPresenterSpyDelegate {
-    var testExpectation: (Void -> Void)? { get }
-}
 
-protocol SnapImagePickerEntityGatewaySpyDelegate {
-    var testExpectation: (Void -> Void)? { get }
-}
-class SnapImagePickerInteractorTests: XCTestCase, SnapImagePickerPresenterSpyDelegate, SnapImagePickerEntityGatewaySpyDelegate {
+class SnapImagePickerInteractorTests: XCTestCase, SnapImagePickerTestExpectationDelegate {
     private var presenter: SnapImagePickerPresenterSpy?
     private var entityGateway: SnapImagePickerEntityGatewaySpy?
     private var interactor: SnapImagePickerInteractor?
     
     private var asyncExpectation: XCTestExpectation?
-    var testExpectation: (Void -> Void)? {
+    var fulfillExpectation: (Void -> Void)? {
         get {
             return asyncExpectation?.fulfill
         }

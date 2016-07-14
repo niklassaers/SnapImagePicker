@@ -12,9 +12,9 @@ class SnapImagePickerPresenterSpy: SnapImagePickerPresenterProtocol {
     var presentAlbumImage: SnapImagePickerImage?
     var presentAlbumImageAtIndex: Int?
     
-    private var delegate: SnapImagePickerPresenterSpyDelegate?
+    private var delegate: SnapImagePickerTestExpectationDelegate?
     
-    init(delegate: SnapImagePickerPresenterSpyDelegate) {
+    init(delegate: SnapImagePickerTestExpectationDelegate) {
         self.delegate = delegate
     }
     
@@ -23,14 +23,14 @@ class SnapImagePickerPresenterSpy: SnapImagePickerPresenterProtocol {
         presentInitialAlbumImage = image
         presentInitialAlbumSize = albumSize
         
-        delegate?.testExpectation?()
+        delegate?.fulfillExpectation?()
     }
     
     func presentMainImage(image: SnapImagePickerImage) -> Bool {
         presentMainImageCount += 1
         presentMainImage = image
         
-        delegate?.testExpectation?()
+        delegate?.fulfillExpectation?()
         return true
     }
     
@@ -39,7 +39,7 @@ class SnapImagePickerPresenterSpy: SnapImagePickerPresenterProtocol {
         presentAlbumImage = image
         presentAlbumImageAtIndex = atIndex
         
-        delegate?.testExpectation?()
+        delegate?.fulfillExpectation?()
         return true
     }
 }

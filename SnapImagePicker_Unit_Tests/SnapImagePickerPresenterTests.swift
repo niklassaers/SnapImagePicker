@@ -1,22 +1,14 @@
 @testable import SnapImagePicker
 import XCTest
 
-protocol SnapImagePickerViewControllerSpyDelegate {
-   var testExpectation: (Void -> Void)? { get }
-}
-
-protocol SnapImagePickerConnectorSpyDelegate {
-    var testExpectation: (Void -> Void)? { get }
-}
-
-class SnapImagePickerPresenterTests: XCTestCase, SnapImagePickerInteractorSpyDelegate, SnapImagePickerViewControllerSpyDelegate, SnapImagePickerConnectorSpyDelegate {
+class SnapImagePickerPresenterTests: XCTestCase, SnapImagePickerTestExpectationDelegate {
     private var interactor: SnapImagePickerInteractorSpy?
     private var viewController: SnapImagePickerViewControllerSpy?
     private var connector: SnapImagePickerConnectorSpy?
     private var presenter: SnapImagePickerPresenter?
     
     private var asyncExpectation: XCTestExpectation?
-    var testExpectation: (Void -> Void)? {
+    var fulfillExpectation: (Void -> Void)? {
         get {
             return asyncExpectation?.fulfill
         }
@@ -25,8 +17,8 @@ class SnapImagePickerPresenterTests: XCTestCase, SnapImagePickerInteractorSpyDel
     override func setUp() {
         super.setUp()
         interactor = SnapImagePickerInteractorSpy(delegate: self)
-        viewController = SnapImagePickerViewControllerSpy(delegate: self)
-        connector = SnapImagePickerConnectorSpy(delegate: self)
+        viewController = SnapImagePickerViewControllerSpy()
+        connector = SnapImagePickerConnectorSpy()
         presenter = SnapImagePickerPresenter(view: viewController!)
         presenter?.interactor = interactor!
         presenter?.connector = connector
