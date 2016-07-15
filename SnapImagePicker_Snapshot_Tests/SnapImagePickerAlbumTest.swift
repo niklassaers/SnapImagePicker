@@ -61,4 +61,5 @@ extension SnapImagePickerAlbumTest: SnapImagePickerEventHandlerProtocol {
         
         return cell
     }
+    func scrolledToCells(cells: Range<Int>, increasing: Bool, fromOldRange: Range<Int>?) { }
 }

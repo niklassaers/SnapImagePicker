@@ -8,7 +8,7 @@ class PhotoLoader {
 }
 
 extension PhotoLoader: ImageLoader {
-    func loadImageFromAsset(asset: PHAsset, isPreview: Bool = false, withPreviewSize previewSize: CGSize = CGSizeZero, handler: (SnapImagePickerImage) -> Void) {
+    func loadImageFromAsset(asset: PHAsset, isPreview: Bool = false, withPreviewSize previewSize: CGSize = CGSizeZero, handler: (SnapImagePickerImage) -> Void) -> PHImageRequestID {
         let options = PHImageRequestOptions()
         options.networkAccessAllowed = true
         options.deliveryMode = isPreview ? .Opportunistic : .HighQualityFormat
@@ -21,6 +21,7 @@ extension PhotoLoader: ImageLoader {
             self?.requests.removeValueForKey(asset.localIdentifier)
         }
         requests[asset.localIdentifier] = requestId
+        return requestId
     }
     
     func fetchAssetsFromCollectionWithType(type: AlbumType) -> PHFetchResult? {
@@ -39,6 +40,10 @@ extension PhotoLoader: ImageLoader {
         case .SmartAlbum(let title):
             return fetchSmartAlbumWithTitle(title, withOptions: options)
         }
+    }
+    
+    func deleteRequestForId(id: PHImageRequestID) {
+        PHImageManager.defaultManager().cancelImageRequest(id)
     }
     
     func clearPendingRequests() {

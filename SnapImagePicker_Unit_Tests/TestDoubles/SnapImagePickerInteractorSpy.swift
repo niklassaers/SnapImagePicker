@@ -55,6 +55,10 @@ class SnapImagePickerInteractorSpy: SnapImagePickerInteractorProtocol {
         delegate?.fulfillExpectation?()
     }
     
+    func deleteRequestForId(index: Int, forAlbumType type: AlbumType) {
+        
+    }
+    
     func clearPendingRequests() {
         clearPendingRequestsCount += 1
         

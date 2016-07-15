@@ -16,10 +16,8 @@ extension UIScrollView {
                                  height: imageView.bounds.height)
             
             let zoomScale = image.findZoomScaleForLargestFullSquare()
-            print("Zoom scale: \(zoomScale)")
             let offset = image.findCenteredOffsetForImageWithZoomScale(zoomScale)
             let scaledOffset = offset * bounds.width / max(image.size.width, image.size.height)
-            print("Scaled offset: \(scaledOffset)")
             
             setZoomScale(zoomScale, animated: false)
             setContentOffset(CGPoint(x: scaledOffset, y: scaledOffset), animated: false)

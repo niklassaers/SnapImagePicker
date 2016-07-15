@@ -1,7 +1,7 @@
 @testable import SnapImagePicker
 import UIKit
 
-class SnapImagePickerEntityGatewaySpy: SnapImagePickerEntityGatewayProtocol {
+class SnapImagePickerEntityGatewaySpy {
     var loadInitialAlbumCount = 0
     var loadInitialAlbumType: AlbumType?
     
@@ -30,6 +30,10 @@ class SnapImagePickerEntityGatewaySpy: SnapImagePickerEntityGatewayProtocol {
         delegate?.fulfillExpectation?()
     }
     
+}
+
+extension SnapImagePickerEntityGatewaySpy : SnapImagePickerEntityGatewayProtocol {
+    
     func loadAlbumImageWithType(type: AlbumType, withTargetSize targetSize: CGSize, atIndex: Int) -> Bool {
         loadAlbumImageWithTypeCount += 1
         loadAlbumImageType = type
@@ -38,6 +42,10 @@ class SnapImagePickerEntityGatewaySpy: SnapImagePickerEntityGatewayProtocol {
         
         delegate?.fulfillExpectation?()
         return true
+    }
+    
+    func deleteRequestAtIndex(index: Int, forAlbumType type: AlbumType) {
+        
     }
     
     func loadImageWithLocalIdentifier(localIdentifier: String) -> Bool {
