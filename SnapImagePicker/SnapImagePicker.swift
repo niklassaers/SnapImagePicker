@@ -2,7 +2,7 @@ import UIKit
 import SnapFonts_iOS
 
 public protocol SnapImagePickerProtocol {
-    static func initialize(delegate delegate: SnapImagePickerDelegate) -> UIViewController?
+    func initializeViewController(delegate delegate: SnapImagePickerDelegate) -> UIViewController?
     func photosAccessStatusChanged()
 }
 
@@ -36,25 +36,24 @@ public class SnapImagePicker {
 }
 
 extension SnapImagePicker: SnapImagePickerProtocol {
-    public static func initialize(delegate delegate: SnapImagePickerDelegate) -> UIViewController? {
+    public func initializeViewController(delegate delegate: SnapImagePickerDelegate) -> UIViewController? {
         let bundle = NSBundle(forClass: SnapImagePicker.self)
         let storyboard = UIStoryboard(name: Names.SnapImagePickerStoryboard.rawValue, bundle: bundle)
         if let viewController = storyboard.instantiateInitialViewController() as? UINavigationController {
             viewController.delegate = NavigationControllerDelegate()
             if let snapImagePickerViewController = viewController.viewControllers[0] as? SnapImagePickerViewController {
-                let connector = SnapImagePicker()
                 let presenter = SnapImagePickerPresenter(view: snapImagePickerViewController)
-                presenter.connector = connector
+                presenter.connector = self
                 snapImagePickerViewController.eventHandler = presenter
                 
                 let interactor = SnapImagePickerInteractor(presenter: presenter)
                 presenter.interactor = interactor
                 
-                let entityGateway = SnapImagePickerEntityGateway(interactor: interactor, imageLoader: connector.photoLoader)
+                let entityGateway = SnapImagePickerEntityGateway(interactor: interactor, imageLoader: photoLoader)
                 interactor.entityGateway = entityGateway
                 
-                connector.presenter = presenter
-                connector.delegate = delegate
+                self.presenter = presenter
+                self.delegate = delegate
                 
                 return viewController
             }

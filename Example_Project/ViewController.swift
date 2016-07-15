@@ -4,10 +4,11 @@ import Foundation
 
 class ViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
+    private let snapImagePicker = SnapImagePicker()
 
     @IBAction func openImagePickerTapped(sender: UIButton) {
-        if let imagePicker = SnapImagePicker.initialize(delegate: self) {
-            self.presentViewController(imagePicker, animated: true, completion: nil)
+        if let vc = snapImagePicker.initializeViewController(delegate: self) {
+            self.presentViewController(vc, animated: true, completion: nil)
         }
     }
     

@@ -31,17 +31,21 @@ class SnapImagePicker_UI_Tests: XCTestCase {
         app.tables.buttons["Album name"].tap()
         XCTAssertTrue(imageCells.count > 0)
     }
-//    func testSelectImage() {
-//        let app = XCUIApplication()
-//        app.buttons["Open Image Picker"].tap()
-//        app.navigationBars["SnapImagePicker.SnapImagePickerView"].buttons["Select"].tap()
-//        XCTAssertEqual(1, app.otherElements.containingType(.Button, identifier:"Open Image Picker").childrenMatchingType(.Image).count)
-//    }
-//    
-//    func testCancel() {
-//        let app = XCUIApplication()
-//        app.buttons["Open Image Picker"].tap()
-//        app.navigationBars["SnapImagePicker.SnapImagePickerView"].buttons["×"].tap()
-//        XCTAssertEqual(0, app.otherElements.containingType(.Button, identifier:"Open Image Picker").childrenMatchingType(.Image).count)
-//    }
+    func testSelectImage() {
+        let app = XCUIApplication()
+        let openImagePickerButton = app.buttons["Open Image Picker"]
+        openImagePickerButton.tap()
+        
+        let selectButton = app.navigationBars["SnapImagePicker.SnapImagePickerView"].buttons["Select"]
+        selectButton.tap()
+        openImagePickerButton.tap()
+        app.collectionViews.childrenMatchingType(.Cell).elementBoundByIndex(3).images["Album Image Preview"].tap()
+        selectButton.tap()
+    }
+    
+    func testCancel() {
+        let app = XCUIApplication()
+        app.buttons["Open Image Picker"].tap()
+        app.navigationBars["SnapImagePicker.SnapImagePickerView"].buttons["×"].tap()
+    }
 }
