@@ -19,11 +19,12 @@
     "ios": 8.0
   },
   "resources": [
-    "SnapImagePicker/**/*.storyboard"
+    "SnapImagePicker/**/*.{storyboard,xcassets,xib}"
   ],
   "source_files": [
-    "SnapImagePicker/**/*.swift"
+    "SnapImagePicker/**/*.{swift}"
   ],
+  "exclude_files": "**/AppDelegate.{*}",
   "frameworks": [
     "UIKit",
     "XCTest",
