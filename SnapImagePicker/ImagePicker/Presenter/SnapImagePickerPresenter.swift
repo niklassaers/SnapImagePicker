@@ -80,7 +80,8 @@ extension SnapImagePickerPresenter {
         switch availability {
         case .Restricted: fallthrough
         case .Authorized: loadAlbum()
-        case .Denied:connector?.requestPhotosAccess()
+        case .Denied:
+            connector?.requestPhotosAccess()
         case .NotDetermined:
             if retry {
                 PHPhotoLibrary.requestAuthorization() {
@@ -129,7 +130,6 @@ extension SnapImagePickerPresenter: SnapImagePickerPresenterProtocol {
     }
     
     func deletedRequestAtIndex(index: Int, forAlbumType albumType: AlbumType) {
-        print("Deleted request!")
         if albumType == self.albumType {
             insertAlbumImage(nil, withStatus: .None, atIndex: index)
         }
@@ -139,6 +139,7 @@ extension SnapImagePickerPresenter: SnapImagePickerPresenterProtocol {
 extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
     func viewWillAppearWithCellSize(cellSize: CGFloat) {
         self.cellSize = CGSize(width: cellSize, height: cellSize)
+        print("cellSize \(cellSize)")
         checkPhotosAccessStatus()
     }
 

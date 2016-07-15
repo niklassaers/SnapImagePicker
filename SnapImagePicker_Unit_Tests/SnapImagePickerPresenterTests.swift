@@ -132,7 +132,7 @@ class SnapImagePickerPresenterTests: XCTestCase, SnapImagePickerTestExpectationD
             let cellSize = CGFloat(0.0)
             presenter?.viewWillAppearWithCellSize(cellSize)
             presenter?.presentInitialAlbum(image, albumSize: 1)
-            presenter?.presentCell(ImageCellMock(), atIndex: 0)
+            presenter?.scrolledToCells(0...1, increasing: true, fromOldRange: nil)
             
             XCTAssertEqual(1, interactor?.loadAlbumImageWithTypeCount, "Presenter.presentCell did not trigger Interactor.loadAlbumImageWithType")
             XCTAssertEqual(CGSize(width: cellSize, height: cellSize), interactor?.loadAlbumImageSize ?? CGSize(width: cellSize + 1000, height: cellSize + 1000), "Presenter did not store use cell width from viewWillAppearWithCellSize when requesting album images")
