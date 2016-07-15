@@ -42,4 +42,8 @@ class SnapImagePickerPresenterSpy: SnapImagePickerPresenterProtocol {
         delegate?.fulfillExpectation?()
         return true
     }
+    
+    func deletedRequestAtIndex(index: Int, forAlbumType: AlbumType) {
+        
+    }
 }

@@ -1,5 +1,4 @@
 import UIKit
-import Foundation
 
 class AlbumCell: UITableViewCell {
     @IBOutlet weak var albumPreviewImageView: UIImageView? {

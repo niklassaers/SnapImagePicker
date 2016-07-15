@@ -6,13 +6,13 @@ class AlbumSelectorViewController: UITableViewController {
     private struct Header {
         static let Height = CGFloat(40)
         static let FontSize = CGFloat(18)
-        static let Font = SnapImagePickerConnector.Theme.font?.fontWithSize(FontSize)
+        static let Font = SnapImagePicker.Theme.font?.fontWithSize(FontSize)
         static let Indentation = CGFloat(8)
     }
     
     private struct Cell {
         static let FontSize = CGFloat(15)
-        static let Font = SnapImagePickerConnector.Theme.font?.fontWithSize(FontSize)
+        static let Font = SnapImagePicker.Theme.font?.fontWithSize(FontSize)
     }
     
     private var collections: [(title: String, albums: [Album])]? {

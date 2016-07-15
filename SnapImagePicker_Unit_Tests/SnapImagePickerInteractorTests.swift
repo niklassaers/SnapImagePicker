@@ -33,7 +33,7 @@ class SnapImagePickerInteractorTests: XCTestCase, SnapImagePickerTestExpectation
     }
     
     private func createImage() -> UIImage? {
-        return UIImage(named: "dummy.jpeg", inBundle: NSBundle(forClass: SnapImagePickerConnector.self), compatibleWithTraitCollection: nil)
+        return UIImage(named: "dummy.jpeg", inBundle: NSBundle(forClass: SnapImagePicker.self), compatibleWithTraitCollection: nil)
     }
 
     func testLoadInitialAlbum() {

@@ -44,6 +44,10 @@ extension SnapImagePickerEntityGatewaySpy : SnapImagePickerEntityGatewayProtocol
         return true
     }
     
+    func deleteRequestAtIndex(index: Int, forAlbumType type: AlbumType) {
+        
+    }
+    
     func loadImageWithLocalIdentifier(localIdentifier: String) -> Bool {
         loadImageWithLocalIdentifierCount += 1
         loadImageWithLocalIdentifier = localIdentifier

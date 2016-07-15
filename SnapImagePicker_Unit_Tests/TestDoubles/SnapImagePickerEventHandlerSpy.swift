@@ -63,4 +63,8 @@ class SnapImagePickerEventHandlerSpy: SnapImagePickerEventHandlerProtocol {
         
         return ImageCell()
     }
+    
+    func scrolledToCells(cells: Range<Int>, increasing: Bool, fromOldRange: Range<Int>?) {
+        
+    }
 }

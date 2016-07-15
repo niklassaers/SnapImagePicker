@@ -10,10 +10,11 @@ class ImageLoaderStub: ImageLoader {
         self.numberOfImagesInAlbum = numberOfImagesInAlbum
     }
     
-    func loadImageFromAsset(asset: PHAsset, isPreview: Bool, withPreviewSize previewSize: CGSize , handler: (SnapImagePickerImage) -> Void) {
-        if let image = UIImage(named: "dummy.jpeg", inBundle: NSBundle(forClass: SnapImagePickerConnector.self), compatibleWithTraitCollection: nil) {
+    func loadImageFromAsset(asset: PHAsset, isPreview: Bool, withPreviewSize previewSize: CGSize , handler: (SnapImagePickerImage) -> Void) -> PHImageRequestID {
+        if let image = UIImage(named: "dummy.jpeg", inBundle: NSBundle(forClass: SnapImagePicker.self), compatibleWithTraitCollection: nil) {
             handler(SnapImagePickerImage(image: image, localIdentifier: "testImage", createdDate: nil))
         }
+        return PHImageRequestID()
     }
     
     func fetchAssetsFromCollectionWithType(type: AlbumType) -> PHFetchResult? {

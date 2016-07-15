@@ -1,5 +1,4 @@
 import UIKit
-import Foundation
 
 class SnapImagePickerViewController: UIViewController {   
     @IBOutlet weak var titleView: UIView?
@@ -7,7 +6,7 @@ class SnapImagePickerViewController: UIViewController {
     
     @IBOutlet weak var titleButton: UIButton? {
         didSet {
-            titleButton?.titleLabel?.font = SnapImagePickerConnector.Theme.font
+            titleButton?.titleLabel?.font = SnapImagePicker.Theme.font
             titleButton?.setTitle(AlbumType.AlbumNames.AllPhotos, forState: .Normal)
         }
     }
@@ -177,7 +176,7 @@ class SnapImagePickerViewController: UIViewController {
         super.prepareForSegue(segue, sender: sender)
         if let identifier = segue.identifier {
             switch identifier {
-            case SnapImagePickerConnector.Names.ShowAlbumSelector.rawValue:
+            case SnapImagePicker.Names.ShowAlbumSelector.rawValue:
                 eventHandler?.albumTitleClicked(segue.destinationViewController)
             default: break
             }
