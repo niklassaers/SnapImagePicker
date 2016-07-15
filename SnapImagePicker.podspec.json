@@ -27,7 +27,6 @@
   "exclude_files": "**/AppDelegate.{*}",
   "frameworks": [
     "UIKit",
-    "XCTest",
     "Photos"
   ],
   "requires_arc": true,
