@@ -23,4 +23,8 @@ class ImageLoaderStub: ImageLoader {
     func clearPendingRequests() {
         clearPendingRequestsWasCalled = true
     }
+    
+    func deleteRequestForId(id: PHImageRequestID) {
+        
+    }
 }

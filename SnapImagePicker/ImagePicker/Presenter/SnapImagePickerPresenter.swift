@@ -99,6 +99,7 @@ extension SnapImagePickerPresenter: SnapImagePickerPresenterProtocol {
         requestedMainImage = image.localIdentifier
         albumImages = [(imageWrapper: SnapImagePickerImage?, status: RequestStatus)](count: albumSize,
                                                                                      repeatedValue: (imageWrapper: nil, status: RequestStatus.None))
+        
         display()
     }
     
@@ -125,6 +126,13 @@ extension SnapImagePickerPresenter: SnapImagePickerPresenterProtocol {
         }
         
         return false
+    }
+    
+    func deletedRequestAtIndex(index: Int, forAlbumType albumType: AlbumType) {
+        print("Deleted request!")
+        if albumType == self.albumType {
+            insertAlbumImage(nil, withStatus: .None, atIndex: index)
+        }
     }
 }
 
