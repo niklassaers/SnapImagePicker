@@ -31,6 +31,7 @@ class SnapImagePicker_UI_Tests: XCTestCase {
         app.tables.buttons["Album name"].tap()
         XCTAssertTrue(imageCells.count > 0)
     }
+    
     func testSelectImage() {
         let app = XCUIApplication()
         let openImagePickerButton = app.buttons["Open Image Picker"]

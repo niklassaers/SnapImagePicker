@@ -305,7 +305,7 @@
 		D812DDEE1D362C9200F0E488 /* SnapImagePicker_Snapshot_Tests */ = {
 			isa = PBXGroup;
 			children = (
-				D812DDF71D3635B100F0E488 /* Data */,
+				D812DDF71D3635B100F0E488 /* Resources */,
 				D84613F91D3687E900B2A71D /* AlbumSelectorTest.swift */,
 				D812DDF11D362C9200F0E488 /* Info.plist */,
 				D83EDD761D3666BD0079C314 /* SnapImagePickerAlbumTest.swift */,
@@ -315,12 +315,12 @@
 			path = SnapImagePicker_Snapshot_Tests;
 			sourceTree = "<group>";
 		};
-		D812DDF71D3635B100F0E488 /* Data */ = {
+		D812DDF71D3635B100F0E488 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
 				D812DDFC1D363DE000F0E488 /* dress.jpg */,
 			);
-			path = Data;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		D82468491D2159C7009DB2A4 /* ImagePicker */ = {
@@ -443,20 +443,20 @@
 				D82962FC1D34E4F800AB32B7 /* PHFetchResultStub.swift */,
 				D829630A1D35298000AB32B7 /* SnapImagePickerConnectorSpy.swift */,
 				D82963001D34F55700AB32B7 /* SnapImagePickerEntityGatewaySpy.swift */,
+				D89887E01D376BBC005066FC /* SnapImagePickerEventHandlerSpy.swift */,
 				D82962F71D34D60200AB32B7 /* SnapImagePickerInteractorSpy.swift */,
 				D82962FE1D34F3D200AB32B7 /* SnapImagePickerPresenterSpy.swift */,
 				D82963041D35093A00AB32B7 /* SnapImagePickerViewControllerSpy.swift */,
-				D89887E01D376BBC005066FC /* SnapImagePickerEventHandlerSpy.swift */,
 			);
 			path = TestDoubles;
 			sourceTree = "<group>";
 		};
-		D82962FB1D34E35D00AB32B7 /* Data */ = {
+		D82962FB1D34E35D00AB32B7 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
 				D88255CF1D17D34200FB327D /* dummy.jpeg */,
 			);
-			path = Data;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		D8359FCD1D2BDFB700C042A2 /* PhotoLoader */ = {
@@ -563,14 +563,14 @@
 		D89D6FF51D06CC06007DD132 /* SnapImagePicker_Unit_Tests */ = {
 			isa = PBXGroup;
 			children = (
-				D82962FB1D34E35D00AB32B7 /* Data */,
+				D82962FB1D34E35D00AB32B7 /* Resources */,
 				D82962EC1D34D31100AB32B7 /* TestDoubles */,
 				D89D6FF81D06CC06007DD132 /* Info.plist */,
 				D82962F31D34D46E00AB32B7 /* SnapImagePickerEntityGatewayTests.swift */,
 				D82962EA1D34D2E900AB32B7 /* SnapImagePickerInteractorTests.swift */,
 				D82963061D3509DF00AB32B7 /* SnapImagePickerPresenterTests.swift */,
-				D89887DE1D376B8B005066FC /* SnapImagePickerViewControllerTests.swift */,
 				D89887E21D376D08005066FC /* SnapImagePickerTestExpectationDelegate.swift */,
+				D89887DE1D376B8B005066FC /* SnapImagePickerViewControllerTests.swift */,
 			);
 			path = SnapImagePicker_Unit_Tests;
 			sourceTree = "<group>";
