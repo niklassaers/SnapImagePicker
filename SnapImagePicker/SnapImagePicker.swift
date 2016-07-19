@@ -2,9 +2,7 @@ import UIKit
 import SnapFonts_iOS
 
 public protocol SnapImagePickerProtocol {
-    func getTransitioningDelegate() -> UINavigationControllerDelegate
-    func initializeViewController() -> UIViewController?
-    func initializeNavigationController() -> UINavigationController?
+    func initializeViewControllerInNavigationController(navigationController: UINavigationController)
     func photosAccessStatusChanged()
 }
 
@@ -31,8 +29,10 @@ public class SnapImagePicker {
     
     private var presenter: SnapImagePickerPresenter?
     private let photoLoader = PhotoLoader()
+    private let imageLoaderMock = ImageLoaderMock(numberOfImagesInAlbum: 100)
     private let transitionDelegate = SnapImagePickerNavigationControllerDelegate()
     private var previousTransitionDelegate: UINavigationControllerDelegate?
+    private var navigationController: UINavigationController?
     
     var delegate: SnapImagePickerDelegate?
     
@@ -43,53 +43,27 @@ public class SnapImagePicker {
 }
 
 extension SnapImagePicker: SnapImagePickerProtocol {
-    public func getTransitioningDelegate() -> UINavigationControllerDelegate{
-        return transitionDelegate
-    }
-    
-    public func initializeViewController() -> UIViewController? {
-        let viewController = initialize(false)
-        
-        return viewController
-    }
-    
-    public func initializeNavigationController() -> UINavigationController? {
-        if let navigationController = initialize(true) as? UINavigationController {
-            navigationController.transitioningDelegate = transitionDelegate
-            
-            return navigationController
-        }
-        
-        return nil
-    }
-    
-    private func initialize(shouldReturnNavigationController: Bool) -> UIViewController? {
+    public func initializeViewControllerInNavigationController(navigationController: UINavigationController) {
         let bundle = NSBundle(forClass: SnapImagePicker.self)
         let storyboard = UIStoryboard(name: Names.SnapImagePickerStoryboard.rawValue, bundle: bundle)
-        if let navigationController = storyboard.instantiateInitialViewController() as? UINavigationController {
-            if let snapImagePickerViewController = navigationController.viewControllers[0] as? SnapImagePickerViewController {
-                
-                let presenter = SnapImagePickerPresenter(view: snapImagePickerViewController)
-                snapImagePickerViewController.eventHandler = presenter
-                presenter.connector = self
-                
-                let interactor = SnapImagePickerInteractor(presenter: presenter)
-                presenter.interactor = interactor
-                
-                let entityGateway = SnapImagePickerEntityGateway(interactor: interactor, imageLoader: photoLoader)
-                interactor.entityGateway = entityGateway
-                
-                self.presenter = presenter
-                
-                if shouldReturnNavigationController {
-                    return navigationController
-                } else {
-                    return snapImagePickerViewController
-                }
-            }
+        if let snapImagePickerViewController = storyboard.instantiateInitialViewController() as? SnapImagePickerViewController {
+            let presenter = SnapImagePickerPresenter(view: snapImagePickerViewController)
+            snapImagePickerViewController.eventHandler = presenter
+            presenter.connector = self
+            
+            let interactor = SnapImagePickerInteractor(presenter: presenter)
+            presenter.interactor = interactor
+            
+            let entityGateway = SnapImagePickerEntityGateway(interactor: interactor, imageLoader: imageLoaderMock)
+            interactor.entityGateway = entityGateway
+            
+            self.presenter = presenter
+            
+            previousTransitionDelegate = navigationController.delegate
+            self.navigationController = navigationController
+            
+            navigationController.pushViewController(snapImagePickerViewController, animated: true)
         }
-        
-        return nil
     }
     
     public func photosAccessStatusChanged() {
@@ -128,6 +102,8 @@ extension SnapImagePicker: SnapImagePickerConnectorProtocol {
     }
     
     func dismiss() {
+        navigationController?.popViewControllerAnimated(true)
+        navigationController?.delegate = previousTransitionDelegate
         delegate?.dismiss()
     }
 }

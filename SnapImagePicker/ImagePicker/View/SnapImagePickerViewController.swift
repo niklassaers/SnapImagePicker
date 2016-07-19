@@ -133,20 +133,24 @@ class SnapImagePickerViewController: UIViewController {
     private var enqueuedBounce: (() -> Void)?
     
     override func viewWillAppear(animated: Bool) {
+        print("View will appear start: \(mainScrollView?.contentOffset)")
         super.viewWillAppear(animated)
         
         currentDisplay = view.frame.size.displayType()
         eventHandler?.viewWillAppearWithCellSize(currentDisplay.CellWidthInViewWithWidth(view.bounds.width))
         calculateViewSizes()
         setupGestureRecognizers()
+        print("View will appear end: \(mainScrollView?.contentOffset)")
     }
         
     override func viewDidAppear(animated: Bool) {
+        print("View did appear start: \(mainScrollView?.contentOffset)")
         super.viewDidAppear(animated)
         setVisibleCellsInAlbumCollectionView()
         if let visibleCells = visibleCells {
             eventHandler?.scrolledToCells(visibleCells, increasing: false, fromOldRange: nil)
         }
+        print("View did appear end: \(mainScrollView?.contentOffset)")
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
@@ -266,7 +270,7 @@ extension SnapImagePickerViewController: UICollectionViewDataSource {
             let albumStart = albumCollectionView.frame.minY
             
             if albumStart + remainingAlbumCollectionHeight < mainScrollView.frame.height {
-                offset = albumCollectionView.contentSize.height - (mainScrollView.frame.height - albumCollectionView.frame.minY) + currentDisplay.NavBarHeight
+                offset = albumCollectionView.contentSize.height - (mainScrollView.frame.height - albumCollectionView.frame.minY)
             }
             
             if offset > 0 {
@@ -471,7 +475,7 @@ extension SnapImagePickerViewController {
     }
     
     private func setMainOffsetForState(state: DisplayState, withHeight height: CGFloat, animated: Bool = true) {
-        let offset = (height * CGFloat(state.offset)) - currentDisplay.NavBarHeight
+        let offset = (height * CGFloat(state.offset))
         if animated {
             UIView.animateWithDuration(0.3) {
                 self.mainScrollView?.contentOffset = CGPoint(x: 0, y: offset)
