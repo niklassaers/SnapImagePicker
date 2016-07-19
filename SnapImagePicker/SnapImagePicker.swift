@@ -62,6 +62,7 @@ extension SnapImagePicker: SnapImagePickerProtocol {
             self.navigationController = navigationController
             
             navigationController.pushViewController(snapImagePickerViewController, animated: true)
+            navigationController.delegate = transitionDelegate
         }
     }
     
@@ -93,6 +94,7 @@ extension SnapImagePicker: SnapImagePickerConnectorProtocol {
     }
     
     func setImage(image: UIImage, withImageOptions options: ImageOptions) {
+        navigationController?.delegate = previousTransitionDelegate
         delegate?.pickedImage(image, withImageOptions: options)
     }
     
@@ -101,8 +103,8 @@ extension SnapImagePicker: SnapImagePickerConnectorProtocol {
     }
     
     func dismiss() {
-        navigationController?.popViewControllerAnimated(true)
         navigationController?.delegate = previousTransitionDelegate
+        navigationController?.popViewControllerAnimated(true)
         delegate?.dismiss()
     }
 }

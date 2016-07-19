@@ -74,7 +74,6 @@ class SnapImagePickerViewController: UIViewController {
             let options = ImageOptions(cropRect: cropRect, rotation: selectedImageRotation)
             eventHandler?.selectButtonPressed(image, withImageOptions: options)
         }
-        eventHandler?.dismiss()
     }
     
     @IBAction func cancelButtonPressed(sender: UIBarButtonItem) {
@@ -133,24 +132,20 @@ class SnapImagePickerViewController: UIViewController {
     private var enqueuedBounce: (() -> Void)?
     
     override func viewWillAppear(animated: Bool) {
-        print("View will appear start: \(mainScrollView?.contentOffset)")
         super.viewWillAppear(animated)
         
         currentDisplay = view.frame.size.displayType()
         eventHandler?.viewWillAppearWithCellSize(currentDisplay.CellWidthInViewWithWidth(view.bounds.width))
         calculateViewSizes()
         setupGestureRecognizers()
-        print("View will appear end: \(mainScrollView?.contentOffset)")
     }
         
     override func viewDidAppear(animated: Bool) {
-        print("View did appear start: \(mainScrollView?.contentOffset)")
         super.viewDidAppear(animated)
         setVisibleCellsInAlbumCollectionView()
         if let visibleCells = visibleCells {
             eventHandler?.scrolledToCells(visibleCells, increasing: false, fromOldRange: nil)
         }
-        print("View did appear end: \(mainScrollView?.contentOffset)")
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
