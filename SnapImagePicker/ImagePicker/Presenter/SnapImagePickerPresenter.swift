@@ -42,7 +42,7 @@ class SnapImagePickerPresenter {
     
     init(view: SnapImagePickerViewControllerProtocol) {
         self.view = view
-        queue = dispatch_queue_create("andrew.myblockarrayclass", nil)
+        queue = dispatch_queue_create(queueName, nil)
     }
     
     private func insertAlbumImage(image: SnapImagePickerImage?, withStatus status: RequestStatus, atIndex index: Int) {
@@ -56,6 +56,7 @@ class SnapImagePickerPresenter {
 
 extension SnapImagePickerPresenter {
     private func loadAlbum() {
+        albumImages = nil
         interactor?.loadInitialAlbum(albumType)
     }
     
@@ -139,7 +140,6 @@ extension SnapImagePickerPresenter: SnapImagePickerPresenterProtocol {
 extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
     func viewWillAppearWithCellSize(cellSize: CGFloat) {
         self.cellSize = CGSize(width: cellSize, height: cellSize)
-        print("cellSize \(cellSize)")
         checkPhotosAccessStatus()
     }
 
@@ -164,12 +164,12 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
     }
 
     func selectButtonPressed(image: UIImage, withImageOptions options: ImageOptions) {
-        connector?.setChosenImage(image, withImageOptions: options)
+        connector?.setImage(image, withImageOptions: options)
     }
     
     func numberOfSectionsForNumberOfColumns(columns: Int) -> Int {
         if let albumImages = albumImages {
-            return max(albumImages.count / columns, 1)
+            return Int(ceil(Double(albumImages.count) / Double(columns)))
         }
         
         return 0
@@ -183,7 +183,6 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
         
             return columns
         }
-        
         return 0
     }
     
@@ -210,8 +209,8 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
     
     func scrolledToCells(cells: Range<Int>, increasing: Bool, fromOldRange oldCells: Range<Int>?) {
         fetchCurrentlyVisibleImages(cells)
-        let numberOfUpcomingImagesToPrefetch = 100
-        let numberOfPreviousImagesToPrefetch = 30
+        let numberOfUpcomingImagesToPrefetch = 20
+        let numberOfPreviousImagesToPrefetch = 10
         let maxCacheSize = max(numberOfUpcomingImagesToPrefetch, numberOfPreviousImagesToPrefetch)
         prefetchImages(cells.endIndex + 1...cells.endIndex + numberOfUpcomingImagesToPrefetch)
         prefetchImages(cells.startIndex - numberOfPreviousImagesToPrefetch..<cells.startIndex)
@@ -220,6 +219,10 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
         } else {
             clearPreviousImagesFrom(cells.endIndex + 1 + maxCacheSize, to: cells.endIndex + 2 * maxCacheSize)
         }
+    }
+    
+    func dismiss() {
+        connector?.dismiss()
     }
 }
 

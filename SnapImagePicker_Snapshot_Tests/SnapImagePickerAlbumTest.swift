@@ -9,11 +9,10 @@ class SnapImagePickerAlbumTest: SnapFBSnapshotBase {
         let storyboard = UIStoryboard(name: "SnapImagePicker", bundle: bundle)
         if let viewController = storyboard.instantiateViewControllerWithIdentifier("Image Picker View Controller") as? SnapImagePickerViewController {
             sutBackingViewController = viewController
-            setup(viewController)
-            viewController.state = .Album
             sut = viewController.view
+            setup(viewController)
             
-            recordMode = super.recordAll || false
+            recordMode = super.recordAll || true
         }
     }
     
@@ -61,5 +60,6 @@ extension SnapImagePickerAlbumTest: SnapImagePickerEventHandlerProtocol {
         
         return cell
     }
+    
     func scrolledToCells(cells: Range<Int>, increasing: Bool, fromOldRange: Range<Int>?) { }
 }

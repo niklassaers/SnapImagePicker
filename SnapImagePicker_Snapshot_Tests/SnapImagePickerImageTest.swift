@@ -12,7 +12,7 @@ class SnapImagePickerImageTest: SnapFBSnapshotBase {
             sut = viewController.view
             setup(viewController)
                 
-            recordMode = super.recordAll || false
+            recordMode = super.recordAll || true
         }
     }
     

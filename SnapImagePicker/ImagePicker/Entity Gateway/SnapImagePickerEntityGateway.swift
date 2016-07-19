@@ -14,6 +14,7 @@ class SnapImagePickerEntityGateway {
 
 extension SnapImagePickerEntityGateway: SnapImagePickerEntityGatewayProtocol {
     func loadInitialAlbum(type: AlbumType) {
+        print("Loading initial album with type: \(type)")
         requests[type.getAlbumName()] = [Int: PHImageRequestID]()
         if let fetchResult = imageLoader?.fetchAssetsFromCollectionWithType(type) {
             if let asset = fetchResult.firstObject as? PHAsset {

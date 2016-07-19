@@ -139,11 +139,6 @@
                     </scrollView>
                     <navigationItem key="navigationItem" id="DeZ-xg-qaT">
                         <nil key="title"/>
-                        <barButtonItem key="leftBarButtonItem" title="×" id="wug-RY-2Gy">
-                            <connections>
-                                <action selector="cancelButtonPressed:" destination="Wid-Ke-N4r" id="huG-Jb-cem"/>
-                            </connections>
-                        </barButtonItem>
                         <view key="titleView" contentMode="scaleToFill" id="D6X-F2-YFL">
                             <rect key="frame" x="180" y="6" width="240" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -185,7 +180,6 @@
                         <outlet property="albumCollectionViewHeightConstraint" destination="8Qg-uJ-5f0" id="fr8-Kp-4b5"/>
                         <outlet property="albumCollectionWidthConstraint" destination="LUL-ga-KYI" id="4kG-1q-6ra"/>
                         <outlet property="blackOverlayView" destination="Jfu-sj-ks5" id="hp6-Xm-yXf"/>
-                        <outlet property="cancelButton" destination="wug-RY-2Gy" id="Si5-yx-Pr2"/>
                         <outlet property="imageGridView" destination="Fma-Hu-M78" id="Ey8-4q-NjH"/>
                         <outlet property="mainImageLoadIndicator" destination="nV4-nK-Iq5" id="kjy-hy-mg8"/>
                         <outlet property="mainScrollView" destination="nWZ-x0-ung" id="Op1-C8-y8E"/>
@@ -275,6 +269,7 @@
         <!--Navigation Controller-->
         <scene sceneID="T7W-OQ-tbe">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HoN-vJ-7ij" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="m6n-eN-NRR" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="lgM-6N-1IB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -287,7 +282,6 @@
                         <segue destination="Wid-Ke-N4r" kind="relationship" relationship="rootViewController" id="h5Y-uO-MGO"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="HoN-vJ-7ij" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-414" y="95"/>
         </scene>

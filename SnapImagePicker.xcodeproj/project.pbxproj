@@ -12,7 +12,6 @@
 		580380723F22AAC05A9C9739 /* Pods_SnapImagePicker_Unit_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DCB02F0EBDE9C30623C8FE4 /* Pods_SnapImagePicker_Unit_Tests.framework */; };
 		7EDECBD535821A6009F55B3F /* Pods_SnapImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1077999A272FEFD35E45C16E /* Pods_SnapImagePicker.framework */; };
 		D812DDF01D362C9200F0E488 /* SnapImagePickerImageTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D812DDEF1D362C9200F0E488 /* SnapImagePickerImageTest.swift */; };
-		D812DDF91D36372F00F0E488 /* SnapImagePickerViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D812DDF81D36372F00F0E488 /* SnapImagePickerViewController+.swift */; };
 		D812DDFD1D363DE000F0E488 /* dress.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D812DDFC1D363DE000F0E488 /* dress.jpg */; };
 		D82468481D2158F8009DB2A4 /* SnapImagePickerTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82468471D2158F8009DB2A4 /* SnapImagePickerTransition.swift */; };
 		D82468541D215A90009DB2A4 /* AlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82468531D215A90009DB2A4 /* AlbumCell.swift */; };
@@ -80,8 +79,11 @@
 		D89D70051D06CEF1007DD132 /* SnapImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89D70041D06CEF1007DD132 /* SnapImagePicker.swift */; };
 		D89D70071D06CF2E007DD132 /* SnapImagePickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89D70061D06CF2E007DD132 /* SnapImagePickerDelegate.swift */; };
 		D89D70091D06CFAC007DD132 /* SnapImagePicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D89D70081D06CFAC007DD132 /* SnapImagePicker.storyboard */; };
+		D8A479991D3E75C1008FA721 /* UIImageOrientation+next.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A479981D3E75C1008FA721 /* UIImageOrientation+next.swift */; };
+		D8A4799B1D3E76BD008FA721 /* UIImageOrientation+toCGAffineTransformRadians.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A4799A1D3E76BD008FA721 /* UIImageOrientation+toCGAffineTransformRadians.swift */; };
 		D8BF9CA51D266BA100DC1F02 /* UIScrollView+correction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BF9CA41D266BA100DC1F02 /* UIScrollView+correction.swift */; };
 		D8BF9CAB1D26B3DA00DC1F02 /* DownwardsArrowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BF9CAA1D26B3DA00DC1F02 /* DownwardsArrowView.swift */; };
+		D8F2F8571D3D27000088F58E /* SnapImagePickerViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F2F8561D3D27000088F58E /* SnapImagePickerViewController+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -148,7 +150,6 @@
 		D812DDED1D362C9200F0E488 /* SnapImagePicker_Snapshot_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SnapImagePicker_Snapshot_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D812DDEF1D362C9200F0E488 /* SnapImagePickerImageTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapImagePickerImageTest.swift; sourceTree = "<group>"; };
 		D812DDF11D362C9200F0E488 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D812DDF81D36372F00F0E488 /* SnapImagePickerViewController+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SnapImagePickerViewController+.swift"; sourceTree = "<group>"; };
 		D812DDFC1D363DE000F0E488 /* dress.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = dress.jpg; sourceTree = "<group>"; };
 		D82468471D2158F8009DB2A4 /* SnapImagePickerTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapImagePickerTransition.swift; sourceTree = "<group>"; };
 		D82468531D215A90009DB2A4 /* AlbumCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumCell.swift; sourceTree = "<group>"; };
@@ -223,9 +224,12 @@
 		D89D70041D06CEF1007DD132 /* SnapImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapImagePicker.swift; sourceTree = "<group>"; };
 		D89D70061D06CF2E007DD132 /* SnapImagePickerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapImagePickerDelegate.swift; sourceTree = "<group>"; };
 		D89D70081D06CFAC007DD132 /* SnapImagePicker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SnapImagePicker.storyboard; sourceTree = "<group>"; };
+		D8A479981D3E75C1008FA721 /* UIImageOrientation+next.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageOrientation+next.swift"; sourceTree = "<group>"; };
+		D8A4799A1D3E76BD008FA721 /* UIImageOrientation+toCGAffineTransformRadians.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageOrientation+toCGAffineTransformRadians.swift"; sourceTree = "<group>"; };
 		D8ABFC571D366D6B0083C716 /* SnapImagePickerTests copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "SnapImagePickerTests copy-Info.plist"; path = "/Users/esten/Snapsale/SnapImagePicker/SnapImagePickerTests copy-Info.plist"; sourceTree = "<absolute>"; };
 		D8BF9CA41D266BA100DC1F02 /* UIScrollView+correction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+correction.swift"; sourceTree = "<group>"; };
 		D8BF9CAA1D26B3DA00DC1F02 /* DownwardsArrowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownwardsArrowView.swift; sourceTree = "<group>"; };
+		D8F2F8561D3D27000088F58E /* SnapImagePickerViewController+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SnapImagePickerViewController+.swift"; sourceTree = "<group>"; };
 		E46A04D19BECC3EDEF73F577 /* Pods-SnapImagePicker_Unit_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapImagePicker_Unit_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SnapImagePicker_Unit_Tests/Pods-SnapImagePicker_Unit_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -310,7 +314,7 @@
 				D812DDF11D362C9200F0E488 /* Info.plist */,
 				D83EDD761D3666BD0079C314 /* SnapImagePickerAlbumTest.swift */,
 				D812DDEF1D362C9200F0E488 /* SnapImagePickerImageTest.swift */,
-				D812DDF81D36372F00F0E488 /* SnapImagePickerViewController+.swift */,
+				D8F2F8561D3D27000088F58E /* SnapImagePickerViewController+.swift */,
 			);
 			path = SnapImagePicker_Snapshot_Tests;
 			sourceTree = "<group>";
@@ -498,6 +502,8 @@
 				D8BF9CA41D266BA100DC1F02 /* UIScrollView+correction.swift */,
 				D87999F51D23CCF400683406 /* UIScrollView+fakeBounce.swift */,
 				D824685C1D22A55F009DB2A4 /* UIScrollView+getBounds.swift */,
+				D8A479981D3E75C1008FA721 /* UIImageOrientation+next.swift */,
+				D8A4799A1D3E76BD008FA721 /* UIImageOrientation+toCGAffineTransformRadians.swift */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -976,8 +982,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8F2F8571D3D27000088F58E /* SnapImagePickerViewController+.swift in Sources */,
 				D84613FA1D3687E900B2A71D /* AlbumSelectorTest.swift in Sources */,
-				D812DDF91D36372F00F0E488 /* SnapImagePickerViewController+.swift in Sources */,
 				D83EDD771D3666BD0079C314 /* SnapImagePickerAlbumTest.swift in Sources */,
 				D812DDF01D362C9200F0E488 /* SnapImagePickerImageTest.swift in Sources */,
 			);
@@ -1040,11 +1046,13 @@
 				D847B4251D1D283600D58E2C /* AlbumSelectorViewController.swift in Sources */,
 				D893FA761D2D40E000E71429 /* UIScrollView+centerFullImageInImageView.swift in Sources */,
 				D847B44D1D1D3ABA00D58E2C /* SnapImagePickerEntityGateway.swift in Sources */,
+				D8A479991D3E75C1008FA721 /* UIImageOrientation+next.swift in Sources */,
 				D847B4291D1D298900D58E2C /* SnapImagePickerPresenter.swift in Sources */,
 				D847B45A1D1D644000D58E2C /* UIImage+square.swift in Sources */,
 				D847B43D1D1D35EE00D58E2C /* SnapImagePickerViewController.swift in Sources */,
 				D83B8C2A1D0EE4D700C6995A /* ImageCell.swift in Sources */,
 				D847B43F1D1D368400D58E2C /* AlbumSelectorPresenterProtocol.swift in Sources */,
+				D8A4799B1D3E76BD008FA721 /* UIImageOrientation+toCGAffineTransformRadians.swift in Sources */,
 				D82468541D215A90009DB2A4 /* AlbumCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1300,7 +1308,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_BITCODE = YES;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = SnapImagePicker/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1323,7 +1331,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_BITCODE = YES;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = SnapImagePicker/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

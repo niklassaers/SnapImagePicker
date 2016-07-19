@@ -2,7 +2,8 @@ import Foundation
 import Photos
 
 class PhotoLoader {
-    private static let SmartCollections = ["Recently Added", "Selfies", "Panoramas"]
+    private static let SmartCollections: [PHAssetCollectionSubtype] = [.SmartAlbumRecentlyAdded, .SmartAlbumPanoramas]
+    // [.SmartAlbumGeneric, .SmartAlbumVideos, .SmartAlbumFavorites, .SmartAlbumTimelapses, .SmartAlbumAllHidden, .SmartAlbumBursts, .SmartAlbumSlomoVideos, .SmartAlbumUserLibrary, .SmartAlbumSelfPortraits, .SmartAlbumScreenshots
     private var albums = [String: PHFetchResult]()
     private var requests = [String: PHImageRequestID]()
 }
@@ -59,6 +60,11 @@ extension PhotoLoader: ImageLoader {
         
         switch type {
         case .Favorites: options.predicate = NSPredicate(format: "favorite == YES")
+        case .SmartAlbum(let title):
+            if title == "Recently Added" {
+                print("DOING RECENTLY ADDED")
+                options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+            }
         default: break
         }
         
@@ -115,10 +121,10 @@ extension PhotoLoader: AlbumLoader {
         userAlbums.enumerateObjectsUsingBlock() {
             [weak self] in
             if let collection = $0.0 as? PHAssetCollection,
-                let title = collection.localizedTitle {
-                let onlyImagesOptions = PHFetchOptions()
-                onlyImagesOptions.predicate = NSPredicate(format: "mediaType = %i", PHAssetMediaType.Image.rawValue)
-                let result = PHAsset.fetchAssetsInAssetCollection(collection, options: onlyImagesOptions)
+               let title = collection.localizedTitle,
+               let options = self?.getFetchOptionsForCollection(AlbumType.UserDefined(title: title)){
+                options.predicate = NSPredicate(format: "mediaType = %i", PHAssetMediaType.Image.rawValue)
+                let result = PHAsset.fetchAssetsInAssetCollection(collection, options: options)
                 if result.count > 0 {
                     self?.albums[title] = result
                     self?.createAlbumFromFetchResult(result, withType: AlbumType.UserDefined(title: title), previewImageTargetSize: targetSize, handler: handler)
@@ -129,20 +135,16 @@ extension PhotoLoader: AlbumLoader {
     
     
     func fetchAllSmartAlbumPreviews(targetSize: CGSize, handler: Album -> Void) {
-        let smartAlbums = PHAssetCollection.fetchAssetCollectionsWithType(.SmartAlbum, subtype: .Any, options: nil)
-        smartAlbums.enumerateObjectsUsingBlock() {
-            [weak self] (element: AnyObject, index: Int, _: UnsafeMutablePointer<ObjCBool>) in
-            
-            if let collection = element as? PHAssetCollection,
-                let title = collection.localizedTitle
-                where PhotoLoader.SmartCollections.contains(title) {
-                let onlyImagesOptions = PHFetchOptions()
-                onlyImagesOptions.predicate = NSPredicate(format: "mediaType = %i", PHAssetMediaType.Image.rawValue)
-                
-                let result = PHAsset.fetchAssetsInAssetCollection(collection, options: onlyImagesOptions)
+        for collection in PhotoLoader.SmartCollections {
+            let smartAlbums = PHAssetCollection.fetchAssetCollectionsWithType(.SmartAlbum, subtype: collection, options: nil)
+            if let collection = smartAlbums.firstObject as? PHAssetCollection,
+               let title = collection.localizedTitle {
+                let options = getFetchOptionsForCollection(AlbumType.SmartAlbum(title: title))
+                options.predicate = NSPredicate(format: "mediaType = %i", PHAssetMediaType.Image.rawValue)
+                let result = PHAsset.fetchAssetsInAssetCollection(collection, options: options)
                 if result.count > 0 {
-                    self?.albums[title] = result
-                    self?.createAlbumFromFetchResult(result, withType: AlbumType.SmartAlbum(title: title), previewImageTargetSize: targetSize, handler: handler)
+                    albums[title] = result
+                    createAlbumFromFetchResult(result, withType: AlbumType.SmartAlbum(title: title), previewImageTargetSize: targetSize, handler: handler)
                 }
             }
         }

@@ -1,24 +1,17 @@
 import Foundation
 import UIKit
 
-class SlideTransitionManager : NSObject, UIViewControllerAnimatedTransitioning {
+class VerticalSlideTransitionManager : NSObject, UIViewControllerAnimatedTransitioning {
     let animationDuration = 0.3
-    let direction: Direction
+    let action: Action
     
-    enum Direction {
-        case Upwards
-        case Downwards
-        
-        func getInitialFrame(size: CGSize) -> CGRect {
-            switch self {
-            case .Upwards: return CGRect(x: CGFloat(0.0), y: size.height, width: size.width, height: size.height)
-            case .Downwards: return CGRect(x: CGFloat(0.0), y: -size.height, width: size.width, height: size.height)
-            }
-        }
+    enum Action {
+        case Push
+        case Pop
     }
     
-    init(direction: Direction) {
-        self.direction = direction
+    init(action: Action) {
+        self.action = action
     }
     
     func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
@@ -26,12 +19,21 @@ class SlideTransitionManager : NSObject, UIViewControllerAnimatedTransitioning {
     }
     
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
+        if action == .Push {
+            push(transitionContext)
+        } else {
+            pop(transitionContext)
+        }
+    }
+    
+    func push(transitionContext: UIViewControllerContextTransitioning) {
         if let containerView = transitionContext.containerView(),
            let toView = transitionContext.viewForKey(UITransitionContextToViewKey) {
             containerView.addSubview(toView)
             
+            let size = containerView.bounds.size
+            let initalFrame = CGRect(x: CGFloat(0.0), y: -size.height, width: size.width, height: size.height)
             let finalFrame  = containerView.bounds
-            let initalFrame = direction.getInitialFrame(finalFrame.size)
         
             toView.frame = initalFrame
             UIView.animateWithDuration(animationDuration,
@@ -39,14 +41,35 @@ class SlideTransitionManager : NSObject, UIViewControllerAnimatedTransitioning {
                                        completion: { _ in transitionContext.completeTransition(true) })
         }
     }
+    
+    func pop(transitionContext: UIViewControllerContextTransitioning) {
+        if let containerView = transitionContext.containerView(),
+           let fromView = transitionContext.viewForKey(UITransitionContextFromViewKey),
+           let toView = transitionContext.viewForKey(UITransitionContextToViewKey) {
+            
+            let size = containerView.bounds.size
+            let finalFrame = CGRect(x: CGFloat(0.0), y: -size.height, width: size.width, height: size.height)
+            
+            toView.frame = CGRect(x: CGFloat(0.0), y: 0, width: size.width, height: size.height)
+            containerView.addSubview(toView)
+            containerView.sendSubviewToBack(toView)
+            UIView.animateWithDuration(animationDuration,
+                                       animations: {fromView.frame = finalFrame},
+                                       completion: { _ in transitionContext.completeTransition(true)})
+        }
+    }
 }
 
-class NavigationControllerDelegate: NSObject, UINavigationControllerDelegate {
-    func navigationController(navigationController: UINavigationController, animationControllerForOperation operation: UINavigationControllerOperation, fromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+public class SnapImagePickerNavigationControllerDelegate: NSObject, UINavigationControllerDelegate, UIViewControllerTransitioningDelegate {
+    public override init() {
+        super.init()
+    }
+    
+    public func navigationController(navigationController: UINavigationController, animationControllerForOperation operation: UINavigationControllerOperation, fromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         switch operation {
         case .None: return nil
-        case .Push: return SlideTransitionManager(direction: .Downwards)
-        case .Pop: return SlideTransitionManager(direction: .Upwards)
+        case .Push: return VerticalSlideTransitionManager(action: .Push)
+        case .Pop: return VerticalSlideTransitionManager(action: .Pop)
         }
     }
 }

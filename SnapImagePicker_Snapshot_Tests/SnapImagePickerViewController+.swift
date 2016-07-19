@@ -1,11 +1,11 @@
 @testable import SnapImagePicker
-import UIKit
 
 extension SnapImagePickerViewController {
     override func viewDidLayoutSubviews() {
-        self.currentDisplay = view.frame.size.displayType()
-        self.calculateViewSizes()
+        print("Main offset: \(mainScrollView!.contentOffset)")
         super.viewDidLayoutSubviews()
-        setMainOffsetForState(state, animated: false)
+        viewWillAppear(false)
+//      TODO:  setMainOffsetForState(self.state)
+        print("Main offset after: \(mainScrollView!.contentOffset)")
     }
 }

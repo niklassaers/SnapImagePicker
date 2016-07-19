@@ -59,8 +59,8 @@ class SnapImagePickerViewController: UIViewController {
     
     @IBAction func flipImageButtonPressed(sender: UIButton) {
         UIView.animateWithDuration(0.3, animations: {
-            self.selectedImageRotation = (self.selectedImageRotation + M_PI/2) % (2 * M_PI)
-            self.selectedImageScrollView?.transform = CGAffineTransformMakeRotation(CGFloat(self.selectedImageRotation))
+            self.selectedImageRotation = self.selectedImageRotation.next()
+            self.selectedImageScrollView?.transform = CGAffineTransformMakeRotation(CGFloat(self.selectedImageRotation.toCGAffineTransformRadians()))
             
             sender.enabled = false
             }, completion: {
@@ -74,11 +74,11 @@ class SnapImagePickerViewController: UIViewController {
             let options = ImageOptions(cropRect: cropRect, rotation: selectedImageRotation)
             eventHandler?.selectButtonPressed(image, withImageOptions: options)
         }
-        dismiss()
+        eventHandler?.dismiss()
     }
     
     @IBAction func cancelButtonPressed(sender: UIBarButtonItem) {
-        dismiss()
+        eventHandler?.dismiss()
     }
     
 
@@ -96,10 +96,9 @@ class SnapImagePickerViewController: UIViewController {
         }
     }
     
-    private var selectedImageRotation = Double(0)
+    private var selectedImageRotation = UIImageOrientation.Up
     
-    // TODO: Should be private
-    var state: DisplayState = .Image {
+    private var state: DisplayState = .Image {
         didSet {
             setVisibleCellsInAlbumCollectionView()
             setMainOffsetForState(state)
@@ -107,8 +106,8 @@ class SnapImagePickerViewController: UIViewController {
         }
     }
     
-    // TODO: Should be private
-    var currentDisplay = Display.Portrait {
+    
+    private var currentDisplay = Display.Portrait {
         didSet {
             if let contentSize = selectedImageScrollView?.contentSize,
                let zoomScale = selectedImageScrollView?.zoomScale,
@@ -141,9 +140,13 @@ class SnapImagePickerViewController: UIViewController {
         calculateViewSizes()
         setupGestureRecognizers()
     }
-    
+        
     override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         setVisibleCellsInAlbumCollectionView()
+        if let visibleCells = visibleCells {
+            eventHandler?.scrolledToCells(visibleCells, increasing: false, fromOldRange: nil)
+        }
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
@@ -187,8 +190,7 @@ class SnapImagePickerViewController: UIViewController {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    // TODO: Should be private
-    func calculateViewSizes() {
+    private func calculateViewSizes() {
         if let mainScrollView = mainScrollView,
            let imageFrame = selectedImageScrollView?.frame {
             let mainFrame = mainScrollView.frame
@@ -288,34 +290,11 @@ extension SnapImagePickerViewController: UICollectionViewDelegate {
 }
 
 extension SnapImagePickerViewController: UIScrollViewDelegate {
-    //TODO: Refactor
     func scrollViewDidScroll(scrollView: UIScrollView) {
         if scrollView == mainScrollView {
-            if let albumCollectionView = albumCollectionView,
-               let mainScrollView = mainScrollView {
-                let remainingAlbumCollectionHeight = albumCollectionView.contentSize.height - albumCollectionView.contentOffset.y
-                let albumStart = albumCollectionView.frame.minY - mainScrollView.contentOffset.y
-                let offset = mainScrollView.frame.height - (albumStart + remainingAlbumCollectionHeight)
-                if offset > 0 && albumCollectionView.contentOffset.y - offset > 0 {
-                    albumCollectionView.contentOffset = CGPoint(x: 0, y: albumCollectionView.contentOffset.y - offset)
-                }
-            }
+            mainScrollViewDidScroll(scrollView)
         } else if scrollView == albumCollectionView {
-            setVisibleCellsInAlbumCollectionView()
-
-            if let mainScrollView = mainScrollView
-               where scrollView.contentOffset.y < 0 {
-                if userIsScrolling {
-                    mainScrollView.contentOffset = CGPoint(x: mainScrollView.contentOffset.x, y: mainScrollView.contentOffset.y + scrollView.contentOffset.y)
-                    if let height = selectedImageView?.frame.height {
-                        blackOverlayView?.alpha = (mainScrollView.contentOffset.y / height) * currentDisplay.MaxImageFadeRatio
-                    }
-                } else if let enqueuedBounce = enqueuedBounce {
-                    enqueuedBounce()
-                    self.enqueuedBounce = nil
-                }
-                scrollView.contentOffset = CGPoint(x: scrollView.contentOffset.x, y: 0)
-            }
+            albumCollectionViewDidScroll(scrollView)
         }
     }
     
@@ -377,6 +356,36 @@ extension SnapImagePickerViewController: UIScrollViewDelegate {
             if let imageView = selectedImageView {
                 scrollView.correctBoundsForImageView(imageView)
             }
+        }
+    }
+}
+extension SnapImagePickerViewController {
+    private func mainScrollViewDidScroll(scrollView: UIScrollView) {
+        if let albumCollectionView = albumCollectionView {
+            let remainingAlbumCollectionHeight = albumCollectionView.contentSize.height - albumCollectionView.contentOffset.y
+            let albumStart = albumCollectionView.frame.minY - scrollView.contentOffset.y
+            let offset = scrollView.frame.height - (albumStart + remainingAlbumCollectionHeight)
+            if offset > 0 && albumCollectionView.contentOffset.y - offset > 0 {
+                albumCollectionView.contentOffset = CGPoint(x: 0, y: albumCollectionView.contentOffset.y - offset)
+            }
+        }
+    }
+    
+    private func albumCollectionViewDidScroll(scrollView: UIScrollView) {
+        setVisibleCellsInAlbumCollectionView()
+        
+        if let mainScrollView = mainScrollView
+            where scrollView.contentOffset.y < 0 {
+            if userIsScrolling {
+                mainScrollView.contentOffset = CGPoint(x: mainScrollView.contentOffset.x, y: mainScrollView.contentOffset.y + scrollView.contentOffset.y)
+                if let height = selectedImageView?.frame.height {
+                    blackOverlayView?.alpha = (mainScrollView.contentOffset.y / height) * currentDisplay.MaxImageFadeRatio
+                }
+            } else if let enqueuedBounce = enqueuedBounce {
+                enqueuedBounce()
+                self.enqueuedBounce = nil
+            }
+            scrollView.contentOffset = CGPoint(x: scrollView.contentOffset.x, y: 0)
         }
     }
     
@@ -455,8 +464,7 @@ extension SnapImagePickerViewController {
         scrolledToOffsetRatio(calculateOffsetToImageHeightRatio())
     }
     
-    // TODO: Should be private
-    func setMainOffsetForState(state: DisplayState, animated: Bool = true) {
+    private func setMainOffsetForState(state: DisplayState, animated: Bool = true) {
         if let height = selectedImageScrollView?.bounds.height {
             setMainOffsetForState(state, withHeight: height, animated: animated)
         }

@@ -4,17 +4,31 @@ import Foundation
 
 class ViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
-    private let snapImagePicker = SnapImagePicker()
+    private var snapImagePicker: SnapImagePicker?
+    private let navigationDelegate = SnapImagePickerNavigationControllerDelegate()
+    private var initializedWithNavbar = false
+    private var vc: UIViewController?
 
-    @IBAction func openImagePickerTapped(sender: UIButton) {
-        if let vc = snapImagePicker.initializeViewController(delegate: self) {
+    @IBAction func openImagePickerWithNavbar(sender: UIButton) {
+        initializedWithNavbar = true
+        if let vc = snapImagePicker?.initializeNavigationController() {
             self.presentViewController(vc, animated: true, completion: nil)
+            self.vc = vc
+        }
+    }
+    
+    @IBAction func openImagePickerWithoutNavbar(sender: UIButton) {
+        initializedWithNavbar = false
+        if let vc = snapImagePicker?.initializeViewController() {
+            self.navigationController?.delegate = snapImagePicker?.getTransitioningDelegate()
+            self.navigationController?.pushViewController(vc, animated: true)
+            self.vc = vc
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        snapImagePicker = SnapImagePicker(delegate: self)
     }
 
     override func didReceiveMemoryWarning() {
@@ -26,18 +40,19 @@ class ViewController: UIViewController {
 extension ViewController: SnapImagePickerDelegate {
     func pickedImage(image: UIImage, withImageOptions options: ImageOptions) {
         imageView?.contentMode = .ScaleAspectFit
-        var orientation = UIImageOrientation.Up
-        switch options.rotation {
-        case 0: break
-        case M_PI/2: orientation = UIImageOrientation.Right
-        case M_PI: orientation = UIImageOrientation.Down
-        case M_PI*1.5: orientation = UIImageOrientation.Left
-        default: print("Orientation: \(options.rotation)")
-        }
-        imageView?.image = UIImage(CGImage: CGImageCreateWithImageInRect(image.CGImage, options.cropRect)!, scale: 1, orientation: orientation)
+        print("Got image: \(image)")
+        imageView?.image = UIImage(CGImage: CGImageCreateWithImageInRect(image.CGImage, options.cropRect)!, scale: 1, orientation: options.rotation)
     }
     
     func requestPhotosAccessForImagePicker(callbackDelegate: SnapImagePicker) {
         print("Need to request access to photos")
+    }
+    
+    func dismiss() {
+        if initializedWithNavbar {
+            vc?.dismissViewControllerAnimated(true, completion: nil)
+        } else {
+            self.navigationController?.popViewControllerAnimated(true)
+        }
     }
 }
