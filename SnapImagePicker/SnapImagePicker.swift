@@ -16,10 +16,10 @@ protocol SnapImagePickerConnectorProtocol: class {
 
 public class SnapImagePicker {
     public struct Theme {
-        static var color = UIColor.init(red: 0xFF, green: 0x00, blue: 0x58, alpha: 1)
-        static var maxImageSize = 2000
-        static var fontSize = CGFloat(22.0)
-        static var font = SnapFonts.gothamRoundedMediumOfSize(fontSize)
+        public static var color = UIColor.init(red: 0xFF, green: 0x00, blue: 0x58, alpha: 1)
+        public static var maxImageSize = 2000
+        public static var fontSize = CGFloat(22.0)
+        public static var font = SnapFonts.gothamRoundedMediumOfSize(fontSize)
     }
     
     enum Names: String {
@@ -61,7 +61,7 @@ extension SnapImagePicker: SnapImagePickerProtocol {
             self.navigationController = navigationController
             
             navigationController.pushViewController(snapImagePickerViewController, animated: true)
-            navigationController.delegate = transitionDelegate
+            //navigationController.delegate = transitionDelegate
         }
     }
     

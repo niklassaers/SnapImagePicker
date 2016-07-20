@@ -86,10 +86,11 @@ class SnapImagePickerViewController: UIViewController {
     
     private var albumTitle: String? {
         didSet {
-            if let navigationController = navigationController,
-               let titleView = titleView,
+            if let titleView = titleView,
                let titleArrowView = titleArrowView {
-                albumTitleCenterConstraint?.constant = (48-88) / 2 - titleArrowView.bounds.width / 2
+                let leftMargin = titleView.frame.minX
+                let rightMargin = view.bounds.width - titleView.frame.maxX
+                albumTitleCenterConstraint?.constant = (rightMargin - leftMargin) / 2 - titleArrowView.bounds.width / 2
             }
             titleButton?.setTitle(albumTitle, forState: .Normal)
         }
@@ -148,6 +149,7 @@ class SnapImagePickerViewController: UIViewController {
         
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
         setVisibleCellsInAlbumCollectionView()
         if let visibleCells = visibleCells {
             eventHandler?.scrolledToCells(visibleCells, increasing: false, fromOldRange: nil)

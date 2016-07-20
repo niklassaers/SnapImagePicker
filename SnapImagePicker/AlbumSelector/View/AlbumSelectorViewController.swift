@@ -15,15 +15,38 @@ class AlbumSelectorViewController: UITableViewController {
         static let Font = SnapImagePicker.Theme.font?.fontWithSize(FontSize)
     }
     
+    @IBOutlet weak var titleCenterConstraint: NSLayoutConstraint?
+    
     private var collections: [(title: String, albums: [Album])]? {
         didSet {
             tableView.reloadData()
         }
     }
     
+    @IBOutlet weak var titleButton: UIButton? {
+        didSet {
+            titleButton?.titleLabel?.font = SnapImagePicker.Theme.font
+            titleButton?.setTitle(L10n.GeneralCollectionName.string, forState: .Normal)
+        }
+    }
+    
     override func viewWillAppear(animated: Bool) {
-        title = L10n.GeneralCollectionName.string
+        super.viewWillAppear(animated)
         eventHandler?.viewWillAppear()
+        titleButton?.titleLabel?.font = SnapImagePicker.Theme.font
+        titleButton?.setTitle(L10n.GeneralCollectionName.string, forState: .Normal)
+    }
+    
+    override func viewDidAppear(anumated: Bool) {
+        if let titleView = titleButton?.superview{
+            let leftMargin = titleView.frame.minX
+            let rightMargin = view.bounds.width - titleView.frame.maxX
+            titleCenterConstraint?.constant = (rightMargin - leftMargin) / 2
+        }
+    }
+    
+    @IBAction func titleButtonPressed(sender: UIButton) {
+        navigationController?.popViewControllerAnimated(true)
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
