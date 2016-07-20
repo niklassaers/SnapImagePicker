@@ -19,7 +19,8 @@
     "ios": 8.0
   },
   "resources": [
-    "SnapImagePicker/**/*.{storyboard,xcassets,xib}"
+    "SnapImagePicker/**/*.{storyboard,xcassets,xib}",
+    "SnapImagePicker/**/*.strings"
   ],
   "source_files": [
     "SnapImagePicker/**/*.{swift}"
