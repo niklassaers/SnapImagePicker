@@ -1,1 +1,9 @@
-"TEST" = "TEST_BASE";
+"imageLabelText" = "image";
+"severalImagesLabelText" = "images";
+"generalCollectionName" = "Cameraroll";
+"userDefinedAlbumsCollectionName" = "Albums";
+"smartAlbumsCollectionName" = "Smart Albums";
+"allPhotosAlbumName" = "All Photos";
+"favoritesAlbumName" = "Favorites";
+"selectButtonLabelText" = "Select";
+

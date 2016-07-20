@@ -7,13 +7,13 @@ class SnapImagePickerViewController: UIViewController {
     @IBOutlet weak var titleButton: UIButton? {
         didSet {
             titleButton?.titleLabel?.font = SnapImagePicker.Theme.font
-            titleButton?.setTitle(AlbumType.AlbumNames.AllPhotos, forState: .Normal)
+            titleButton?.setTitle(L10n.AllPhotosAlbumName.string, forState: .Normal)
         }
     }
     
     @IBOutlet weak var selectButton: UIBarButtonItem? {
         didSet {
-            selectButton?.style
+            selectButton?.title = L10n.SelectButtonLabelText.string
         }
     }
     @IBOutlet weak var cancelButton: UIBarButtonItem?
@@ -133,7 +133,7 @@ class SnapImagePickerViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         currentDisplay = view.frame.size.displayType()
         eventHandler?.viewWillAppearWithCellSize(currentDisplay.CellWidthInViewWithWidth(view.bounds.width))
         calculateViewSizes()
@@ -204,7 +204,13 @@ class SnapImagePickerViewController: UIViewController {
 
 extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
     func display(viewModel: SnapImagePickerViewModel) {
-        albumTitle = viewModel.albumTitle
+        if viewModel.albumTitle == AlbumType.AllPhotos.getAlbumName() {
+            albumTitle = L10n.AllPhotosAlbumName.string
+        } else if viewModel.albumTitle == AlbumType.Favorites.getAlbumName() {
+            albumTitle = L10n.FavoritesAlbumName.string
+        } else {
+            albumTitle = viewModel.albumTitle
+        }
         
         if let mainImage = viewModel.mainImage?.image {
             if mainImage != selectedImageView?.image {

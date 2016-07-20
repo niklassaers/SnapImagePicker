@@ -1,1 +1,8 @@
-"TEST" = "TEST_NOR";
+"imageLabelText" = "bilde";
+"severalImagesLabelText" = "bilder";
+"generalCollectionName" = "Kamera rull";
+"userDefinedAlbumsCollectionName" = "Albumer";
+"smartAlbumsCollectionName" = "Smarte Albumer";
+"allPhotosAlbumName" = "Alle bilder";
+"favoritesAlbumName" = "Favoritter";
+"selectButtonLabelText" = "Velg";

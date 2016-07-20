@@ -569,10 +569,10 @@
 		D89D6FE71D06CC06007DD132 /* SnapImagePicker */ = {
 			isa = PBXGroup;
 			children = (
-				D8CB05C61D3F6F3700002745 /* Helpers */,
 				D824684A1D2159D0009DB2A4 /* AlbumSelector */,
 				D847B4581D1D643300D58E2C /* Categories */,
 				D82468551D215B85009DB2A4 /* Data */,
+				D8CB05C61D3F6F3700002745 /* Helpers */,
 				D82468491D2159C7009DB2A4 /* ImagePicker */,
 				D8A4799C1D3E7FEA008FA721 /* Mock */,
 				D8359FCD1D2BDFB700C042A2 /* PhotoLoader */,
@@ -624,7 +624,7 @@
 			children = (
 				D8CB05C71D3F6F4300002745 /* Strings.swift */,
 			);
-			name = Helpers;
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1351,7 +1351,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.snapsale.SnapImagePicker.ExampleProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1aa7b6b5-4172-463a-aae9-bdd55cf9cd9b";
+				PROVISIONING_PROFILE = "92dc7c83-aaf9-4133-bf1a-fccad74c9497";
 			};
 			name = Debug;
 		};

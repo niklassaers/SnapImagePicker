@@ -37,7 +37,6 @@ public class SnapImagePicker {
     
     public init(delegate: SnapImagePickerDelegate) {
         self.delegate = delegate
-        print("Test: \(tr(L10n.TEST))")
     }
 }
 

@@ -65,7 +65,16 @@ class AlbumSelectorViewController: UITableViewController {
             let label = UILabel()
             label.frame = CGRectMake(Header.Indentation, 0, tableView.frame.width, Header.Height)
             label.font = Header.Font
-            label.text = collections?[section].title ?? nil
+            if collections?[section].title == AlbumType.CollectionNames.General {
+                label.text = L10n.GeneralCollectionName.string
+            } else if collections?[section].title == AlbumType.CollectionNames.UserDefined {
+                label.text = L10n.UserDefinedAlbumsCollectionName.string
+            } else if collections?[section].title == AlbumType.CollectionNames.SmartAlbums {
+                label.text = L10n.SmartAlbumsCollectionName.string
+            } else {
+                print("Fetched collection with invalid name!")
+                label.text = nil
+            }
             view.addSubview(label)
         } else {
             view.frame = CGRectMake(0, 0, 0, 0)

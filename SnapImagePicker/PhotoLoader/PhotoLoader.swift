@@ -62,7 +62,6 @@ extension PhotoLoader: ImageLoader {
         case .Favorites: options.predicate = NSPredicate(format: "favorite == YES")
         case .SmartAlbum(let title):
             if title == "Recently Added" {
-                print("DOING RECENTLY ADDED")
                 options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
             }
         default: break
