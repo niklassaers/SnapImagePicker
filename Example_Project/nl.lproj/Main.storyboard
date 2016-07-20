@@ -1,0 +1,6 @@
+
+/* Class = "UIImageView"; accessibilityIdentifier = "Chosen image"; ObjectID = "0R2-sD-Bpn"; */
+"0R2-sD-Bpn.accessibilityIdentifier" = "Chosen image";
+
+/* Class = "UIButton"; normalTitle = "Open Image Picker"; ObjectID = "bT2-1x-wmI"; */
+"bT2-1x-wmI.normalTitle" = "Open Image Picker";
