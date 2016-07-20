@@ -67,6 +67,7 @@ class SnapImagePickerViewController: UIViewController {
                 _ in sender.enabled = true
         })
     }
+    @IBOutlet weak var albumTitleCenterConstraint: NSLayoutConstraint?
     
     @IBAction func selectButtonPressed(sender: UIBarButtonItem) {
         if let cropRect = selectedImageScrollView?.getImageBoundsForImageView(selectedImageView),
@@ -85,6 +86,11 @@ class SnapImagePickerViewController: UIViewController {
     
     private var albumTitle: String? {
         didSet {
+            if let navigationController = navigationController,
+               let titleView = titleView,
+               let titleArrowView = titleArrowView {
+                albumTitleCenterConstraint?.constant = (48-88) / 2 - titleArrowView.bounds.width / 2
+            }
             titleButton?.setTitle(albumTitle, forState: .Normal)
         }
     }

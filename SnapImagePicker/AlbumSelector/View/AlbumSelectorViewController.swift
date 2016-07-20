@@ -22,6 +22,7 @@ class AlbumSelectorViewController: UITableViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
+        title = L10n.GeneralCollectionName.string
         eventHandler?.viewWillAppear()
     }
     

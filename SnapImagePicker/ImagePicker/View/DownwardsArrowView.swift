@@ -3,7 +3,7 @@ import UIKit
 class DownwardsArrowView: UIView {
     override func drawRect(rect: CGRect) {
         let path = UIBezierPath()
-        let horizontalDistance = CGFloat(0.15)
+        let horizontalDistance = CGFloat(0.5)
         let verticalDistance = CGFloat(0.07)
         let verticalOffset = CGFloat(0.05)
         
