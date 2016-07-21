@@ -4,7 +4,6 @@ import Photos
 class SnapImagePickerEntityGateway {
     private weak var interactor: SnapImagePickerInteractorProtocol?
     private weak var imageLoader: ImageLoader?
-    private var requests = [String: [Int: PHImageRequestID]]()
     
     init(interactor: SnapImagePickerInteractorProtocol, imageLoader: ImageLoader?) {
         self.interactor = interactor
@@ -13,60 +12,50 @@ class SnapImagePickerEntityGateway {
 }
 
 extension SnapImagePickerEntityGateway: SnapImagePickerEntityGatewayProtocol {
-    func loadInitialAlbum(type: AlbumType) {
-        print("Loading initial album with type: \(type)")
-        requests[type.getAlbumName()] = [Int: PHImageRequestID]()
+    func fetchAlbum(type: AlbumType) {
         if let fetchResult = imageLoader?.fetchAssetsFromCollectionWithType(type) {
             if let asset = fetchResult.firstObject as? PHAsset {
-                let requestId = imageLoader?.loadImageFromAsset(asset, isPreview: false, withPreviewSize: CGSizeZero) {
+                imageLoader?.loadImageFromAsset(asset, isPreview: false, withPreviewSize: CGSizeZero) {
                     [weak self] (image: SnapImagePickerImage) in
-                    self?.interactor?.initializedAlbum(image, albumSize: fetchResult.count)
-                }
-                requests[type.getAlbumName()]![0] = requestId
-            }
-        }
-    }
-    
-    func loadAlbumImageWithType(type: AlbumType, withTargetSize targetSize: CGSize, atIndex index: Int) -> Bool {
-        if requests[type.getAlbumName()] == nil {
-            requests[type.getAlbumName()] = [Int: PHImageRequestID]()
-        }
-        if let fetchResult = imageLoader?.fetchAssetsFromCollectionWithType(type) {
-            if index < fetchResult.count {
-                if let asset = fetchResult.objectAtIndex(index) as? PHAsset {
-                    let requestId = imageLoader?.loadImageFromAsset(asset, isPreview: true, withPreviewSize: targetSize) {
-                        [weak self] (image: SnapImagePickerImage) in
-                        self?.interactor?.loadedAlbumImage(image, atIndex: index)
+                    dispatch_async(dispatch_get_main_queue()) {
+                        self?.interactor?.loadedAlbum(image, albumSize: fetchResult.count)
                     }
-                    requests[type.getAlbumName()]![index] = requestId
-                    return true
                 }
             }
         }
-        return false
     }
     
-    
-    func deleteRequestAtIndex(index: Int, forAlbumType type: AlbumType) {
-        if let requestsForAlbum = requests[type.getAlbumName()],
-           let id = requestsForAlbum[index] {
-            imageLoader?.deleteRequestForId(id)
-        }
-    }
-    
-    func loadImageWithLocalIdentifier(localIdentifier: String) -> Bool {
-        let fetchResult = PHAsset.fetchAssetsWithLocalIdentifiers([localIdentifier], options: nil)
-        if let asset = fetchResult.firstObject as? PHAsset {
-            imageLoader?.loadImageFromAsset(asset, isPreview: false, withPreviewSize: CGSizeZero) {
-                [weak self] (image: SnapImagePickerImage) in
-                self?.interactor?.loadedMainImage(image)
+    func fetchAlbumImageFromAlbum(type: AlbumType, atIndex index: Int) {
+        if let fetchResult = imageLoader?.fetchAssetsFromCollectionWithType(type)
+        where fetchResult.count > index {
+            if let asset = fetchResult.objectAtIndex(index) as? PHAsset {
+                imageLoader?.loadImageFromAsset(asset, isPreview: true, withPreviewSize: CGSize(width: 150, height: 150)) {
+                    [weak self] (image: SnapImagePickerImage) in
+                    dispatch_async(dispatch_get_main_queue()) {
+                        self?.interactor?.loadedAlbumImage(image, fromAlbum: type, atIndex: index)
+                    }
+                }
             }
-            return true
         }
-        return false
     }
     
-    func clearPendingRequests() {
-        imageLoader?.clearPendingRequests()
+    func fetchAlbumImagesFromAlbum(type: AlbumType, inRange range: Range<Int>)  {
+        for i in range {
+            fetchAlbumImageFromAlbum(type, atIndex: i)
+        }
+    }
+    
+    func fetchMainImageFromAlbum(type: AlbumType, atIndex index: Int) {
+        if let fetchResult = imageLoader?.fetchAssetsFromCollectionWithType(type)
+            where fetchResult.count > index {
+            if let asset = fetchResult.objectAtIndex(index) as? PHAsset {
+                imageLoader?.loadImageFromAsset(asset, isPreview: false, withPreviewSize: CGSize(width: 2000, height: 2000)) {
+                    [weak self] (image: SnapImagePickerImage) in
+                    dispatch_async(dispatch_get_main_queue()) {
+                        self?.interactor?.loadedMainImage(image, fromAlbum: type)
+                    }
+                }
+            }
+        }
     }
 }

@@ -1,9 +1,20 @@
+/* Labels used for describing number of images in an album */
 "imageLabelText" = "image";
+
 "severalImagesLabelText" = "images";
+
+/* Names for collections of albums */
 "generalCollectionName" = "Cameraroll";
+
 "userDefinedAlbumsCollectionName" = "Albums";
+
 "smartAlbumsCollectionName" = "Smart Albums";
+
+/* Generic names for albums */
 "allPhotosAlbumName" = "All Photos";
+
 "favoritesAlbumName" = "Favorites";
+
+/* Text on the label for selecting a chosen image */
 "selectButtonLabelText" = "Select";
 

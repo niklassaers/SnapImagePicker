@@ -12,6 +12,7 @@ extension PhotoLoader: ImageLoader {
     func loadImageFromAsset(asset: PHAsset, isPreview: Bool = false, withPreviewSize previewSize: CGSize = CGSizeZero, handler: (SnapImagePickerImage) -> Void) -> PHImageRequestID {
         let options = PHImageRequestOptions()
         options.networkAccessAllowed = true
+        options.synchronous = false
         options.deliveryMode = isPreview ? .Opportunistic : .HighQualityFormat
         let targetSize = isPreview ? previewSize : PHImageManagerMaximumSize
         let requestId = PHImageManager.defaultManager().requestImageForAsset(asset, targetSize: targetSize, contentMode: .Default, options: options) {

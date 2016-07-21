@@ -1,12 +1,11 @@
 import UIKit
 
 protocol SnapImagePickerInteractorProtocol: class {
-    func loadInitialAlbum(type: AlbumType)
-    func loadAlbumImageWithType(type: AlbumType, withTargetSize targetSize: CGSize, atIndex: Int)
-    func loadImageWithLocalIdentifier(localIdentifier: String)
-    func deleteRequestForId(index: Int, forAlbumType type: AlbumType)
-    func clearPendingRequests()
-    func initializedAlbum(image: SnapImagePickerImage, albumSize: Int)
-    func loadedAlbumImage(image: SnapImagePickerImage, atIndex: Int)
-    func loadedMainImage(image: SnapImagePickerImage)
+    func loadAlbum(type: AlbumType)
+    func loadedAlbum(image: SnapImagePickerImage, albumSize: Int)
+    func loadAlbumImageFromAlbum(type: AlbumType, atIndex: Int)
+    func loadAlbumImagesFromAlbum(type: AlbumType, inRange: Range<Int>)
+    func loadMainImageFromAlbum(type: AlbumType, atIndex: Int)
+    func loadedAlbumImage(image: SnapImagePickerImage, fromAlbum album: AlbumType, atIndex index: Int)
+    func loadedMainImage(image: SnapImagePickerImage, fromAlbum album: AlbumType)
 }

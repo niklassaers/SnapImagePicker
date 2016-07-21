@@ -6,65 +6,29 @@ class SnapImagePickerPresenter {
     
     var interactor: SnapImagePickerInteractorProtocol?
     weak var connector: SnapImagePickerConnectorProtocol?
-    
+  
     var albumType = AlbumType.AllPhotos {
         didSet {
-            interactor?.clearPendingRequests()
             loadAlbum()
         }
     }
     
-    enum RequestStatus: Equatable {
-        case None
-        case Deleted
-        case Requested
-        case Completed
-        
-        func isInitializedOrCompleted() -> Bool {
-            switch self {
-            case None, Deleted: return false
-            case Requested, Completed: return true
-            }
-        }
-    }
-    
-    private var mainImage: SnapImagePickerImage?
-    private var requestedMainImage: String?
-    private var albumSize: Int?
-    private var albumImages: [(imageWrapper: SnapImagePickerImage?, status: RequestStatus)]?
-    private var indexes = [String: Int]()
-    private var selectedIndex = 0
-    
+    private var albumSize = 0
+    private var requestedMainImage = 0
     private var cellSize = CGSize(width: 64, height: 64)
-    
-    private let queueName = "com.snapsale.SnapImagePicker.AlbumImagesQueue"
-    private let queue: dispatch_queue_t?
-    
+    private var images = [Int: SnapImagePickerImage]()
+    private var currentRange: Range<Int>?
+    private var viewIsReady = false
+  
     init(view: SnapImagePickerViewControllerProtocol) {
         self.view = view
-        queue = dispatch_queue_create(queueName, nil)
-    }
-    
-    private func insertAlbumImage(image: SnapImagePickerImage?, withStatus status: RequestStatus, atIndex index: Int) {
-        if let queue = queue {
-            dispatch_sync(queue) {
-                [weak self] in self?.albumImages?[index] = (imageWrapper: image, status: status)
-            }
-        }
     }
 }
 
 extension SnapImagePickerPresenter {
     private func loadAlbum() {
-        albumImages = nil
-        interactor?.loadInitialAlbum(albumType)
-    }
-    
-    private func display() {
-        view?.display(SnapImagePickerViewModel(albumTitle: albumType.getAlbumName(),
-            mainImage: mainImage,
-            selectedIndex: selectedIndex,
-            isLoading: mainImage?.localIdentifier != requestedMainImage))
+        viewIsReady = false
+        interactor?.loadAlbum(albumType)
     }
 }
 
@@ -96,43 +60,23 @@ extension SnapImagePickerPresenter {
 }
 
 extension SnapImagePickerPresenter: SnapImagePickerPresenterProtocol {
-    func presentInitialAlbum(image: SnapImagePickerImage, albumSize: Int) {
-        mainImage = image
-        requestedMainImage = image.localIdentifier
-        albumImages = [(imageWrapper: SnapImagePickerImage?, status: RequestStatus)](count: albumSize,
-                                                                                     repeatedValue: (imageWrapper: nil, status: RequestStatus.None))
-        
-        display()
+    func presentAlbum(image: SnapImagePickerImage, albumSize: Int) {
+        self.albumSize = albumSize
+        view?.displayMainImage(image)
+        view?.reloadAlbum()
+        viewIsReady = true
     }
     
-    func presentMainImage(image: SnapImagePickerImage) -> Bool {
-        if image.localIdentifier == requestedMainImage {
-            mainImage = image
-            
-            display()
-            return true
-        }
-        
-        return false
+    func presentMainImage(image: SnapImagePickerImage) {
+        view?.displayMainImage(image)
     }
     
-    func presentAlbumImage(image: SnapImagePickerImage, atIndex index: Int) -> Bool {
-        if index < albumImages?.count && index >= 0 {
-            if albumImages?[index].status == .Deleted {
-                insertAlbumImage(nil, withStatus: RequestStatus.None, atIndex: index)
-            } else {
-                insertAlbumImage(image, withStatus: RequestStatus.Completed, atIndex: index)
+    func presentAlbumImage(image: SnapImagePickerImage, atIndex index: Int) {
+        if let currentRange = currentRange where currentRange.contains(index) {
+            images[index] = image
+            if viewIsReady {
+                view?.reloadCellAtIndex(index)
             }
-            display()
-            return true
-        }
-        
-        return false
-    }
-    
-    func deletedRequestAtIndex(index: Int, forAlbumType albumType: AlbumType) {
-        if albumType == self.albumType {
-            insertAlbumImage(nil, withStatus: .None, atIndex: index)
         }
     }
 }
@@ -143,22 +87,12 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
         checkPhotosAccessStatus()
     }
 
-    func albumImageClicked(index: Int) -> Bool {
-        if let albumImages = albumImages
-           where index < albumImages.count {
-            if let localIdentifier = albumImages[index].imageWrapper?.localIdentifier {
-                selectedIndex = index
-                requestedMainImage = localIdentifier
-                interactor?.loadImageWithLocalIdentifier(localIdentifier)
-                
-                display()
-                return true
-            }
+    func albumImageClicked(index: Int) {
+        if index < albumSize {
+            interactor?.loadMainImageFromAlbum(albumType, atIndex: index)
         }
-        
-        return false
     }
-    
+
     func albumTitleClicked(destinationViewController: UIViewController) {
         connector?.prepareSegueToAlbumSelector(destinationViewController)
     }
@@ -166,125 +100,52 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
     func selectButtonPressed(image: UIImage, withImageOptions options: ImageOptions) {
         connector?.setImage(image, withImageOptions: options)
     }
-    
+
     func numberOfSectionsForNumberOfColumns(columns: Int) -> Int {
-        if let albumImages = albumImages {
-            return Int(ceil(Double(albumImages.count) / Double(columns)))
-        }
-        
-        return 0
+        let sections = Int(ceil(Double(albumSize) / Double(columns)))
+        return sections
     }
-    
+
     func numberOfItemsInSection(section: Int, withColumns columns: Int) -> Int {
-        if let albumImages = albumImages {
-            let previouslyUsedImages = section * columns
-            let remainingImages = albumImages.count - previouslyUsedImages
-            let columns = max(min(columns, remainingImages), 0)
+        let previouslyUsedImages = section * columns
+        let remainingImages = albumSize - previouslyUsedImages
+        let columns = max(min(columns, remainingImages), 0)
         
-            return columns
-        }
-        return 0
+        return columns
     }
     
+
     func presentCell(cell: ImageCell, atIndex index: Int) -> ImageCell {
-        if let albumImages = albumImages
-           where index < albumImages.count {
-            if let imageWrapper = albumImages[index].imageWrapper {
-                let image = imageWrapper.image.square()
-            
-                if index == selectedIndex {
-                    cell.backgroundColor = SnapImagePicker.Theme.color
-                    cell.spacing = 2
-                } else {
-                    cell.spacing = 0
-                }
-            
-                cell.imageView?.contentMode = .ScaleAspectFill
-                cell.imageView?.image = image
-            }
+        if let image = images[index] {
+            cell.imageView?.contentMode = .ScaleAspectFill
+            cell.imageView?.image = image.image.square()
         }
-        
         return cell
     }
     
-    func scrolledToCells(cells: Range<Int>, increasing: Bool, fromOldRange oldCells: Range<Int>?) {
-        fetchCurrentlyVisibleImages(cells)
-        let numberOfUpcomingImagesToPrefetch = 20
-        let numberOfPreviousImagesToPrefetch = 10
-        let maxCacheSize = max(numberOfUpcomingImagesToPrefetch, numberOfPreviousImagesToPrefetch)
-        prefetchImages(cells.endIndex + 1...cells.endIndex + numberOfUpcomingImagesToPrefetch)
-        prefetchImages(cells.startIndex - numberOfPreviousImagesToPrefetch..<cells.startIndex)
-        if increasing {
-            clearPreviousImagesFrom(cells.startIndex - 2 * maxCacheSize, to: cells.startIndex - maxCacheSize)
-        } else {
-            clearPreviousImagesFrom(cells.endIndex + 1 + maxCacheSize, to: cells.endIndex + 2 * maxCacheSize)
+    func scrolledToCells(range: Range<Int>, increasing: Bool) {
+        var toBeRemoved = 0...0
+        var toBeFetched = range
+
+        if let oldRange = currentRange where span(range) == span(oldRange) {
+            if increasing {
+                toBeRemoved = findPrecedingElementsOfRange(range, other: oldRange)
+                toBeFetched = findTrailingElementsOfRange(oldRange, other: range)
+            } else {
+                toBeRemoved = findTrailingElementsOfRange(range, other: oldRange)
+                toBeFetched = findPrecedingElementsOfRange(oldRange, other: range)
+            }
         }
+
+        for i in toBeRemoved {
+            images.removeValueForKey(i)
+        }
+        
+        interactor?.loadAlbumImagesFromAlbum(albumType, inRange: toBeFetched)
+        currentRange = range
     }
-    
+
     func dismiss() {
         connector?.dismiss()
-    }
-}
-
-extension SnapImagePickerPresenter {
-    private func fetchCurrentlyVisibleImages(range: Range<Int>) {
-        if let albumImages = albumImages {
-            let start = max(range.startIndex, 0)
-            let end = min(range.endIndex + 1, albumImages.count)
-            if end > start {
-                for i in start..<end {
-                    if albumImages[i].status == .Deleted {
-                        self.insertAlbumImage(nil, withStatus: .Requested, atIndex: i)
-                    } else if !albumImages[i].status.isInitializedOrCompleted() {
-                        self.insertAlbumImage(nil, withStatus: .Requested, atIndex: i)
-                        interactor?.loadAlbumImageWithType(albumType, withTargetSize: cellSize, atIndex: i)
-                    }
-                }
-            }
-        }
-    }
-    
-    private func prefetchImages(range: Range<Int>) {
-        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
-            [weak self] in
-            if let albumImages = self?.albumImages {
-                let start = max(range.startIndex, 0)
-                let end = min(range.endIndex + 1, albumImages.count)
-                if end > start {
-                    for i in start..<end {
-                        if albumImages[i].status == .Deleted {
-                            self?.insertAlbumImage(nil, withStatus: .Requested, atIndex: i)
-                        } else if !albumImages[i].status.isInitializedOrCompleted() {
-                            if let strongSelf = self {
-                                strongSelf.insertAlbumImage(nil, withStatus: .Requested, atIndex: i)
-                                strongSelf.interactor?.loadAlbumImageWithType(strongSelf.albumType, withTargetSize: strongSelf.cellSize, atIndex: i)
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-    private func clearPreviousImagesFrom(startIndex: Int, to endIndex: Int) {
-        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
-            [weak self] in
-            if let albumImages = self?.albumImages {
-                let start = max(startIndex, 0)
-                let end = min(endIndex + 1, albumImages.count)
-                if end > start {
-                    for i in start..<end {
-                        if albumImages[i].status == .Requested {
-                            if let strongSelf = self {
-                                strongSelf.insertAlbumImage(nil, withStatus: .Deleted, atIndex: i)
-                                strongSelf.interactor?.deleteRequestForId(i, forAlbumType: strongSelf.albumType)
-                            }
-                        } else if albumImages[i].status == .Completed {
-                            self?.insertAlbumImage(nil, withStatus: .None, atIndex: i)
-                        }
-                    }
-                }
-            }
-        }
     }
 }

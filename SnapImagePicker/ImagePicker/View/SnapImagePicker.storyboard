@@ -86,14 +86,12 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fma-Hu-M78" customClass="ImageGridView" customModule="SnapImagePicker" customModuleProvider="target">
+                            <view userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jfu-sj-ks5">
+                                <rect key="frame" x="294" y="272" width="12" height="56"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fma-Hu-M78" customClass="ImageGridView" customModule="SnapImagePicker" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="600" height="600"/>
-                                <subviews>
-                                    <view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jfu-sj-ks5">
-                                        <rect key="frame" x="83" y="-41" width="12" height="56"/>
-                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Fma-Hu-M78" secondAttribute="height" multiplier="1:1" id="eG2-V4-L3e"/>
@@ -118,11 +116,15 @@
                             <constraint firstItem="TOw-dc-Dkh" firstAttribute="centerX" secondItem="nWZ-x0-ung" secondAttribute="centerX" id="62F-uV-yXp"/>
                             <constraint firstItem="1Kd-hF-p6C" firstAttribute="centerX" secondItem="nWZ-x0-ung" secondAttribute="centerX" id="8pQ-LN-3fU"/>
                             <constraint firstItem="TOw-dc-Dkh" firstAttribute="width" secondItem="nWZ-x0-ung" secondAttribute="width" id="B38-jY-uzx"/>
+                            <constraint firstItem="Jfu-sj-ks5" firstAttribute="centerX" secondItem="TOw-dc-Dkh" secondAttribute="centerX" id="GwH-76-NDO"/>
                             <constraint firstItem="1Kd-hF-p6C" firstAttribute="width" secondItem="nWZ-x0-ung" secondAttribute="width" id="LUL-ga-KYI"/>
                             <constraint firstItem="TOw-dc-Dkh" firstAttribute="leading" secondItem="692-lI-ACh" secondAttribute="leading" constant="-10" id="OXR-hn-XPc"/>
                             <constraint firstItem="Fma-Hu-M78" firstAttribute="top" secondItem="Fnf-u5-0oM" secondAttribute="bottom" id="dhR-vP-eJr"/>
+                            <constraint firstItem="Jfu-sj-ks5" firstAttribute="centerY" secondItem="TOw-dc-Dkh" secondAttribute="centerY" id="evN-Qd-0tT"/>
                             <constraint firstItem="Fma-Hu-M78" firstAttribute="width" secondItem="TOw-dc-Dkh" secondAttribute="width" id="jZF-W2-CRa"/>
                             <constraint firstItem="1Kd-hF-p6C" firstAttribute="top" secondItem="TOw-dc-Dkh" secondAttribute="bottom" id="khT-Fr-xcU"/>
+                            <constraint firstItem="Jfu-sj-ks5" firstAttribute="height" secondItem="TOw-dc-Dkh" secondAttribute="height" id="lJm-xn-DcW"/>
+                            <constraint firstItem="Jfu-sj-ks5" firstAttribute="width" secondItem="TOw-dc-Dkh" secondAttribute="width" id="oB2-M0-dwQ"/>
                             <constraint firstItem="TOw-dc-Dkh" firstAttribute="top" secondItem="Fnf-u5-0oM" secondAttribute="bottom" id="tR1-Xe-bPS"/>
                             <constraint firstItem="TOw-dc-Dkh" firstAttribute="bottom" secondItem="692-lI-ACh" secondAttribute="bottom" constant="10" id="zUt-iR-AaK"/>
                         </constraints>

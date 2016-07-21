@@ -1,9 +1,8 @@
 import Photos
 
 protocol SnapImagePickerEntityGatewayProtocol: class {
-    func loadInitialAlbum(type: AlbumType)
-    func loadAlbumImageWithType(type: AlbumType, withTargetSize targetSize: CGSize, atIndex: Int) -> Bool
-    func loadImageWithLocalIdentifier(localIdentifier: String) -> Bool
-    func deleteRequestAtIndex(index: Int, forAlbumType type: AlbumType)
-    func clearPendingRequests()
+    func fetchAlbum(type: AlbumType)
+    func fetchAlbumImageFromAlbum(type: AlbumType, atIndex: Int)
+    func fetchAlbumImagesFromAlbum(type: AlbumType, inRange: Range<Int>)
+    func fetchMainImageFromAlbum(type: AlbumType, atIndex: Int)
 }

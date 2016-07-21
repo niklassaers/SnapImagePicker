@@ -71,8 +71,8 @@ class SnapImagePickerViewController: UIViewController {
     
     @IBAction func selectButtonPressed(sender: UIBarButtonItem) {
         if let cropRect = selectedImageScrollView?.getImageBoundsForImageView(selectedImageView),
-            let image = selectedImageView?.image {
-            let options = ImageOptions(cropRect: cropRect, rotation: selectedImageRotation)
+           let image = selectedImageView?.image {
+           let options = ImageOptions(cropRect: cropRect, rotation: selectedImageRotation)
             eventHandler?.selectButtonPressed(image, withImageOptions: options)
         }
     }
@@ -130,7 +130,7 @@ class SnapImagePickerViewController: UIViewController {
     private var visibleCells: Range<Int>? {
         didSet {
             if let visibleCells = visibleCells where oldValue != visibleCells {
-                eventHandler?.scrolledToCells(visibleCells, increasing: oldValue?.startIndex < visibleCells.startIndex, fromOldRange: oldValue)
+                eventHandler?.scrolledToCells(visibleCells, increasing: oldValue?.startIndex < visibleCells.startIndex)
             }
         }
     }
@@ -145,15 +145,6 @@ class SnapImagePickerViewController: UIViewController {
         eventHandler?.viewWillAppearWithCellSize(currentDisplay.CellWidthInViewWithWidth(view.bounds.width))
         calculateViewSizes()
         setupGestureRecognizers()
-    }
-        
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        setVisibleCellsInAlbumCollectionView()
-        if let visibleCells = visibleCells {
-            eventHandler?.scrolledToCells(visibleCells, increasing: false, fromOldRange: nil)
-        }
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
@@ -184,6 +175,7 @@ class SnapImagePickerViewController: UIViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         super.prepareForSegue(segue, sender: sender)
+        
         if let identifier = segue.identifier {
             switch identifier {
             case SnapImagePicker.Names.ShowAlbumSelector.rawValue:
@@ -211,39 +203,18 @@ class SnapImagePickerViewController: UIViewController {
 }
 
 extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
-    func display(viewModel: SnapImagePickerViewModel) {
-        if viewModel.albumTitle == AlbumType.AllPhotos.getAlbumName() {
-            albumTitle = L10n.AllPhotosAlbumName.string
-        } else if viewModel.albumTitle == AlbumType.Favorites.getAlbumName() {
-            albumTitle = L10n.FavoritesAlbumName.string
-        } else {
-            albumTitle = viewModel.albumTitle
-        }
-        
-        if let mainImage = viewModel.mainImage?.image {
-            if mainImage != selectedImageView?.image {
-                selectedImageView?.image = mainImage
-                selectedImageScrollView?.centerFullImageInImageView(selectedImageView)
-                state = .Image
-            }
-        }
-        
-        if (currentlySelectedIndex != viewModel.selectedIndex) {
-            currentlySelectedIndex = viewModel.selectedIndex
-            state = .Image
-        }
-        
+    func displayMainImage(mainImage: SnapImagePickerImage) {
+        selectedImageView?.image = mainImage.image
+        selectedImageScrollView?.centerFullImageInImageView(selectedImageView)
+        state = .Image
+    }
+    
+    func reloadAlbum() {
         albumCollectionView?.reloadData()
-        
-        if state == .Image {
-            if viewModel.isLoading {
-                blackOverlayView?.alpha = 0.3
-                mainImageLoadIndicator?.startAnimating()
-            } else {
-                blackOverlayView?.alpha = 0
-                mainImageLoadIndicator?.stopAnimating()
-            }
-        }
+    }
+    
+    func reloadCellAtIndex(index: Int) {
+        albumCollectionView?.reloadItemsAtIndexPaths([arrayIndexToIndexPath(index)])
     }
 }
 
@@ -267,6 +238,10 @@ extension SnapImagePickerViewController: UICollectionViewDataSource {
     
     private func indexPathToArrayIndex(indexPath: NSIndexPath) -> Int {
         return indexPath.section * currentDisplay.NumberOfColumns + indexPath.row
+    }
+    
+    private func arrayIndexToIndexPath(index: Int) -> NSIndexPath {
+        return NSIndexPath(forItem: Int(index % currentDisplay.NumberOfColumns), inSection: Int(index / currentDisplay.NumberOfColumns))
     }
     
     private func scrollToIndex(index: Int) {
@@ -463,7 +438,9 @@ extension SnapImagePickerViewController {
                     mainScrollView.setContentOffset(CGPoint(x: 0, y: offset), animated: false)
                     recognizer.setTranslation(CGPointZero, inView: mainScrollView)
                     if let height = selectedImageView?.frame.height {
-                        blackOverlayView?.alpha = (offset / height) * currentDisplay.MaxImageFadeRatio
+                        let alpha = (offset / height) * currentDisplay.MaxImageFadeRatio
+                        blackOverlayView?.alpha = alpha
+                        rotateButton?.alpha = 1 - alpha
                     }
                 }
             }

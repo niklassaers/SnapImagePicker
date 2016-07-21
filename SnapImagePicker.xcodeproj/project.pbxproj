@@ -65,6 +65,7 @@
 		D88300821D06C72600399612 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D88300801D06C72600399612 /* Main.storyboard */; };
 		D88300841D06C72600399612 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D88300831D06C72600399612 /* Assets.xcassets */; };
 		D88300871D06C72600399612 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D88300851D06C72600399612 /* LaunchScreen.storyboard */; };
+		D88FD29B1D410CA700C7290F /* Range+rangeDifference.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88FD29A1D410CA700C7290F /* Range+rangeDifference.swift */; };
 		D893FA741D2D329600E71429 /* NSLayoutConstraint+changeMultiplier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D893FA731D2D329600E71429 /* NSLayoutConstraint+changeMultiplier.swift */; };
 		D893FA761D2D40E000E71429 /* UIScrollView+centerFullImageInImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D893FA751D2D40E000E71429 /* UIScrollView+centerFullImageInImageView.swift */; };
 		D893FA781D2D446400E71429 /* ImageOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D893FA771D2D446400E71429 /* ImageOptions.swift */; };
@@ -211,6 +212,7 @@
 		D88300831D06C72600399612 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D88300861D06C72600399612 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D88300881D06C72600399612 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D88FD29A1D410CA700C7290F /* Range+rangeDifference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Range+rangeDifference.swift"; sourceTree = "<group>"; };
 		D893FA731D2D329600E71429 /* NSLayoutConstraint+changeMultiplier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSLayoutConstraint+changeMultiplier.swift"; sourceTree = "<group>"; };
 		D893FA751D2D40E000E71429 /* UIScrollView+centerFullImageInImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+centerFullImageInImageView.swift"; sourceTree = "<group>"; };
 		D893FA771D2D446400E71429 /* ImageOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageOptions.swift; sourceTree = "<group>"; };
@@ -522,6 +524,7 @@
 				D8BF9CA41D266BA100DC1F02 /* UIScrollView+correction.swift */,
 				D87999F51D23CCF400683406 /* UIScrollView+fakeBounce.swift */,
 				D824685C1D22A55F009DB2A4 /* UIScrollView+getBounds.swift */,
+				D88FD29A1D410CA700C7290F /* Range+rangeDifference.swift */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -1082,6 +1085,7 @@
 				D8CB05C81D3F6F4300002745 /* Strings.swift in Sources */,
 				D847B4451D1D373800D58E2C /* AlbumSelectorInteractorProtocol.swift in Sources */,
 				D847B44F1D1D3AE100D58E2C /* AlbumSelectorEntityGatewayProtocol.swift in Sources */,
+				D88FD29B1D410CA700C7290F /* Range+rangeDifference.swift in Sources */,
 				D8BF9CAB1D26B3DA00DC1F02 /* DownwardsArrowView.swift in Sources */,
 				D893FA7A1D2D528600E71429 /* DisplayState.swift in Sources */,
 				D824685D1D22A55F009DB2A4 /* UIScrollView+getBounds.swift in Sources */,

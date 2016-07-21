@@ -1,3 +1,5 @@
 protocol SnapImagePickerViewControllerProtocol: class {
-    func display(viewModel: SnapImagePickerViewModel)
+    func displayMainImage(mainImage: SnapImagePickerImage)
+    func reloadCellAtIndex(index: Int)
+    func reloadAlbum()
 }

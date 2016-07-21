@@ -11,52 +11,39 @@ class SnapImagePickerInteractor {
 }
 
 extension SnapImagePickerInteractor: SnapImagePickerInteractorProtocol {
-    func loadInitialAlbum(type: AlbumType) {
+    func loadAlbum(type: AlbumType) {
         dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
-            [weak self] in self?.entityGateway?.loadInitialAlbum(type)
+            [weak self] in self?.entityGateway?.fetchAlbum(type)
         }
     }
     
-    func loadAlbumImageWithType(type: AlbumType, withTargetSize targetSize: CGSize, atIndex index: Int) {
+    func loadedAlbum(image: SnapImagePickerImage, albumSize: Int) {
+        presenter?.presentAlbum(image, albumSize: albumSize)
+    }
+    
+    func loadAlbumImageFromAlbum(type: AlbumType, atIndex index: Int) {
         dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
-            [weak self] in self?.entityGateway?.loadAlbumImageWithType(type, withTargetSize: targetSize, atIndex: index)
+            [weak self] in self?.entityGateway?.fetchAlbumImageFromAlbum(type, atIndex: index)
         }
     }
     
-    func loadImageWithLocalIdentifier(localIdentifier: String) {
+    func loadAlbumImagesFromAlbum(type: AlbumType, inRange range: Range<Int>) {
         dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
-            [weak self] in self?.entityGateway?.loadImageWithLocalIdentifier(localIdentifier)
+            [weak self] in self?.entityGateway?.fetchAlbumImagesFromAlbum(type, inRange: range)
         }
     }
     
-    func deleteRequestForId(index: Int, forAlbumType type: AlbumType) {
+    func loadMainImageFromAlbum(type: AlbumType, atIndex index: Int) {
         dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
-            [weak self] in
-            self?.entityGateway?.deleteRequestAtIndex(index, forAlbumType: type)
-            self?.presenter?.deletedRequestAtIndex(index, forAlbumType: type)
-        }
-    }
-    func initializedAlbum(image: SnapImagePickerImage, albumSize: Int) {
-        dispatch_async(dispatch_get_main_queue()) {
-            [weak self] in self?.presenter?.presentInitialAlbum(image, albumSize: albumSize)
+            [weak self] in self?.entityGateway?.fetchMainImageFromAlbum(type, atIndex: index)
         }
     }
     
-    func loadedAlbumImage(image: SnapImagePickerImage, atIndex index: Int) {
-        dispatch_async(dispatch_get_main_queue()) {
-            [weak self] in self?.presenter?.presentAlbumImage(image, atIndex: index)
-        }
+    func loadedAlbumImage(image: SnapImagePickerImage, fromAlbum album: AlbumType, atIndex index: Int) {
+        presenter?.presentAlbumImage(image, atIndex: index)
     }
     
-    func loadedMainImage(image: SnapImagePickerImage) {
-        dispatch_async(dispatch_get_main_queue()) {
-            [weak self] in self?.presenter?.presentMainImage(image)
-        }
-    }
-    
-    func clearPendingRequests() {
-        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
-            [weak self] in self?.entityGateway?.clearPendingRequests()
-        }
+    func loadedMainImage(image: SnapImagePickerImage, fromAlbum album: AlbumType) {
+        presenter?.presentMainImage(image)
     }
 }
