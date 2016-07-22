@@ -10,7 +10,7 @@ func findPrecedingElementsOfRange(first: Range<Int>, other: Range<Int>) -> Range
     
 func findTrailingElementsOfRange(first: Range<Int>, other: Range<Int>) -> Range<Int> {
     if other.endIndex > first.endIndex {
-        return first.endIndex...other.endIndex
+        return first.endIndex - 1...other.endIndex
     } else {
         return other.endIndex...other.endIndex
     }

@@ -26,6 +26,7 @@ extension SnapImagePickerEntityGateway: SnapImagePickerEntityGatewayProtocol {
     }
     
     func fetchAlbumImageFromAlbum(type: AlbumType, atIndex index: Int) {
+        print("Requesting image with index \(index)")
         if let fetchResult = imageLoader?.fetchAssetsFromCollectionWithType(type)
         where fetchResult.count > index {
             if let asset = fetchResult.objectAtIndex(index) as? PHAsset {

@@ -86,8 +86,8 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <view userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jfu-sj-ks5">
-                                <rect key="frame" x="294" y="272" width="12" height="56"/>
+                            <view userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jfu-sj-ks5">
+                                <rect key="frame" x="0.0" y="20" width="600" height="600"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fma-Hu-M78" customClass="ImageGridView" customModule="SnapImagePicker" customModuleProvider="target">

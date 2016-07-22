@@ -108,7 +108,6 @@ class SnapImagePickerViewController: UIViewController {
         didSet {
             setVisibleCellsInAlbumCollectionView()
             setMainOffsetForState(state)
-            rotateButton?.alpha = state.rotateButtonAlpha
         }
     }
     
@@ -207,6 +206,7 @@ extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
         selectedImageView?.image = mainImage.image
         selectedImageScrollView?.centerFullImageInImageView(selectedImageView)
         state = .Image
+        mainImageLoadIndicator?.stopAnimating()
     }
     
     func reloadAlbum() {
@@ -237,7 +237,7 @@ extension SnapImagePickerViewController: UICollectionViewDataSource {
     }
     
     private func indexPathToArrayIndex(indexPath: NSIndexPath) -> Int {
-        return indexPath.section * currentDisplay.NumberOfColumns + indexPath.row
+        return (indexPath.section * currentDisplay.NumberOfColumns) + indexPath.row
     }
     
     private func arrayIndexToIndexPath(index: Int) -> NSIndexPath {
@@ -273,7 +273,11 @@ extension SnapImagePickerViewController: UICollectionViewDelegateFlowLayout {
 
 extension SnapImagePickerViewController: UICollectionViewDelegate {
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        eventHandler?.albumImageClicked((indexPath.section * currentDisplay.NumberOfColumns) + indexPath.row)
+        let index = indexPathToArrayIndex(indexPath)
+        eventHandler?.albumImageClicked(index)
+        state = .Image
+        scrollToIndex(index)
+        mainImageLoadIndicator?.startAnimating()
     }
 }
 
@@ -466,10 +470,12 @@ extension SnapImagePickerViewController {
             UIView.animateWithDuration(0.3) {
                 self.mainScrollView?.contentOffset = CGPoint(x: 0, y: offset)
                 self.blackOverlayView?.alpha = (offset / height) * self.currentDisplay.MaxImageFadeRatio
+                self.rotateButton?.alpha = state.rotateButtonAlpha
             }
         } else {
             self.mainScrollView?.contentOffset = CGPoint(x: 0, y: offset)
             self.blackOverlayView?.alpha = (offset / height) * self.currentDisplay.MaxImageFadeRatio
+            self.rotateButton?.alpha = state.rotateButtonAlpha
         }
     }
 }

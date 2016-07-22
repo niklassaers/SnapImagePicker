@@ -19,6 +19,7 @@ class SnapImagePickerPresenter {
     private var images = [Int: SnapImagePickerImage]()
     private var currentRange: Range<Int>?
     private var viewIsReady = false
+    private var selectedIndex = 0
   
     init(view: SnapImagePickerViewControllerProtocol) {
         self.view = view
@@ -89,7 +90,9 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
 
     func albumImageClicked(index: Int) {
         if index < albumSize {
+            selectedIndex = index
             interactor?.loadMainImageFromAlbum(albumType, atIndex: index)
+            view?.reloadCellAtIndex(index)
         }
     }
 
@@ -117,6 +120,10 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
 
     func presentCell(cell: ImageCell, atIndex index: Int) -> ImageCell {
         if let image = images[index] {
+            if index == selectedIndex {
+                cell.backgroundColor = SnapImagePicker.Theme.color
+                cell.spacing = 2
+            }
             cell.imageView?.contentMode = .ScaleAspectFill
             cell.imageView?.image = image.image.square()
         }
