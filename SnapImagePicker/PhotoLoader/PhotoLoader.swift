@@ -5,30 +5,27 @@ class PhotoLoader {
     private static let SmartCollections: [PHAssetCollectionSubtype] = [.SmartAlbumRecentlyAdded, .SmartAlbumPanoramas]
     // [.SmartAlbumGeneric, .SmartAlbumVideos, .SmartAlbumFavorites, .SmartAlbumTimelapses, .SmartAlbumAllHidden, .SmartAlbumBursts, .SmartAlbumSlomoVideos, .SmartAlbumUserLibrary, .SmartAlbumSelfPortraits, .SmartAlbumScreenshots
     private var albums = [String: PHFetchResult]()
-    private var requests = [String: PHImageRequestID]()
 }
 
 extension PhotoLoader: ImageLoader {
     func loadImageFromAsset(asset: PHAsset, isPreview: Bool = false, withPreviewSize previewSize: CGSize = CGSizeZero, handler: (SnapImagePickerImage) -> Void) -> PHImageRequestID {
         let options = PHImageRequestOptions()
-        options.networkAccessAllowed = true
+        options.networkAccessAllowed = false
         options.synchronous = false
         options.deliveryMode = isPreview ? .Opportunistic : .HighQualityFormat
         let targetSize = isPreview ? previewSize : PHImageManagerMaximumSize
         let requestId = PHImageManager.defaultManager().requestImageForAsset(asset, targetSize: targetSize, contentMode: .Default, options: options) {
-            [weak self] (image: UIImage?, data: [NSObject : AnyObject]?) in
+            (image: UIImage?, data: [NSObject : AnyObject]?) in
             if let image = image {
                 handler(SnapImagePickerImage(image: image, localIdentifier: asset.localIdentifier, createdDate: asset.creationDate))
             }
-            self?.requests.removeValueForKey(asset.localIdentifier)
         }
-        requests[asset.localIdentifier] = requestId
         return requestId
     }
     
     func loadImagesFromAssets(assets: [Int: PHAsset], withTargetSize targetSize: CGSize, handler: (SnapImagePickerImage, Int) -> Void) {
         let options = PHImageRequestOptions()
-        options.networkAccessAllowed = true
+        options.networkAccessAllowed = false
         options.synchronous = false
         options.deliveryMode = .Opportunistic
         
@@ -66,10 +63,7 @@ extension PhotoLoader: ImageLoader {
     }
     
     func clearPendingRequests() {
-        for (_, requestId) in requests {
-            PHImageManager.defaultManager().cancelImageRequest(requestId)
-        }
-        requests = [String: PHImageRequestID]()
+
     }
     
     private func getFetchOptionsForCollection(type: AlbumType) -> PHFetchOptions {

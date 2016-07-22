@@ -67,9 +67,6 @@ extension SnapImagePickerPresenter: SnapImagePickerPresenterProtocol {
         view?.albumTitle = albumType.getAlbumName()
         view?.reloadAlbum()
         viewIsReady = true
-        if let currentRange = currentRange {
-            interactor?.loadAlbumImagesFromAlbum(albumType, inRange: currentRange)
-        }
     }
     
     func presentMainImage(image: SnapImagePickerImage) {
@@ -78,6 +75,9 @@ extension SnapImagePickerPresenter: SnapImagePickerPresenterProtocol {
     
     func presentAlbumImage(image: SnapImagePickerImage, atIndex index: Int) {
         if let currentRange = currentRange where currentRange.contains(index) {
+            if images[index] != nil {
+                print("GOT AN IMAGE WHERE I ALREADY HAVE ONE AT \(index)")
+            }
             images[index] = image
             if viewIsReady {
                 view?.reloadCellAtIndex(index)
@@ -93,12 +93,17 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
     }
 
     func albumImageClicked(index: Int) {
+        print("CLicked on index \(index)")
         if index < albumSize {
+            if let image = images[index] {
+                view?.displayMainImage(image)
+            }
             let oldSelectedIndex = selectedIndex
             selectedIndex = index
             interactor?.loadMainImageFromAlbum(albumType, atIndex: index)
             view?.reloadCellAtIndex(oldSelectedIndex)
             view?.reloadCellAtIndex(index)
+            print("Image at index \(index): \(images[index])")
         }
     }
 
@@ -127,13 +132,15 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
     func presentCell(cell: ImageCell, atIndex index: Int) -> ImageCell {
         if let image = images[index] {
             if index == selectedIndex {
-                print("Reloading selected index")
                 cell.backgroundColor = SnapImagePicker.Theme.color
                 cell.spacing = 2
+            } else {
+                cell.spacing = 0
             }
-            cell.imageView?.contentMode = .ScaleAspectFill
+            cell.imageView?.contentMode = .ScaleAspectFit
             cell.imageView?.image = image.image.square()
         }
+        
         return cell
     }
     
@@ -150,7 +157,7 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
                 toBeFetched = findPrecedingElementsOfRange(oldRange, other: range)
             }
         }
-
+        
         for i in toBeRemoved {
             images.removeValueForKey(i)
         }

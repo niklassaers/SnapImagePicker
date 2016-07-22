@@ -2,7 +2,7 @@
 
 func findPrecedingElementsOfRange(first: Range<Int>, other: Range<Int>) -> Range<Int> {
     if other.startIndex < first.startIndex {
-        return other.startIndex..<first.endIndex
+        return other.startIndex..<first.startIndex
     } else {
         return other.startIndex...other.startIndex
     }
