@@ -144,16 +144,33 @@ class SnapImagePickerViewController: UIViewController {
     private var enqueuedBounce: (() -> Void)?
     
     override func viewWillAppear(animated: Bool) {
+        print("Main scroll view frame: \(mainScrollView?.frame)")
+        print("Will appear frame \(selectedImageScrollView?.frame)")
+        print("Will appear offset \(selectedImageScrollView?.contentOffset)")
         super.viewWillAppear(animated)
 
         currentDisplay = view.frame.size.displayType()
         eventHandler?.viewWillAppearWithCellSize(currentDisplay.CellWidthInViewWithWidth(view.bounds.width))
-        calculateViewSizes()
+        //calculateViewSizes()
         setupGestureRecognizers()
+        print("Will appear offset \(selectedImageScrollView?.contentOffset)")
+        print("Will appear frame \(selectedImageScrollView?.frame)")
     }
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+    }
     override func viewDidAppear(animated: Bool) {
+        print("Did appear frame \(selectedImageScrollView?.frame)")
+        print("Will appear offset \(selectedImageScrollView?.contentOffset)")
         super.viewDidAppear(animated)
+        print("Will appear offset \(selectedImageScrollView?.contentOffset)")
+        print("Did appear frame \(selectedImageScrollView?.frame)")
+        print("Main scroll view frame: \(mainScrollView?.frame)")
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {

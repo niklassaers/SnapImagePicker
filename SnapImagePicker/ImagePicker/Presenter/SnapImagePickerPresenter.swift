@@ -75,9 +75,6 @@ extension SnapImagePickerPresenter: SnapImagePickerPresenterProtocol {
     
     func presentAlbumImage(image: SnapImagePickerImage, atIndex index: Int) {
         if let currentRange = currentRange where currentRange.contains(index) {
-            if images[index] != nil {
-                print("GOT AN IMAGE WHERE I ALREADY HAVE ONE AT \(index)")
-            }
             images[index] = image
             if viewIsReady {
                 view?.reloadCellAtIndex(index)
@@ -93,7 +90,6 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
     }
 
     func albumImageClicked(index: Int) {
-        print("CLicked on index \(index)")
         if index < albumSize {
             if let image = images[index] {
                 view?.displayMainImage(image)
@@ -103,7 +99,6 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
             interactor?.loadMainImageFromAlbum(albumType, atIndex: index)
             view?.reloadCellAtIndex(oldSelectedIndex)
             view?.reloadCellAtIndex(index)
-            print("Image at index \(index): \(images[index])")
         }
     }
 
