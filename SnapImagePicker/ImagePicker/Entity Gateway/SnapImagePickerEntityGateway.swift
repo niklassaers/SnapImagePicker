@@ -26,7 +26,6 @@ extension SnapImagePickerEntityGateway: SnapImagePickerEntityGatewayProtocol {
     }
     
     func fetchAlbumImageFromAlbum(type: AlbumType, atIndex index: Int) {
-        print("Requesting image with index \(index)")
         if let fetchResult = imageLoader?.fetchAssetsFromCollectionWithType(type)
         where fetchResult.count > index {
             if let asset = fetchResult.objectAtIndex(index) as? PHAsset {
@@ -50,7 +49,7 @@ extension SnapImagePickerEntityGateway: SnapImagePickerEntityGatewayProtocol {
         if let fetchResult = imageLoader?.fetchAssetsFromCollectionWithType(type)
             where fetchResult.count > index {
             if let asset = fetchResult.objectAtIndex(index) as? PHAsset {
-                imageLoader?.loadImageFromAsset(asset, isPreview: false, withPreviewSize: CGSize(width: 2000, height: 2000)) {
+                imageLoader?.loadImageFromAsset(asset, isPreview: false, withPreviewSize: CGSize(width: SnapImagePicker.Theme.maxImageSize, height: SnapImagePicker.Theme.maxImageSize)) {
                     [weak self] (image: SnapImagePickerImage) in
                     dispatch_async(dispatch_get_main_queue()) {
                         self?.interactor?.loadedMainImage(image, fromAlbum: type)

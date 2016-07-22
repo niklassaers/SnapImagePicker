@@ -84,7 +84,7 @@ class SnapImagePickerViewController: UIViewController {
 
     var eventHandler: SnapImagePickerEventHandlerProtocol?
     
-    private var albumTitle: String? {
+    var albumTitle: String? {
         didSet {
             if let titleView = titleView,
                let titleArrowView = titleArrowView {
@@ -92,7 +92,13 @@ class SnapImagePickerViewController: UIViewController {
                 let rightMargin = view.bounds.width - titleView.frame.maxX
                 albumTitleCenterConstraint?.constant = (rightMargin - leftMargin) / 2 - titleArrowView.bounds.width / 2
             }
-            titleButton?.setTitle(albumTitle, forState: .Normal)
+            if albumTitle == AlbumType.AllPhotos.getAlbumName() {
+                titleButton?.setTitle(L10n.AllPhotosAlbumName.string, forState: .Normal)
+            } else if albumTitle == AlbumType.Favorites.getAlbumName() {
+                titleButton?.setTitle(L10n.FavoritesAlbumName.string, forState: .Normal)
+            } else {
+                titleButton?.setTitle(albumTitle, forState: .Normal)
+            }
         }
     }
 
@@ -144,6 +150,10 @@ class SnapImagePickerViewController: UIViewController {
         eventHandler?.viewWillAppearWithCellSize(currentDisplay.CellWidthInViewWithWidth(view.bounds.width))
         calculateViewSizes()
         setupGestureRecognizers()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {

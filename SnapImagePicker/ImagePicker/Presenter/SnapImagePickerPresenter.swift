@@ -64,8 +64,12 @@ extension SnapImagePickerPresenter: SnapImagePickerPresenterProtocol {
     func presentAlbum(image: SnapImagePickerImage, albumSize: Int) {
         self.albumSize = albumSize
         view?.displayMainImage(image)
+        view?.albumTitle = albumType.getAlbumName()
         view?.reloadAlbum()
         viewIsReady = true
+        if let currentRange = currentRange {
+            interactor?.loadAlbumImagesFromAlbum(albumType, inRange: currentRange)
+        }
     }
     
     func presentMainImage(image: SnapImagePickerImage) {
@@ -90,8 +94,10 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
 
     func albumImageClicked(index: Int) {
         if index < albumSize {
+            let oldSelectedIndex = selectedIndex
             selectedIndex = index
             interactor?.loadMainImageFromAlbum(albumType, atIndex: index)
+            view?.reloadCellAtIndex(oldSelectedIndex)
             view?.reloadCellAtIndex(index)
         }
     }
