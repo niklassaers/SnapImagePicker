@@ -16,6 +16,10 @@ class ImageLoaderMock: ImageLoader {
         return PHImageRequestID()
     }
     
+    func loadImagesFromAssets(assets: [Int: PHAsset], withTargetSize targetSize: CGSize, handler: (SnapImagePickerImage, Int) -> Void) {
+        
+    }
+    
     func fetchAssetsFromCollectionWithType(type: AlbumType) -> PHFetchResult? {
         return PHFetchResultMock(numberOfImages: numberOfImagesInAlbum)
     }

@@ -26,6 +26,23 @@ extension PhotoLoader: ImageLoader {
         return requestId
     }
     
+    func loadImagesFromAssets(assets: [Int: PHAsset], withTargetSize targetSize: CGSize, handler: (SnapImagePickerImage, Int) -> Void) {
+        let options = PHImageRequestOptions()
+        options.networkAccessAllowed = true
+        options.synchronous = false
+        options.deliveryMode = .Opportunistic
+        
+        let imageManager = PHImageManager.defaultManager()
+        for (index, asset) in assets {
+            imageManager.requestImageForAsset(asset, targetSize: targetSize, contentMode: .Default, options: options) {
+                (image: UIImage?, data: [NSObject : AnyObject]?) in
+                if let image = image {
+                    handler(SnapImagePickerImage(image: image, localIdentifier: asset.localIdentifier, createdDate: asset.creationDate), index)
+                }
+            }
+        }
+    }
+    
     func fetchAssetsFromCollectionWithType(type: AlbumType) -> PHFetchResult? {
         if let album = albums[type.getAlbumName()] {
             return album
