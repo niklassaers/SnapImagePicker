@@ -88,6 +88,7 @@
 		D8BF9CAB1D26B3DA00DC1F02 /* DownwardsArrowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BF9CAA1D26B3DA00DC1F02 /* DownwardsArrowView.swift */; };
 		D8CB05BE1D3F6E5900002745 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D8CB05C01D3F6E5900002745 /* Localizable.strings */; };
 		D8CB05C81D3F6F4300002745 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CB05C71D3F6F4300002745 /* Strings.swift */; };
+		D8EA98AB1D42342A0022685C /* arrow1.png in Resources */ = {isa = PBXBuildFile; fileRef = D8EA98AA1D42342A0022685C /* arrow1.png */; };
 		D8F2F8571D3D27000088F58E /* SnapImagePickerViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F2F8561D3D27000088F58E /* SnapImagePickerViewController+.swift */; };
 /* End PBXBuildFile section */
 
@@ -249,6 +250,7 @@
 		D8CB05C31D3F6E6000002745 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D8CB05C41D3F6E6100002745 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D8CB05C71D3F6F4300002745 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
+		D8EA98AA1D42342A0022685C /* arrow1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow1.png; sourceTree = "<group>"; };
 		D8F2F8561D3D27000088F58E /* SnapImagePickerViewController+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SnapImagePickerViewController+.swift"; sourceTree = "<group>"; };
 		E46A04D19BECC3EDEF73F577 /* Pods-SnapImagePicker_Unit_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapImagePicker_Unit_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SnapImagePicker_Unit_Tests/Pods-SnapImagePicker_Unit_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -617,6 +619,7 @@
 		D8CB05B51D3F6D0300002745 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D8EA98AA1D42342A0022685C /* arrow1.png */,
 				D8CB05C01D3F6E5900002745 /* Localizable.strings */,
 			);
 			path = Resources;
@@ -834,6 +837,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D88255D01D17D34200FB327D /* dummy.jpeg in Resources */,
+				D8EA98AB1D42342A0022685C /* arrow1.png in Resources */,
 				D8CB05BE1D3F6E5900002745 /* Localizable.strings in Resources */,
 				D89D70091D06CFAC007DD132 /* SnapImagePicker.storyboard in Resources */,
 			);

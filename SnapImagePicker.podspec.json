@@ -20,7 +20,8 @@
   },
   "resources": [
     "SnapImagePicker/**/*.{storyboard,xcassets,xib}",
-    "SnapImagePicker/**/*.strings"
+    "SnapImagePicker/**/*.strings",
+    "SnapImagePicker/**/*.png"
   ],
   "source_files": [
     "SnapImagePicker/**/*.{swift}"

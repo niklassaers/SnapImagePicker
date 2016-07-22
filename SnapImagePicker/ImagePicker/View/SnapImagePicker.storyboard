@@ -100,9 +100,13 @@
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="nV4-nK-Iq5">
                                 <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
                             </activityIndicatorView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="692-lI-ACh">
-                                <rect key="frame" x="10" y="580" width="45" height="30"/>
-                                <state key="normal" title="Rotate">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="692-lI-ACh">
+                                <rect key="frame" x="10" y="575" width="35" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="35" id="V2I-Xo-6Z9"/>
+                                    <constraint firstAttribute="width" secondItem="692-lI-ACh" secondAttribute="height" multiplier="1:1" id="sXr-rA-whe"/>
+                                </constraints>
+                                <state key="normal" title="Rotate" image="arrow1.png">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
@@ -300,4 +304,7 @@
             <point key="canvasLocation" x="4161" y="95"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="arrow1.png" width="512" height="512"/>
+    </resources>
 </document>

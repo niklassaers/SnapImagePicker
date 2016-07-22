@@ -127,6 +127,7 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
     func presentCell(cell: ImageCell, atIndex index: Int) -> ImageCell {
         if let image = images[index] {
             if index == selectedIndex {
+                print("Reloading selected index")
                 cell.backgroundColor = SnapImagePicker.Theme.color
                 cell.spacing = 2
             }

@@ -44,7 +44,9 @@ extension SnapImagePicker: SnapImagePickerProtocol {
     public func initializeViewControllerInNavigationController(navigationController: UINavigationController) {
         let bundle = NSBundle(forClass: SnapImagePicker.self)
         let storyboard = UIStoryboard(name: Names.SnapImagePickerStoryboard.rawValue, bundle: bundle)
+        print("Before")
         if let snapImagePickerViewController = storyboard.instantiateInitialViewController() as? SnapImagePickerViewController {
+            print("After")
             let presenter = SnapImagePickerPresenter(view: snapImagePickerViewController)
             snapImagePickerViewController.eventHandler = presenter
             presenter.connector = self
@@ -60,7 +62,9 @@ extension SnapImagePicker: SnapImagePickerProtocol {
             previousTransitionDelegate = navigationController.delegate
             self.navigationController = navigationController
             
+            print("Before pushing")
             navigationController.pushViewController(snapImagePickerViewController, animated: true)
+            print("After pushing")
             navigationController.delegate = transitionDelegate
         }
     }
