@@ -57,6 +57,6 @@ extension AlbumSelectorPresenter: AlbumSelectorEventHandler {
     }
     
     func albumClicked(albumType: AlbumType) {
-        connector?.prepareSegueToImagePicker(albumType)
+        connector?.segueToImagePicker(albumType)
     }
 }

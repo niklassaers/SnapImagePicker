@@ -15,34 +15,31 @@ class AlbumSelectorViewController: UITableViewController {
         static let Font = SnapImagePicker.Theme.font?.fontWithSize(FontSize)
     }
     
-    @IBOutlet weak var titleCenterConstraint: NSLayoutConstraint?
-    
     private var collections: [(title: String, albums: [Album])]? {
         didSet {
             tableView.reloadData()
         }
     }
     
-    @IBOutlet weak var titleButton: UIButton? {
-        didSet {
-            titleButton?.titleLabel?.font = SnapImagePicker.Theme.font
-            titleButton?.setTitle(L10n.GeneralCollectionName.string, forState: .Normal)
-        }
-    }
-    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         eventHandler?.viewWillAppear()
-        titleButton?.titleLabel?.font = SnapImagePicker.Theme.font
-        titleButton?.setTitle(L10n.GeneralCollectionName.string, forState: .Normal)
     }
     
-    override func viewDidAppear(anumated: Bool) {
-        if let titleView = titleButton?.superview{
-            let leftMargin = titleView.frame.minX
-            let rightMargin = view.bounds.width - titleView.frame.maxX
-            titleCenterConstraint?.constant = (rightMargin - leftMargin) / 2
-        }
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        setupTitleButton()
+    }
+    
+    private func setupTitleButton() {
+        let button = UIButton()
+        button.titleLabel?.font = SnapImagePicker.Theme.font
+        button.setTitle(L10n.GeneralCollectionName.string, forState: .Normal)
+        button.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        button.setTitleColor(UIColor.init(red: 0xB8/0xFF, green: 0xB8/0xFF, blue: 0xB8/0xFF, alpha: 1), forState: .Highlighted)
+        button.addTarget(self, action: #selector(titleButtonPressed), forControlEvents: .TouchUpInside)
+        
+        navigationController?.navigationBar.topItem?.titleView = button
     }
     
     @IBAction func titleButtonPressed(sender: UIButton) {
@@ -72,7 +69,6 @@ class AlbumSelectorViewController: UITableViewController {
         if let collections = collections
            where indexPath.section < collections.count && indexPath.row < collections.count {
             eventHandler?.albumClicked(collections[indexPath.section].albums[indexPath.row].type)
-            navigationController?.popViewControllerAnimated(true)
         }
     }
     

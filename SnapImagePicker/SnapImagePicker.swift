@@ -7,8 +7,8 @@ public protocol SnapImagePickerProtocol {
 }
 
 protocol SnapImagePickerConnectorProtocol: class {
-    func prepareSegueToAlbumSelector(viewController: UIViewController)
-    func prepareSegueToImagePicker(albumType: AlbumType)
+    func segueToAlbumSelector()
+    func segueToImagePicker(albumType: AlbumType)
     func setImage(image: UIImage, withImageOptions: ImageOptions)
     func dismiss()
     func requestPhotosAccess()
@@ -24,7 +24,7 @@ public class SnapImagePicker {
     
     enum Names: String {
         case SnapImagePickerStoryboard = "SnapImagePicker"
-        case ShowAlbumSelector = "Show Album Selector"
+        case AlbumSelectorViewController = "Album Selector View Controller"
     }
     
     private var presenter: SnapImagePickerPresenter?
@@ -71,7 +71,16 @@ extension SnapImagePicker: SnapImagePickerProtocol {
 }
 
 extension SnapImagePicker: SnapImagePickerConnectorProtocol {
-    func prepareSegueToAlbumSelector(viewController: UIViewController) {
+    func segueToAlbumSelector() {
+        let bundle = NSBundle(forClass: SnapImagePicker.self)
+        let storyboard = UIStoryboard(name: Names.SnapImagePickerStoryboard.rawValue, bundle: bundle)
+        if let viewController = storyboard.instantiateViewControllerWithIdentifier(Names.AlbumSelectorViewController.rawValue) as? AlbumSelectorViewController {
+            prepareSegueToAlbumSelector(viewController)
+            navigationController?.pushViewController(viewController, animated: true)
+        }
+    }
+    
+    private func prepareSegueToAlbumSelector(viewController: UIViewController) {
         if let albumSelectorViewController = viewController as? AlbumSelectorViewController {
             let presenter = AlbumSelectorPresenter(view: albumSelectorViewController)
             presenter.connector = self
@@ -85,11 +94,12 @@ extension SnapImagePicker: SnapImagePickerConnectorProtocol {
         }
     }
     
-    func prepareSegueToImagePicker(albumType: AlbumType) {
+    func segueToImagePicker(albumType: AlbumType) {
         if let presenterAlbumType = presenter?.albumType
            where presenterAlbumType != albumType {
             presenter?.albumType = albumType
         }
+        navigationController?.popViewControllerAnimated(true)
     }
     
     func setImage(image: UIImage, withImageOptions options: ImageOptions) {

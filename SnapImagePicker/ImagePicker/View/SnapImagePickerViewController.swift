@@ -3,20 +3,6 @@ import UIKit
 class SnapImagePickerViewController: UIViewController {   
     @IBOutlet weak var titleView: UIView?
     @IBOutlet weak var titleArrowView: DownwardsArrowView?
-    
-    @IBOutlet weak var titleButton: UIButton? {
-        didSet {
-            titleButton?.titleLabel?.font = SnapImagePicker.Theme.font
-            titleButton?.setTitle(L10n.AllPhotosAlbumName.string, forState: .Normal)
-        }
-    }
-    
-    @IBOutlet weak var selectButton: UIBarButtonItem? {
-        didSet {
-            selectButton?.title = L10n.SelectButtonLabelText.string
-        }
-    }
-    @IBOutlet weak var cancelButton: UIBarButtonItem?
     @IBOutlet weak var rotateButton: UIButton?
     
     @IBOutlet weak var albumCollectionView: UICollectionView? {
@@ -69,12 +55,16 @@ class SnapImagePickerViewController: UIViewController {
     }
     @IBOutlet weak var albumTitleCenterConstraint: NSLayoutConstraint?
     
-    @IBAction func selectButtonPressed(sender: UIBarButtonItem) {
+    func selectButtonPressed() {
         if let cropRect = selectedImageScrollView?.getImageBoundsForImageView(selectedImageView),
            let image = selectedImageView?.image {
            let options = ImageOptions(cropRect: cropRect, rotation: selectedImageRotation)
             eventHandler?.selectButtonPressed(image, withImageOptions: options)
         }
+    }
+    
+    func albumTitlePressed() {
+        eventHandler?.albumTitlePressed()
     }
     
     @IBAction func cancelButtonPressed(sender: UIBarButtonItem) {
@@ -84,23 +74,7 @@ class SnapImagePickerViewController: UIViewController {
 
     var eventHandler: SnapImagePickerEventHandlerProtocol?
     
-    var albumTitle: String? {
-        didSet {
-            if let titleView = titleView,
-               let titleArrowView = titleArrowView {
-                let leftMargin = titleView.frame.minX
-                let rightMargin = view.bounds.width - titleView.frame.maxX
-                albumTitleCenterConstraint?.constant = (rightMargin - leftMargin) / 2 - titleArrowView.bounds.width / 2
-            }
-            if albumTitle == AlbumType.AllPhotos.getAlbumName() {
-                titleButton?.setTitle(L10n.AllPhotosAlbumName.string, forState: .Normal)
-            } else if albumTitle == AlbumType.Favorites.getAlbumName() {
-                titleButton?.setTitle(L10n.FavoritesAlbumName.string, forState: .Normal)
-            } else {
-                titleButton?.setTitle(albumTitle, forState: .Normal)
-            }
-        }
-    }
+    var albumTitle = L10n.AllPhotosAlbumName.string
 
     private var currentlySelectedIndex = 0 {
         didSet {
@@ -144,33 +118,25 @@ class SnapImagePickerViewController: UIViewController {
     private var enqueuedBounce: (() -> Void)?
     
     override func viewWillAppear(animated: Bool) {
-        print("Main scroll view frame: \(mainScrollView?.frame)")
-        print("Will appear frame \(selectedImageScrollView?.frame)")
-        print("Will appear offset \(selectedImageScrollView?.contentOffset)")
         super.viewWillAppear(animated)
 
         currentDisplay = view.frame.size.displayType()
         eventHandler?.viewWillAppearWithCellSize(currentDisplay.CellWidthInViewWithWidth(view.bounds.width))
-        //calculateViewSizes()
+        calculateViewSizes()
         setupGestureRecognizers()
-        print("Will appear offset \(selectedImageScrollView?.contentOffset)")
-        print("Will appear frame \(selectedImageScrollView?.frame)")
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-    }
-    
+    //TODO: SEEMS SUBOPTIMAL
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        setMainOffsetForState(.Image, animated: false)
+        setupSelectButton()
+        setupTitleButton()
     }
+    
     override func viewDidAppear(animated: Bool) {
-        print("Did appear frame \(selectedImageScrollView?.frame)")
-        print("Will appear offset \(selectedImageScrollView?.contentOffset)")
         super.viewDidAppear(animated)
-        print("Will appear offset \(selectedImageScrollView?.contentOffset)")
-        print("Did appear frame \(selectedImageScrollView?.frame)")
-        print("Main scroll view frame: \(mainScrollView?.frame)")
+        setVisibleCellsInAlbumCollectionView()
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
@@ -199,20 +165,36 @@ class SnapImagePickerViewController: UIViewController {
         }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        super.prepareForSegue(segue, sender: sender)
-        
-        if let identifier = segue.identifier {
-            switch identifier {
-            case SnapImagePicker.Names.ShowAlbumSelector.rawValue:
-                eventHandler?.albumTitleClicked(segue.destinationViewController)
-            default: break
-            }
-        }
+    func dismiss() {
+        eventHandler?.dismiss()
     }
-
-    private func dismiss() {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    
+    private func setupSelectButton() {
+        navigationController?.navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem()
+        navigationController?.navigationBar.topItem?.rightBarButtonItem?.title = L10n.SelectButtonLabelText.string
+        if let font = SnapImagePicker.Theme.font?.fontWithSize(18) {
+            navigationController?.navigationBar.topItem?.rightBarButtonItem?.setTitleTextAttributes([NSFontAttributeName: font],forState: .Normal)
+        }
+        navigationController?.navigationBar.topItem?.rightBarButtonItem?.target = self
+        navigationController?.navigationBar.topItem?.rightBarButtonItem?.action = #selector(selectButtonPressed)
+    }
+    
+    private func setupTitleButton() {
+        var title = albumTitle
+        if albumTitle == AlbumType.AllPhotos.getAlbumName() {
+            title = L10n.AllPhotosAlbumName.string
+        } else if albumTitle == AlbumType.Favorites.getAlbumName() {
+            title = L10n.FavoritesAlbumName.string
+        }
+        let button = UIButton()
+        
+        button.titleLabel?.font = SnapImagePicker.Theme.font
+        button.setTitle(title, forState: .Normal)
+        button.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        button.setTitleColor(UIColor.init(red: 0xB8/0xFF, green: 0xB8/0xFF, blue: 0xB8/0xFF, alpha: 1), forState: .Highlighted)
+        button.addTarget(self, action: #selector(albumTitlePressed), forControlEvents: .TouchUpInside)
+        
+        navigationController?.navigationBar.topItem?.titleView = button
     }
     
     private func calculateViewSizes() {
@@ -229,10 +211,13 @@ class SnapImagePickerViewController: UIViewController {
 }
 
 extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
+    // TODO: SETTING STATE HERE FUCKS UP INITIAL SEGUE
     func displayMainImage(mainImage: SnapImagePickerImage) {
         selectedImageView?.image = mainImage.image
         selectedImageScrollView?.centerFullImageInImageView(selectedImageView)
-        state = .Image
+        if state != .Image {
+            state = .Image
+        }
         mainImageLoadIndicator?.stopAnimating()
     }
     

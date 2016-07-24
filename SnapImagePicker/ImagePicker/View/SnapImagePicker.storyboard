@@ -8,10 +8,10 @@
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
-        <!--Album-->
+        <!--Snap Image Picker View Controller-->
         <scene sceneID="P9o-QH-7g5">
             <objects>
-                <viewController storyboardIdentifier="Image Picker View Controller" title="Album" id="Wid-Ke-N4r" customClass="SnapImagePickerViewController" customModule="SnapImagePicker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Image Picker View Controller" id="Wid-Ke-N4r" customClass="SnapImagePickerViewController" customModule="SnapImagePicker" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Fnf-u5-0oM"/>
                         <viewControllerLayoutGuide type="bottom" id="dsf-Ng-6ae"/>
@@ -25,13 +25,11 @@
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gCa-3y-aIB">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <accessibility key="accessibilityConfiguration" identifier="Selected Image">
                                             <bool key="isElement" value="YES"/>
                                         </accessibility>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="gCa-3y-aIB" firstAttribute="height" secondItem="TOw-dc-Dkh" secondAttribute="height" id="4Sr-Ge-tpU"/>
                                     <constraint firstItem="gCa-3y-aIB" firstAttribute="width" secondItem="TOw-dc-Dkh" secondAttribute="width" id="4nB-tx-vO0"/>
@@ -106,7 +104,7 @@
                                     <constraint firstAttribute="width" constant="35" id="V2I-Xo-6Z9"/>
                                     <constraint firstAttribute="width" secondItem="692-lI-ACh" secondAttribute="height" multiplier="1:1" id="sXr-rA-whe"/>
                                 </constraints>
-                                <state key="normal" title="Rotate" image="arrow1.png">
+                                <state key="normal" title="Rotate" image="circular_leftwards_arrow.png">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
@@ -139,68 +137,18 @@
                             <rect key="frame" x="0.0" y="0.0" width="800" height="800"/>
                         </variation>
                     </scrollView>
-                    <navigationItem key="navigationItem" id="DeZ-xg-qaT">
-                        <nil key="title"/>
-                        <view key="titleView" contentMode="scaleToFill" id="D6X-F2-YFL">
-                            <rect key="frame" x="180" y="6" width="240" height="33"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tNX-eO-r1F" customClass="DownwardsArrowView" customModule="SnapImagePicker" customModuleProvider="target">
-                                    <rect key="frame" x="134" y="0.0" width="11" height="33"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" secondItem="tNX-eO-r1F" secondAttribute="height" multiplier="11:33" id="xjc-tf-nLO"/>
-                                    </constraints>
-                                </view>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9WX-Eh-hk3">
-                                    <rect key="frame" x="98" y="8" width="45" height="18"/>
-                                    <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="15" maxY="0.0"/>
-                                    <state key="normal" title="Title">
-                                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    </state>
-                                    <connections>
-                                        <segue destination="qnA-aw-o6y" kind="show" identifier="Show Album Selector" id="b2d-sl-AEh"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <constraints>
-                                <constraint firstItem="9WX-Eh-hk3" firstAttribute="centerX" secondItem="D6X-F2-YFL" secondAttribute="centerX" id="6oW-fm-Zdx"/>
-                                <constraint firstItem="tNX-eO-r1F" firstAttribute="centerY" secondItem="D6X-F2-YFL" secondAttribute="centerY" id="A6J-wJ-hyw"/>
-                                <constraint firstItem="tNX-eO-r1F" firstAttribute="height" secondItem="D6X-F2-YFL" secondAttribute="height" id="EUH-o0-hWi"/>
-                                <constraint firstItem="9WX-Eh-hk3" firstAttribute="centerY" secondItem="D6X-F2-YFL" secondAttribute="centerY" id="PUR-lS-VKU"/>
-                                <constraint firstItem="tNX-eO-r1F" firstAttribute="leading" secondItem="9WX-Eh-hk3" secondAttribute="trailing" constant="-9" id="aWS-Vy-9d8"/>
-                                <constraint firstAttribute="trailing" secondItem="tNX-eO-r1F" secondAttribute="trailing" constant="85" id="nM9-8T-QrU"/>
-                            </constraints>
-                            <variation key="default">
-                                <mask key="constraints">
-                                    <exclude reference="nM9-8T-QrU"/>
-                                </mask>
-                            </variation>
-                        </view>
-                        <barButtonItem key="rightBarButtonItem" title="Select" id="nOJ-pL-qVS">
-                            <connections>
-                                <action selector="selectButtonPressed:" destination="Wid-Ke-N4r" id="DHq-dH-n8O"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
                     <connections>
                         <outlet property="albumCollectionView" destination="1Kd-hF-p6C" id="mLK-ep-lwP"/>
                         <outlet property="albumCollectionViewHeightConstraint" destination="8Qg-uJ-5f0" id="fr8-Kp-4b5"/>
                         <outlet property="albumCollectionWidthConstraint" destination="LUL-ga-KYI" id="4kG-1q-6ra"/>
-                        <outlet property="albumTitleCenterConstraint" destination="6oW-fm-Zdx" id="HJ5-7b-7xr"/>
                         <outlet property="blackOverlayView" destination="Jfu-sj-ks5" id="hp6-Xm-yXf"/>
                         <outlet property="imageGridView" destination="Fma-Hu-M78" id="Ey8-4q-NjH"/>
                         <outlet property="mainImageLoadIndicator" destination="nV4-nK-Iq5" id="kjy-hy-mg8"/>
                         <outlet property="mainScrollView" destination="nWZ-x0-ung" id="Op1-C8-y8E"/>
                         <outlet property="rotateButton" destination="692-lI-ACh" id="CSu-Zd-4jn"/>
-                        <outlet property="selectButton" destination="nOJ-pL-qVS" id="qIw-Wx-wOB"/>
                         <outlet property="selectedImageScrollView" destination="TOw-dc-Dkh" id="Zv4-91-LsP"/>
                         <outlet property="selectedImageView" destination="gCa-3y-aIB" id="8mx-cD-S8Y"/>
                         <outlet property="selectedImageWidthConstraint" destination="B38-jY-uzx" id="1bR-El-eo6"/>
-                        <outlet property="titleArrowView" destination="tNX-eO-r1F" id="EDA-CH-0pl"/>
-                        <outlet property="titleButton" destination="9WX-Eh-hk3" id="zxh-z8-0aa"/>
-                        <outlet property="titleView" destination="D6X-F2-YFL" id="Pz0-jO-0nY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w2C-PZ-6v9" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -271,33 +219,6 @@
                             <outlet property="delegate" destination="qnA-aw-o6y" id="8vY-ad-CWW"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="Eqa-oE-KHZ">
-                        <nil key="title"/>
-                        <view key="titleView" contentMode="scaleToFill" id="sog-xB-9ZI">
-                            <rect key="frame" x="180" y="6" width="240" height="33"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CiN-ZV-rvk">
-                                    <rect key="frame" x="97" y="2" width="46" height="30"/>
-                                    <state key="normal" title="Button">
-                                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    </state>
-                                    <connections>
-                                        <action selector="titleButtonPressed:" destination="qnA-aw-o6y" eventType="touchUpInside" id="vrx-ip-iNP"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                            <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <constraints>
-                                <constraint firstItem="CiN-ZV-rvk" firstAttribute="centerX" secondItem="sog-xB-9ZI" secondAttribute="centerX" id="2ng-is-rd3"/>
-                                <constraint firstItem="CiN-ZV-rvk" firstAttribute="centerY" secondItem="sog-xB-9ZI" secondAttribute="centerY" id="hCV-XE-AUN"/>
-                            </constraints>
-                        </view>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="titleButton" destination="CiN-ZV-rvk" id="xFJ-20-RCF"/>
-                        <outlet property="titleCenterConstraint" destination="2ng-is-rd3" id="Gam-pu-VVX"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zfu-3E-1Xl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -305,6 +226,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="arrow1.png" width="512" height="512"/>
+        <image name="circular_leftwards_arrow.png" width="512" height="512"/>
     </resources>
 </document>

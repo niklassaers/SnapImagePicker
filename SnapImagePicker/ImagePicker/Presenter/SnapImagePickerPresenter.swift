@@ -102,8 +102,8 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
         }
     }
 
-    func albumTitleClicked(destinationViewController: UIViewController) {
-        connector?.prepareSegueToAlbumSelector(destinationViewController)
+    func albumTitlePressed() {
+        connector?.segueToAlbumSelector()
     }
 
     func selectButtonPressed(image: UIImage, withImageOptions options: ImageOptions) {
