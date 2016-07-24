@@ -86,6 +86,7 @@ class SnapImagePickerViewController: UIViewController {
     
     private var state: DisplayState = .Image {
         didSet {
+            print("Setting state to \(state)")
             setVisibleCellsInAlbumCollectionView()
             setMainOffsetForState(state)
         }
@@ -126,17 +127,11 @@ class SnapImagePickerViewController: UIViewController {
         setupGestureRecognizers()
     }
     
-    //TODO: SEEMS SUBOPTIMAL
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        setMainOffsetForState(.Image, animated: false)
-        setupSelectButton()
-        setupTitleButton()
-    }
-    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         setVisibleCellsInAlbumCollectionView()
+        setupSelectButton()
+        setupTitleButton()
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
@@ -287,7 +282,7 @@ extension SnapImagePickerViewController: UICollectionViewDelegate {
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let index = indexPathToArrayIndex(indexPath)
         eventHandler?.albumImageClicked(index)
-        state = .Image
+        state = .Album
         scrollToIndex(index)
         mainImageLoadIndicator?.startAnimating()
     }
@@ -478,6 +473,7 @@ extension SnapImagePickerViewController {
     
     private func setMainOffsetForState(state: DisplayState, withHeight height: CGFloat, animated: Bool = true) {
         let offset = (height * CGFloat(state.offset))
+        print("Setting offset for \(state)")
         if animated {
             UIView.animateWithDuration(0.3) {
                 self.mainScrollView?.contentOffset = CGPoint(x: 0, y: offset)

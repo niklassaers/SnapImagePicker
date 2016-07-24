@@ -29,6 +29,7 @@ public class SnapImagePicker {
     
     private var presenter: SnapImagePickerPresenter?
     private let photoLoader = PhotoLoader()
+    private let imageLoaderMock = ImageLoaderMock(numberOfImagesInAlbum: 30)
     private let transitionDelegate = SnapImagePickerNavigationControllerDelegate()
     private var previousTransitionDelegate: UINavigationControllerDelegate?
     private var navigationController: UINavigationController?
@@ -52,7 +53,7 @@ extension SnapImagePicker: SnapImagePickerProtocol {
             let interactor = SnapImagePickerInteractor(presenter: presenter)
             presenter.interactor = interactor
             
-            let entityGateway = SnapImagePickerEntityGateway(interactor: interactor, imageLoader: photoLoader)
+            let entityGateway = SnapImagePickerEntityGateway(interactor: interactor, imageLoader: imageLoaderMock)
             interactor.entityGateway = entityGateway
             
             self.presenter = presenter

@@ -59,6 +59,7 @@
 		D847B4551D1D5C9400D58E2C /* SnapImagePickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D847B4541D1D5C9400D58E2C /* SnapImagePickerViewModel.swift */; };
 		D847B45A1D1D644000D58E2C /* UIImage+square.swift in Sources */ = {isa = PBXBuildFile; fileRef = D847B4591D1D644000D58E2C /* UIImage+square.swift */; };
 		D855BAD71D455E2100D80237 /* open_downwards_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = D855BAD61D455E2100D80237 /* open_downwards_arrow.png */; };
+		D855BAD91D456BE900D80237 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D855BAD81D456BE900D80237 /* Assets.xcassets */; };
 		D87999F61D23CCF400683406 /* UIScrollView+fakeBounce.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87999F51D23CCF400683406 /* UIScrollView+fakeBounce.swift */; };
 		D88255D01D17D34200FB327D /* dummy.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = D88255CF1D17D34200FB327D /* dummy.jpeg */; };
 		D883007D1D06C72600399612 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D883007C1D06C72600399612 /* AppDelegate.swift */; };
@@ -206,6 +207,7 @@
 		D847B4541D1D5C9400D58E2C /* SnapImagePickerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapImagePickerViewModel.swift; sourceTree = "<group>"; };
 		D847B4591D1D644000D58E2C /* UIImage+square.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+square.swift"; sourceTree = "<group>"; };
 		D855BAD61D455E2100D80237 /* open_downwards_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = open_downwards_arrow.png; sourceTree = "<group>"; };
+		D855BAD81D456BE900D80237 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D87999F51D23CCF400683406 /* UIScrollView+fakeBounce.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+fakeBounce.swift"; sourceTree = "<group>"; };
 		D88255CF1D17D34200FB327D /* dummy.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = dummy.jpeg; sourceTree = "<group>"; };
 		D88300791D06C72600399612 /* Example_Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example_Project.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -590,6 +592,7 @@
 				D89D70041D06CEF1007DD132 /* SnapImagePicker.swift */,
 				D89D70061D06CF2E007DD132 /* SnapImagePickerDelegate.swift */,
 				D82468471D2158F8009DB2A4 /* SnapImagePickerTransition.swift */,
+				D855BAD81D456BE900D80237 /* Assets.xcassets */,
 			);
 			path = SnapImagePicker;
 			sourceTree = "<group>";
@@ -843,6 +846,7 @@
 				D855BAD71D455E2100D80237 /* open_downwards_arrow.png in Resources */,
 				D8EA98AB1D42342A0022685C /* circular_leftwards_arrow.png in Resources */,
 				D8CB05BE1D3F6E5900002745 /* Localizable.strings in Resources */,
+				D855BAD91D456BE900D80237 /* Assets.xcassets in Resources */,
 				D89D70091D06CFAC007DD132 /* SnapImagePicker.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

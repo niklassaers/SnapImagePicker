@@ -17,7 +17,11 @@ class ImageLoaderMock: ImageLoader {
     }
     
     func loadImagesFromAssets(assets: [Int: PHAsset], withTargetSize targetSize: CGSize, handler: (SnapImagePickerImage, Int) -> Void) {
-        
+        if let image = UIImage(named: "dummy.jpeg", inBundle: NSBundle(forClass: SnapImagePicker.self), compatibleWithTraitCollection: nil) {
+            for i in 0..<30 {
+                handler(SnapImagePickerImage(image: image, localIdentifier: "testImage", createdDate: nil), i)
+            }
+        }
     }
     
     func fetchAssetsFromCollectionWithType(type: AlbumType) -> PHFetchResult? {

@@ -42,9 +42,13 @@ extension SnapImagePickerEntityGateway: SnapImagePickerEntityGatewayProtocol {
     private func loadAssetsFromAlbum(type: AlbumType, inRange range: Range<Int>) -> [Int: PHAsset] {
         var assets = [Int: PHAsset]()
         if let fetchResult = imageLoader?.fetchAssetsFromCollectionWithType(type) {
-            for i in max(range.startIndex, 0)..<min(range.endIndex, fetchResult.count) {
-                if let asset = fetchResult.objectAtIndex(i) as? PHAsset {
-                    assets[i] = asset
+            let start = max(range.startIndex, 0)
+            let end = min(range.endIndex, fetchResult.count)
+            if start < end {
+                for i in start..<end {
+                    if let asset = fetchResult.objectAtIndex(i) as? PHAsset {
+                        assets[i] = asset
+                    }
                 }
             }
         }
