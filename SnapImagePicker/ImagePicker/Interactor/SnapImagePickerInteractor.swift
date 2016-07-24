@@ -12,9 +12,7 @@ class SnapImagePickerInteractor {
 
 extension SnapImagePickerInteractor: SnapImagePickerInteractorProtocol {
     func loadAlbum(type: AlbumType) {
-        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
-            [weak self] in self?.entityGateway?.fetchAlbum(type)
-        }
+        entityGateway?.fetchAlbum(type)
     }
     
     func loadedAlbum(image: SnapImagePickerImage, albumSize: Int) {
@@ -22,21 +20,15 @@ extension SnapImagePickerInteractor: SnapImagePickerInteractorProtocol {
     }
     
     func loadAlbumImageFromAlbum(type: AlbumType, atIndex index: Int) {
-        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
-            [weak self] in self?.entityGateway?.fetchAlbumImageFromAlbum(type, atIndex: index)
-        }
+        entityGateway?.fetchAlbumImageFromAlbum(type, atIndex: index)
     }
     
     func loadAlbumImagesFromAlbum(type: AlbumType, inRange range: Range<Int>) {
-        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
-            [weak self] in self?.entityGateway?.fetchAlbumImagesFromAlbum(type, inRange: range)
-        }
+        entityGateway?.fetchAlbumImagesFromAlbum(type, inRange: range)
     }
     
     func loadMainImageFromAlbum(type: AlbumType, atIndex index: Int) {
-        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
-            [weak self] in self?.entityGateway?.fetchMainImageFromAlbum(type, atIndex: index)
-        }
+        entityGateway?.fetchMainImageFromAlbum(type, atIndex: index)
     }
     
     func loadedAlbumImage(image: SnapImagePickerImage, fromAlbum album: AlbumType, atIndex index: Int) {
