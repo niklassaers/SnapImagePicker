@@ -122,16 +122,10 @@ class SnapImagePickerViewController: UIViewController {
         automaticallyAdjustsScrollViewInsets = false
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-    }
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-    }
-    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         setVisibleCellsInAlbumCollectionView()
+        //TODO: THIS NEEDS TO BE DONE EARLIER (BUT AFTER NAVBAR LOAD)
         setupTitleButton()
         setupSelectButton()
     }
@@ -189,13 +183,18 @@ class SnapImagePickerViewController: UIViewController {
         button.setTitle(title, forState: .Normal)
         button.setTitleColor(UIColor.blackColor(), forState: .Normal)
         button.setTitleColor(UIColor.init(red: 0xB8/0xFF, green: 0xB8/0xFF, blue: 0xB8/0xFF, alpha: 1), forState: .Highlighted)
-        if let image = UIImage(named: "red_image", inBundle: NSBundle(forClass: SnapImagePicker.self), compatibleWithTraitCollection: nil),
-           let cgImage = image.CGImage,
+        if let mainImage = UIImage(named: "open_downwards_arrow", inBundle: NSBundle(forClass: SnapImagePicker.self), compatibleWithTraitCollection: nil),
+           let mainCgImage = mainImage.CGImage,
+           let highlightedImage = UIImage(named: "open_downwards_arrow_highlighted", inBundle: NSBundle(forClass: SnapImagePicker.self), compatibleWithTraitCollection: nil),
+           let highlightedCgImage = highlightedImage.CGImage,
            let navBarHeight = navigationController?.navigationBar.frame.height {
-            let scale = image.size.height / navBarHeight
-            let scaledImage = UIImage(CGImage: cgImage, scale: scale, orientation: .Up)
+            let scale = mainImage.size.height / navBarHeight * 2
+            let scaledMainImage = UIImage(CGImage: mainCgImage, scale: scale, orientation: .Up)
+            let scaledHighlightedImage = UIImage(CGImage: highlightedCgImage, scale: scale, orientation: .Up)
             
-            //button.setImage(scaledImage, forState: .Normal)
+            button.setImage(scaledMainImage, forState: .Normal)
+            button.setImage(scaledHighlightedImage, forState: .Highlighted)
+            button.frame = CGRect(x: 0, y: 0, width: scaledMainImage.size.width, height: scaledMainImage.size.height)
         }
         button.addTarget(self, action: #selector(albumTitlePressed), forControlEvents: .TouchUpInside)
         
