@@ -25,6 +25,7 @@ class SnapImagePickerViewController: UIViewController {
             mainScrollView?.delegate = self
         }
     }
+    @IBOutlet weak var topLayoutConstraint: NSLayoutConstraint?
     
     @IBOutlet weak var albumCollectionViewHeightConstraint: NSLayoutConstraint?
     @IBOutlet weak var albumCollectionWidthConstraint: NSLayoutConstraint?
@@ -53,7 +54,6 @@ class SnapImagePickerViewController: UIViewController {
                 _ in sender.enabled = true
         })
     }
-    @IBOutlet weak var albumTitleCenterConstraint: NSLayoutConstraint?
     
     func selectButtonPressed() {
         if let cropRect = selectedImageScrollView?.getImageBoundsForImageView(selectedImageView),
@@ -66,11 +66,6 @@ class SnapImagePickerViewController: UIViewController {
     func albumTitlePressed() {
         eventHandler?.albumTitlePressed()
     }
-    
-    @IBAction func cancelButtonPressed(sender: UIBarButtonItem) {
-        eventHandler?.dismiss()
-    }
-    
 
     var eventHandler: SnapImagePickerEventHandlerProtocol?
     
@@ -86,7 +81,6 @@ class SnapImagePickerViewController: UIViewController {
     
     private var state: DisplayState = .Image {
         didSet {
-            print("Setting state to \(state)")
             setVisibleCellsInAlbumCollectionView()
             setMainOffsetForState(state)
         }
@@ -125,13 +119,21 @@ class SnapImagePickerViewController: UIViewController {
         eventHandler?.viewWillAppearWithCellSize(currentDisplay.CellWidthInViewWithWidth(view.bounds.width))
         calculateViewSizes()
         setupGestureRecognizers()
+        automaticallyAdjustsScrollViewInsets = false
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+    }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         setVisibleCellsInAlbumCollectionView()
-        setupSelectButton()
         setupTitleButton()
+        setupSelectButton()
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
@@ -187,6 +189,14 @@ class SnapImagePickerViewController: UIViewController {
         button.setTitle(title, forState: .Normal)
         button.setTitleColor(UIColor.blackColor(), forState: .Normal)
         button.setTitleColor(UIColor.init(red: 0xB8/0xFF, green: 0xB8/0xFF, blue: 0xB8/0xFF, alpha: 1), forState: .Highlighted)
+        if let image = UIImage(named: "red_image", inBundle: NSBundle(forClass: SnapImagePicker.self), compatibleWithTraitCollection: nil),
+           let cgImage = image.CGImage,
+           let navBarHeight = navigationController?.navigationBar.frame.height {
+            let scale = image.size.height / navBarHeight
+            let scaledImage = UIImage(CGImage: cgImage, scale: scale, orientation: .Up)
+            
+            //button.setImage(scaledImage, forState: .Normal)
+        }
         button.addTarget(self, action: #selector(albumTitlePressed), forControlEvents: .TouchUpInside)
         
         navigationController?.navigationBar.topItem?.titleView = button
@@ -206,7 +216,6 @@ class SnapImagePickerViewController: UIViewController {
 }
 
 extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
-    // TODO: SETTING STATE HERE FUCKS UP INITIAL SEGUE
     func displayMainImage(mainImage: SnapImagePickerImage) {
         selectedImageView?.image = mainImage.image
         selectedImageScrollView?.centerFullImageInImageView(selectedImageView)
@@ -282,7 +291,6 @@ extension SnapImagePickerViewController: UICollectionViewDelegate {
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let index = indexPathToArrayIndex(indexPath)
         eventHandler?.albumImageClicked(index)
-        state = .Album
         scrollToIndex(index)
         mainImageLoadIndicator?.startAnimating()
     }
@@ -473,7 +481,6 @@ extension SnapImagePickerViewController {
     
     private func setMainOffsetForState(state: DisplayState, withHeight height: CGFloat, animated: Bool = true) {
         let offset = (height * CGFloat(state.offset))
-        print("Setting offset for \(state)")
         if animated {
             UIView.animateWithDuration(0.3) {
                 self.mainScrollView?.contentOffset = CGPoint(x: 0, y: offset)

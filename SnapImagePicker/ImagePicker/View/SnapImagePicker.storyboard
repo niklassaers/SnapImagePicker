@@ -149,6 +149,7 @@
                         <outlet property="selectedImageScrollView" destination="TOw-dc-Dkh" id="Zv4-91-LsP"/>
                         <outlet property="selectedImageView" destination="gCa-3y-aIB" id="8mx-cD-S8Y"/>
                         <outlet property="selectedImageWidthConstraint" destination="B38-jY-uzx" id="1bR-El-eo6"/>
+                        <outlet property="topLayoutConstraint" destination="tR1-Xe-bPS" id="aXm-09-IMW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w2C-PZ-6v9" userLabel="First Responder" sceneMemberID="firstResponder"/>
