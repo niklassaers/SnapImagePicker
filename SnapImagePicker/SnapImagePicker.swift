@@ -60,6 +60,7 @@ extension SnapImagePicker: SnapImagePickerProtocol {
             previousTransitionDelegate = navigationController.delegate
             self.navigationController = navigationController
             
+            navigationController.title = "ASDF"
             navigationController.pushViewController(snapImagePickerViewController, animated: true)
             navigationController.delegate = transitionDelegate
         }

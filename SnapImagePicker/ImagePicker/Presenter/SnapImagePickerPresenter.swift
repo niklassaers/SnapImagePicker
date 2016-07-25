@@ -9,6 +9,7 @@ class SnapImagePickerPresenter {
   
     var albumType = AlbumType.AllPhotos {
         didSet {
+            view?.albumTitle = albumType.getAlbumName()
             loadAlbum()
         }
     }
@@ -28,6 +29,8 @@ class SnapImagePickerPresenter {
 
 extension SnapImagePickerPresenter {
     private func loadAlbum() {
+        images = [Int: SnapImagePickerImage]()
+        currentRange = nil
         viewIsReady = false
         interactor?.loadAlbum(albumType)
     }
@@ -64,7 +67,6 @@ extension SnapImagePickerPresenter: SnapImagePickerPresenterProtocol {
     func presentAlbum(image: SnapImagePickerImage, albumSize: Int) {
         self.albumSize = albumSize
         view?.displayMainImage(image)
-        view?.albumTitle = albumType.getAlbumName()
         view?.reloadAlbum()
         viewIsReady = true
     }

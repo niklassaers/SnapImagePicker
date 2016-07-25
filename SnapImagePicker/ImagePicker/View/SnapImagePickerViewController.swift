@@ -69,7 +69,11 @@ class SnapImagePickerViewController: UIViewController {
 
     var eventHandler: SnapImagePickerEventHandlerProtocol?
     
-    var albumTitle = L10n.AllPhotosAlbumName.string
+    var albumTitle = L10n.AllPhotosAlbumName.string {
+        didSet {
+            visibleCells = nil
+        }
+    }
 
     private var currentlySelectedIndex = 0 {
         didSet {
@@ -120,14 +124,17 @@ class SnapImagePickerViewController: UIViewController {
         calculateViewSizes()
         setupGestureRecognizers()
         automaticallyAdjustsScrollViewInsets = false
+        setupTitleButton()
+        setupSelectButton()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         setVisibleCellsInAlbumCollectionView()
-        //TODO: THIS NEEDS TO BE DONE EARLIER (BUT AFTER NAVBAR LOAD)
-        setupTitleButton()
-        setupSelectButton()
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
@@ -161,13 +168,13 @@ class SnapImagePickerViewController: UIViewController {
     }
     
     private func setupSelectButton() {
-        navigationController?.navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem()
-        navigationController?.navigationBar.topItem?.rightBarButtonItem?.title = L10n.SelectButtonLabelText.string
+        navigationItem.rightBarButtonItem = UIBarButtonItem()
+        navigationItem.rightBarButtonItem?.title = L10n.SelectButtonLabelText.string
         if let font = SnapImagePicker.Theme.font?.fontWithSize(18) {
-            navigationController?.navigationBar.topItem?.rightBarButtonItem?.setTitleTextAttributes([NSFontAttributeName: font],forState: .Normal)
+            navigationItem.rightBarButtonItem?.setTitleTextAttributes([NSFontAttributeName: font],forState: .Normal)
         }
-        navigationController?.navigationBar.topItem?.rightBarButtonItem?.target = self
-        navigationController?.navigationBar.topItem?.rightBarButtonItem?.action = #selector(selectButtonPressed)
+        navigationItem.rightBarButtonItem?.target = self
+        navigationItem.rightBarButtonItem?.action = #selector(selectButtonPressed)
     }
     
     private func setupTitleButton() {
@@ -198,7 +205,7 @@ class SnapImagePickerViewController: UIViewController {
         }
         button.addTarget(self, action: #selector(albumTitlePressed), forControlEvents: .TouchUpInside)
         
-        navigationController?.navigationBar.topItem?.titleView = button
+        self.navigationItem.titleView = button
     }
     
     private func calculateViewSizes() {
