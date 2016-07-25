@@ -17,9 +17,8 @@ extension SnapImagePickerEntityGateway: SnapImagePickerEntityGatewayProtocol {
             let asset = fetchResult.firstObject as? PHAsset {
             imageLoader?.loadImageFromAsset(asset, isPreview: false, withPreviewSize: CGSizeZero) {
                 [weak self] (image: SnapImagePickerImage) in
-                dispatch_async(dispatch_get_main_queue()) {
-                    self?.interactor?.loadedAlbum(image, albumSize: fetchResult.count)
-                }
+                assert(NSThread.isMainThread())
+                self?.interactor?.loadedAlbum(image, albumSize: fetchResult.count)
             }
             
         }
@@ -46,9 +45,8 @@ extension SnapImagePickerEntityGateway: SnapImagePickerEntityGatewayProtocol {
         let assets = loadAssetsFromAlbum(type, inRange: range)
         imageLoader?.loadImagesFromAssets(assets, withTargetSize: CGSize(width: 150, height: 150)) {
             [weak self] (image: SnapImagePickerImage, index: Int) in
-            dispatch_async(dispatch_get_main_queue()) {
-                self?.interactor?.loadedAlbumImage(image, fromAlbum: type, atIndex: index)
-            }
+            assert(NSThread.isMainThread())
+            self?.interactor?.loadedAlbumImage(image, fromAlbum: type, atIndex: index)
         }
     }
     
@@ -58,6 +56,7 @@ extension SnapImagePickerEntityGateway: SnapImagePickerEntityGatewayProtocol {
             if let asset = fetchResult.objectAtIndex(index) as? PHAsset {
                 imageLoader?.loadImageFromAsset(asset, isPreview: false, withPreviewSize: CGSize(width: SnapImagePicker.Theme.maxImageSize, height: SnapImagePicker.Theme.maxImageSize)) {
                     [weak self] (image: SnapImagePickerImage) in
+                    
                     dispatch_async(dispatch_get_main_queue()) {
                         self?.interactor?.loadedMainImage(image, fromAlbum: type)
                     }
