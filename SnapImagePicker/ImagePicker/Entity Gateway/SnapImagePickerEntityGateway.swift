@@ -13,15 +13,15 @@ class SnapImagePickerEntityGateway {
 
 extension SnapImagePickerEntityGateway: SnapImagePickerEntityGatewayProtocol {
     func fetchAlbum(type: AlbumType) {
-        if let fetchResult = imageLoader?.fetchAssetsFromCollectionWithType(type) {
-            if let asset = fetchResult.firstObject as? PHAsset {
-                imageLoader?.loadImageFromAsset(asset, isPreview: false, withPreviewSize: CGSizeZero) {
-                    [weak self] (image: SnapImagePickerImage) in
-                    dispatch_async(dispatch_get_main_queue()) {
-                        self?.interactor?.loadedAlbum(image, albumSize: fetchResult.count)
-                    }
+        if let fetchResult = imageLoader?.fetchAssetsFromCollectionWithType(type),
+            let asset = fetchResult.firstObject as? PHAsset {
+            imageLoader?.loadImageFromAsset(asset, isPreview: false, withPreviewSize: CGSizeZero) {
+                [weak self] (image: SnapImagePickerImage) in
+                dispatch_async(dispatch_get_main_queue()) {
+                    self?.interactor?.loadedAlbum(image, albumSize: fetchResult.count)
                 }
             }
+            
         }
     }
     
