@@ -25,20 +25,6 @@ extension SnapImagePickerEntityGateway: SnapImagePickerEntityGatewayProtocol {
         }
     }
     
-    func fetchAlbumImageFromAlbum(type: AlbumType, atIndex index: Int) {
-        if let fetchResult = imageLoader?.fetchAssetsFromCollectionWithType(type)
-        where fetchResult.count > index {
-            if let asset = fetchResult.objectAtIndex(index) as? PHAsset {
-                imageLoader?.loadImageFromAsset(asset, isPreview: true, withPreviewSize: CGSize(width: 150, height: 150)) {
-                    [weak self] (image: SnapImagePickerImage) in
-                    dispatch_async(dispatch_get_main_queue()) {
-                        self?.interactor?.loadedAlbumImage(image, fromAlbum: type, atIndex: index)
-                    }
-                }
-            }
-        }
-    }
-    
     private func loadAssetsFromAlbum(type: AlbumType, inRange range: Range<Int>) -> [Int: PHAsset] {
         var assets = [Int: PHAsset]()
         if let fetchResult = imageLoader?.fetchAssetsFromCollectionWithType(type) {

@@ -19,10 +19,6 @@ extension SnapImagePickerInteractor: SnapImagePickerInteractorProtocol {
         presenter?.presentAlbum(image, albumSize: albumSize)
     }
     
-    func loadAlbumImageFromAlbum(type: AlbumType, atIndex index: Int) {
-        entityGateway?.fetchAlbumImageFromAlbum(type, atIndex: index)
-    }
-    
     func loadAlbumImagesFromAlbum(type: AlbumType, inRange range: Range<Int>) {
         entityGateway?.fetchAlbumImagesFromAlbum(type, inRange: range)
     }
