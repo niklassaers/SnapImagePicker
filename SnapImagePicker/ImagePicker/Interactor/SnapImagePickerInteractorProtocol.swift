@@ -5,6 +5,6 @@ protocol SnapImagePickerInteractorProtocol: class {
     func loadedAlbum(image: SnapImagePickerImage, albumSize: Int)
     func loadAlbumImagesFromAlbum(type: AlbumType, inRange: Range<Int>)
     func loadMainImageFromAlbum(type: AlbumType, atIndex: Int)
-    func loadedAlbumImage(image: SnapImagePickerImage, fromAlbum album: AlbumType, atIndex index: Int)
+    func loadedAlbumImagesResult(results: [Int:SnapImagePickerImage], fromAlbum album: AlbumType)
     func loadedMainImage(image: SnapImagePickerImage, fromAlbum album: AlbumType)
 }

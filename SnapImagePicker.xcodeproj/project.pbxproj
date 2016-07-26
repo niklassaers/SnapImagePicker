@@ -1409,15 +1409,15 @@
 			baseConfigurationReference = D071DB34BA29D0DE244DB5F3 /* Pods-Example_Project.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Esten Leonardsen (2A65AXPDMT)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Geir Engdahl (MBERW5NC58)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Geir Engdahl (MBERW5NC58)";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Example_Project/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.snapsale.SnapImagePicker.ExampleProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "92dc7c83-aaf9-4133-bf1a-fccad74c9497";
+				PROVISIONING_PROFILE = "5f6a7d3c-13b3-4764-bc84-a5e2bb292af3";
 			};
 			name = Debug;
 		};

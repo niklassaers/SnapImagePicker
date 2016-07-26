@@ -44,9 +44,10 @@ extension SnapImagePickerEntityGateway: SnapImagePickerEntityGatewayProtocol {
     func fetchAlbumImagesFromAlbum(type: AlbumType, inRange range: Range<Int>)  {
         let assets = loadAssetsFromAlbum(type, inRange: range)
         imageLoader?.loadImagesFromAssets(assets, withTargetSize: CGSize(width: 150, height: 150)) {
-            [weak self] (image: SnapImagePickerImage, index: Int) in
-            assert(NSThread.isMainThread())
-            self?.interactor?.loadedAlbumImage(image, fromAlbum: type, atIndex: index)
+            [weak self] (results) in
+            dispatch_async(dispatch_get_main_queue()) {
+                self?.interactor?.loadedAlbumImagesResult(results, fromAlbum: type)
+            }
         }
     }
     
@@ -56,6 +57,8 @@ extension SnapImagePickerEntityGateway: SnapImagePickerEntityGatewayProtocol {
             if let asset = fetchResult.objectAtIndex(index) as? PHAsset {
                 imageLoader?.loadImageFromAsset(asset, isPreview: false, withPreviewSize: CGSize(width: SnapImagePicker.Theme.maxImageSize, height: SnapImagePicker.Theme.maxImageSize)) {
                     [weak self] (image: SnapImagePickerImage) in
+                    
+                    
                     
                     dispatch_async(dispatch_get_main_queue()) {
                         self?.interactor?.loadedMainImage(image, fromAlbum: type)

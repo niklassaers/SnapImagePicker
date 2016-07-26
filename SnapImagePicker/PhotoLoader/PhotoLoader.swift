@@ -1,13 +1,19 @@
 import Foundation
 import Photos
+import DORateLimit
 
 class PhotoLoader {
     private static let SmartCollections: [PHAssetCollectionSubtype] = [.SmartAlbumRecentlyAdded, .SmartAlbumPanoramas]
     // [.SmartAlbumGeneric, .SmartAlbumVideos, .SmartAlbumFavorites, .SmartAlbumTimelapses, .SmartAlbumAllHidden, .SmartAlbumBursts, .SmartAlbumSlomoVideos, .SmartAlbumUserLibrary, .SmartAlbumSelfPortraits, .SmartAlbumScreenshots
     private var albums = [String: PHFetchResult]()
+    
+    private var batchQueue = dispatch_queue_create("BatchQeuue", DISPATCH_QUEUE_SERIAL)
+    private var imageResponses = [Int:SnapImagePickerImage]() // Only read and update from within batchQueue
 }
 
 extension PhotoLoader: ImageLoader {
+    
+    
     func loadImageFromAsset(asset: PHAsset, isPreview: Bool = false, withPreviewSize previewSize: CGSize = CGSizeZero, handler: (SnapImagePickerImage) -> ()) -> PHImageRequestID {
         
         let options = PHImageRequestOptions()
@@ -26,7 +32,7 @@ extension PhotoLoader: ImageLoader {
         return requestId
     }
     
-    func loadImagesFromAssets(assets: [Int: PHAsset], withTargetSize targetSize: CGSize, handler: (SnapImagePickerImage, Int) -> ()) {
+    func loadImagesFromAssets(assets: [Int: PHAsset], withTargetSize targetSize: CGSize, handler: ([Int: SnapImagePickerImage]) -> ()) {
         
         //TODO, should return a ([Int: SnapImagePickerImage]) -> ()
         let options = PHImageRequestOptions()
@@ -41,10 +47,35 @@ extension PhotoLoader: ImageLoader {
                 
                 if let image = image {
                     let pickerImage = SnapImagePickerImage(image: image, localIdentifier: asset.localIdentifier, createdDate: asset.creationDate)
-                    handler(pickerImage, index)
+                    self.batchImageResponses(pickerImage, index: index, handler: handler)
                 }
             }
         }
+    }
+    
+    private func batchImageResponses(pickerImage: SnapImagePickerImage, index: Int, handler: ([Int: SnapImagePickerImage]) -> ()) {
+        
+        dispatch_async(batchQueue) {
+            if let existingImage = self.imageResponses[index] {
+                if pickerImage.image.size.isSmallerThanOrEqualTo(existingImage.image.size) {
+                    return
+                }
+                
+                self.imageResponses[index] = pickerImage
+            } else {
+                self.imageResponses[index] = pickerImage
+            }
+        }
+        
+        RateLimit.throttle("batchImageResponses-throttle", threshold: 0.2, trailing: true) {
+            dispatch_async(self.batchQueue) {
+                let responses = self.imageResponses
+                self.imageResponses = [Int:SnapImagePickerImage]()
+                
+                handler(responses)
+            }
+        }
+
     }
     
     func fetchAssetsFromCollectionWithType(type: AlbumType) -> PHFetchResult? {
@@ -176,5 +207,12 @@ extension PhotoLoader: AlbumLoader {
                 handler(newAlbum)
             }
         }
+    }
+}
+
+extension CGSize {
+    func isSmallerThanOrEqualTo(ref: CGSize) -> Bool {
+
+        return self.width * self.height <= ref.width * ref.height
     }
 }
