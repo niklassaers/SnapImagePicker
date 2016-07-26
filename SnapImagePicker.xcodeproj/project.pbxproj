@@ -90,6 +90,7 @@
 		D8CB05BE1D3F6E5900002745 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D8CB05C01D3F6E5900002745 /* Localizable.strings */; };
 		D8CB05C81D3F6F4300002745 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CB05C71D3F6F4300002745 /* Strings.swift */; };
 		D8F2F8571D3D27000088F58E /* SnapImagePickerViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F2F8561D3D27000088F58E /* SnapImagePickerViewController+.swift */; };
+		F5F8BC325FCDADDBF7CA933A /* Pods_SnapImagePicker_UI_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F72C16DA282DE843C497D5C /* Pods_SnapImagePicker_UI_Tests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -148,7 +149,10 @@
 		6DCB02F0EBDE9C30623C8FE4 /* Pods_SnapImagePicker_Unit_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SnapImagePicker_Unit_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CE3607CF98B3315460607FC /* Pods_Example_Project.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Example_Project.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9445E2E881A2210E6EACFDF4 /* Pods-SnapImagePicker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapImagePicker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SnapImagePicker/Pods-SnapImagePicker.debug.xcconfig"; sourceTree = "<group>"; };
+		9F72C16DA282DE843C497D5C /* Pods_SnapImagePicker_UI_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SnapImagePicker_UI_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9FA6A0DF2EEE1CF43AC91190 /* Pods-SnapImagePicker_UI_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapImagePicker_UI_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SnapImagePicker_UI_Tests/Pods-SnapImagePicker_UI_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		A377C19D94E44FA9B7E1A60D /* Pods-SnapImagePicker_Snapshot_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapImagePicker_Snapshot_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SnapImagePicker_Snapshot_Tests/Pods-SnapImagePicker_Snapshot_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		BBA8E0F6EC87708F6B30B36D /* Pods-SnapImagePicker_UI_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapImagePicker_UI_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SnapImagePicker_UI_Tests/Pods-SnapImagePicker_UI_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		C395407F5A6C393DE663BC17 /* Pods-Example_Project_UI_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example_Project_UI_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Example_Project_UI_Tests/Pods-Example_Project_UI_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		CA3E1B568A7561433689EC90 /* Pods_SnapImagePicker_Example_Project.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SnapImagePicker_Example_Project.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D071DB34BA29D0DE244DB5F3 /* Pods-Example_Project.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example_Project.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Example_Project/Pods-Example_Project.debug.xcconfig"; sourceTree = "<group>"; };
@@ -268,6 +272,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5F8BC325FCDADDBF7CA933A /* Pods_SnapImagePicker_UI_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,6 +316,8 @@
 				671146A14976557807226E3D /* Pods-Example_Project_UI_Tests.release.xcconfig */,
 				E46A04D19BECC3EDEF73F577 /* Pods-SnapImagePicker_Unit_Tests.debug.xcconfig */,
 				D4107D64144A6F2592CFC6AA /* Pods-SnapImagePicker_Unit_Tests.release.xcconfig */,
+				9FA6A0DF2EEE1CF43AC91190 /* Pods-SnapImagePicker_UI_Tests.debug.xcconfig */,
+				BBA8E0F6EC87708F6B30B36D /* Pods-SnapImagePicker_UI_Tests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -324,6 +331,7 @@
 				32A1B2C5AC64D0C63251FFE1 /* Pods_Example_Project_UI_Tests.framework */,
 				29BC9D132B7F0E5AEACA8026 /* Pods_SnapImagePicker_Snapshot_Tests.framework */,
 				6DCB02F0EBDE9C30623C8FE4 /* Pods_SnapImagePicker_Unit_Tests.framework */,
+				9F72C16DA282DE843C497D5C /* Pods_SnapImagePicker_UI_Tests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -672,9 +680,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D84614071D368B5E00B2A71D /* Build configuration list for PBXNativeTarget "SnapImagePicker_UI_Tests" */;
 			buildPhases = (
+				A5C892254292AD13A095884A /* [CP] Check Pods Manifest.lock */,
 				D84613FC1D368B5E00B2A71D /* Sources */,
 				D84613FD1D368B5E00B2A71D /* Frameworks */,
 				D84613FE1D368B5E00B2A71D /* Resources */,
+				39A52CBD0113FAEAEA2D0269 /* [CP] Embed Pods Frameworks */,
+				CB5F494C49CA06400F17C927 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -712,8 +723,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D89D6FFD1D06CC06007DD132 /* Build configuration list for PBXNativeTarget "SnapImagePicker" */;
 			buildPhases = (
-				D89887E41D377D44005066FC /* Warnings */,
 				A25DFDFD683FEBBD348C8724 /* [CP] Check Pods Manifest.lock */,
+				D89887E41D377D44005066FC /* Warnings */,
 				D89D6FE11D06CC06007DD132 /* Sources */,
 				D89D6FE21D06CC06007DD132 /* Frameworks */,
 				D89D6FE31D06CC06007DD132 /* Headers */,
@@ -880,7 +891,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		31CD64DE79D39AE845772E7F /* [CP] Copy Pods Resources */ = {
@@ -913,6 +924,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SnapImagePicker_Snapshot_Tests/Pods-SnapImagePicker_Snapshot_Tests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		39A52CBD0113FAEAEA2D0269 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SnapImagePicker_UI_Tests/Pods-SnapImagePicker_UI_Tests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		41FAE7F4C4CDEA72F4E359CB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -925,7 +951,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		60DAA7DC74AFCD36DD474796 /* [CP] Embed Pods Frameworks */ = {
@@ -955,7 +981,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		701724DAC3115E81C12AFE7E /* [CP] Copy Pods Resources */ = {
@@ -985,7 +1011,37 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		A5C892254292AD13A095884A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		CB5F494C49CA06400F17C927 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SnapImagePicker_UI_Tests/Pods-SnapImagePicker_UI_Tests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CC761975A3C9DF14093B2507 /* [CP] Copy Pods Resources */ = {
@@ -1237,6 +1293,7 @@
 		};
 		D84614081D368B5E00B2A71D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9FA6A0DF2EEE1CF43AC91190 /* Pods-SnapImagePicker_UI_Tests.debug.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = SnapImagePicker_UI_Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
@@ -1249,6 +1306,7 @@
 		};
 		D84614091D368B5E00B2A71D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BBA8E0F6EC87708F6B30B36D /* Pods-SnapImagePicker_UI_Tests.release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = SnapImagePicker_UI_Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
