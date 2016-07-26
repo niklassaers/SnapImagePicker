@@ -77,13 +77,19 @@ extension SnapImagePickerPresenter: SnapImagePickerPresenterProtocol {
         view?.displayMainImage(image)
     }
     
-    func presentAlbumImage(image: SnapImagePickerImage, atIndex index: Int) {
-        if let currentRange = currentRange where currentRange.contains(index) {
-            images[index] = image
-            if viewIsReady {
-                view?.reloadCellAtIndex(index)
+    func presentAlbumImages(results: [Int: SnapImagePickerImage]) {
+        var indexes = [Int]()
+        for (index, image) in results {
+            if let currentRange = currentRange where currentRange.contains(index) {
+                images[index] = image
+                indexes.append(index)
             }
         }
+        
+        if viewIsReady {
+            view?.reloadCellAtIndexes(indexes)
+        }
+
     }
 }
 
@@ -101,8 +107,8 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
             let oldSelectedIndex = selectedIndex
             selectedIndex = index
             interactor?.loadMainImageFromAlbum(albumType, atIndex: index)
-            view?.reloadCellAtIndex(oldSelectedIndex)
-            view?.reloadCellAtIndex(index)
+            let indexes = [oldSelectedIndex, index]
+            view?.reloadCellAtIndexes(indexes)
         }
     }
 

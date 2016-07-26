@@ -240,8 +240,13 @@ extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
         albumCollectionView?.reloadData()
     }
     
-    func reloadCellAtIndex(index: Int) {
-        albumCollectionView?.reloadItemsAtIndexPaths([arrayIndexToIndexPath(index)])
+    func reloadCellAtIndexes(indexes: [Int]) {
+        var indexPaths = [NSIndexPath]()
+        for index in indexes {
+            indexPaths.append(arrayIndexToIndexPath(index))
+        }
+        
+        albumCollectionView?.reloadItemsAtIndexPaths(indexPaths)
     }
 }
 

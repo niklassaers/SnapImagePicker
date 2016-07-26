@@ -19,10 +19,6 @@ extension SnapImagePickerInteractor: SnapImagePickerInteractorProtocol {
         presenter?.presentAlbum(image, albumSize: albumSize)
     }
     
-    func loadAlbumImageFromAlbum(type: AlbumType, atIndex index: Int) {
-        entityGateway?.fetchAlbumImageFromAlbum(type, atIndex: index)
-    }
-    
     func loadAlbumImagesFromAlbum(type: AlbumType, inRange range: Range<Int>) {
         entityGateway?.fetchAlbumImagesFromAlbum(type, inRange: range)
     }
@@ -31,8 +27,8 @@ extension SnapImagePickerInteractor: SnapImagePickerInteractorProtocol {
         entityGateway?.fetchMainImageFromAlbum(type, atIndex: index)
     }
     
-    func loadedAlbumImage(image: SnapImagePickerImage, fromAlbum album: AlbumType, atIndex index: Int) {
-        presenter?.presentAlbumImage(image, atIndex: index)
+    func loadedAlbumImagesResult(results: [Int:SnapImagePickerImage], fromAlbum album: AlbumType) {
+        presenter?.presentAlbumImages(results) // TODO: If album is dropped, was it needed at all?
     }
     
     func loadedMainImage(image: SnapImagePickerImage, fromAlbum album: AlbumType) {

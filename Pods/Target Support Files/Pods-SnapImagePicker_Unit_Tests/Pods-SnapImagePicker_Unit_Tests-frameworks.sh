@@ -82,3 +82,12 @@ strip_invalid_archs() {
   fi
 }
 
+
+if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "$BUILT_PRODUCTS_DIR/DORateLimit/DORateLimit.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/SnapFonts-iOS/SnapFonts_iOS.framework"
+fi
+if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "$BUILT_PRODUCTS_DIR/DORateLimit/DORateLimit.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/SnapFonts-iOS/SnapFonts_iOS.framework"
+fi
