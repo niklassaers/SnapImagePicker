@@ -10,7 +10,9 @@ class SnapImagePickerPresenter {
     var albumType = AlbumType.AllPhotos {
         didSet {
             view?.albumTitle = albumType.getAlbumName()
-            loadAlbum()
+            if albumType != oldValue {
+                loadAlbum()
+            }
         }
     }
     
@@ -112,17 +114,11 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
         connector?.setImage(image, withImageOptions: options)
     }
 
-    func numberOfSectionsForNumberOfColumns(columns: Int) -> Int {
-        let sections = Int(ceil(Double(albumSize) / Double(columns)))
-        return sections
-    }
-
     func numberOfItemsInSection(section: Int, withColumns columns: Int) -> Int {
-        let previouslyUsedImages = section * columns
-        let remainingImages = albumSize - previouslyUsedImages
-        let columns = max(min(columns, remainingImages), 0)
-        
-        return columns
+        if section == 0 {
+            return albumSize
+        }
+        return 0
     }
     
 

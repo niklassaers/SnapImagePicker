@@ -242,7 +242,7 @@ extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
 
 extension SnapImagePickerViewController: UICollectionViewDataSource {
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return eventHandler?.numberOfSectionsForNumberOfColumns(currentDisplay.NumberOfColumns) ?? 0
+        return 1
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -259,11 +259,11 @@ extension SnapImagePickerViewController: UICollectionViewDataSource {
     }
     
     private func indexPathToArrayIndex(indexPath: NSIndexPath) -> Int {
-        return (indexPath.section * currentDisplay.NumberOfColumns) + indexPath.row
+        return indexPath.item
     }
     
     private func arrayIndexToIndexPath(index: Int) -> NSIndexPath {
-        return NSIndexPath(forItem: Int(index % currentDisplay.NumberOfColumns), inSection: Int(index / currentDisplay.NumberOfColumns))
+        return NSIndexPath(forItem: index, inSection: 0)
     }
     
     private func scrollToIndex(index: Int) {

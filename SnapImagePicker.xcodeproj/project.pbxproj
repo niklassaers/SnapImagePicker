@@ -7,9 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2FBED177B9A1954A779BCD68 /* Pods_SnapImagePicker_Snapshot_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29BC9D132B7F0E5AEACA8026 /* Pods_SnapImagePicker_Snapshot_Tests.framework */; };
 		4DB9CCD057EFE844392F4184 /* Pods_Example_Project.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CE3607CF98B3315460607FC /* Pods_Example_Project.framework */; };
-		580380723F22AAC05A9C9739 /* Pods_SnapImagePicker_Unit_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DCB02F0EBDE9C30623C8FE4 /* Pods_SnapImagePicker_Unit_Tests.framework */; };
 		7EDECBD535821A6009F55B3F /* Pods_SnapImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1077999A272FEFD35E45C16E /* Pods_SnapImagePicker.framework */; };
 		D812DDF01D362C9200F0E488 /* SnapImagePickerImageTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D812DDEF1D362C9200F0E488 /* SnapImagePickerImageTest.swift */; };
 		D812DDFD1D363DE000F0E488 /* dress.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D812DDFC1D363DE000F0E488 /* dress.jpg */; };
@@ -140,17 +138,13 @@
 /* Begin PBXFileReference section */
 		1077999A272FEFD35E45C16E /* Pods_SnapImagePicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SnapImagePicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		15AAE255BF6FB84D2C6BB487 /* Pods-SnapImagePicker_Snapshot_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapImagePicker_Snapshot_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SnapImagePicker_Snapshot_Tests/Pods-SnapImagePicker_Snapshot_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		29BC9D132B7F0E5AEACA8026 /* Pods_SnapImagePicker_Snapshot_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SnapImagePicker_Snapshot_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		32A1B2C5AC64D0C63251FFE1 /* Pods_Example_Project_UI_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Example_Project_UI_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		32DFFEDAC20492EE9F41DFBA /* Pods-Example_Project.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example_Project.release.xcconfig"; path = "Pods/Target Support Files/Pods-Example_Project/Pods-Example_Project.release.xcconfig"; sourceTree = "<group>"; };
 		639F66A051884F3BB8E3488C /* Pods-SnapImagePicker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapImagePicker.release.xcconfig"; path = "Pods/Target Support Files/Pods-SnapImagePicker/Pods-SnapImagePicker.release.xcconfig"; sourceTree = "<group>"; };
 		671146A14976557807226E3D /* Pods-Example_Project_UI_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example_Project_UI_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Example_Project_UI_Tests/Pods-Example_Project_UI_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		6DCB02F0EBDE9C30623C8FE4 /* Pods_SnapImagePicker_Unit_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SnapImagePicker_Unit_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CE3607CF98B3315460607FC /* Pods_Example_Project.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Example_Project.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9445E2E881A2210E6EACFDF4 /* Pods-SnapImagePicker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapImagePicker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SnapImagePicker/Pods-SnapImagePicker.debug.xcconfig"; sourceTree = "<group>"; };
 		A377C19D94E44FA9B7E1A60D /* Pods-SnapImagePicker_Snapshot_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapImagePicker_Snapshot_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SnapImagePicker_Snapshot_Tests/Pods-SnapImagePicker_Snapshot_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		C395407F5A6C393DE663BC17 /* Pods-Example_Project_UI_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example_Project_UI_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Example_Project_UI_Tests/Pods-Example_Project_UI_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		CA3E1B568A7561433689EC90 /* Pods_SnapImagePicker_Example_Project.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SnapImagePicker_Example_Project.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D071DB34BA29D0DE244DB5F3 /* Pods-Example_Project.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example_Project.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Example_Project/Pods-Example_Project.debug.xcconfig"; sourceTree = "<group>"; };
 		D4107D64144A6F2592CFC6AA /* Pods-SnapImagePicker_Unit_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapImagePicker_Unit_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SnapImagePicker_Unit_Tests/Pods-SnapImagePicker_Unit_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		D812DDED1D362C9200F0E488 /* SnapImagePicker_Snapshot_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SnapImagePicker_Snapshot_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -236,7 +230,6 @@
 		D8A4799A1D3E76BD008FA721 /* UIImageOrientation+toCGAffineTransformRadians.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageOrientation+toCGAffineTransformRadians.swift"; sourceTree = "<group>"; };
 		D8A4799D1D3E7FF8008FA721 /* ImageLoaderMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageLoaderMock.swift; sourceTree = "<group>"; };
 		D8A479A01D3E8020008FA721 /* PHFetchResultMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PHFetchResultMock.swift; sourceTree = "<group>"; };
-		D8ABFC571D366D6B0083C716 /* SnapImagePickerTests copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "SnapImagePickerTests copy-Info.plist"; path = "/Users/esten/Snapsale/SnapImagePicker/SnapImagePickerTests copy-Info.plist"; sourceTree = "<absolute>"; };
 		D8BF9CA41D266BA100DC1F02 /* UIScrollView+correction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+correction.swift"; sourceTree = "<group>"; };
 		D8BF9CAA1D26B3DA00DC1F02 /* DownwardsArrowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownwardsArrowView.swift; sourceTree = "<group>"; };
 		D8CB05B81D3F6D2200002745 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -260,7 +253,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2FBED177B9A1954A779BCD68 /* Pods_SnapImagePicker_Snapshot_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -291,7 +283,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				580380723F22AAC05A9C9739 /* Pods_SnapImagePicker_Unit_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,10 +311,6 @@
 			children = (
 				7CE3607CF98B3315460607FC /* Pods_Example_Project.framework */,
 				1077999A272FEFD35E45C16E /* Pods_SnapImagePicker.framework */,
-				CA3E1B568A7561433689EC90 /* Pods_SnapImagePicker_Example_Project.framework */,
-				32A1B2C5AC64D0C63251FFE1 /* Pods_Example_Project_UI_Tests.framework */,
-				29BC9D132B7F0E5AEACA8026 /* Pods_SnapImagePicker_Snapshot_Tests.framework */,
-				6DCB02F0EBDE9C30623C8FE4 /* Pods_SnapImagePicker_Unit_Tests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -542,7 +529,6 @@
 				D812DDEE1D362C9200F0E488 /* SnapImagePicker_Snapshot_Tests */,
 				D84614011D368B5E00B2A71D /* SnapImagePicker_UI_Tests */,
 				D89D6FF51D06CC06007DD132 /* SnapImagePicker_Unit_Tests */,
-				D8ABFC571D366D6B0083C716 /* SnapImagePickerTests copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};

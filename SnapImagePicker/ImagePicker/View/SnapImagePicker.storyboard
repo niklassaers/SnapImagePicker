@@ -95,7 +95,7 @@
                                     <constraint firstAttribute="width" secondItem="Fma-Hu-M78" secondAttribute="height" multiplier="1:1" id="eG2-V4-L3e"/>
                                 </constraints>
                             </view>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="nV4-nK-Iq5">
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="nV4-nK-Iq5">
                                 <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
                             </activityIndicatorView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="692-lI-ACh">
@@ -118,11 +118,13 @@
                             <constraint firstItem="TOw-dc-Dkh" firstAttribute="centerX" secondItem="nWZ-x0-ung" secondAttribute="centerX" id="62F-uV-yXp"/>
                             <constraint firstItem="1Kd-hF-p6C" firstAttribute="centerX" secondItem="nWZ-x0-ung" secondAttribute="centerX" id="8pQ-LN-3fU"/>
                             <constraint firstItem="TOw-dc-Dkh" firstAttribute="width" secondItem="nWZ-x0-ung" secondAttribute="width" id="B38-jY-uzx"/>
+                            <constraint firstItem="nV4-nK-Iq5" firstAttribute="centerX" secondItem="TOw-dc-Dkh" secondAttribute="centerX" id="Dqh-Sp-bj3"/>
                             <constraint firstItem="Jfu-sj-ks5" firstAttribute="centerX" secondItem="TOw-dc-Dkh" secondAttribute="centerX" id="GwH-76-NDO"/>
                             <constraint firstItem="1Kd-hF-p6C" firstAttribute="width" secondItem="nWZ-x0-ung" secondAttribute="width" id="LUL-ga-KYI"/>
                             <constraint firstItem="TOw-dc-Dkh" firstAttribute="leading" secondItem="692-lI-ACh" secondAttribute="leading" constant="-10" id="OXR-hn-XPc"/>
                             <constraint firstItem="Fma-Hu-M78" firstAttribute="top" secondItem="Fnf-u5-0oM" secondAttribute="bottom" id="dhR-vP-eJr"/>
                             <constraint firstItem="Jfu-sj-ks5" firstAttribute="centerY" secondItem="TOw-dc-Dkh" secondAttribute="centerY" id="evN-Qd-0tT"/>
+                            <constraint firstItem="nV4-nK-Iq5" firstAttribute="centerY" secondItem="TOw-dc-Dkh" secondAttribute="centerY" id="g7d-aG-kd0"/>
                             <constraint firstItem="Fma-Hu-M78" firstAttribute="width" secondItem="TOw-dc-Dkh" secondAttribute="width" id="jZF-W2-CRa"/>
                             <constraint firstItem="1Kd-hF-p6C" firstAttribute="top" secondItem="TOw-dc-Dkh" secondAttribute="bottom" id="khT-Fr-xcU"/>
                             <constraint firstItem="Jfu-sj-ks5" firstAttribute="height" secondItem="TOw-dc-Dkh" secondAttribute="height" id="lJm-xn-DcW"/>
