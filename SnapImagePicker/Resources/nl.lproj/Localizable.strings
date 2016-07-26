@@ -1,8 +1,15 @@
-"imageLabelText" = "image";
-"severalImagesLabelText" = "images";
-"generalCollectionName" = "Cameraroll";
+"imageLabelText" = "foto";
+
+"severalImagesLabelText" = "foto's";
+
+"generalCollectionName" = "Camerarol";
+
 "userDefinedAlbumsCollectionName" = "Albums";
+
 "smartAlbumsCollectionName" = "Smart Albums";
-"allPhotosAlbumName" = "All Photos";
-"favoritesAlbumName" = "Favorites";
-"selectButtonLabelText" = "Select";
+
+"allPhotosAlbumName" = "Alle Foto's";
+
+"favoritesAlbumName" = "Favorieten";
+
+"selectButtonLabelText" = "Selecteren";
