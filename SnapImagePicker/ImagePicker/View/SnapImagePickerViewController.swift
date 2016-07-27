@@ -375,12 +375,10 @@ extension SnapImagePickerViewController: UIScrollViewDelegate {
                     }
                     let diff = (imageWidth - imageView.frame.height) / 2
                     if imageWidth > scrollView.frame.width && imageView.frame.width == imageView.frame.height {
-                        print("Removing horizontal padding")
                         selectedImageCenterHorizontalConstraint?.constant = diff / scrollView.zoomScale
                         selectedImageViewAspectRatioConstraint = selectedImageViewAspectRatioConstraint?.changeMultiplier(imageWidth / imageView.frame.height)
                         scrollView.setContentOffset(CGPoint(x: scrollView.contentOffset.x + diff, y: scrollView.contentOffset.y), animated: false)
                     } else if imageWidth < scrollView.frame.width && imageView.frame.width != imageView.frame.height {
-                        print("Adding horizontal padding")
                         selectedImageViewAspectRatioConstraint = selectedImageViewAspectRatioConstraint?.changeMultiplier(1)
                         selectedImageCenterHorizontalConstraint?.constant = 0
                         scrollView.setContentOffset(CGPoint(x: scrollView.contentOffset.x - diff, y: scrollView.contentOffset.y), animated: false)
@@ -390,17 +388,20 @@ extension SnapImagePickerViewController: UIScrollViewDelegate {
                     if imageView.frame.height != imageView.frame.width {
                         imageHeight = imageView.frame.height
                     }
+                    let diff = (imageView.frame.width - imageHeight) / 2
+                    let contentOffset = scrollView.contentOffset
                     if imageHeight > scrollView.frame.height && imageView.frame.height == imageView.frame.width {
                         let ratio = imageView.frame.width / imageHeight
                         selectedImageViewAspectRatioConstraint = selectedImageViewAspectRatioConstraint?.changeMultiplier(ratio)
-                        selectedImageCenterHorizontalConstraint?.constant = (imageView.frame.width - imageHeight) / 2
+                        selectedImageCenterHorizontalConstraint?.constant = diff
                         scrollView.setZoomScale(scrollView.zoomScale / ratio, animated: false)
+                        scrollView.setContentOffset(CGPoint(x: contentOffset.x, y: contentOffset.y - diff), animated: false)
                     } else if imageHeight < scrollView.frame.height && imageView.frame.height != imageView.frame.width {
-                        print("Adding vertical padding")
                         let ratio = selectedImageViewAspectRatioConstraint!.multiplier
                         selectedImageViewAspectRatioConstraint = selectedImageViewAspectRatioConstraint?.changeMultiplier(1)
                         selectedImageCenterHorizontalConstraint?.constant = 0
                         scrollView.setZoomScale(scrollView.zoomScale * ratio, animated: false)
+                        scrollView.setContentOffset(CGPoint(x: contentOffset.x, y: contentOffset.y + diff), animated: false)
                     }
                 }
             }
