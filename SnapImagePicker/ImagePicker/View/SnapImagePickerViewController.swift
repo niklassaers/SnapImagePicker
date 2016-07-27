@@ -226,14 +226,18 @@ class SnapImagePickerViewController: UIViewController {
 
 extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
     func displayMainImage(mainImage: SnapImagePickerImage) {
-        selectedImageCenterHorizontalConstraint?.constant = 0
-        selectedImageViewAspectRatioConstraint = selectedImageViewAspectRatioConstraint?.changeMultiplier(1)
-        selectedImageView?.contentMode = .ScaleAspectFit
-        selectedImageView?.image = mainImage.image
-        selectedImageScrollView?.centerFullImageInImageView(selectedImageView)
+        if mainImage.image != selectedImageView?.image {
+            selectedImageCenterHorizontalConstraint?.constant = 0
+            selectedImageViewAspectRatioConstraint = selectedImageViewAspectRatioConstraint?.changeMultiplier(1)
+            selectedImageView?.contentMode = .ScaleAspectFit
+            selectedImageView?.image = mainImage.image
+            selectedImageScrollView?.centerFullImageInImageView(selectedImageView)
+        }
+        
         if state != .Image {
             state = .Image
         }
+        
         mainImageLoadIndicator?.stopAnimating()
     }
     

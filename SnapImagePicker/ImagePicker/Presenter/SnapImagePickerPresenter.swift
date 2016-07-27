@@ -32,7 +32,6 @@ class SnapImagePickerPresenter {
 
 extension SnapImagePickerPresenter {
     private func loadAlbum() {
-        print("Loading album")
         images = [Int: SnapImagePickerImage]()
         currentRange = nil
         viewIsReady = false
@@ -102,6 +101,9 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
     
     func viewWillAppearWithCellSize(cellSize: CGFloat) {
         self.cellSize = CGSize(width: cellSize, height: cellSize)
+        if let image = images[selectedIndex] {
+            view?.displayMainImage(image)
+        }
     }
 
     func albumImageClicked(index: Int) {
