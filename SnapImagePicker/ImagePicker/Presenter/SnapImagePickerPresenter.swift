@@ -11,6 +11,7 @@ class SnapImagePickerPresenter {
         didSet {
             view?.albumTitle = albumType.getAlbumName()
             if albumType != oldValue {
+                print("Setting albumtype to \(albumType)")
                 loadAlbum()
             }
         }
@@ -31,6 +32,7 @@ class SnapImagePickerPresenter {
 
 extension SnapImagePickerPresenter {
     private func loadAlbum() {
+        print("Loading album")
         images = [Int: SnapImagePickerImage]()
         currentRange = nil
         viewIsReady = false
@@ -94,9 +96,12 @@ extension SnapImagePickerPresenter: SnapImagePickerPresenterProtocol {
 }
 
 extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
+    func viewDidLoad() {
+        checkPhotosAccessStatus()
+    }
+    
     func viewWillAppearWithCellSize(cellSize: CGFloat) {
         self.cellSize = CGSize(width: cellSize, height: cellSize)
-        checkPhotosAccessStatus()
     }
 
     func albumImageClicked(index: Int) {

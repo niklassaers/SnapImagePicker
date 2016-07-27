@@ -132,6 +132,7 @@ class SnapImagePickerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        eventHandler?.viewDidLoad()
     }
     
     override func viewDidAppear(animated: Bool) {
