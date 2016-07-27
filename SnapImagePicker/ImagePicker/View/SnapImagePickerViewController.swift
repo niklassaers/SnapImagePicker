@@ -390,15 +390,17 @@ extension SnapImagePickerViewController: UIScrollViewDelegate {
                     if imageView.frame.height != imageView.frame.width {
                         imageHeight = imageView.frame.height
                     }
-                    let diff = (imageHeight / imageView.frame.width) / 2
                     if imageHeight > scrollView.frame.height && imageView.frame.height == imageView.frame.width {
-                        print("Removing vertical padding")
-                        selectedImageViewAspectRatioConstraint = selectedImageViewAspectRatioConstraint?.changeMultiplier(imageView.frame.width / imageHeight)
-                        scrollView.setContentOffset(CGPoint(x: scrollView.contentOffset.x, y: scrollView.contentOffset.y + diff), animated: false)
+                        let ratio = imageView.frame.width / imageHeight
+                        selectedImageViewAspectRatioConstraint = selectedImageViewAspectRatioConstraint?.changeMultiplier(ratio)
+                        selectedImageCenterHorizontalConstraint?.constant = (imageView.frame.width - imageHeight) / 2
+                        scrollView.setZoomScale(scrollView.zoomScale / ratio, animated: false)
                     } else if imageHeight < scrollView.frame.height && imageView.frame.height != imageView.frame.width {
                         print("Adding vertical padding")
+                        let ratio = selectedImageViewAspectRatioConstraint!.multiplier
                         selectedImageViewAspectRatioConstraint = selectedImageViewAspectRatioConstraint?.changeMultiplier(1)
-                        scrollView.setContentOffset(CGPoint(x: scrollView.contentOffset.x, y: scrollView.contentOffset.y - diff), animated: false)
+                        selectedImageCenterHorizontalConstraint?.constant = 0
+                        scrollView.setZoomScale(scrollView.zoomScale * ratio, animated: false)
                     }
                 }
             }

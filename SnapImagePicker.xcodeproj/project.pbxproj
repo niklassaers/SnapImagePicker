@@ -318,10 +318,6 @@
 			children = (
 				7CE3607CF98B3315460607FC /* Pods_Example_Project.framework */,
 				1077999A272FEFD35E45C16E /* Pods_SnapImagePicker.framework */,
-				CA3E1B568A7561433689EC90 /* Pods_SnapImagePicker_Example_Project.framework */,
-				32A1B2C5AC64D0C63251FFE1 /* Pods_Example_Project_UI_Tests.framework */,
-				29BC9D132B7F0E5AEACA8026 /* Pods_SnapImagePicker_Snapshot_Tests.framework */,
-				6DCB02F0EBDE9C30623C8FE4 /* Pods_SnapImagePicker_Unit_Tests.framework */,
 				9F72C16DA282DE843C497D5C /* Pods_SnapImagePicker_UI_Tests.framework */,
 			);
 			name = Frameworks;
@@ -1407,7 +1403,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.snapsale.SnapImagePicker.ExampleProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5f6a7d3c-13b3-4764-bc84-a5e2bb292af3";
+				PROVISIONING_PROFILE = "92dc7c83-aaf9-4133-bf1a-fccad74c9497";
 			};
 			name = Debug;
 		};
