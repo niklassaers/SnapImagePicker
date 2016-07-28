@@ -160,7 +160,7 @@ class SnapImagePickerViewController: UIViewController {
                     strongSelf.currentDisplay = newDisplay
                     self?.setVisibleCellsInAlbumCollectionView()
                     self?.selectedImageScrollView?.setContentOffset(newOffset, animated: true)
-                    
+                    self?.calculateViewSizes()
                 }
                 }, completion: nil)
         }
@@ -212,14 +212,13 @@ class SnapImagePickerViewController: UIViewController {
     }
     
     private func calculateViewSizes() {
-        if let mainScrollView = mainScrollView,
-           let imageFrame = selectedImageScrollView?.frame {
+        if let mainScrollView = mainScrollView {
             let mainFrame = mainScrollView.frame
-            let imageSizeWhenDisplayed = imageFrame.height * CGFloat(DisplayState.Album.offset)
-            let imageSizeWhenHidden = imageFrame.height * (1 - CGFloat(DisplayState.Album.offset))
+            let imageSizeWhenDisplayed = view.frame.width * CGFloat(currentDisplay.SelectedImageWidthMultiplier) * CGFloat(DisplayState.Album.offset)
+            let imageSizeWhenHidden = view.frame.width * CGFloat(currentDisplay.SelectedImageWidthMultiplier) * (1 - CGFloat(DisplayState.Album.offset))
             mainScrollView.contentSize = CGSize(width: mainFrame.width, height: mainFrame.height + imageSizeWhenDisplayed)
             
-            albumCollectionViewHeightConstraint?.constant = mainFrame.height - imageSizeWhenHidden - currentDisplay.Spacing - 20 // WHY
+            albumCollectionViewHeightConstraint?.constant = view.frame.height - imageSizeWhenHidden - currentDisplay.NavBarHeight
         }
     }
 }

@@ -33,6 +33,7 @@
   ],
   "requires_arc": true,
   "dependencies": {
-   "SnapFonts-iOS": [ ]
+   "SnapFonts-iOS": [ ],
+   "DORateLimit": [ ]
   }
 }
