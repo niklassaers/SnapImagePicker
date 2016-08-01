@@ -121,7 +121,9 @@ class SnapImagePickerViewController: UIViewController {
         super.viewWillAppear(animated)
 
         currentDisplay = view.frame.size.displayType()
-        eventHandler?.viewWillAppearWithCellSize(currentDisplay.CellWidthInViewWithWidth(view.bounds.width))
+        let width = currentDisplay.CellWidthInViewWithWidth(view.bounds.width)
+        eventHandler?.viewWillAppearWithCellSize(CGSize(width: width, height: width))
+        
         calculateViewSizes()
         setupGestureRecognizers()
         automaticallyAdjustsScrollViewInsets = false
@@ -164,10 +166,6 @@ class SnapImagePickerViewController: UIViewController {
                 }
                 }, completion: nil)
         }
-    }
-    
-    func dismiss() {
-        eventHandler?.dismiss()
     }
     
     private func setupSelectButton() {
@@ -260,7 +258,7 @@ extension SnapImagePickerViewController: UICollectionViewDataSource {
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return eventHandler?.numberOfItemsInSection(section, withColumns: currentDisplay.NumberOfColumns) ?? 0
+        return eventHandler?.numberOfItemsInSection(section) ?? 0
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {

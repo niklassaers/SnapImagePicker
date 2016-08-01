@@ -1,16 +1,10 @@
 import UIKit
 import SnapFonts_iOS
 
-public protocol SnapImagePickerProtocol {
-    func initializeViewControllerInNavigationController(navigationController: UINavigationController)
-    func photosAccessStatusChanged()
-}
-
 protocol SnapImagePickerConnectorProtocol: class {
     func segueToAlbumSelector()
     func segueToImagePicker(albumType: AlbumType)
     func setImage(image: UIImage, withImageOptions: ImageOptions)
-    func dismiss()
     func requestPhotosAccess()
 }
 
@@ -41,7 +35,7 @@ public class SnapImagePicker {
 }
 
 extension SnapImagePicker: SnapImagePickerProtocol {
-    public func initializeViewControllerInNavigationController(navigationController: UINavigationController) {
+    public func initializeViewController() -> UIViewController? {
         let bundle = NSBundle(forClass: SnapImagePicker.self)
         let storyboard = UIStoryboard(name: Names.SnapImagePickerStoryboard.rawValue, bundle: bundle)
         if let snapImagePickerViewController = storyboard.instantiateInitialViewController() as? SnapImagePickerViewController {
@@ -57,12 +51,34 @@ extension SnapImagePicker: SnapImagePickerProtocol {
             
             self.presenter = presenter
             
-            previousTransitionDelegate = navigationController.delegate
-            self.navigationController = navigationController
-            
-            navigationController.pushViewController(snapImagePickerViewController, animated: true)
-            navigationController.delegate = transitionDelegate
+            return snapImagePickerViewController
         }
+        
+        return nil
+    }
+    
+    public func enableCustomTransitionForNavigationController(navigationController: UINavigationController) -> Bool {
+        if self.navigationController != nil {
+            return false
+        }
+        
+        self.navigationController = navigationController
+        previousTransitionDelegate = navigationController.delegate
+        navigationController.delegate = transitionDelegate
+        
+        return true
+    }
+    
+    public func disableCustomTransitionForNavigationController(navigationController: UINavigationController) -> Bool {
+        if self.navigationController != navigationController {
+            return false
+        }
+        
+        self.navigationController = nil
+        navigationController.delegate = previousTransitionDelegate
+        previousTransitionDelegate = nil
+        
+        return true
     }
     
     public func photosAccessStatusChanged() {
@@ -109,11 +125,5 @@ extension SnapImagePicker: SnapImagePickerConnectorProtocol {
     
     func requestPhotosAccess() {
         delegate?.requestPhotosAccessForImagePicker(self)
-    }
-    
-    func dismiss() {
-        navigationController?.delegate = previousTransitionDelegate
-        navigationController?.popViewControllerAnimated(true)
-        delegate?.dismiss()
     }
 }

@@ -1,7 +1,7 @@
 import UIKit
 import Photos
 
-class ImageLoaderMock: ImageLoader {
+class ImageLoaderMock: ImageLoaderProtocol {
     let numberOfImagesInAlbum: Int
     var clearPendingRequestsWasCalled = false
     
@@ -17,12 +17,14 @@ class ImageLoaderMock: ImageLoader {
     }
     
     func loadImagesFromAssets(assets: [Int: PHAsset], withTargetSize targetSize: CGSize, handler: ([Int: SnapImagePickerImage]) -> Void) {
+        var results = [Int: SnapImagePickerImage]()
         if let image = UIImage(named: "dummy.jpeg", inBundle: NSBundle(forClass: SnapImagePicker.self), compatibleWithTraitCollection: nil) {
             for i in 0..<30 {
-                //TODO: Update Mock
-                //handler(SnapImagePickerImage(image: image, localIdentifier: "testImage", createdDate: nil), i)
+                results[i] = SnapImagePickerImage(image: image, localIdentifier: "testImage", createdDate: nil)
             }
         }
+        
+        handler(results)
     }
     
     func fetchAssetsFromCollectionWithType(type: AlbumType) -> PHFetchResult? {

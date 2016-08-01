@@ -1,155 +1,103 @@
-@testable import SnapImagePicker
 import XCTest
+@testable import SnapImagePicker
 
-
-class SnapImagePickerInteractorTests: XCTestCase, SnapImagePickerTestExpectationDelegate {
-    private var presenter: SnapImagePickerPresenterSpy?
-    private var entityGateway: SnapImagePickerEntityGatewaySpy?
-    private var interactor: SnapImagePickerInteractor?
-    
-    private var asyncExpectation: XCTestExpectation?
-    var fulfillExpectation: (Void -> Void)? {
-        get {
-            return asyncExpectation?.fulfill
-        }
-    }
-    
-    private let numberOfImages = 30
+class SnapImagePickerInteractorTests: XCTestCase {
+    var entityGateway: SnapImagePickerEntityGatewaySpy?
+    var presenter: SnapImagePickerPresenterSpy?
+    var interactor: SnapImagePickerInteractor?
     
     override func setUp() {
         super.setUp()
-        presenter = SnapImagePickerPresenterSpy(delegate: self)
-        entityGateway = SnapImagePickerEntityGatewaySpy(delegate: self, numberOfImagesInAlbums: numberOfImages)
+        entityGateway = SnapImagePickerEntityGatewaySpy()
+        presenter = SnapImagePickerPresenterSpy()
         interactor = SnapImagePickerInteractor(presenter: presenter!)
         interactor?.entityGateway = entityGateway
-        
     }
     
     override func tearDown() {
-        presenter = nil
-        entityGateway = nil
-        interactor = nil
         super.tearDown()
     }
     
-    private func createImage() -> UIImage? {
-        return UIImage(named: "dummy.jpeg", inBundle: NSBundle(forClass: SnapImagePicker.self), compatibleWithTraitCollection: nil)
-    }
-
-    func testLoadInitialAlbum() {
-        let type = AlbumType.AllPhotos
+    func testLoadAlbumShouldTriggerFetchAlbum() {
+        let expectation = self.expectationWithDescription("Waiting for entityGateway.fetchAlbum")
+        entityGateway?.expectation = expectation
         
-        asyncExpectation = expectationWithDescription("Loading initial album")
-        interactor?.loadInitialAlbum(type)
+        let albumType = AlbumType.AllPhotos
+        interactor?.loadAlbum(albumType)
         
-        self.waitForExpectationsWithTimeout(5) {
-            [weak self] error in
-            XCTAssertEqual(1, self?.entityGateway?.loadInitialAlbumCount)
-            XCTAssertEqual(type, self?.entityGateway?.loadInitialAlbumType)
+        self.waitForExpectationsWithTimeout(5.0) {
+            _ in
+            XCTAssertEqual(1, self.entityGateway?.fetchAlbumCount)
+            XCTAssertEqual(albumType, self.entityGateway?.fetchAlbumType)
         }
     }
     
-    func testLoadAlbumImageWithType() {
-        let type = AlbumType.AllPhotos
-        let size = CGSizeZero
+    func testLoadedAlbumShouldTriggerPresentAlbum() {
+        let albumType = AlbumType.AllPhotos
+        let mainImage = SnapImagePickerImage(image: UIImage(), localIdentifier: "local", createdDate: nil)
+        let albumSize = 30
+        
+        interactor?.loadedAlbum(albumType, withMainImage: mainImage, albumSize: albumSize)
+        XCTAssertEqual(1, presenter?.presentAlbumCount)
+        XCTAssertEqual(albumType, presenter?.presentAlbumType)
+        XCTAssertEqual(mainImage.localIdentifier, presenter?.presentAlbumImage?.localIdentifier)
+        XCTAssertEqual(albumSize, presenter?.presentAlbumSize)
+    }
+    
+    func testLoadAlbumImagesShouldTriggerFetchAlbumImages() {
+        let expectation = self.expectationWithDescription("Waiting for entityGateway.fetchAlbumImages")
+        entityGateway?.expectation = expectation
+        
+        let albumType = AlbumType.AllPhotos
+        let range = 0..<10
+        let targetSize = CGSize(width: 10, height: 10)
+        interactor?.loadAlbumImagesFromAlbum(albumType, inRange: range, withTargetSize: targetSize)
+        
+        self.waitForExpectationsWithTimeout(5.0) {
+            _ in
+            XCTAssertEqual(1, self.entityGateway?.fetchAlbumImagesFromAlbumCount)
+            XCTAssertEqual(albumType, self.entityGateway?.fetchAlbumImagesFromAlbumType)
+            XCTAssertEqual(range, self.entityGateway?.fetchAlbumImagesFromAlbumRange)
+            XCTAssertEqual(targetSize, self.entityGateway?.fetchAlbumImagesFromAlbumSize)
+        }
+    }
+    
+    func testLoadedAlbumImagesShouldTriggerPresentAlbumImages() {
+        let albumType = AlbumType.AllPhotos
+        var images = [Int: SnapImagePickerImage]()
+        for i in 0..<10 {
+            images[i] = SnapImagePickerImage(image: UIImage(), localIdentifier: "", createdDate: nil)
+        }
+        
+        interactor?.loadedAlbumImagesResult(images, fromAlbum: albumType)
+        XCTAssertEqual(1, presenter?.presentAlbumImagesCount)
+        XCTAssertEqual(albumType, presenter?.presentAlbumImagesType)
+        XCTAssertEqual(images.count, presenter?.presentAlbumImagesResults?.count)
+    }
+    
+    func testLoadMainImageShouldTriggerFetchMainImage() {
+        let expectation = self.expectationWithDescription("Waiting for entityGateway.fetchMainImage")
+        entityGateway?.expectation = expectation
+        
+        let albumType = AlbumType.AllPhotos
         let index = 5
+        interactor?.loadMainImageFromAlbum(albumType, atIndex: index)
         
-        asyncExpectation = expectationWithDescription("Loading a single album image")
-        interactor?.loadAlbumImageWithType(type, withTargetSize: size, atIndex: index)
-        
-        self.waitForExpectationsWithTimeout(5) {
-            [weak self] error in
-            XCTAssertEqual(1, self?.entityGateway?.loadAlbumImageWithTypeCount)
-            XCTAssertEqual(type, self?.entityGateway?.loadAlbumImageType)
-            XCTAssertEqual(size, self?.entityGateway?.loadAlbumImageSize)
-            XCTAssertEqual(index, self?.entityGateway?.loadAlbumImageAtIndex)
+        self.waitForExpectationsWithTimeout(5.0) {
+            _ in
+            XCTAssertEqual(1, self.entityGateway?.fetchMainImageFromAlbumCount)
+            XCTAssertEqual(albumType, self.entityGateway?.fetchMainImageFromAlbumType)
+            XCTAssertEqual(index, self.entityGateway?.fetchMainImageFromAlbumIndex)
         }
     }
     
-    func testLoadImageWithLocalIdentifier() {
-        let localIdentifier = "localIdentifier"
+    func testLoadedMainImageShouldTriggerPresentMainImage() {
+        let image = SnapImagePickerImage(image: UIImage(), localIdentifier: "local", createdDate: nil)
+        let albumType = AlbumType.AllPhotos
         
-        asyncExpectation = expectationWithDescription("Loading main image")
-        interactor?.loadImageWithLocalIdentifier(localIdentifier)
-        
-        self.waitForExpectationsWithTimeout(5) {
-            [weak self] error in
-            XCTAssertEqual(1, self?.entityGateway?.loadImageWithLocalIdentifierCount)
-            XCTAssertEqual(localIdentifier, self?.entityGateway?.loadImageWithLocalIdentifier)
-        }
-    }
-    
-    func testClearPendingRequests() {
-        asyncExpectation = expectationWithDescription("Clearing pending requests")
-        interactor?.clearPendingRequests()
-        
-        self.waitForExpectationsWithTimeout(5) {
-            [weak self] error in
-            XCTAssertEqual(1, self?.entityGateway?.clearPendingRequestsCount)
-        }
-    }
-    
-    func testInitializedAlbum() {
-        if let image = createImage() {
-            let albumSize = numberOfImages
-            let localIdentifier = "localIdentifier"
-            let createdDate = NSDate()
-            
-            asyncExpectation = expectationWithDescription("Initialized album")
-            interactor?.initializedAlbum(SnapImagePickerImage(image: image, localIdentifier: localIdentifier, createdDate: createdDate), albumSize: albumSize)
-            
-            self.waitForExpectationsWithTimeout(5) {
-                [weak self] error in
-                XCTAssertEqual(1, self?.presenter?.presentInitialAlbumCount)
-                XCTAssertEqual(image, self?.presenter?.presentInitialAlbumImage?.image)
-                XCTAssertEqual(localIdentifier, self?.presenter?.presentInitialAlbumImage?.localIdentifier)
-                XCTAssertEqual(createdDate, self?.presenter?.presentInitialAlbumImage?.createdDate)
-                XCTAssertEqual(albumSize, self?.presenter?.presentInitialAlbumSize)
-            }
-        } else {
-            XCTAssertTrue(false, "Unable to load test image")
-        }
-    }
-    
-    func testLoadedAlbumImage() {
-        if let image = createImage() {
-            let localIdentifier = "localIdentifier"
-            let createdDate = NSDate()
-            let index = 5
-            
-            asyncExpectation = expectationWithDescription("Loaded album image")
-            interactor?.loadedAlbumImage(SnapImagePickerImage(image: image, localIdentifier: localIdentifier, createdDate: createdDate), atIndex: index)
-            
-            self.waitForExpectationsWithTimeout(5) {
-                [weak self] error in
-                XCTAssertEqual(1, self?.presenter?.presentAlbumImageCount)
-                XCTAssertEqual(image, self?.presenter?.presentAlbumImage?.image)
-                XCTAssertEqual(localIdentifier, self?.presenter?.presentAlbumImage?.localIdentifier)
-                XCTAssertEqual(createdDate, self?.presenter?.presentAlbumImage?.createdDate)
-                XCTAssertEqual(index, self?.presenter?.presentAlbumImageAtIndex)
-            }
-        } else {
-            XCTAssertTrue(false, "Unable to load test image")
-        }
-    }
-    
-    func testLoadedMainImage() {
-        if let image = createImage() {
-            let localIdentifier = "localIdentifier"
-            let createdDate = NSDate()
-            
-            asyncExpectation = expectationWithDescription("Loaded main image")
-            interactor?.loadedMainImage(SnapImagePickerImage(image: image, localIdentifier: localIdentifier, createdDate: createdDate))
-            
-            self.waitForExpectationsWithTimeout(5) {
-                [weak self] error in
-                XCTAssertEqual(1, self?.presenter?.presentMainImageCount)
-                XCTAssertEqual(image, self?.presenter?.presentMainImage?.image)
-                XCTAssertEqual(localIdentifier, self?.presenter?.presentMainImage?.localIdentifier)
-                XCTAssertEqual(createdDate, self?.presenter?.presentMainImage?.createdDate)
-            }
-        } else {
-            XCTAssertTrue(false, "Unable to load test image")
-        }
+        interactor?.loadedMainImage(image, fromAlbum: albumType)
+        XCTAssertEqual(1, presenter?.presentMainImageCount)
+        XCTAssertEqual(albumType, presenter?.presentMainImageType)
+        XCTAssertEqual(image.localIdentifier, presenter?.presentMainImageImage?.localIdentifier)
     }
 }

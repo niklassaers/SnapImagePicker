@@ -1,90 +1,68 @@
-@testable import SnapImagePicker
 import UIKit
+@testable import SnapImagePicker
 
-class SnapImagePickerInteractorSpy: SnapImagePickerInteractorProtocol {
-    var loadInitialAlbumCount = 0
-    var loadInitialAlbumType: AlbumType?
+class SnapImagePickerInteractorSpy {
+    var loadAlbumCount = 0
+    var loadAlbumType: AlbumType?
     
-    var loadAlbumImageWithTypeCount = 0
-    var loadAlbumImageWithType: AlbumType?
-    var loadAlbumImageSize: CGSize?
-    var loadAlbumImageAtIndex: Int?
+    var loadedAlbumCount = 0
+    var loadedAlbumType: AlbumType?
+    var loadedAlbumMainImage: SnapImagePickerImage?
+    var loadedAlbumSize: Int?
     
-    var loadImageWithLocalIdentifierCount = 0
-    var loadImageWithLocalIdentifier: String?
+    var loadAlbumImagesFromAlbumCount = 0
+    var loadAlbumImagesFromAlbumType: AlbumType?
+    var loadAlbumImagesFromAlbumRange: Range<Int>?
+    var loadAlbumImagesFromAlbumTargetSize: CGSize?
     
-    var clearPendingRequestsCount = 0
+    var loadMainImageFromAlbumCount = 0
+    var loadMainImageFromAlbumType: AlbumType?
+    var loadMainImageFromAlbumIndex: Int?
     
-    var initializedAlbumCount = 0
-    var initializedAlbumImage: SnapImagePickerImage?
-    var initializedAlbumSize: Int?
-    
-    var loadedAlbumImageCount = 0
-    var loadedAlbumImage: SnapImagePickerImage?
-    var loadedAlbumImageAtIndex: Int?
+    var loadedAlbumImagesResultCount = 0
+    var loadedAlbumImagesResultResults: [Int: SnapImagePickerImage]?
+    var loadedAlbumImagesResultType: AlbumType?
     
     var loadedMainImageCount = 0
-    var loadedMainImage: SnapImagePickerImage?
-    
-    private var delegate: SnapImagePickerTestExpectationDelegate?
-    
-    init(delegate: SnapImagePickerTestExpectationDelegate) {
-        self.delegate = delegate
+    var loadedMainImageImage: SnapImagePickerImage?
+    var loadedMainImageType: AlbumType?
+}
+
+extension SnapImagePickerInteractorSpy: SnapImagePickerInteractorProtocol {
+    func loadAlbum(type: AlbumType) {
+        loadAlbumCount += 1
+        loadAlbumType = type
     }
     
-    func loadInitialAlbum(type: AlbumType) {
-        loadInitialAlbumCount += 1
-        loadInitialAlbumType = type
-        
-        delegate?.fulfillExpectation?()
+    func loadedAlbum(type: AlbumType, withMainImage mainImage: SnapImagePickerImage, albumSize: Int) {
+        loadedAlbumCount += 1
+        loadedAlbumType = type
+        loadedAlbumMainImage = mainImage
+        loadedAlbumSize = albumSize
     }
     
-    func loadAlbumImageWithType(type: AlbumType, withTargetSize targetSize: CGSize, atIndex: Int) {
-        loadAlbumImageWithTypeCount += 1
-        loadAlbumImageWithType = type
-        loadAlbumImageSize = targetSize
-        loadAlbumImageAtIndex = atIndex
-        
-        delegate?.fulfillExpectation?()
+    func loadAlbumImagesFromAlbum(type: AlbumType, inRange range: Range<Int>, withTargetSize targetSize: CGSize) {
+        loadAlbumImagesFromAlbumCount += 1
+        loadAlbumImagesFromAlbumType = type
+        loadAlbumImagesFromAlbumRange = range
+        loadAlbumImagesFromAlbumTargetSize = targetSize
     }
     
-    func loadImageWithLocalIdentifier(localIdentifier: String) {
-        loadImageWithLocalIdentifierCount += 1
-        loadImageWithLocalIdentifier = localIdentifier
-        
-        delegate?.fulfillExpectation?()
+    func loadMainImageFromAlbum(type: AlbumType, atIndex index: Int) {
+        loadMainImageFromAlbumCount += 1
+        loadMainImageFromAlbumType = type
+        loadMainImageFromAlbumIndex = index
     }
     
-    func deleteRequestForId(index: Int, forAlbumType type: AlbumType) {
-        
+    func loadedAlbumImagesResult(results: [Int:SnapImagePickerImage], fromAlbum album: AlbumType) {
+        loadedAlbumImagesResultCount += 1
+        loadedAlbumImagesResultResults = results
+        loadedAlbumImagesResultType = album
     }
     
-    func clearPendingRequests() {
-        clearPendingRequestsCount += 1
-        
-        delegate?.fulfillExpectation?()
-    }
-    
-    func initializedAlbum(image: SnapImagePickerImage, albumSize: Int) {
-        initializedAlbumCount += 1
-        initializedAlbumImage = image
-        initializedAlbumSize = albumSize
-        
-        delegate?.fulfillExpectation?()
-    }
-    
-    func loadedAlbumImage(image: SnapImagePickerImage, atIndex: Int) {
-        loadedAlbumImageCount += 1
-        loadedAlbumImage = image
-        loadedAlbumImageAtIndex = atIndex
-        
-        delegate?.fulfillExpectation?()
-    }
-    
-    func loadedMainImage(image: SnapImagePickerImage) {
+    func loadedMainImage(image: SnapImagePickerImage, fromAlbum album: AlbumType) {
         loadedMainImageCount += 1
-        loadedMainImage = image
-        
-        delegate?.fulfillExpectation?()
+        loadedMainImageImage = image
+        loadedMainImageType = album
     }
 }

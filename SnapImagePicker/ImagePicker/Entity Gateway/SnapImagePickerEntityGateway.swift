@@ -3,9 +3,9 @@ import Photos
 
 class SnapImagePickerEntityGateway {
     private weak var interactor: SnapImagePickerInteractorProtocol?
-    private weak var imageLoader: ImageLoader?
+    private weak var imageLoader: ImageLoaderProtocol?
     
-    init(interactor: SnapImagePickerInteractorProtocol, imageLoader: ImageLoader?) {
+    init(interactor: SnapImagePickerInteractorProtocol, imageLoader: ImageLoaderProtocol?) {
         self.interactor = interactor
         self.imageLoader = imageLoader
     }
@@ -18,7 +18,7 @@ extension SnapImagePickerEntityGateway: SnapImagePickerEntityGatewayProtocol {
             imageLoader?.loadImageFromAsset(asset, isPreview: false, withPreviewSize: CGSizeZero) {
                 [weak self] (image: SnapImagePickerImage) in
                 assert(NSThread.isMainThread())
-                self?.interactor?.loadedAlbum(image, albumSize: fetchResult.count)
+                self?.interactor?.loadedAlbum(type, withMainImage: image, albumSize: fetchResult.count)
             }
             
         }
@@ -41,9 +41,9 @@ extension SnapImagePickerEntityGateway: SnapImagePickerEntityGatewayProtocol {
         return assets
     }
     
-    func fetchAlbumImagesFromAlbum(type: AlbumType, inRange range: Range<Int>)  {
+    func fetchAlbumImagesFromAlbum(type: AlbumType, inRange range: Range<Int>, withTargetSize targetSize: CGSize)  {
         let assets = loadAssetsFromAlbum(type, inRange: range)
-        imageLoader?.loadImagesFromAssets(assets, withTargetSize: CGSize(width: 150, height: 150)) {
+        imageLoader?.loadImagesFromAssets(assets, withTargetSize: targetSize) {
             [weak self] (results) in
             dispatch_async(dispatch_get_main_queue()) {
                 self?.interactor?.loadedAlbumImagesResult(results, fromAlbum: type)

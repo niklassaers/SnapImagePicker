@@ -11,7 +11,7 @@ class PhotoLoader {
     private var imageResponses = [Int:SnapImagePickerImage]() // Only read and update from within batchQueue
 }
 
-extension PhotoLoader: ImageLoader {
+extension PhotoLoader: ImageLoaderProtocol {
     
     
     func loadImageFromAsset(asset: PHAsset, isPreview: Bool = false, withPreviewSize previewSize: CGSize = CGSizeZero, handler: (SnapImagePickerImage) -> ()) -> PHImageRequestID {
@@ -140,7 +140,7 @@ extension PhotoLoader: ImageLoader {
     }
 }
 
-extension PhotoLoader: AlbumLoader {
+extension PhotoLoader: AlbumLoaderProtocol {
     func fetchAllPhotosPreview(targetSize: CGSize, handler: (Album) -> ()) {
         if let result = fetchAssetsFromCollectionWithType(.AllPhotos) {
             albums[AlbumType.AlbumNames.AllPhotos] = result
@@ -161,15 +161,15 @@ extension PhotoLoader: AlbumLoader {
         let userAlbums = PHAssetCollection.fetchAssetCollectionsWithType(.Album, subtype: .Any, options: userAlbumsOptions)
         
         userAlbums.enumerateObjectsUsingBlock() {
-            [weak self] in
+            [weak self] (object: AnyObject, _, _) in
             
             
             if let strongSelf = self,
-                let collection = $0.0 as? PHAssetCollection, // TODO: Reserve $0 for one-liners
-                let title = collection.localizedTitle {
+               let collection = object as? PHAssetCollection,
+               let title = collection.localizedTitle {
                 
                 let options = strongSelf.getFetchOptionsForCollection(.UserDefined(title: title))
-                options.predicate = NSPredicate(format: "mediaType = %i", PHAssetMediaType.Image.rawValue)  // TODO: %i may not be what you want
+                options.predicate = NSPredicate(format: "mediaType = \(PHAssetMediaType.Image.rawValue)")  // TODO: Same as above
                 let result = PHAsset.fetchAssetsInAssetCollection(collection, options: options)
                 
                 if result.count > 0 {
@@ -188,7 +188,7 @@ extension PhotoLoader: AlbumLoader {
                let title = collection.localizedTitle {
                 
                 let options = getFetchOptionsForCollection(.SmartAlbum(title: title))
-                options.predicate = NSPredicate(format: "mediaType = %i", PHAssetMediaType.Image.rawValue) // TODO: %i may not be what you want
+                options.predicate = NSPredicate(format: "mediaType = \(PHAssetMediaType.Image.rawValue)") // TODO: Same as above
                 let result = PHAsset.fetchAssetsInAssetCollection(collection, options: options)
                 
                 if result.count > 0 {

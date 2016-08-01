@@ -11,7 +11,6 @@ class SnapImagePickerPresenter {
         didSet {
             view?.albumTitle = albumType.getAlbumName()
             if albumType != oldValue {
-                print("Setting albumtype to \(albumType)")
                 loadAlbum()
             }
         }
@@ -37,9 +36,7 @@ extension SnapImagePickerPresenter {
         viewIsReady = false
         interactor?.loadAlbum(albumType)
     }
-}
 
-extension SnapImagePickerPresenter {
     func photosAccessStatusChanged() {
         checkPhotosAccessStatus()
     }
@@ -67,30 +64,35 @@ extension SnapImagePickerPresenter {
 }
 
 extension SnapImagePickerPresenter: SnapImagePickerPresenterProtocol {
-    func presentAlbum(image: SnapImagePickerImage, albumSize: Int) {
-        self.albumSize = albumSize
-        view?.displayMainImage(image)
-        view?.reloadAlbum()
-        viewIsReady = true
+    func presentAlbum(album: AlbumType, withMainImage mainImage: SnapImagePickerImage, albumSize: Int) {
+        if album == albumType {
+            self.albumSize = albumSize
+            view?.displayMainImage(mainImage)
+            view?.reloadAlbum()
+            viewIsReady = true
+        }
     }
     
-    func presentMainImage(image: SnapImagePickerImage) {
-        view?.displayMainImage(image)
+    func presentMainImage(image: SnapImagePickerImage, fromAlbum album: AlbumType) {
+        if album == albumType {
+            view?.displayMainImage(image)
+        }
     }
     
-    func presentAlbumImages(results: [Int: SnapImagePickerImage]) {
-        var indexes = [Int]()
-        for (index, image) in results {
-            if let currentRange = currentRange where currentRange.contains(index) {
-                images[index] = image
-                indexes.append(index)
+    func presentAlbumImages(results: [Int: SnapImagePickerImage], fromAlbum album: AlbumType) {
+        if album == albumType {
+            var indexes = [Int]()
+            for (index, image) in results {
+                if let currentRange = currentRange where currentRange.contains(index) {
+                    images[index] = image
+                    indexes.append(index)
+                }
+            }
+        
+            if viewIsReady {
+                view?.reloadCellAtIndexes(indexes)
             }
         }
-        
-        if viewIsReady {
-            view?.reloadCellAtIndexes(indexes)
-        }
-
     }
 }
 
@@ -99,8 +101,9 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
         checkPhotosAccessStatus()
     }
     
-    func viewWillAppearWithCellSize(cellSize: CGFloat) {
-        self.cellSize = CGSize(width: cellSize, height: cellSize)
+    func viewWillAppearWithCellSize(cellSize: CGSize) {
+        self.cellSize = cellSize
+        
         if let image = images[selectedIndex] {
             view?.displayMainImage(image)
         }
@@ -127,7 +130,7 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
         connector?.setImage(image, withImageOptions: options)
     }
 
-    func numberOfItemsInSection(section: Int, withColumns columns: Int) -> Int {
+    func numberOfItemsInSection(section: Int) -> Int {
         if section == 0 {
             return albumSize
         }
@@ -143,6 +146,7 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
             } else {
                 cell.spacing = 0
             }
+
             cell.imageView?.contentMode = .ScaleAspectFit
             cell.imageView?.image = image.image.square()
         }
@@ -168,11 +172,7 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
             images.removeValueForKey(i)
         }
         
-        interactor?.loadAlbumImagesFromAlbum(albumType, inRange: toBeFetched)
+        interactor?.loadAlbumImagesFromAlbum(albumType, inRange: toBeFetched, withTargetSize: cellSize)
         currentRange = range
-    }
-
-    func dismiss() {
-        connector?.dismiss()
     }
 }

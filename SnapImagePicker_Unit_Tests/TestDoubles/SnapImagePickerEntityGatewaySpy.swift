@@ -1,64 +1,45 @@
-@testable import SnapImagePicker
 import UIKit
+import XCTest
+@testable import SnapImagePicker
 
 class SnapImagePickerEntityGatewaySpy {
-    var loadInitialAlbumCount = 0
-    var loadInitialAlbumType: AlbumType?
+    var fetchAlbumCount = 0
+    var fetchAlbumType: AlbumType?
     
-    var loadAlbumImageWithTypeCount = 0
-    var loadAlbumImageType: AlbumType?
-    var loadAlbumImageSize: CGSize?
-    var loadAlbumImageAtIndex: Int?
+    var fetchAlbumImagesFromAlbumCount = 0
+    var fetchAlbumImagesFromAlbumType: AlbumType?
+    var fetchAlbumImagesFromAlbumRange: Range<Int>?
+    var fetchAlbumImagesFromAlbumSize: CGSize?
     
-    var loadImageWithLocalIdentifierCount = 0
-    var loadImageWithLocalIdentifier: String?
+    var fetchMainImageFromAlbumCount = 0
+    var fetchMainImageFromAlbumType: AlbumType?
+    var fetchMainImageFromAlbumIndex: Int?
     
-    var clearPendingRequestsCount = 0
-    
-    private let delegate: SnapImagePickerTestExpectationDelegate?
-    private let numberOfImagesInAlbums: Int?
-    
-    init(delegate: SnapImagePickerTestExpectationDelegate, numberOfImagesInAlbums: Int) {
-        self.delegate = delegate
-        self.numberOfImagesInAlbums = numberOfImagesInAlbums
-    }
-    
-    func loadInitialAlbum(type: AlbumType) {
-        loadInitialAlbumCount += 1
-        loadInitialAlbumType = type
-        
-        delegate?.fulfillExpectation?()
-    }
-    
+    var expectation: XCTestExpectation?
 }
 
-extension SnapImagePickerEntityGatewaySpy : SnapImagePickerEntityGatewayProtocol {
-    
-    func loadAlbumImageWithType(type: AlbumType, withTargetSize targetSize: CGSize, atIndex: Int) -> Bool {
-        loadAlbumImageWithTypeCount += 1
-        loadAlbumImageType = type
-        loadAlbumImageSize = targetSize
-        loadAlbumImageAtIndex = atIndex
+extension SnapImagePickerEntityGatewaySpy: SnapImagePickerEntityGatewayProtocol {
+    func fetchAlbum(type: AlbumType) {
+        fetchAlbumCount += 1
+        fetchAlbumType = type
         
-        delegate?.fulfillExpectation?()
-        return true
+        expectation?.fulfill()
     }
     
-    func deleteRequestAtIndex(index: Int, forAlbumType type: AlbumType) {
+    func fetchAlbumImagesFromAlbum(type: AlbumType, inRange: Range<Int>, withTargetSize: CGSize) {
+        fetchAlbumImagesFromAlbumCount += 1
+        fetchAlbumImagesFromAlbumType = type
+        fetchAlbumImagesFromAlbumRange = inRange
+        fetchAlbumImagesFromAlbumSize = withTargetSize
         
+        expectation?.fulfill()
     }
     
-    func loadImageWithLocalIdentifier(localIdentifier: String) -> Bool {
-        loadImageWithLocalIdentifierCount += 1
-        loadImageWithLocalIdentifier = localIdentifier
+    func fetchMainImageFromAlbum(type: AlbumType, atIndex: Int) {
+        fetchMainImageFromAlbumCount += 1
+        fetchMainImageFromAlbumType = type
+        fetchMainImageFromAlbumIndex = atIndex
         
-        delegate?.fulfillExpectation?()
-        return true
-    }
-    
-    func clearPendingRequests() {
-        clearPendingRequestsCount += 1
-        
-        delegate?.fulfillExpectation?()
+        expectation?.fulfill()
     }
 }

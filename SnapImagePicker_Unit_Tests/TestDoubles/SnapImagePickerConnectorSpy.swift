@@ -1,28 +1,35 @@
-@testable import SnapImagePicker
 import UIKit
+@testable import SnapImagePicker
 
-class SnapImagePickerConnectorSpy: SnapImagePickerConnectorProtocol {
-    var prepareSegueToAlbumSelectorCount = 0
-    var prepareSegueToImagePickerCount = 0
+class SnapImagePickerConnectorSpy {
+    var segueToAlbumSelectorCount = 0
     
-    var setChosenImageCount = 0
-    var setChosenImage: UIImage?
-    var setChosenImageOptions: ImageOptions?
+    var segueToImagePickerCount = 0
+    var segueToImagePickerType: AlbumType?
+    
+    var setImageCount = 0
+    var setImageImage: UIImage?
+    var setImageOptions: ImageOptions?
+    
+    var dismissCount = 0
     
     var requestPhotosAccessCount = 0
-    
-    func prepareSegueToAlbumSelector(viewController: UIViewController) {
-        prepareSegueToAlbumSelectorCount += 1
+}
+
+extension SnapImagePickerConnectorSpy: SnapImagePickerConnectorProtocol {
+    func segueToAlbumSelector() {
+        segueToAlbumSelectorCount += 1
     }
     
-    func prepareSegueToImagePicker(albumType: AlbumType) {
-        prepareSegueToImagePickerCount += 1
+    func segueToImagePicker(albumType: AlbumType) {
+        segueToImagePickerCount += 1
+        segueToImagePickerType = albumType
     }
     
-    func setChosenImage(image: UIImage, withImageOptions: ImageOptions) {
-        setChosenImageCount += 1
-        setChosenImage = image
-        setChosenImageOptions = withImageOptions
+    func setImage(image: UIImage, withImageOptions: ImageOptions) {
+        setImageCount += 1
+        setImageImage = image
+        setImageOptions = withImageOptions
     }
     
     func requestPhotosAccess() {
