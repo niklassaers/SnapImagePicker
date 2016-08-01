@@ -279,16 +279,13 @@ extension SnapImagePickerViewController: UICollectionViewDataSource {
     }
     
     private func scrollToIndex(index: Int) {
-        if let albumCollectionView = albumCollectionView,
-           let mainScrollView = mainScrollView {
+        if let albumCollectionView = albumCollectionView {
             let row = index / currentDisplay.NumberOfColumns
-            var offset = CGFloat(row) * (currentDisplay.CellWidthInView(albumCollectionView) + currentDisplay.Spacing)
-    
-            let remainingAlbumCollectionHeight = albumCollectionView.contentSize.height - offset + (currentDisplay.CellWidthInView(albumCollectionView) + currentDisplay.Spacing)
-            let albumStart = albumCollectionView.frame.minY
+            let offset = CGFloat(row) * (currentDisplay.CellWidthInView(albumCollectionView) + currentDisplay.Spacing)
             
-            if albumStart + remainingAlbumCollectionHeight < mainScrollView.frame.height {
-                offset = albumCollectionView.contentSize.height - (mainScrollView.frame.height - albumCollectionView.frame.minY)
+            // Does not scroll to index if 
+            if offset + albumCollectionView.frame.height > albumCollectionView.contentSize.height {
+                return
             }
             
             if offset > 0 {
