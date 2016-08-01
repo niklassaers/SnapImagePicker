@@ -1,4 +1,5 @@
 import UIKit
+import XCTest
 @testable import SnapImagePicker
 
 class SnapImagePickerInteractorSpy {
@@ -26,6 +27,8 @@ class SnapImagePickerInteractorSpy {
     var loadedMainImageCount = 0
     var loadedMainImageImage: SnapImagePickerImage?
     var loadedMainImageType: AlbumType?
+    
+    var expectation: XCTestExpectation?
 }
 
 extension SnapImagePickerInteractorSpy: SnapImagePickerInteractorProtocol {
@@ -39,6 +42,8 @@ extension SnapImagePickerInteractorSpy: SnapImagePickerInteractorProtocol {
         loadedAlbumType = type
         loadedAlbumMainImage = mainImage
         loadedAlbumSize = albumSize
+        
+        expectation?.fulfill()
     }
     
     func loadAlbumImagesFromAlbum(type: AlbumType, inRange range: Range<Int>, withTargetSize targetSize: CGSize) {
@@ -58,11 +63,15 @@ extension SnapImagePickerInteractorSpy: SnapImagePickerInteractorProtocol {
         loadedAlbumImagesResultCount += 1
         loadedAlbumImagesResultResults = results
         loadedAlbumImagesResultType = album
+        
+        expectation?.fulfill()
     }
     
     func loadedMainImage(image: SnapImagePickerImage, fromAlbum album: AlbumType) {
         loadedMainImageCount += 1
         loadedMainImageImage = image
         loadedMainImageType = album
+        
+        expectation?.fulfill()
     }
 }

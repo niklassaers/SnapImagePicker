@@ -1,16 +1,17 @@
 import Photos
 @testable import SnapImagePicker
 
-class PhotoLoaderSpy {
+class PhotoLoaderSpy: ImageLoaderProtocol, AlbumLoaderProtocol {
     var loadImageFromAssetCount = 0
     var loadImageFromAssetAsset: PHAsset?
     var loadImageFromAssetIsPreview: Bool?
     var loadImageFromAssetPreviewSize: CGSize?
     var loadImageFromAssetHandler: (SnapImagePickerImage -> ())?
     
-    var loadImageFromAssetsCount = 0
-    var loadImageFromAssetsAssets: [Int: PHAsset]?
-    var loadImageFromAssetsHandler: ([Int: SnapImagePickerImage] -> ())?
+    var loadImagesFromAssetsCount = 0
+    var loadImagesFromAssetsAssets: [Int: PHAsset]?
+    var loadImagesFromAssetsSize: CGSize?
+    var loadImagesFromAssetsHandler: ([Int: SnapImagePickerImage] -> ())?
     
     var fetchAssetsFromCollectionWithTypeCount = 0
     var fetchAssetsFromCollectionWithTypeType: AlbumType?
@@ -30,9 +31,7 @@ class PhotoLoaderSpy {
     var fetchSmartAlbumPreviewsCount = 0
     var fetchSmartAlbumPreviewsTargetSize: CGSize?
     var fetchSmartAlbumPreviewsHandler: (Album -> Void)?
-}
 
-extension PhotoLoaderSpy: ImageLoaderProtocol {
     func loadImageFromAsset(asset: PHAsset, isPreview: Bool, withPreviewSize previewSize: CGSize , handler: (SnapImagePickerImage) -> ()) -> PHImageRequestID {
         loadImageFromAssetCount += 1
         loadImageFromAssetAsset = asset
@@ -44,9 +43,10 @@ extension PhotoLoaderSpy: ImageLoaderProtocol {
     }
     
     func loadImagesFromAssets(assets: [Int: PHAsset], withTargetSize targetSize: CGSize, handler: ([Int: SnapImagePickerImage]) -> ()) {
-        loadImageFromAssetsCount += 1
-        loadImageFromAssetsAssets = assets
-        loadImageFromAssetsHandler = handler
+        loadImagesFromAssetsCount += 1
+        loadImagesFromAssetsAssets = assets
+        loadImagesFromAssetsSize = targetSize
+        loadImagesFromAssetsHandler = handler
     }
     
     func fetchAssetsFromCollectionWithType(type: AlbumType) -> PHFetchResult? {
@@ -55,9 +55,7 @@ extension PhotoLoaderSpy: ImageLoaderProtocol {
         
         return nil
     }
-}
 
-extension PhotoLoaderSpy: AlbumLoaderProtocol {
     func fetchAllPhotosPreview(targetSize: CGSize, handler: Album -> Void) {
         fetchAllPhotosPreviewsCount += 1
         fetchAllPhotosPreviewsTargetSize = targetSize

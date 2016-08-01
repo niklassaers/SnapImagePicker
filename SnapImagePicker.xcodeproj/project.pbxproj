@@ -42,6 +42,7 @@
 		D847B4551D1D5C9400D58E2C /* SnapImagePickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D847B4541D1D5C9400D58E2C /* SnapImagePickerViewModel.swift */; };
 		D847B45A1D1D644000D58E2C /* UIImage+square.swift in Sources */ = {isa = PBXBuildFile; fileRef = D847B4591D1D644000D58E2C /* UIImage+square.swift */; };
 		D855BAD91D456BE900D80237 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D855BAD81D456BE900D80237 /* Assets.xcassets */; };
+		D877B86B1D4F956800FE9B3B /* SnapImagePickerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D877B86A1D4F956800FE9B3B /* SnapImagePickerUITests.swift */; };
 		D87999F61D23CCF400683406 /* UIScrollView+fakeBounce.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87999F51D23CCF400683406 /* UIScrollView+fakeBounce.swift */; };
 		D883007D1D06C72600399612 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D883007C1D06C72600399612 /* AppDelegate.swift */; };
 		D883007F1D06C72600399612 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D883007E1D06C72600399612 /* ViewController.swift */; };
@@ -64,6 +65,8 @@
 		D8A4799B1D3E76BD008FA721 /* UIImageOrientation+toCGAffineTransformRadians.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A4799A1D3E76BD008FA721 /* UIImageOrientation+toCGAffineTransformRadians.swift */; };
 		D8A4799E1D3E7FF8008FA721 /* ImageLoaderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A4799D1D3E7FF8008FA721 /* ImageLoaderMock.swift */; };
 		D8A479A11D3E8020008FA721 /* PHFetchResultMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A479A01D3E8020008FA721 /* PHFetchResultMock.swift */; };
+		D8A49FAE1D4F86CD00B3D574 /* PHFetchResultMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A49FAD1D4F86CD00B3D574 /* PHFetchResultMock.swift */; };
+		D8A49FB01D4F873400B3D574 /* PHAssetMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A49FAF1D4F873400B3D574 /* PHAssetMock.swift */; };
 		D8BB94911D4F489000E0BB4F /* PhotoLoaderSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BB94901D4F489000E0BB4F /* PhotoLoaderSpy.swift */; };
 		D8BB94941D4F4A3D00E0BB4F /* SnapImagePickerEntityGatewaySpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BB94931D4F4A3D00E0BB4F /* SnapImagePickerEntityGatewaySpy.swift */; };
 		D8BB94961D4F4BB800E0BB4F /* SnapImagePickerInteractorSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BB94951D4F4BB800E0BB4F /* SnapImagePickerInteractorSpy.swift */; };
@@ -80,6 +83,7 @@
 		D8F4F1B31D4F6EBF00FF9550 /* SnapImagePickerInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F4F1B21D4F6EBF00FF9550 /* SnapImagePickerInteractorTests.swift */; };
 		D8F4F1B51D4F79EC00FF9550 /* SnapImagePickerEntityGatewayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F4F1B41D4F79EC00FF9550 /* SnapImagePickerEntityGatewayTests.swift */; };
 		D8F4F1B71D4F7DF000FF9550 /* SnapImagePickerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F4F1B61D4F7DF000FF9550 /* SnapImagePickerProtocol.swift */; };
+		D8F4F1B91D4F818000FF9550 /* PhotoLoaderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F4F1B81D4F818000FF9550 /* PhotoLoaderMock.swift */; };
 		F5F8BC325FCDADDBF7CA933A /* Pods_SnapImagePicker_UI_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F72C16DA282DE843C497D5C /* Pods_SnapImagePicker_UI_Tests.framework */; };
 /* End PBXBuildFile section */
 
@@ -180,6 +184,7 @@
 		D847B4541D1D5C9400D58E2C /* SnapImagePickerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapImagePickerViewModel.swift; sourceTree = "<group>"; };
 		D847B4591D1D644000D58E2C /* UIImage+square.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+square.swift"; sourceTree = "<group>"; };
 		D855BAD81D456BE900D80237 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D877B86A1D4F956800FE9B3B /* SnapImagePickerUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapImagePickerUITests.swift; sourceTree = "<group>"; };
 		D87999F51D23CCF400683406 /* UIScrollView+fakeBounce.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+fakeBounce.swift"; sourceTree = "<group>"; };
 		D88300791D06C72600399612 /* Example_Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example_Project.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D883007C1D06C72600399612 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -207,6 +212,8 @@
 		D8A4799A1D3E76BD008FA721 /* UIImageOrientation+toCGAffineTransformRadians.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageOrientation+toCGAffineTransformRadians.swift"; sourceTree = "<group>"; };
 		D8A4799D1D3E7FF8008FA721 /* ImageLoaderMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageLoaderMock.swift; sourceTree = "<group>"; };
 		D8A479A01D3E8020008FA721 /* PHFetchResultMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PHFetchResultMock.swift; sourceTree = "<group>"; };
+		D8A49FAD1D4F86CD00B3D574 /* PHFetchResultMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PHFetchResultMock.swift; sourceTree = "<group>"; };
+		D8A49FAF1D4F873400B3D574 /* PHAssetMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PHAssetMock.swift; sourceTree = "<group>"; };
 		D8BB94901D4F489000E0BB4F /* PhotoLoaderSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLoaderSpy.swift; sourceTree = "<group>"; };
 		D8BB94931D4F4A3D00E0BB4F /* SnapImagePickerEntityGatewaySpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapImagePickerEntityGatewaySpy.swift; sourceTree = "<group>"; };
 		D8BB94951D4F4BB800E0BB4F /* SnapImagePickerInteractorSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapImagePickerInteractorSpy.swift; sourceTree = "<group>"; };
@@ -233,6 +240,7 @@
 		D8F4F1B21D4F6EBF00FF9550 /* SnapImagePickerInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapImagePickerInteractorTests.swift; sourceTree = "<group>"; };
 		D8F4F1B41D4F79EC00FF9550 /* SnapImagePickerEntityGatewayTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapImagePickerEntityGatewayTests.swift; sourceTree = "<group>"; };
 		D8F4F1B61D4F7DF000FF9550 /* SnapImagePickerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapImagePickerProtocol.swift; sourceTree = "<group>"; };
+		D8F4F1B81D4F818000FF9550 /* PhotoLoaderMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLoaderMock.swift; sourceTree = "<group>"; };
 		E46A04D19BECC3EDEF73F577 /* Pods-SnapImagePicker_Unit_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapImagePicker_Unit_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SnapImagePicker_Unit_Tests/Pods-SnapImagePicker_Unit_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -442,6 +450,9 @@
 				D8BB94921D4F4A2400E0BB4F /* ImagePicker */,
 				D8BB94901D4F489000E0BB4F /* PhotoLoaderSpy.swift */,
 				D8BB949B1D4F511100E0BB4F /* SnapImagePickerConnectorSpy.swift */,
+				D8F4F1B81D4F818000FF9550 /* PhotoLoaderMock.swift */,
+				D8A49FAD1D4F86CD00B3D574 /* PHFetchResultMock.swift */,
+				D8A49FAF1D4F873400B3D574 /* PHAssetMock.swift */,
 			);
 			path = TestDoubles;
 			sourceTree = "<group>";
@@ -460,6 +471,7 @@
 			isa = PBXGroup;
 			children = (
 				D84614041D368B5E00B2A71D /* Info.plist */,
+				D877B86A1D4F956800FE9B3B /* SnapImagePickerUITests.swift */,
 			);
 			path = SnapImagePicker_UI_Tests;
 			sourceTree = "<group>";
@@ -1072,6 +1084,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D877B86B1D4F956800FE9B3B /* SnapImagePickerUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1145,12 +1158,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8BB94941D4F4A3D00E0BB4F /* SnapImagePickerEntityGatewaySpy.swift in Sources */,
+				D8A49FAE1D4F86CD00B3D574 /* PHFetchResultMock.swift in Sources */,
 				D8BB94A31D4F526600E0BB4F /* SnapImagePickerPresenterTests.swift in Sources */,
 				D8BB94981D4F4D6E00E0BB4F /* SnapImagePickerPresenterSpy.swift in Sources */,
 				D8BB94911D4F489000E0BB4F /* PhotoLoaderSpy.swift in Sources */,
 				D8BB94961D4F4BB800E0BB4F /* SnapImagePickerInteractorSpy.swift in Sources */,
 				D8F4F1B51D4F79EC00FF9550 /* SnapImagePickerEntityGatewayTests.swift in Sources */,
 				D8F4F1B31D4F6EBF00FF9550 /* SnapImagePickerInteractorTests.swift in Sources */,
+				D8A49FB01D4F873400B3D574 /* PHAssetMock.swift in Sources */,
+				D8F4F1B91D4F818000FF9550 /* PhotoLoaderMock.swift in Sources */,
 				D8BB949C1D4F511100E0BB4F /* SnapImagePickerConnectorSpy.swift in Sources */,
 				D8BB949A1D4F501E00E0BB4F /* SnapImagePickerViewControllerSpy.swift in Sources */,
 				D8F4F1AF1D4F636100FF9550 /* SnapImagePickerEventHandlerTests.swift in Sources */,
@@ -1257,11 +1273,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9FA6A0DF2EEE1CF43AC91190 /* Pods-SnapImagePicker_UI_Tests.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = SnapImagePicker_UI_Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.snapsale.SnapImagePicker-UI-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TEST_TARGET_NAME = Example_Project;
 			};
 			name = Debug;
@@ -1270,6 +1288,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BBA8E0F6EC87708F6B30B36D /* Pods-SnapImagePicker_UI_Tests.release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = SnapImagePicker_UI_Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
