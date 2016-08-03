@@ -249,6 +249,7 @@ extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
     }
     
     func reloadCellAtIndexes(indexes: [Int]) {
+        print("Reloading cells at indexes: \(indexes)")
         var indexPaths = [NSIndexPath]()
         for index in indexes {
             indexPaths.append(arrayIndexToIndexPath(index))

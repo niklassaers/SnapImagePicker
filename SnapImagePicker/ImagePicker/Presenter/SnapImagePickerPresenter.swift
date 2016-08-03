@@ -112,7 +112,7 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
     }
 
     func albumImageClicked(index: Int) {
-        if index < albumSize {
+        if index < albumSize  && index != selectedIndex {
             if let image = images[index] {
                 view?.displayMainImage(image)
             }
