@@ -1,6 +1,9 @@
 import UIKit
 
 class SnapImagePickerViewController: UIViewController {
+    @IBOutlet weak var selectedImageViewCenterHorinzontalConstraint: NSLayoutConstraint!
+    @IBOutlet weak var selectedImageViewAspectRatioConstraint: NSLayoutConstraint?
+    
     @IBOutlet weak var mainScrollView: UIScrollView? {
         didSet {
             mainScrollView?.delegate = self
@@ -36,8 +39,6 @@ class SnapImagePickerViewController: UIViewController {
     }
     
     @IBOutlet weak var topLayoutConstraint: NSLayoutConstraint?
-    @IBOutlet weak var selectedImageCenterHorizontalConstraint: NSLayoutConstraint?
-    @IBOutlet weak var selectedImageViewAspectRatioConstraint: NSLayoutConstraint?
     @IBOutlet weak var albumCollectionViewHeightConstraint: NSLayoutConstraint?
     @IBOutlet weak var albumCollectionWidthConstraint: NSLayoutConstraint?
     @IBOutlet weak var selectedImageWidthConstraint: NSLayoutConstraint?
@@ -224,11 +225,16 @@ class SnapImagePickerViewController: UIViewController {
 extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
     func displayMainImage(mainImage: SnapImagePickerImage) {
         if mainImage.image != selectedImageView?.image {
-            selectedImageCenterHorizontalConstraint?.constant = 0
-            selectedImageViewAspectRatioConstraint = selectedImageViewAspectRatioConstraint?.changeMultiplier(1)
-            selectedImageView?.contentMode = .ScaleAspectFit
-            selectedImageView?.image = mainImage.image
-            selectedImageScrollView?.centerFullImageInImageView(selectedImageView)
+            if (mainImage.image.size.width < mainImage.image.size.height) {
+                let imageWidth = selectedImageScrollView!.frame.width * mainImage.image.size.width / mainImage.image.size.height
+                let width = (imageWidth / view.frame.width) * currentDisplay.SelectedImageWidthMultiplier
+                
+                selectedImageViewAspectRatioConstraint = selectedImageViewAspectRatioConstraint?.changeMultiplier(mainImage.image.size.width / mainImage.image.size.height)
+                selectedImageWidthConstraint = selectedImageWidthConstraint?.changeMultiplier(width)
+                selectedImageView?.contentMode = .ScaleAspectFit
+                selectedImageView?.image = mainImage.image
+            }
+            //selectedImageScrollView?.centerFullImageInImageView(selectedImageView)
         }
         
         if state != .Image {
@@ -365,44 +371,11 @@ extension SnapImagePickerViewController: UIScrollViewDelegate {
     
     func scrollViewDidZoom(scrollView: UIScrollView) {
         if scrollView == selectedImageScrollView {
-            if let imageView = selectedImageView,
-               let image = imageView.image {
-                if image.size.height > image.size.width {
-                    var imageWidth = imageView.frame.width * image.size.width / image.size.height
-                    if imageView.frame.width != imageView.frame.height {
-                        imageWidth = imageView.frame.width
-                    }
-                    let diff = (imageWidth - imageView.frame.height) / 2
-                    if imageWidth > scrollView.frame.width && imageView.frame.width == imageView.frame.height {
-                        selectedImageCenterHorizontalConstraint?.constant = diff / scrollView.zoomScale
-                        selectedImageViewAspectRatioConstraint = selectedImageViewAspectRatioConstraint?.changeMultiplier(imageWidth / imageView.frame.height)
-                        scrollView.setContentOffset(CGPoint(x: scrollView.contentOffset.x + diff, y: scrollView.contentOffset.y), animated: false)
-                    } else if imageWidth < scrollView.frame.width && imageView.frame.width != imageView.frame.height {
-                        selectedImageViewAspectRatioConstraint = selectedImageViewAspectRatioConstraint?.changeMultiplier(1)
-                        selectedImageCenterHorizontalConstraint?.constant = 0
-                        scrollView.setContentOffset(CGPoint(x: scrollView.contentOffset.x - diff, y: scrollView.contentOffset.y), animated: false)
-                    }
-                } else if image.size.width > image.size.height {
-                    var imageHeight = imageView.frame.height * image.size.height / image.size.width
-                    if imageView.frame.height != imageView.frame.width {
-                        imageHeight = imageView.frame.height
-                    }
-                    let diff = (imageView.frame.width - imageHeight) / 2
-                    let contentOffset = scrollView.contentOffset
-                    if imageHeight > scrollView.frame.height && imageView.frame.height == imageView.frame.width {
-                        let ratio = imageView.frame.width / imageHeight
-                        selectedImageViewAspectRatioConstraint = selectedImageViewAspectRatioConstraint?.changeMultiplier(ratio)
-                        selectedImageCenterHorizontalConstraint?.constant = diff
-                        scrollView.setZoomScale(scrollView.zoomScale / ratio, animated: false)
-                        scrollView.setContentOffset(CGPoint(x: contentOffset.x, y: contentOffset.y - diff), animated: false)
-                    } else if imageHeight < scrollView.frame.height && imageView.frame.height != imageView.frame.width {
-                        let ratio = selectedImageViewAspectRatioConstraint!.multiplier
-                        selectedImageViewAspectRatioConstraint = selectedImageViewAspectRatioConstraint?.changeMultiplier(1)
-                        selectedImageCenterHorizontalConstraint?.constant = 0
-                        scrollView.setZoomScale(scrollView.zoomScale * ratio, animated: false)
-                        scrollView.setContentOffset(CGPoint(x: contentOffset.x, y: contentOffset.y + diff), animated: false)
-                    }
-                }
+            let widthRatio = min(1, max(selectedImageView!.frame.width / view.frame.width, selectedImageView!.image!.size.width / selectedImageView!.image!.size.height))
+            if widthRatio != selectedImageWidthConstraint?.multiplier {
+                selectedImageWidthConstraint = selectedImageWidthConstraint?.changeMultiplier(widthRatio)
+                let diff = (view.frame.width - scrollView.frame.width - 80) / 2
+                selectedImageViewCenterHorinzontalConstraint?.constant = diff
             }
         }
     }

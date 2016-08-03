@@ -30,16 +30,22 @@
                                             <bool key="isElement" value="YES"/>
                                         </accessibility>
                                         <constraints>
-                                            <constraint firstAttribute="width" secondItem="gCa-3y-aIB" secondAttribute="height" multiplier="1:1" id="SdV-4s-Xdz"/>
+                                            <constraint firstAttribute="width" secondItem="gCa-3y-aIB" secondAttribute="height" multiplier="1:1" id="OVO-dG-Q80"/>
                                         </constraints>
                                     </imageView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="gCa-3y-aIB" firstAttribute="height" secondItem="TOw-dc-Dkh" secondAttribute="height" id="4Sr-Ge-tpU"/>
-                                    <constraint firstItem="gCa-3y-aIB" firstAttribute="centerX" secondItem="TOw-dc-Dkh" secondAttribute="centerX" id="6mQ-E6-nwH"/>
-                                    <constraint firstItem="gCa-3y-aIB" firstAttribute="centerY" secondItem="TOw-dc-Dkh" secondAttribute="centerY" id="jdq-Me-C9E"/>
-                                    <constraint firstAttribute="width" secondItem="TOw-dc-Dkh" secondAttribute="height" multiplier="1:1" id="l0h-Kf-sUT"/>
+                                    <constraint firstItem="gCa-3y-aIB" firstAttribute="width" secondItem="TOw-dc-Dkh" secondAttribute="width" id="A5T-k4-Mug"/>
+                                    <constraint firstAttribute="width" secondItem="TOw-dc-Dkh" secondAttribute="height" multiplier="1:1" id="B48-QW-fIs"/>
+                                    <constraint firstItem="gCa-3y-aIB" firstAttribute="centerY" secondItem="TOw-dc-Dkh" secondAttribute="centerY" id="RSf-uu-hgm"/>
+                                    <constraint firstItem="gCa-3y-aIB" firstAttribute="centerX" secondItem="TOw-dc-Dkh" secondAttribute="centerX" id="V0C-y1-WPT"/>
+                                    <constraint firstItem="gCa-3y-aIB" firstAttribute="height" secondItem="TOw-dc-Dkh" secondAttribute="height" id="iAu-2b-aK0"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="A5T-k4-Mug"/>
+                                    </mask>
+                                </variation>
                             </scrollView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="1Kd-hF-p6C">
                                 <rect key="frame" x="0.0" y="620" width="600" height="128"/>
@@ -91,8 +97,8 @@
                                 <rect key="frame" x="0.0" y="20" width="600" height="600"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <view userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fma-Hu-M78" customClass="ImageGridView" customModule="SnapImagePicker" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="20" width="600" height="600"/>
+                            <view userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fma-Hu-M78" customClass="ImageGridView" customModule="SnapImagePicker" customModuleProvider="target">
+                                <rect key="frame" x="300" y="20" width="0.0" height="0.0"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Fma-Hu-M78" secondAttribute="height" multiplier="1:1" id="eG2-V4-L3e"/>
@@ -118,11 +124,13 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Fma-Hu-M78" firstAttribute="centerX" secondItem="nWZ-x0-ung" secondAttribute="centerX" id="061-0W-Y7Y"/>
+                            <constraint firstItem="TOw-dc-Dkh" firstAttribute="height" secondItem="nWZ-x0-ung" secondAttribute="width" id="3zt-9g-NYm"/>
                             <constraint firstItem="TOw-dc-Dkh" firstAttribute="centerX" secondItem="nWZ-x0-ung" secondAttribute="centerX" id="62F-uV-yXp"/>
                             <constraint firstItem="1Kd-hF-p6C" firstAttribute="centerX" secondItem="nWZ-x0-ung" secondAttribute="centerX" id="8pQ-LN-3fU"/>
                             <constraint firstItem="TOw-dc-Dkh" firstAttribute="width" secondItem="nWZ-x0-ung" secondAttribute="width" id="B38-jY-uzx"/>
                             <constraint firstItem="nV4-nK-Iq5" firstAttribute="centerX" secondItem="TOw-dc-Dkh" secondAttribute="centerX" id="Dqh-Sp-bj3"/>
                             <constraint firstItem="Jfu-sj-ks5" firstAttribute="centerX" secondItem="TOw-dc-Dkh" secondAttribute="centerX" id="GwH-76-NDO"/>
+                            <constraint firstItem="TOw-dc-Dkh" firstAttribute="width" secondItem="nWZ-x0-ung" secondAttribute="height" multiplier="1:1" id="IZE-rs-kng"/>
                             <constraint firstItem="1Kd-hF-p6C" firstAttribute="width" secondItem="nWZ-x0-ung" secondAttribute="width" id="LUL-ga-KYI"/>
                             <constraint firstItem="TOw-dc-Dkh" firstAttribute="leading" secondItem="692-lI-ACh" secondAttribute="leading" constant="-10" id="OXR-hn-XPc"/>
                             <constraint firstItem="Fma-Hu-M78" firstAttribute="top" secondItem="Fnf-u5-0oM" secondAttribute="bottom" id="dhR-vP-eJr"/>
@@ -135,6 +143,12 @@
                             <constraint firstItem="TOw-dc-Dkh" firstAttribute="top" secondItem="Fnf-u5-0oM" secondAttribute="bottom" id="tR1-Xe-bPS"/>
                             <constraint firstItem="TOw-dc-Dkh" firstAttribute="bottom" secondItem="692-lI-ACh" secondAttribute="bottom" constant="10" id="zUt-iR-AaK"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="B38-jY-uzx"/>
+                                <exclude reference="IZE-rs-kng"/>
+                            </mask>
+                        </variation>
                         <variation key="widthClass=regular" ambiguous="YES">
                             <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
                         </variation>
@@ -151,12 +165,11 @@
                         <outlet property="mainImageLoadIndicator" destination="nV4-nK-Iq5" id="kjy-hy-mg8"/>
                         <outlet property="mainScrollView" destination="nWZ-x0-ung" id="Op1-C8-y8E"/>
                         <outlet property="rotateButton" destination="692-lI-ACh" id="CSu-Zd-4jn"/>
-                        <outlet property="selectedImageCenterHorizontalConstraint" destination="6mQ-E6-nwH" id="Gsb-Pv-STF"/>
                         <outlet property="selectedImageScrollView" destination="TOw-dc-Dkh" id="Zv4-91-LsP"/>
                         <outlet property="selectedImageView" destination="gCa-3y-aIB" id="8mx-cD-S8Y"/>
-                        <outlet property="selectedImageViewAspectRatioConstraint" destination="SdV-4s-Xdz" id="VCt-O1-7dI"/>
+                        <outlet property="selectedImageViewAspectRatioConstraint" destination="OVO-dG-Q80" id="2ST-Vc-FHg"/>
+                        <outlet property="selectedImageViewCenterHorinzontalConstraint" destination="V0C-y1-WPT" id="KEV-6g-PM3"/>
                         <outlet property="selectedImageWidthConstraint" destination="B38-jY-uzx" id="1bR-El-eo6"/>
-                        <outlet property="topLayoutConstraint" destination="tR1-Xe-bPS" id="aXm-09-IMW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w2C-PZ-6v9" userLabel="First Responder" sceneMemberID="firstResponder"/>

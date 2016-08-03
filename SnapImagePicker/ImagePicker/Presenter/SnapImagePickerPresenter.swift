@@ -31,6 +31,7 @@ class SnapImagePickerPresenter {
 
 extension SnapImagePickerPresenter {
     private func loadAlbum() {
+        print("Loading album")
         images = [Int: SnapImagePickerImage]()
         currentRange = nil
         viewIsReady = false
@@ -46,6 +47,7 @@ extension SnapImagePickerPresenter {
     }
     
     private func validatePhotosAccessStatus(availability: PHAuthorizationStatus, retry: Bool = true) {
+        print("Checking status: \(availability)")
         switch availability {
         case .Restricted: fallthrough
         case .Authorized: loadAlbum()
