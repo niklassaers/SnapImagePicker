@@ -101,6 +101,7 @@ class SnapImagePickerViewController: UIViewController {
                 albumCollectionWidthConstraint = albumCollectionWidthConstraint?.changeMultiplier(currentDisplay.AlbumCollectionWidthMultiplier)
                 albumCollectionView?.reloadData()
                 selectedImageScrollView?.contentSize = CGSize(width: contentSize.width * ratio / zoomScale, height: contentSize.height * ratio / zoomScale)
+                selectedImageScrollView?.setNeedsLayout()
             }
         }
     }
@@ -224,12 +225,12 @@ extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
     func displayMainImage(mainImage: SnapImagePickerImage) {
         if mainImage.image != selectedImageView?.image {
             if (mainImage.image.size.width < mainImage.image.size.height) {
-                selectedImageWidthConstraint = selectedImageWidthConstraint?.changeMultiplier(mainImage.image.size.width / mainImage.image.size.height)
+                selectedImageWidthConstraint = selectedImageWidthConstraint?.changeMultiplier(mainImage.image.size.width / mainImage.image.size.height * currentDisplay.SelectedImageWidthMultiplier)
                 selectedImageViewAspectRationConstraint = selectedImageViewAspectRationConstraint?.changeMultiplier(mainImage.image.size.width/mainImage.image.size.height)
                 selectedImageView?.contentMode = .ScaleAspectFit
                 selectedImageView?.image = mainImage.image
             }
-            //selectedImageScrollView?.centerFullImageInImageView(selectedImageView)
+            selectedImageScrollView?.centerFullImageInImageView(selectedImageView)
         }
         
         if state != .Image {
@@ -244,7 +245,6 @@ extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
     }
     
     func reloadCellAtIndexes(indexes: [Int]) {
-        print("Reloading cells at indexes: \(indexes)")
         var indexPaths = [NSIndexPath]()
         for index in indexes {
             indexPaths.append(arrayIndexToIndexPath(index))
@@ -367,8 +367,13 @@ extension SnapImagePickerViewController: UIScrollViewDelegate {
     
     func scrollViewDidZoom(scrollView: UIScrollView) {
         if scrollView == selectedImageScrollView {
-            let ratio = min(1, selectedImageView!.frame.width / scrollView.frame.height)
-            selectedImageWidthConstraint = selectedImageWidthConstraint?.changeMultiplier(ratio)
+            if let imageView = selectedImageView,
+               let image = imageView.image {
+                if image.size.height > image.size.width {
+                    let ratio = min(1, imageView.frame.width / scrollView.frame.height)
+                    selectedImageWidthConstraint = selectedImageWidthConstraint?.changeMultiplier(ratio * currentDisplay.SelectedImageWidthMultiplier)
+                }
+            }
         }
     }
     

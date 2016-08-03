@@ -121,28 +121,20 @@
                             <constraint firstItem="TOw-dc-Dkh" firstAttribute="height" secondItem="nWZ-x0-ung" secondAttribute="width" id="3zt-9g-NYm"/>
                             <constraint firstItem="TOw-dc-Dkh" firstAttribute="centerX" secondItem="nWZ-x0-ung" secondAttribute="centerX" id="62F-uV-yXp"/>
                             <constraint firstItem="1Kd-hF-p6C" firstAttribute="centerX" secondItem="nWZ-x0-ung" secondAttribute="centerX" id="8pQ-LN-3fU"/>
-                            <constraint firstItem="TOw-dc-Dkh" firstAttribute="width" secondItem="nWZ-x0-ung" secondAttribute="width" id="B38-jY-uzx"/>
                             <constraint firstItem="nV4-nK-Iq5" firstAttribute="centerX" secondItem="TOw-dc-Dkh" secondAttribute="centerX" id="Dqh-Sp-bj3"/>
+                            <constraint firstItem="Fma-Hu-M78" firstAttribute="width" secondItem="nWZ-x0-ung" secondAttribute="width" id="F1W-a4-gCt"/>
                             <constraint firstItem="Jfu-sj-ks5" firstAttribute="centerX" secondItem="TOw-dc-Dkh" secondAttribute="centerX" id="GwH-76-NDO"/>
-                            <constraint firstItem="TOw-dc-Dkh" firstAttribute="width" secondItem="nWZ-x0-ung" secondAttribute="height" multiplier="1:1" id="IZE-rs-kng"/>
                             <constraint firstItem="1Kd-hF-p6C" firstAttribute="width" secondItem="nWZ-x0-ung" secondAttribute="width" id="LUL-ga-KYI"/>
                             <constraint firstItem="TOw-dc-Dkh" firstAttribute="leading" secondItem="692-lI-ACh" secondAttribute="leading" constant="-10" id="OXR-hn-XPc"/>
                             <constraint firstItem="Fma-Hu-M78" firstAttribute="top" secondItem="Fnf-u5-0oM" secondAttribute="bottom" id="dhR-vP-eJr"/>
                             <constraint firstItem="Jfu-sj-ks5" firstAttribute="centerY" secondItem="TOw-dc-Dkh" secondAttribute="centerY" id="evN-Qd-0tT"/>
                             <constraint firstItem="nV4-nK-Iq5" firstAttribute="centerY" secondItem="TOw-dc-Dkh" secondAttribute="centerY" id="g7d-aG-kd0"/>
-                            <constraint firstItem="Fma-Hu-M78" firstAttribute="width" secondItem="TOw-dc-Dkh" secondAttribute="width" id="jZF-W2-CRa"/>
+                            <constraint firstItem="Jfu-sj-ks5" firstAttribute="width" secondItem="nWZ-x0-ung" secondAttribute="width" id="k85-m3-gie"/>
                             <constraint firstItem="1Kd-hF-p6C" firstAttribute="top" secondItem="TOw-dc-Dkh" secondAttribute="bottom" id="khT-Fr-xcU"/>
                             <constraint firstItem="Jfu-sj-ks5" firstAttribute="height" secondItem="TOw-dc-Dkh" secondAttribute="height" id="lJm-xn-DcW"/>
-                            <constraint firstItem="Jfu-sj-ks5" firstAttribute="width" secondItem="TOw-dc-Dkh" secondAttribute="width" id="oB2-M0-dwQ"/>
                             <constraint firstItem="TOw-dc-Dkh" firstAttribute="top" secondItem="Fnf-u5-0oM" secondAttribute="bottom" id="tR1-Xe-bPS"/>
                             <constraint firstItem="TOw-dc-Dkh" firstAttribute="bottom" secondItem="692-lI-ACh" secondAttribute="bottom" constant="10" id="zUt-iR-AaK"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="B38-jY-uzx"/>
-                                <exclude reference="IZE-rs-kng"/>
-                            </mask>
-                        </variation>
                         <variation key="widthClass=regular" ambiguous="YES">
                             <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
                         </variation>
@@ -162,7 +154,6 @@
                         <outlet property="selectedImageScrollView" destination="TOw-dc-Dkh" id="Zv4-91-LsP"/>
                         <outlet property="selectedImageView" destination="gCa-3y-aIB" id="8mx-cD-S8Y"/>
                         <outlet property="selectedImageViewAspectRationConstraint" destination="OVO-dG-Q80" id="YKh-EI-jPl"/>
-                        <outlet property="selectedImageWidthConstraint" destination="B38-jY-uzx" id="1bR-El-eo6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w2C-PZ-6v9" userLabel="First Responder" sceneMemberID="firstResponder"/>
