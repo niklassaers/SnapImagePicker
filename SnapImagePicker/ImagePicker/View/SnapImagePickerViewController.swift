@@ -1,9 +1,8 @@
 import UIKit
 
 class SnapImagePickerViewController: UIViewController {
-    @IBOutlet weak var selectedImageViewCenterHorinzontalConstraint: NSLayoutConstraint!
-    @IBOutlet weak var selectedImageViewAspectRatioConstraint: NSLayoutConstraint?
-    
+    @IBOutlet weak var selectedImageViewCenterHorizontallyConstraint: NSLayoutConstraint!
+    @IBOutlet weak var selectedImageViewAspectRationConstraint: NSLayoutConstraint!
     @IBOutlet weak var mainScrollView: UIScrollView? {
         didSet {
             mainScrollView?.delegate = self
@@ -37,8 +36,7 @@ class SnapImagePickerViewController: UIViewController {
             blackOverlayView?.alpha = 0.0
         }
     }
-    
-    @IBOutlet weak var topLayoutConstraint: NSLayoutConstraint?
+
     @IBOutlet weak var albumCollectionViewHeightConstraint: NSLayoutConstraint?
     @IBOutlet weak var albumCollectionWidthConstraint: NSLayoutConstraint?
     @IBOutlet weak var selectedImageWidthConstraint: NSLayoutConstraint?
@@ -226,11 +224,8 @@ extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
     func displayMainImage(mainImage: SnapImagePickerImage) {
         if mainImage.image != selectedImageView?.image {
             if (mainImage.image.size.width < mainImage.image.size.height) {
-                let imageWidth = selectedImageScrollView!.frame.width * mainImage.image.size.width / mainImage.image.size.height
-                let width = (imageWidth / view.frame.width) * currentDisplay.SelectedImageWidthMultiplier
-                
-                selectedImageViewAspectRatioConstraint = selectedImageViewAspectRatioConstraint?.changeMultiplier(mainImage.image.size.width / mainImage.image.size.height)
-                selectedImageWidthConstraint = selectedImageWidthConstraint?.changeMultiplier(width)
+                selectedImageWidthConstraint = selectedImageWidthConstraint?.changeMultiplier(mainImage.image.size.width / mainImage.image.size.height)
+                selectedImageViewAspectRationConstraint = selectedImageViewAspectRationConstraint?.changeMultiplier(mainImage.image.size.width/mainImage.image.size.height)
                 selectedImageView?.contentMode = .ScaleAspectFit
                 selectedImageView?.image = mainImage.image
             }
@@ -372,12 +367,8 @@ extension SnapImagePickerViewController: UIScrollViewDelegate {
     
     func scrollViewDidZoom(scrollView: UIScrollView) {
         if scrollView == selectedImageScrollView {
-            let widthRatio = min(1, max(selectedImageView!.frame.width / view.frame.width, selectedImageView!.image!.size.width / selectedImageView!.image!.size.height))
-            if widthRatio != selectedImageWidthConstraint?.multiplier {
-                selectedImageWidthConstraint = selectedImageWidthConstraint?.changeMultiplier(widthRatio)
-                let diff = (view.frame.width - scrollView.frame.width - 80) / 2
-                selectedImageViewCenterHorinzontalConstraint?.constant = diff
-            }
+            let ratio = min(1, selectedImageView!.frame.width / scrollView.frame.height)
+            selectedImageWidthConstraint = selectedImageWidthConstraint?.changeMultiplier(ratio)
         }
     }
     

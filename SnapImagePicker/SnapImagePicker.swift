@@ -98,6 +98,7 @@ extension SnapImagePicker: SnapImagePickerConnectorProtocol {
     
     private func prepareSegueToAlbumSelector(viewController: UIViewController) {
         if let albumSelectorViewController = viewController as? AlbumSelectorViewController {
+            print("HEiHei")
             let presenter = AlbumSelectorPresenter(view: albumSelectorViewController)
             presenter.connector = self
             albumSelectorViewController.eventHandler = presenter

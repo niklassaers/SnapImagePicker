@@ -25,7 +25,6 @@
                                 <subviews>
                                     <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gCa-3y-aIB">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <accessibility key="accessibilityConfiguration" identifier="Selected Image">
                                             <bool key="isElement" value="YES"/>
                                         </accessibility>
@@ -35,17 +34,12 @@
                                     </imageView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="gCa-3y-aIB" firstAttribute="width" secondItem="TOw-dc-Dkh" secondAttribute="width" id="A5T-k4-Mug"/>
                                     <constraint firstAttribute="width" secondItem="TOw-dc-Dkh" secondAttribute="height" multiplier="1:1" id="B48-QW-fIs"/>
+                                    <constraint firstItem="gCa-3y-aIB" firstAttribute="leading" secondItem="TOw-dc-Dkh" secondAttribute="leading" id="HDV-PY-V1M"/>
                                     <constraint firstItem="gCa-3y-aIB" firstAttribute="centerY" secondItem="TOw-dc-Dkh" secondAttribute="centerY" id="RSf-uu-hgm"/>
-                                    <constraint firstItem="gCa-3y-aIB" firstAttribute="centerX" secondItem="TOw-dc-Dkh" secondAttribute="centerX" id="V0C-y1-WPT"/>
+                                    <constraint firstAttribute="trailing" secondItem="gCa-3y-aIB" secondAttribute="trailing" id="VDX-7u-EwV"/>
                                     <constraint firstItem="gCa-3y-aIB" firstAttribute="height" secondItem="TOw-dc-Dkh" secondAttribute="height" id="iAu-2b-aK0"/>
                                 </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="A5T-k4-Mug"/>
-                                    </mask>
-                                </variation>
                             </scrollView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="1Kd-hF-p6C">
                                 <rect key="frame" x="0.0" y="620" width="600" height="128"/>
@@ -97,8 +91,8 @@
                                 <rect key="frame" x="0.0" y="20" width="600" height="600"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <view userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fma-Hu-M78" customClass="ImageGridView" customModule="SnapImagePicker" customModuleProvider="target">
-                                <rect key="frame" x="300" y="20" width="0.0" height="0.0"/>
+                            <view userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fma-Hu-M78" customClass="ImageGridView" customModule="SnapImagePicker" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="20" width="600" height="600"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Fma-Hu-M78" secondAttribute="height" multiplier="1:1" id="eG2-V4-L3e"/>
@@ -167,8 +161,7 @@
                         <outlet property="rotateButton" destination="692-lI-ACh" id="CSu-Zd-4jn"/>
                         <outlet property="selectedImageScrollView" destination="TOw-dc-Dkh" id="Zv4-91-LsP"/>
                         <outlet property="selectedImageView" destination="gCa-3y-aIB" id="8mx-cD-S8Y"/>
-                        <outlet property="selectedImageViewAspectRatioConstraint" destination="OVO-dG-Q80" id="2ST-Vc-FHg"/>
-                        <outlet property="selectedImageViewCenterHorinzontalConstraint" destination="V0C-y1-WPT" id="KEV-6g-PM3"/>
+                        <outlet property="selectedImageViewAspectRationConstraint" destination="OVO-dG-Q80" id="YKh-EI-jPl"/>
                         <outlet property="selectedImageWidthConstraint" destination="B38-jY-uzx" id="1bR-El-eo6"/>
                     </connections>
                 </viewController>
