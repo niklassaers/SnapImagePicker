@@ -1,8 +1,9 @@
 import UIKit
 
 class SnapImagePickerViewController: UIViewController {
-    @IBOutlet weak var selectedImageViewCenterHorizontallyConstraint: NSLayoutConstraint!
-    @IBOutlet weak var selectedImageViewAspectRationConstraint: NSLayoutConstraint!
+    @IBOutlet weak var selectedImageViewAspectRationConstraint: NSLayoutConstraint?
+    
+    @IBOutlet weak var imageGridViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var mainScrollView: UIScrollView? {
         didSet {
             mainScrollView?.delegate = self
@@ -24,6 +25,8 @@ class SnapImagePickerViewController: UIViewController {
             albumCollectionView?.dataSource = self
         }
     }
+    
+    @IBOutlet weak var selectedImageScrollViewHeightToFrameWidthAspectRatioConstraint: NSLayoutConstraint?
     
     @IBOutlet weak var imageGridView: ImageGridView? {
         didSet {
@@ -93,16 +96,10 @@ class SnapImagePickerViewController: UIViewController {
     
     private var currentDisplay = Display.Portrait {
         didSet {
-            if let contentSize = selectedImageScrollView?.contentSize,
-               let zoomScale = selectedImageScrollView?.zoomScale,
-               let oldMultiplier = selectedImageWidthConstraint?.multiplier {
-                let ratio = currentDisplay.SelectedImageWidthMultiplier / oldMultiplier
-                selectedImageWidthConstraint = selectedImageWidthConstraint?.changeMultiplier(currentDisplay.SelectedImageWidthMultiplier)
-                albumCollectionWidthConstraint = albumCollectionWidthConstraint?.changeMultiplier(currentDisplay.AlbumCollectionWidthMultiplier)
-                albumCollectionView?.reloadData()
-                selectedImageScrollView?.contentSize = CGSize(width: contentSize.width * ratio / zoomScale, height: contentSize.height * ratio / zoomScale)
-                selectedImageScrollView?.setNeedsLayout()
-            }
+            albumCollectionWidthConstraint = albumCollectionWidthConstraint?.changeMultiplier(currentDisplay.AlbumCollectionWidthMultiplier)
+            albumCollectionView?.reloadData()
+            selectedImageScrollViewHeightToFrameWidthAspectRatioConstraint = selectedImageScrollViewHeightToFrameWidthAspectRatioConstraint?.changeMultiplier(currentDisplay.SelectedImageWidthMultiplier)
+            imageGridViewWidthConstraint = imageGridViewWidthConstraint?.changeMultiplier(currentDisplay.SelectedImageWidthMultiplier)
         }
     }
     
@@ -371,7 +368,7 @@ extension SnapImagePickerViewController: UIScrollViewDelegate {
                let image = imageView.image {
                 if image.size.height > image.size.width {
                     let ratio = min(1, imageView.frame.width / scrollView.frame.height)
-                    selectedImageWidthConstraint = selectedImageWidthConstraint?.changeMultiplier(ratio * currentDisplay.SelectedImageWidthMultiplier)
+                    selectedImageWidthConstraint = selectedImageWidthConstraint?.changeMultiplier(ratio)
                 }
             }
         }

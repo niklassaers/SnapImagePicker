@@ -148,12 +148,15 @@
                         <outlet property="albumCollectionWidthConstraint" destination="LUL-ga-KYI" id="4kG-1q-6ra"/>
                         <outlet property="blackOverlayView" destination="Jfu-sj-ks5" id="hp6-Xm-yXf"/>
                         <outlet property="imageGridView" destination="Fma-Hu-M78" id="Ey8-4q-NjH"/>
+                        <outlet property="imageGridViewWidthConstraint" destination="F1W-a4-gCt" id="JD5-Xb-sv5"/>
                         <outlet property="mainImageLoadIndicator" destination="nV4-nK-Iq5" id="kjy-hy-mg8"/>
                         <outlet property="mainScrollView" destination="nWZ-x0-ung" id="Op1-C8-y8E"/>
                         <outlet property="rotateButton" destination="692-lI-ACh" id="CSu-Zd-4jn"/>
                         <outlet property="selectedImageScrollView" destination="TOw-dc-Dkh" id="Zv4-91-LsP"/>
+                        <outlet property="selectedImageScrollViewHeightToFrameWidthAspectRatioConstraint" destination="3zt-9g-NYm" id="e6H-ZX-WKd"/>
                         <outlet property="selectedImageView" destination="gCa-3y-aIB" id="8mx-cD-S8Y"/>
                         <outlet property="selectedImageViewAspectRationConstraint" destination="OVO-dG-Q80" id="YKh-EI-jPl"/>
+                        <outlet property="selectedImageWidthConstraint" destination="B48-QW-fIs" id="Pdg-DN-Hqd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w2C-PZ-6v9" userLabel="First Responder" sceneMemberID="firstResponder"/>
