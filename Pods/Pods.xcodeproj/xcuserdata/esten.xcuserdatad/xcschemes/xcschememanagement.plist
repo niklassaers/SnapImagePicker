@@ -6,90 +6,57 @@
 	<dict>
 		<key>DORateLimit.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>9</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>FBSnapshotTestCase.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>0</integer>
 		</dict>
 		<key>Pods-Example_Project.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>1</integer>
-		</dict>
-		<key>Pods-Example_Project_UI_Tests.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-			<key>orderHint</key>
-			<integer>2</integer>
 		</dict>
 		<key>Pods-SnapImagePicker.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>3</integer>
 		</dict>
 		<key>Pods-SnapImagePicker_Snapshot_Tests.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>4</integer>
 		</dict>
 		<key>Pods-SnapImagePicker_UI_Tests.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>10</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>Pods-SnapImagePicker_Unit_Tests.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>5</integer>
 		</dict>
 		<key>SnapFBSnapshotBase.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>6</integer>
 		</dict>
 		<key>SnapFonts-iOS-Fonts.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>8</integer>
 		</dict>
 		<key>SnapFonts-iOS.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>7</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>1625CEA6DC65B94E69BF20577CFAFEC7</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>3A2AFE8F9686F512332F26BF90CBC486</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>4295AC3A4B70AE97170FBAAFD3D0CE19</key>
 		<dict>
 			<key>primary</key>
@@ -115,22 +82,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B01A64D024FC88DD1D363A33F5ED7150</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>B3CCD68350F0882E3F949B250122AB36</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>BB99C2750CF95CADFA2535EA84F20A7C</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>C83412206E739BC854D8D6B244FE3084</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -151,11 +103,6 @@
 			<true/>
 		</dict>
 		<key>F19F87982B9784AA18A980B4FEC68906</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F8941CCD7D99CB7D9D7189962605E7C6</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -4,19 +4,18 @@ import Foundation
 
 class ViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
-    private var snapImagePicker: SnapImagePicker?
 
     @IBAction func openImagePicker(sender: UIButton) {
+        let snapImagePicker = SnapImagePicker(delegate: self)
         if let navigationController = self.navigationController,
-           let vc = snapImagePicker?.initializeViewController() {
+           let vc = snapImagePicker.initializeViewController() {
             navigationController.pushViewController(vc, animated: true)
-            snapImagePicker?.enableCustomTransitionForNavigationController(navigationController)
+            snapImagePicker.enableCustomTransitionForNavigationController(navigationController)
         }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        snapImagePicker = SnapImagePicker(delegate: self)
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,7 +28,7 @@ extension ViewController: SnapImagePickerDelegate {
     func pickedImage(image: UIImage, withImageOptions options: ImageOptions) {
         imageView?.contentMode = .ScaleAspectFit
         imageView?.image = UIImage(CGImage: CGImageCreateWithImageInRect(image.CGImage, options.cropRect)!, scale: 1, orientation: options.rotation)
-        snapImagePicker?.disableCustomTransitionForNavigationController(self.navigationController!)
+        //snapImagePicker?.disableCustomTransitionForNavigationController(self.navigationController!)
         navigationController?.popViewControllerAnimated(true)
     }
     

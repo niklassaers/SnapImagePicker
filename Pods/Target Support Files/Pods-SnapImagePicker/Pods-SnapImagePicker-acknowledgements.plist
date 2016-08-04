@@ -34,8 +34,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 </string>
-			<key>License</key>
-			<string>MIT</string>
 			<key>Title</key>
 			<string>DORateLimit</string>
 			<key>Type</key>
@@ -58,8 +56,6 @@ let font = SnapFonts.gothamRoundedBoldOfSize(20)
 
 To get the fonts working from a Storyboard, first load them (like above) from didFinishLaunchingWithOptions e.g.
 </string>
-			<key>License</key>
-			<string>PRIVATE</string>
 			<key>Title</key>
 			<string>SnapFonts-iOS</string>
 			<key>Type</key>
