@@ -1,6 +1,6 @@
 import UIKit
 
-class SnapImagePickerViewController: UIViewController {
+public class SnapImagePickerViewController: UIViewController {
     @IBOutlet weak var selectedImageViewAspectRationConstraint: NSLayoutConstraint?
     
     @IBOutlet weak var imageGridViewWidthConstraint: NSLayoutConstraint!
@@ -114,7 +114,7 @@ class SnapImagePickerViewController: UIViewController {
     private var userIsScrolling = false
     private var enqueuedBounce: (() -> Void)?
     
-    override func viewWillAppear(animated: Bool) {
+    override public func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
         currentDisplay = view.frame.size.displayType()
@@ -129,17 +129,17 @@ class SnapImagePickerViewController: UIViewController {
         selectedImageScrollView?.userInteractionEnabled = true
     }
     
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
         eventHandler?.viewDidLoad()
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override public func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         setVisibleCellsInAlbumCollectionView()
     }
 
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+    override public func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
         let newDisplay = size.displayType()
         if newDisplay != currentDisplay {
@@ -255,15 +255,15 @@ extension SnapImagePickerViewController: InternalSnapImagePickerViewControllerPr
 }
 
 extension SnapImagePickerViewController: UICollectionViewDataSource {
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    public func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return eventHandler?.numberOfItemsInSection(section) ?? 0
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let index = indexPathToArrayIndex(indexPath)
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Image Cell", forIndexPath: indexPath)
         if let imageCell = cell as? ImageCell {
@@ -298,14 +298,14 @@ extension SnapImagePickerViewController: UICollectionViewDataSource {
 }
 
 extension SnapImagePickerViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    public func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let size = currentDisplay.CellWidthInView(collectionView)
         return CGSizeMake(size, size)
     }
 }
 
 extension SnapImagePickerViewController: UICollectionViewDelegate {
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    public func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let index = indexPathToArrayIndex(indexPath)
         eventHandler?.albumImageClicked(index)
         scrollToIndex(index)
@@ -314,7 +314,7 @@ extension SnapImagePickerViewController: UICollectionViewDelegate {
 }
 
 extension SnapImagePickerViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    public func scrollViewDidScroll(scrollView: UIScrollView) {
         if scrollView == mainScrollView {
             mainScrollViewDidScroll(scrollView)
         } else if scrollView == albumCollectionView {
@@ -322,11 +322,11 @@ extension SnapImagePickerViewController: UIScrollViewDelegate {
         }
     }
     
-    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+    public func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
         return selectedImageView
     }
     
-    func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+    public func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         userIsScrolling = false
         if scrollView == albumCollectionView && velocity.y != 0.0 && targetContentOffset.memory.y == 0 {
             enqueuedBounce = {
@@ -335,14 +335,14 @@ extension SnapImagePickerViewController: UIScrollViewDelegate {
         }
     }
     
-    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+    public func scrollViewWillBeginDragging(scrollView: UIScrollView) {
         userIsScrolling = true
         if scrollView == selectedImageScrollView {
             setImageGridViewAlpha(0.2)
         }
     }
     
-    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    public func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if scrollView == selectedImageScrollView {
             setImageGridViewAlpha(0.0)
 
@@ -351,7 +351,7 @@ extension SnapImagePickerViewController: UIScrollViewDelegate {
         }
     }
     
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+    public func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         if scrollView == albumCollectionView && state == .Album {
             state = .Album
         } else if scrollView == selectedImageScrollView {
@@ -359,13 +359,13 @@ extension SnapImagePickerViewController: UIScrollViewDelegate {
         }
     }
     
-    func scrollViewWillBeginZooming(scrollView: UIScrollView, withView view: UIView?) {
+    public func scrollViewWillBeginZooming(scrollView: UIScrollView, withView view: UIView?) {
         if scrollView == selectedImageScrollView {
             setImageGridViewAlpha(0.2)
         }
     }
     
-    func scrollViewDidZoom(scrollView: UIScrollView) {
+    public func scrollViewDidZoom(scrollView: UIScrollView) {
         if scrollView == selectedImageScrollView {
             if let imageView = selectedImageView,
                let image = imageView.image {
@@ -377,7 +377,7 @@ extension SnapImagePickerViewController: UIScrollViewDelegate {
         }
     }
     
-    func scrollViewDidEndZooming(scrollView: UIScrollView, withView view: UIView?, atScale scale: CGFloat) {
+    public func scrollViewDidEndZooming(scrollView: UIScrollView, withView view: UIView?, atScale scale: CGFloat) {
         if scrollView == selectedImageScrollView {
             setImageGridViewAlpha(0.0)
         }
@@ -513,17 +513,17 @@ extension SnapImagePickerViewController {
 }
 
 extension SnapImagePickerViewController: UIGestureRecognizerDelegate {
-    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+    public func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
         return state == .Image
     }
 }
 
 extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
-    func loadAlbum() {
+    public func loadAlbum() {
         eventHandler?.loadAlbum()
     }
     
-    func clearAlbum() {
+    public func clearAlbum() {
         eventHandler?.clearAlbum()
     }
 }
