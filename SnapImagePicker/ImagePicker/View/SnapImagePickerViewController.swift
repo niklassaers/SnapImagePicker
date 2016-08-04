@@ -76,6 +76,10 @@ public class SnapImagePickerViewController: UIViewController {
         }
         set {
             eventHandler?.cameraRollAvailable = newValue
+            if !newValue {
+                selectedImageView?.image = nil
+                albumCollectionView?.reloadData()
+            }
         }
     }
     

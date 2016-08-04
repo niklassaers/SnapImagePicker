@@ -11,6 +11,7 @@ end
 
 target 'Example_Project' do
     pod 'SnapFonts-iOS'
+    pod 'DORateLimit'
 end
 
 target 'SnapImagePicker_Snapshot_Tests' do

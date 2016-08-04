@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "75ADAE02EEBF95C063070FECA2EBB48F"
+               BlueprintIdentifier = "F8941CCD7D99CB7D9D7189962605E7C6"
                BuildableName = "SnapFonts_iOS.framework"
                BlueprintName = "SnapFonts-iOS"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "75ADAE02EEBF95C063070FECA2EBB48F"
+            BlueprintIdentifier = "F8941CCD7D99CB7D9D7189962605E7C6"
             BuildableName = "SnapFonts_iOS.framework"
             BlueprintName = "SnapFonts-iOS"
             ReferencedContainer = "container:Pods.xcodeproj">

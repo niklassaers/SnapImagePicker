@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'C88A72B6A07ABFB0D3E5EF89C7EA8233'
+               BlueprintIdentifier = '1625CEA6DC65B94E69BF20577CFAFEC7'
                BlueprintName = 'SnapFonts-iOS-Fonts'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'Fonts.bundle'>

@@ -57,9 +57,9 @@ extension SnapImagePicker: SnapImagePickerProtocol {
         return nil
     }
     
-    public func photosAccessStatusChanged() {
-        presenter?.photosAccessStatusChanged()
-    }
+//    public func photosAccessStatusChanged() {
+//        presenter?.photosAccessStatusChanged()
+//    }
 }
 
 extension SnapImagePicker: SnapImagePickerConnectorProtocol {

@@ -31,30 +31,30 @@ class SnapImagePickerPresenter {
 }
 
 extension SnapImagePickerPresenter {
-    func photosAccessStatusChanged() {
-        checkPhotosAccessStatus()
-    }
+//    func photosAccessStatusChanged() {
+//        checkPhotosAccessStatus()
+//    }
     
-    private func checkPhotosAccessStatus() {
-        validatePhotosAccessStatus(PHPhotoLibrary.authorizationStatus())
-    }
-    
-    private func validatePhotosAccessStatus(availability: PHAuthorizationStatus, retry: Bool = true) {
-        switch availability {
-        case .Restricted: fallthrough
-        case .Authorized: loadAlbum()
-        case .Denied:
-            connector?.requestPhotosAccess()
-        case .NotDetermined:
-            if retry {
-                PHPhotoLibrary.requestAuthorization() {
-                    [weak self] status in self?.validatePhotosAccessStatus(status, retry: false)
-                }
-            } else {
-                connector?.requestPhotosAccess()
-            }
-        }
-    }
+//    private func checkPhotosAccessStatus() {
+//        validatePhotosAccessStatus(PHPhotoLibrary.authorizationStatus())
+//    }
+//    
+//    private func validatePhotosAccessStatus(availability: PHAuthorizationStatus, retry: Bool = true) {
+//        switch availability {
+//        case .Restricted: fallthrough
+//        case .Authorized: loadAlbum()
+//        case .Denied:
+//            connector?.requestPhotosAccess()
+//        case .NotDetermined:
+//            if retry {
+//                PHPhotoLibrary.requestAuthorization() {
+//                    [weak self] status in self?.validatePhotosAccessStatus(status, retry: false)
+//                }
+//            } else {
+//                connector?.requestPhotosAccess()
+//            }
+//        }
+//    }
 }
 
 extension SnapImagePickerPresenter: SnapImagePickerPresenterProtocol {
