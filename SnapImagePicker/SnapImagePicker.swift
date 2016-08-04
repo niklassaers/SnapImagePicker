@@ -35,7 +35,7 @@ public class SnapImagePicker {
 }
 
 extension SnapImagePicker: SnapImagePickerProtocol {
-    public func initializeViewControllerWithNavigationController(hasPhotosAccess: Bool) -> SnapImagePickerViewController? {
+    public func initializeViewControllerWithPhotosAccess(hasPhotosAccess: Bool) -> SnapImagePickerViewController? {
         let bundle = NSBundle(forClass: SnapImagePicker.self)
         let storyboard = UIStoryboard(name: Names.SnapImagePickerStoryboard.rawValue, bundle: bundle)
         if let snapImagePickerViewController = storyboard.instantiateInitialViewController() as? SnapImagePickerViewController {

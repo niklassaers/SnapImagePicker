@@ -79,6 +79,11 @@ public class SnapImagePickerViewController: UIViewController {
         }
     }
     
+    public func loadAlbum() {
+        let width = currentDisplay.CellWidthInViewWithWidth(view.bounds.width)
+        eventHandler?.viewWillAppearWithCellSize(CGSize(width: width, height: width))
+    }
+    
     var albumTitle = L10n.AllPhotosAlbumName.string {
         didSet {
             visibleCells = nil
