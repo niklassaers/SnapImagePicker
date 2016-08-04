@@ -224,9 +224,12 @@ extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
             if (mainImage.image.size.width < mainImage.image.size.height) {
                 selectedImageWidthConstraint = selectedImageWidthConstraint?.changeMultiplier(mainImage.image.size.width / mainImage.image.size.height * currentDisplay.SelectedImageWidthMultiplier)
                 selectedImageViewAspectRationConstraint = selectedImageViewAspectRationConstraint?.changeMultiplier(mainImage.image.size.width/mainImage.image.size.height)
-                selectedImageView?.contentMode = .ScaleAspectFit
-                selectedImageView?.image = mainImage.image
+            } else {
+                selectedImageWidthConstraint = selectedImageWidthConstraint?.changeMultiplier(1)
+                selectedImageViewAspectRationConstraint = selectedImageViewAspectRationConstraint?.changeMultiplier(1)
             }
+            selectedImageView?.contentMode = .ScaleAspectFit
+            selectedImageView?.image = mainImage.image
             selectedImageScrollView?.centerFullImageInImageView(selectedImageView)
         }
         
