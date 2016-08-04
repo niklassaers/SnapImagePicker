@@ -56,7 +56,7 @@ extension AlbumSelectorPresenter: AlbumSelectorEventHandler {
         interactor?.fetchAlbumPreviewsWithTargetSize(CGSize(width: 64, height: 64))
     }
     
-    func albumClicked(albumType: AlbumType) {
-        connector?.segueToImagePicker(albumType)
+    func albumClicked(albumType: AlbumType, inNavigationController navigationController: UINavigationController?) {
+        connector?.segueToImagePicker(albumType, inNavigationController: navigationController)
     }
 }

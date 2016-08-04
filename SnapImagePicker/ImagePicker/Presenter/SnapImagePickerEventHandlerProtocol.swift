@@ -7,6 +7,6 @@ protocol SnapImagePickerEventHandlerProtocol: class {
     func numberOfItemsInSection(section: Int) -> Int
     func presentCell(cell: ImageCell, atIndex: Int) -> ImageCell
     func scrolledToCells(range: Range<Int>, increasing: Bool)
-    func albumTitlePressed()
+    func albumTitlePressed(navigationController: UINavigationController?)
     func selectButtonPressed(image: UIImage, withImageOptions: ImageOptions)
 }

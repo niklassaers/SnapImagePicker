@@ -4,13 +4,14 @@ import Foundation
 
 class ViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
+    var delegate = SnapImagePickerNavigationControllerDelegate()
 
     @IBAction func openImagePicker(sender: UIButton) {
         let snapImagePicker = SnapImagePicker(delegate: self)
         if let navigationController = self.navigationController,
-           let vc = snapImagePicker.initializeViewController() {
+            let vc = snapImagePicker.initializeViewController() {
             navigationController.pushViewController(vc, animated: true)
-            snapImagePicker.enableCustomTransitionForNavigationController(navigationController)
+            navigationController.delegate = delegate
         }
     }
 
@@ -30,6 +31,7 @@ extension ViewController: SnapImagePickerDelegate {
         imageView?.image = UIImage(CGImage: CGImageCreateWithImageInRect(image.CGImage, options.cropRect)!, scale: 1, orientation: options.rotation)
         //snapImagePicker?.disableCustomTransitionForNavigationController(self.navigationController!)
         navigationController?.popViewControllerAnimated(true)
+        navigationController?.delegate = nil
     }
     
     func requestPhotosAccessForImagePicker(callbackDelegate: SnapImagePicker) {

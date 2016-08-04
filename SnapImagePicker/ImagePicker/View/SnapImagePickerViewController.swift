@@ -67,7 +67,7 @@ class SnapImagePickerViewController: UIViewController {
     }
     
     func albumTitlePressed() {
-        eventHandler?.albumTitlePressed()
+        eventHandler?.albumTitlePressed(self.navigationController)
     }
 
     var eventHandler: SnapImagePickerEventHandlerProtocol?

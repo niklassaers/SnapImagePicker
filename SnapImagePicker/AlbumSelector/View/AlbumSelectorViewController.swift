@@ -80,7 +80,7 @@ class AlbumSelectorViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if let collections = collections
            where indexPath.section < collections.count && indexPath.row < collections.count {
-            eventHandler?.albumClicked(collections[indexPath.section].albums[indexPath.row].type)
+            eventHandler?.albumClicked(collections[indexPath.section].albums[indexPath.row].type, inNavigationController: self.navigationController)
         }
     }
     

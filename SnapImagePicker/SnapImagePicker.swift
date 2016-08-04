@@ -2,8 +2,8 @@ import UIKit
 import SnapFonts_iOS
 
 protocol SnapImagePickerConnectorProtocol: class {
-    func segueToAlbumSelector()
-    func segueToImagePicker(albumType: AlbumType)
+    func segueToAlbumSelector(navigationController: UINavigationController?)
+    func segueToImagePicker(albumType: AlbumType, inNavigationController: UINavigationController?)
     func setImage(image: UIImage, withImageOptions: ImageOptions)
     func requestPhotosAccess()
 }
@@ -57,40 +57,17 @@ extension SnapImagePicker: SnapImagePickerProtocol {
         return nil
     }
     
-    public func enableCustomTransitionForNavigationController(navigationController: UINavigationController) -> Bool {
-        if self.navigationController != nil {
-            return false
-        }
-        
-        self.navigationController = navigationController
-        previousTransitionDelegate = navigationController.delegate
-        navigationController.delegate = transitionDelegate
-        
-        return true
-    }
-    
-    public func disableCustomTransitionForNavigationController(navigationController: UINavigationController) -> Bool {
-        if self.navigationController != navigationController {
-            return false
-        }
-        
-        self.navigationController = nil
-        navigationController.delegate = previousTransitionDelegate
-        previousTransitionDelegate = nil
-        
-        return true
-    }
-    
     public func photosAccessStatusChanged() {
         presenter?.photosAccessStatusChanged()
     }
 }
 
 extension SnapImagePicker: SnapImagePickerConnectorProtocol {
-    func segueToAlbumSelector() {
+    func segueToAlbumSelector(navigationController: UINavigationController?) {
         let bundle = NSBundle(forClass: SnapImagePicker.self)
         let storyboard = UIStoryboard(name: Names.SnapImagePickerStoryboard.rawValue, bundle: bundle)
         if let viewController = storyboard.instantiateViewControllerWithIdentifier(Names.AlbumSelectorViewController.rawValue) as? AlbumSelectorViewController {
+            print("Segueing to album selector")
             prepareSegueToAlbumSelector(viewController)
             navigationController?.pushViewController(viewController, animated: true)
         }
@@ -110,7 +87,7 @@ extension SnapImagePicker: SnapImagePickerConnectorProtocol {
         }
     }
     
-    func segueToImagePicker(albumType: AlbumType) {
+    func segueToImagePicker(albumType: AlbumType, inNavigationController navigationController: UINavigationController?) {
         if let presenterAlbumType = presenter?.albumType
            where presenterAlbumType != albumType {
             presenter?.albumType = albumType
