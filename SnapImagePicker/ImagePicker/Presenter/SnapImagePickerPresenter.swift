@@ -2,7 +2,7 @@ import UIKit
 import Photos
 
 class SnapImagePickerPresenter {
-    private weak var view: SnapImagePickerViewControllerProtocol?
+    private weak var view: InternalSnapImagePickerViewControllerProtocol?
     
     var interactor: SnapImagePickerInteractorProtocol?
     var connector: SnapImagePickerConnectorProtocol?
@@ -11,7 +11,7 @@ class SnapImagePickerPresenter {
         didSet {
             view?.albumTitle = albumType.getAlbumName()
             if albumType != oldValue {
-                loadAlbum()
+                initializeAlbum()
             }
         }
     }
@@ -24,19 +24,12 @@ class SnapImagePickerPresenter {
     private var viewIsReady = false
     private var selectedIndex = 0
   
-    init(view: SnapImagePickerViewControllerProtocol) {
+    init(view: InternalSnapImagePickerViewControllerProtocol) {
         self.view = view
     }
 }
 
 extension SnapImagePickerPresenter {
-    private func loadAlbum() {
-        images = [Int: SnapImagePickerImage]()
-        currentRange = nil
-        viewIsReady = false
-        interactor?.loadAlbum(albumType)
-    }
-
     func photosAccessStatusChanged() {
         checkPhotosAccessStatus()
     }
@@ -48,7 +41,7 @@ extension SnapImagePickerPresenter {
     private func validatePhotosAccessStatus(availability: PHAuthorizationStatus, retry: Bool = true) {
         switch availability {
         case .Restricted: fallthrough
-        case .Authorized: loadAlbum()
+        case .Authorized: initializeAlbum()
         case .Denied:
             connector?.requestPhotosAccess()
         case .NotDetermined:
@@ -97,8 +90,23 @@ extension SnapImagePickerPresenter: SnapImagePickerPresenterProtocol {
 }
 
 extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
-    func viewDidLoad() {
+    func loadAlbum() {
         checkPhotosAccessStatus()
+    }
+    
+    private func initializeAlbum() {
+        images = [Int: SnapImagePickerImage]()
+        currentRange = nil
+        viewIsReady = false
+        interactor?.loadAlbum(albumType)
+    }
+    
+    func clearAlbum() {
+        images = [Int: SnapImagePickerImage]()
+    }
+    
+    func viewDidLoad() {
+        
     }
     
     func viewWillAppearWithCellSize(cellSize: CGSize) {

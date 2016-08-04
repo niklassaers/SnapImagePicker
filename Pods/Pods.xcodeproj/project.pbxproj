@@ -12,7 +12,6 @@
 		130F048002A62769FAFCC66F2C79391A /* FBSnapshotTestController.h in Headers */ = {isa = PBXBuildFile; fileRef = 10CF763331CD32A959A323D8C61A464B /* FBSnapshotTestController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		275C85C7F09EDA45516329F356B07E8C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 719D6B2392CF458A21936067AB2A75D4 /* Foundation.framework */; };
 		2C87E1788C8FA06AE3481A2226E3AF2D /* UIApplication+StrictKeyWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = BB241D49CC804691C111B611A70AA6B5 /* UIApplication+StrictKeyWindow.m */; };
-		2C99DAA13219E8739D433A8BCA9727BD /* FBSnapshotTestCase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD2246A3D8802FB9E654ED107C78C833 /* FBSnapshotTestCase.framework */; };
 		30D871E03A2F5DC6531AE218192AAD3C /* SnapFonts-iOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 15C27F64C1C11E6FF84661B8F4834637 /* SnapFonts-iOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		34A1C7E576C58A9D3F3101448308BF3E /* UIImage+Snapshot.h in Headers */ = {isa = PBXBuildFile; fileRef = 87555DBAE833C3154F8A2CE936BA4F67 /* UIImage+Snapshot.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		34B8081667554406E735D4083ED6F9E9 /* SnapFBSnapshotBase.h in Headers */ = {isa = PBXBuildFile; fileRef = A8E2471C823B791C8AED0E490EBE6FAD /* SnapFBSnapshotBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -32,8 +31,6 @@
 		6914EE43A9B8B8D30220B3B6B0D57523 /* FBSnapshotTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 23B129473AB8ED0974F314FF7DBEA4A9 /* FBSnapshotTestCase.m */; };
 		6E4A16BF4D27C48BB1FE1E1CF5E8B90E /* FBSnapshotTestCasePlatform.m in Sources */ = {isa = PBXBuildFile; fileRef = F1147551A8F38E62AD5FBAA4D3A8677E /* FBSnapshotTestCasePlatform.m */; };
 		72E44E8725FEB1CF08D056EA65CE004A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 719D6B2392CF458A21936067AB2A75D4 /* Foundation.framework */; };
-		73B96724E9D2B03677BA3C2D24601D64 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5155DED747C6E528F85A377045FA209A /* XCTest.framework */; };
-		79404E07761AF228D57286C63D4849B6 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5155DED747C6E528F85A377045FA209A /* XCTest.framework */; };
 		7AFE496988A32D357ADE20FE805C630E /* Pods-SnapImagePicker_Snapshot_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 85A2D4E0B18C5B12E164D682B8715682 /* Pods-SnapImagePicker_Snapshot_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F349A46138BFD79A07FDA939983BAA2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 719D6B2392CF458A21936067AB2A75D4 /* Foundation.framework */; };
 		80086B4D1E4D6642DE94C1F171319669 /* GothamRnd-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 376C1E4F72F12616690FF66E05569217 /* GothamRnd-Bold.otf */; };
@@ -169,7 +166,6 @@
 		4BA17EF8EDC837579D85F1F4AD4D0761 /* SnapFBSnapshotBase.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = SnapFBSnapshotBase.modulemap; sourceTree = "<group>"; };
 		4C5C04B02BD5EC8003010559769B21C2 /* RateLimit.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RateLimit.swift; path = DORateLimit/RateLimit.swift; sourceTree = "<group>"; };
 		4EAE1F047DDAFBE720F6C29129C3AD42 /* Pods-Example_Project-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Example_Project-acknowledgements.markdown"; sourceTree = "<group>"; };
-		5155DED747C6E528F85A377045FA209A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		5231B66247745EA4638ACA3C4350EB1F /* DORateLimit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "DORateLimit-dummy.m"; sourceTree = "<group>"; };
 		54B34E79028EF77514173E650E30B390 /* SnapFonts-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SnapFonts-iOS-dummy.m"; sourceTree = "<group>"; };
 		55B846D3F8F21B9B73628EB4A6E1A3F2 /* DORateLimit-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "DORateLimit-prefix.pch"; sourceTree = "<group>"; };
@@ -223,7 +219,6 @@
 		CAB7729D59E6C7937879F67112628651 /* Pods-SnapImagePicker_UI_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SnapImagePicker_UI_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		CC5DCA048CF29D4F6EC324971DF36F1C /* DORateLimit-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "DORateLimit-umbrella.h"; sourceTree = "<group>"; };
 		CD1141B7CB711AF4FE39591A702B8E2E /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CD2246A3D8802FB9E654ED107C78C833 /* FBSnapshotTestCase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FBSnapshotTestCase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D20F41B84A26032AD1DB04C5F8B9B93A /* SnapFBSnapshotBase-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SnapFBSnapshotBase-prefix.pch"; sourceTree = "<group>"; };
 		D3F73F717B7E5A60BD24BCD07C089F6B /* FBSnapshotTestCase-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FBSnapshotTestCase-umbrella.h"; sourceTree = "<group>"; };
 		D4E366B62D9F49AF9333A2309633004D /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -301,10 +296,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C99DAA13219E8739D433A8BCA9727BD /* FBSnapshotTestCase.framework in Frameworks */,
 				8B4B9757D045F8A934D416CCB56D7EEC /* Foundation.framework in Frameworks */,
 				B5A2897160AEFE90EC4E74B4B25F56D9 /* UIKit.framework in Frameworks */,
-				79404E07761AF228D57286C63D4849B6 /* XCTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -323,7 +316,6 @@
 				A932B89F114B02D24B5FBF362FD0B9F9 /* Foundation.framework in Frameworks */,
 				F366B775C22BBE1DBAC7BDB7DE8F0A26 /* QuartzCore.framework in Frameworks */,
 				F0B3BC4CE7B1074981F32DDD032E9539 /* UIKit.framework in Frameworks */,
-				73B96724E9D2B03677BA3C2D24601D64 /* XCTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -449,7 +441,6 @@
 				719D6B2392CF458A21936067AB2A75D4 /* Foundation.framework */,
 				F9F16A674BEEEA5AE845B60BFDDCCDE4 /* QuartzCore.framework */,
 				E50C4F0C502AC946805484E84B7FDBA2 /* UIKit.framework */,
-				5155DED747C6E528F85A377045FA209A /* XCTest.framework */,
 			);
 			name = iOS;
 			sourceTree = "<group>";
@@ -621,7 +612,6 @@
 		E64C7AF3E00A7964D6DC7ECD97650242 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				CD2246A3D8802FB9E654ED107C78C833 /* FBSnapshotTestCase.framework */,
 				62236106C05CE5F46C2722E3A7A3D666 /* iOS */,
 			);
 			name = Frameworks;

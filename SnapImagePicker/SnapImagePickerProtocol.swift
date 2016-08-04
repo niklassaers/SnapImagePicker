@@ -1,6 +1,6 @@
 import UIKit
 
 public protocol SnapImagePickerProtocol {
-    func initializeViewController() -> UIViewController?
+    func initializeViewControllerWithNavigationController(navigationController: UINavigationController) -> UIViewController?
     func photosAccessStatusChanged()
 }

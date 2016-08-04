@@ -42,6 +42,7 @@
 		D847B4511D1D3AF400D58E2C /* AlbumSelectorEntityGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = D847B4501D1D3AF400D58E2C /* AlbumSelectorEntityGateway.swift */; };
 		D847B4551D1D5C9400D58E2C /* SnapImagePickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D847B4541D1D5C9400D58E2C /* SnapImagePickerViewModel.swift */; };
 		D847B45A1D1D644000D58E2C /* UIImage+square.swift in Sources */ = {isa = PBXBuildFile; fileRef = D847B4591D1D644000D58E2C /* UIImage+square.swift */; };
+		D849990F1D536A860027FBD7 /* Pods_SnapImagePicker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1077999A272FEFD35E45C16E /* Pods_SnapImagePicker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D855BAD91D456BE900D80237 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D855BAD81D456BE900D80237 /* Assets.xcassets */; };
 		D877B86B1D4F956800FE9B3B /* SnapImagePickerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D877B86A1D4F956800FE9B3B /* SnapImagePickerUITests.swift */; };
 		D87999F61D23CCF400683406 /* UIScrollView+fakeBounce.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87999F51D23CCF400683406 /* UIScrollView+fakeBounce.swift */; };
@@ -127,6 +128,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				D849990F1D536A860027FBD7 /* Pods_SnapImagePicker.framework in Embed Frameworks */,
 				D89D6FFC1D06CC06007DD132 /* SnapImagePicker.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -204,6 +206,7 @@
 		D893FA791D2D528600E71429 /* DisplayState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayState.swift; sourceTree = "<group>"; };
 		D893FA7D1D2D545500E71429 /* Display.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Display.swift; sourceTree = "<group>"; };
 		D893FA7F1D2E4CE400E71429 /* CGSize+displayType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGSize+displayType.swift"; sourceTree = "<group>"; };
+		D89591E31D5365F100E7B9C0 /* Pods_SnapImagePicker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods_SnapImagePicker.framework; path = "../../Library/Developer/Xcode/DerivedData/SnapImagePicker-cwxgzidubuzenxcnyrjxbkkaefcd/Build/Products/Debug-iphonesimulator/Pods_SnapImagePicker.framework"; sourceTree = "<group>"; };
 		D89D6FE61D06CC06007DD132 /* SnapImagePicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SnapImagePicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D89D6FE81D06CC06007DD132 /* SnapImagePicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SnapImagePicker.h; sourceTree = "<group>"; };
 		D89D6FEA1D06CC06007DD132 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -314,6 +317,7 @@
 		8ACB490692D00607C8660FA7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D89591E31D5365F100E7B9C0 /* Pods_SnapImagePicker.framework */,
 				7CE3607CF98B3315460607FC /* Pods_Example_Project.framework */,
 				1077999A272FEFD35E45C16E /* Pods_SnapImagePicker.framework */,
 				9F72C16DA282DE843C497D5C /* Pods_SnapImagePicker_UI_Tests.framework */,

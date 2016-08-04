@@ -218,7 +218,7 @@ class SnapImagePickerViewController: UIViewController {
     }
 }
 
-extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
+extension InternalSnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
     func displayMainImage(mainImage: SnapImagePickerImage) {
         if mainImage.image != selectedImageView?.image {
             if (mainImage.image.size.width < mainImage.image.size.height) {
@@ -515,5 +515,15 @@ extension SnapImagePickerViewController {
 extension SnapImagePickerViewController: UIGestureRecognizerDelegate {
     func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
         return state == .Image
+    }
+}
+
+extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
+    func loadAlbum() {
+        eventHandler?.loadAlbum()
+    }
+    
+    func clearAlbum() {
+        eventHandler?.clearAlbum()
     }
 }

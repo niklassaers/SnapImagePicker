@@ -3,20 +3,29 @@ import SnapImagePicker
 import Foundation
 
 class ViewController: UIViewController {
+    @IBOutlet weak var button: UIButton!
     @IBOutlet weak var imageView: UIImageView!
     var delegate = SnapImagePickerNavigationControllerDelegate()
-
-    @IBAction func openImagePicker(sender: UIButton) {
-        let snapImagePicker = SnapImagePicker(delegate: self)
-        if let navigationController = self.navigationController,
-            let vc = snapImagePicker.initializeViewController() {
-            navigationController.pushViewController(vc, animated: true)
-            navigationController.delegate = delegate
+    private var vc: UIViewController?
+    
+    @IBOutlet weak var containerViewLeadingConstraint: NSLayoutConstraint?
+    @IBOutlet weak var containerView: UIView?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        if let navigationController = navigationController,
+            let vc = SnapImagePicker(delegate: self).initializeViewControllerWithNavigationController(navigationController) {
+        addChildViewController(vc)
+        containerView?.addSubview(vc.view)
+            self.vc = vc
         }
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    @IBAction func openImagePicker(sender: UIButton) {
+        imageView.hidden = true
+        button.hidden = true
+        containerViewLeadingConstraint?.constant -= view.frame.width
+        navigationController?.navigationBar.pushNavigationItem(vc!.navigationItem, animated: true)
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,8 +39,11 @@ extension ViewController: SnapImagePickerDelegate {
         imageView?.contentMode = .ScaleAspectFit
         imageView?.image = UIImage(CGImage: CGImageCreateWithImageInRect(image.CGImage, options.cropRect)!, scale: 1, orientation: options.rotation)
         //snapImagePicker?.disableCustomTransitionForNavigationController(self.navigationController!)
-        navigationController?.popViewControllerAnimated(true)
-        navigationController?.delegate = nil
+        imageView.hidden = false
+        button.hidden = false
+        containerViewLeadingConstraint?.constant = 0
+        navigationController?.navigationBar.popNavigationItemAnimated(true)
+        
     }
     
     func requestPhotosAccessForImagePicker(callbackDelegate: SnapImagePicker) {
