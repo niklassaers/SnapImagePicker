@@ -234,6 +234,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="circular_leftwards_arrow.png" width="512" height="512"/>
+        <image name="circular_leftwards_arrow.png" width="24" height="24"/>
     </resources>
 </document>

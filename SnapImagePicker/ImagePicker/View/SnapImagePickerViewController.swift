@@ -218,7 +218,7 @@ class SnapImagePickerViewController: UIViewController {
     }
 }
 
-extension InternalSnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
+extension SnapImagePickerViewController: InternalSnapImagePickerViewControllerProtocol {
     func displayMainImage(mainImage: SnapImagePickerImage) {
         if mainImage.image != selectedImageView?.image {
             if (mainImage.image.size.width < mainImage.image.size.height) {
