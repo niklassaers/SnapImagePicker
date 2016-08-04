@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4DB9CCD057EFE844392F4184 /* Pods_Example_Project.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CE3607CF98B3315460607FC /* Pods_Example_Project.framework */; };
-		7EDECBD535821A6009F55B3F /* Pods_SnapImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1077999A272FEFD35E45C16E /* Pods_SnapImagePicker.framework */; };
-		B2A3538BC24DD008C4B51631 /* Pods_SnapImagePicker_Unit_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AE6CC26DC313F7A3200E8C7 /* Pods_SnapImagePicker_Unit_Tests.framework */; };
+		079D1B2BD72EF464AC575D16 /* Pods_Example_Project.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E127869A7774F2307FDE67AF /* Pods_Example_Project.framework */; };
+		6AA63908C2E7F86768F36D15 /* Pods_SnapImagePicker_UI_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2ADB2AF460F2DD3AA88CC1D /* Pods_SnapImagePicker_UI_Tests.framework */; };
+		D413D78C77F7D7F16F98B167 /* Pods_SnapImagePicker_Unit_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF84CAF8E107A5EC8FBD7A20 /* Pods_SnapImagePicker_Unit_Tests.framework */; };
 		D812DDFD1D363DE000F0E488 /* dress.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D812DDFC1D363DE000F0E488 /* dress.jpg */; };
 		D82468481D2158F8009DB2A4 /* SnapImagePickerTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82468471D2158F8009DB2A4 /* SnapImagePickerTransition.swift */; };
 		D82468541D215A90009DB2A4 /* AlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82468531D215A90009DB2A4 /* AlbumCell.swift */; };
@@ -42,7 +42,6 @@
 		D847B4511D1D3AF400D58E2C /* AlbumSelectorEntityGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = D847B4501D1D3AF400D58E2C /* AlbumSelectorEntityGateway.swift */; };
 		D847B4551D1D5C9400D58E2C /* SnapImagePickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D847B4541D1D5C9400D58E2C /* SnapImagePickerViewModel.swift */; };
 		D847B45A1D1D644000D58E2C /* UIImage+square.swift in Sources */ = {isa = PBXBuildFile; fileRef = D847B4591D1D644000D58E2C /* UIImage+square.swift */; };
-		D849990F1D536A860027FBD7 /* Pods_SnapImagePicker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1077999A272FEFD35E45C16E /* Pods_SnapImagePicker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D855BAD91D456BE900D80237 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D855BAD81D456BE900D80237 /* Assets.xcassets */; };
 		D877B86B1D4F956800FE9B3B /* SnapImagePickerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D877B86A1D4F956800FE9B3B /* SnapImagePickerUITests.swift */; };
 		D87999F61D23CCF400683406 /* UIScrollView+fakeBounce.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87999F51D23CCF400683406 /* UIScrollView+fakeBounce.swift */; };
@@ -86,8 +85,8 @@
 		D8F4F1B51D4F79EC00FF9550 /* SnapImagePickerEntityGatewayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F4F1B41D4F79EC00FF9550 /* SnapImagePickerEntityGatewayTests.swift */; };
 		D8F4F1B71D4F7DF000FF9550 /* SnapImagePickerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F4F1B61D4F7DF000FF9550 /* SnapImagePickerProtocol.swift */; };
 		D8F4F1B91D4F818000FF9550 /* PhotoLoaderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F4F1B81D4F818000FF9550 /* PhotoLoaderMock.swift */; };
-		D9D7A4C7A2ECF1BC4B4F88FF /* Pods_SnapImagePicker_Snapshot_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31A3AF2EB4B688715B4AE19E /* Pods_SnapImagePicker_Snapshot_Tests.framework */; };
-		F5F8BC325FCDADDBF7CA933A /* Pods_SnapImagePicker_UI_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F72C16DA282DE843C497D5C /* Pods_SnapImagePicker_UI_Tests.framework */; };
+		DC5E6A232D8A7569CD69D127 /* Pods_SnapImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47C9FCC71EEABB51CCCDB5FD /* Pods_SnapImagePicker.framework */; };
+		EC41EB6B64D95570695B4AB8 /* Pods_SnapImagePicker_Snapshot_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D126DA0F57807701D299D742 /* Pods_SnapImagePicker_Snapshot_Tests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -128,7 +127,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				D849990F1D536A860027FBD7 /* Pods_SnapImagePicker.framework in Embed Frameworks */,
 				D89D6FFC1D06CC06007DD132 /* SnapImagePicker.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -137,21 +135,17 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1077999A272FEFD35E45C16E /* Pods_SnapImagePicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SnapImagePicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		15AAE255BF6FB84D2C6BB487 /* Pods-SnapImagePicker_Snapshot_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapImagePicker_Snapshot_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SnapImagePicker_Snapshot_Tests/Pods-SnapImagePicker_Snapshot_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		31A3AF2EB4B688715B4AE19E /* Pods_SnapImagePicker_Snapshot_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SnapImagePicker_Snapshot_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		32DFFEDAC20492EE9F41DFBA /* Pods-Example_Project.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example_Project.release.xcconfig"; path = "Pods/Target Support Files/Pods-Example_Project/Pods-Example_Project.release.xcconfig"; sourceTree = "<group>"; };
-		4AE6CC26DC313F7A3200E8C7 /* Pods_SnapImagePicker_Unit_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SnapImagePicker_Unit_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		47C9FCC71EEABB51CCCDB5FD /* Pods_SnapImagePicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SnapImagePicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		639F66A051884F3BB8E3488C /* Pods-SnapImagePicker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapImagePicker.release.xcconfig"; path = "Pods/Target Support Files/Pods-SnapImagePicker/Pods-SnapImagePicker.release.xcconfig"; sourceTree = "<group>"; };
-		671146A14976557807226E3D /* Pods-Example_Project_UI_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example_Project_UI_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Example_Project_UI_Tests/Pods-Example_Project_UI_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		7CE3607CF98B3315460607FC /* Pods_Example_Project.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Example_Project.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9445E2E881A2210E6EACFDF4 /* Pods-SnapImagePicker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapImagePicker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SnapImagePicker/Pods-SnapImagePicker.debug.xcconfig"; sourceTree = "<group>"; };
-		9F72C16DA282DE843C497D5C /* Pods_SnapImagePicker_UI_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SnapImagePicker_UI_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FA6A0DF2EEE1CF43AC91190 /* Pods-SnapImagePicker_UI_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapImagePicker_UI_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SnapImagePicker_UI_Tests/Pods-SnapImagePicker_UI_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		A377C19D94E44FA9B7E1A60D /* Pods-SnapImagePicker_Snapshot_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapImagePicker_Snapshot_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SnapImagePicker_Snapshot_Tests/Pods-SnapImagePicker_Snapshot_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		BBA8E0F6EC87708F6B30B36D /* Pods-SnapImagePicker_UI_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapImagePicker_UI_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SnapImagePicker_UI_Tests/Pods-SnapImagePicker_UI_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		C395407F5A6C393DE663BC17 /* Pods-Example_Project_UI_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example_Project_UI_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Example_Project_UI_Tests/Pods-Example_Project_UI_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		D071DB34BA29D0DE244DB5F3 /* Pods-Example_Project.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example_Project.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Example_Project/Pods-Example_Project.debug.xcconfig"; sourceTree = "<group>"; };
+		D126DA0F57807701D299D742 /* Pods_SnapImagePicker_Snapshot_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SnapImagePicker_Snapshot_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2ADB2AF460F2DD3AA88CC1D /* Pods_SnapImagePicker_UI_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SnapImagePicker_UI_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4107D64144A6F2592CFC6AA /* Pods-SnapImagePicker_Unit_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapImagePicker_Unit_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SnapImagePicker_Unit_Tests/Pods-SnapImagePicker_Unit_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		D812DDED1D362C9200F0E488 /* SnapImagePicker_Snapshot_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SnapImagePicker_Snapshot_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D812DDF11D362C9200F0E488 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -248,6 +242,8 @@
 		D8F4F1B41D4F79EC00FF9550 /* SnapImagePickerEntityGatewayTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapImagePickerEntityGatewayTests.swift; sourceTree = "<group>"; };
 		D8F4F1B61D4F7DF000FF9550 /* SnapImagePickerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapImagePickerProtocol.swift; sourceTree = "<group>"; };
 		D8F4F1B81D4F818000FF9550 /* PhotoLoaderMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLoaderMock.swift; sourceTree = "<group>"; };
+		DF84CAF8E107A5EC8FBD7A20 /* Pods_SnapImagePicker_Unit_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SnapImagePicker_Unit_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E127869A7774F2307FDE67AF /* Pods_Example_Project.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Example_Project.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E46A04D19BECC3EDEF73F577 /* Pods-SnapImagePicker_Unit_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapImagePicker_Unit_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SnapImagePicker_Unit_Tests/Pods-SnapImagePicker_Unit_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -256,7 +252,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D9D7A4C7A2ECF1BC4B4F88FF /* Pods_SnapImagePicker_Snapshot_Tests.framework in Frameworks */,
+				EC41EB6B64D95570695B4AB8 /* Pods_SnapImagePicker_Snapshot_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,7 +260,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F5F8BC325FCDADDBF7CA933A /* Pods_SnapImagePicker_UI_Tests.framework in Frameworks */,
+				6AA63908C2E7F86768F36D15 /* Pods_SnapImagePicker_UI_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,7 +268,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4DB9CCD057EFE844392F4184 /* Pods_Example_Project.framework in Frameworks */,
+				079D1B2BD72EF464AC575D16 /* Pods_Example_Project.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,7 +276,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7EDECBD535821A6009F55B3F /* Pods_SnapImagePicker.framework in Frameworks */,
+				DC5E6A232D8A7569CD69D127 /* Pods_SnapImagePicker.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,7 +284,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B2A3538BC24DD008C4B51631 /* Pods_SnapImagePicker_Unit_Tests.framework in Frameworks */,
+				D413D78C77F7D7F16F98B167 /* Pods_SnapImagePicker_Unit_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,8 +300,6 @@
 				32DFFEDAC20492EE9F41DFBA /* Pods-Example_Project.release.xcconfig */,
 				15AAE255BF6FB84D2C6BB487 /* Pods-SnapImagePicker_Snapshot_Tests.debug.xcconfig */,
 				A377C19D94E44FA9B7E1A60D /* Pods-SnapImagePicker_Snapshot_Tests.release.xcconfig */,
-				C395407F5A6C393DE663BC17 /* Pods-Example_Project_UI_Tests.debug.xcconfig */,
-				671146A14976557807226E3D /* Pods-Example_Project_UI_Tests.release.xcconfig */,
 				E46A04D19BECC3EDEF73F577 /* Pods-SnapImagePicker_Unit_Tests.debug.xcconfig */,
 				D4107D64144A6F2592CFC6AA /* Pods-SnapImagePicker_Unit_Tests.release.xcconfig */,
 				9FA6A0DF2EEE1CF43AC91190 /* Pods-SnapImagePicker_UI_Tests.debug.xcconfig */,
@@ -318,11 +312,11 @@
 			isa = PBXGroup;
 			children = (
 				D89591E31D5365F100E7B9C0 /* Pods_SnapImagePicker.framework */,
-				7CE3607CF98B3315460607FC /* Pods_Example_Project.framework */,
-				1077999A272FEFD35E45C16E /* Pods_SnapImagePicker.framework */,
-				9F72C16DA282DE843C497D5C /* Pods_SnapImagePicker_UI_Tests.framework */,
-				31A3AF2EB4B688715B4AE19E /* Pods_SnapImagePicker_Snapshot_Tests.framework */,
-				4AE6CC26DC313F7A3200E8C7 /* Pods_SnapImagePicker_Unit_Tests.framework */,
+				E127869A7774F2307FDE67AF /* Pods_Example_Project.framework */,
+				47C9FCC71EEABB51CCCDB5FD /* Pods_SnapImagePicker.framework */,
+				D126DA0F57807701D299D742 /* Pods_SnapImagePicker_Snapshot_Tests.framework */,
+				D2ADB2AF460F2DD3AA88CC1D /* Pods_SnapImagePicker_UI_Tests.framework */,
+				DF84CAF8E107A5EC8FBD7A20 /* Pods_SnapImagePicker_Unit_Tests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

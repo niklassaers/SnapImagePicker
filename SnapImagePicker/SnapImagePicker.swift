@@ -35,7 +35,7 @@ public class SnapImagePicker {
 }
 
 extension SnapImagePicker: SnapImagePickerProtocol {
-    public func initializeViewControllerWithNavigationController(navigationController: UINavigationController, hasPhotosAccess: Bool) -> SnapImagePickerViewController? {
+    public func initializeViewControllerWithNavigationController(hasPhotosAccess: Bool) -> SnapImagePickerViewController? {
         let bundle = NSBundle(forClass: SnapImagePicker.self)
         let storyboard = UIStoryboard(name: Names.SnapImagePickerStoryboard.rawValue, bundle: bundle)
         if let snapImagePickerViewController = storyboard.instantiateInitialViewController() as? SnapImagePickerViewController {
@@ -50,11 +50,7 @@ extension SnapImagePicker: SnapImagePickerProtocol {
             interactor.entityGateway = entityGateway
             
             self.presenter = presenter
-            
-            if hasPhotosAccess {
-                snapImagePickerViewController.loadAlbum()
-            }
-            
+            presenter.cameraRollAvailable = hasPhotosAccess
             return snapImagePickerViewController
         }
         
@@ -71,7 +67,6 @@ extension SnapImagePicker: SnapImagePickerConnectorProtocol {
         let bundle = NSBundle(forClass: SnapImagePicker.self)
         let storyboard = UIStoryboard(name: Names.SnapImagePickerStoryboard.rawValue, bundle: bundle)
         if let viewController = storyboard.instantiateViewControllerWithIdentifier(Names.AlbumSelectorViewController.rawValue) as? AlbumSelectorViewController {
-            print("Segueing to album selector")
             prepareSegueToAlbumSelector(viewController)
             navigationController?.pushViewController(viewController, animated: true)
         }

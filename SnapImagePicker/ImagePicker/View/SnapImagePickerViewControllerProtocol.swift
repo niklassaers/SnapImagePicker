@@ -1,9 +1,4 @@
-public protocol SnapImagePickerViewControllerProtocol: class {
-    func loadAlbum()
-    func clearAlbum()
-}
-
-protocol InternalSnapImagePickerViewControllerProtocol: class {
+protocol SnapImagePickerViewControllerProtocol: class {
     var albumTitle: String { get set }
     func displayMainImage(mainImage: SnapImagePickerImage)
     func reloadCellAtIndexes(index: [Int])

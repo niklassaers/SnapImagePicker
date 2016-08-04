@@ -14,9 +14,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         if let navigationController = navigationController,
-            let vc = SnapImagePicker(delegate: self).initializeViewControllerWithNavigationController(navigationController, hasPhotosAccess: true) {
-        addChildViewController(vc)
-        containerView?.addSubview(vc.view)
+            let vc = SnapImagePicker(delegate: self).initializeViewControllerWithNavigationController(true) {
+            addChildViewController(vc)
+            containerView?.addSubview(vc.view)
             self.vc = vc
         }
     }

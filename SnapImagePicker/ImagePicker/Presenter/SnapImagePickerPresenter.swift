@@ -2,7 +2,7 @@ import UIKit
 import Photos
 
 class SnapImagePickerPresenter {
-    private weak var view: InternalSnapImagePickerViewControllerProtocol?
+    private weak var view: SnapImagePickerViewControllerProtocol?
     
     var interactor: SnapImagePickerInteractorProtocol?
     var connector: SnapImagePickerConnectorProtocol?
@@ -11,7 +11,7 @@ class SnapImagePickerPresenter {
         didSet {
             view?.albumTitle = albumType.getAlbumName()
             if albumType != oldValue {
-                initializeAlbum()
+                loadAlbum()
             }
         }
     }
@@ -23,8 +23,9 @@ class SnapImagePickerPresenter {
     private var currentRange: Range<Int>?
     private var viewIsReady = false
     private var selectedIndex = 0
+    private var _cameraRollAvailable = false
   
-    init(view: InternalSnapImagePickerViewControllerProtocol) {
+    init(view: SnapImagePickerViewControllerProtocol) {
         self.view = view
     }
 }
@@ -41,7 +42,7 @@ extension SnapImagePickerPresenter {
     private func validatePhotosAccessStatus(availability: PHAuthorizationStatus, retry: Bool = true) {
         switch availability {
         case .Restricted: fallthrough
-        case .Authorized: initializeAlbum()
+        case .Authorized: loadAlbum()
         case .Denied:
             connector?.requestPhotosAccess()
         case .NotDetermined:
@@ -67,12 +68,20 @@ extension SnapImagePickerPresenter: SnapImagePickerPresenterProtocol {
     }
     
     func presentMainImage(image: SnapImagePickerImage, fromAlbum album: AlbumType) {
+        if !_cameraRollAvailable {
+            return
+        }
+        
         if album == albumType {
             view?.displayMainImage(image)
         }
     }
     
     func presentAlbumImages(results: [Int: SnapImagePickerImage], fromAlbum album: AlbumType) {
+        if !_cameraRollAvailable {
+            return
+        }
+        
         if album == albumType {
             var indexes = [Int]()
             for (index, image) in results {
@@ -90,23 +99,22 @@ extension SnapImagePickerPresenter: SnapImagePickerPresenterProtocol {
 }
 
 extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
-    func loadAlbum() {
-        checkPhotosAccessStatus()
+    var cameraRollAvailable: Bool {
+        get {
+            return _cameraRollAvailable
+        }
+        set {
+            _cameraRollAvailable = newValue
+            loadAlbum()
+        }
     }
-    
-    private func initializeAlbum() {
+    private func loadAlbum() {
         images = [Int: SnapImagePickerImage]()
         currentRange = nil
         viewIsReady = false
-        interactor?.loadAlbum(albumType)
-    }
-    
-    func clearAlbum() {
-        images = [Int: SnapImagePickerImage]()
-    }
-    
-    func viewDidLoad() {
-        
+        if cameraRollAvailable {
+            interactor?.loadAlbum(albumType)
+        }
     }
     
     func viewWillAppearWithCellSize(cellSize: CGSize) {
@@ -114,6 +122,8 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
         
         if let image = images[selectedIndex] {
             view?.displayMainImage(image)
+        } else {
+            loadAlbum()
         }
     }
 

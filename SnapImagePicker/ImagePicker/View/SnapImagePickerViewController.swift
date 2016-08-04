@@ -1,9 +1,6 @@
 import UIKit
 
 public class SnapImagePickerViewController: UIViewController {
-    @IBOutlet weak var selectedImageViewAspectRationConstraint: NSLayoutConstraint?
-    
-    @IBOutlet weak var imageGridViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var mainScrollView: UIScrollView? {
         didSet {
             mainScrollView?.delegate = self
@@ -40,6 +37,8 @@ public class SnapImagePickerViewController: UIViewController {
         }
     }
 
+    @IBOutlet weak var selectedImageViewAspectRationConstraint: NSLayoutConstraint?
+    @IBOutlet weak var imageGridViewWidthConstraint: NSLayoutConstraint?
     @IBOutlet weak var albumCollectionViewHeightConstraint: NSLayoutConstraint?
     @IBOutlet weak var albumCollectionWidthConstraint: NSLayoutConstraint?
     @IBOutlet weak var selectedImageWidthConstraint: NSLayoutConstraint?
@@ -71,6 +70,14 @@ public class SnapImagePickerViewController: UIViewController {
     }
 
     var eventHandler: SnapImagePickerEventHandlerProtocol?
+    public var cameraRollAvailable: Bool {
+        get {
+            return eventHandler?.cameraRollAvailable ?? false
+        }
+        set {
+            eventHandler?.cameraRollAvailable = newValue
+        }
+    }
     
     var albumTitle = L10n.AllPhotosAlbumName.string {
         didSet {
@@ -127,11 +134,6 @@ public class SnapImagePickerViewController: UIViewController {
         setupTitleButton()
         setupSelectButton()
         selectedImageScrollView?.userInteractionEnabled = true
-    }
-    
-    override public func viewDidLoad() {
-        super.viewDidLoad()
-        eventHandler?.viewDidLoad()
     }
     
     override public func viewDidAppear(animated: Bool) {
@@ -218,7 +220,7 @@ public class SnapImagePickerViewController: UIViewController {
     }
 }
 
-extension SnapImagePickerViewController: InternalSnapImagePickerViewControllerProtocol {
+extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
     func displayMainImage(mainImage: SnapImagePickerImage) {
         if mainImage.image != selectedImageView?.image {
             if (mainImage.image.size.width < mainImage.image.size.height) {
@@ -515,15 +517,5 @@ extension SnapImagePickerViewController {
 extension SnapImagePickerViewController: UIGestureRecognizerDelegate {
     public func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
         return state == .Image
-    }
-}
-
-extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
-    public func loadAlbum() {
-        eventHandler?.loadAlbum()
-    }
-    
-    public func clearAlbum() {
-        eventHandler?.clearAlbum()
     }
 }

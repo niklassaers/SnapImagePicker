@@ -1,9 +1,7 @@
 import UIKit
 
 protocol SnapImagePickerEventHandlerProtocol: class {
-    func viewDidLoad()
-    func loadAlbum()
-    func clearAlbum()
+    var cameraRollAvailable: Bool { get set }
     func viewWillAppearWithCellSize(cellSize: CGSize)
     func albumImageClicked(index: Int)
     func numberOfItemsInSection(section: Int) -> Int
