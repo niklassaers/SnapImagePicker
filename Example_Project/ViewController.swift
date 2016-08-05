@@ -30,7 +30,7 @@ class ViewController: UIViewController {
     @IBAction func openImagePicker(sender: UIButton) {
         if let navigationItem = vc?.navigationItem {
             let backButton = navigationItem.backBarButtonItem
-            backButton?.target = "self"
+            backButton?.target = self
             backButton?.action = #selector(back)
             navigationItem.backBarButtonItem = backButton
             navigationController?.navigationBar.pushNavigationItem(navigationItem, animated: true)
@@ -39,7 +39,7 @@ class ViewController: UIViewController {
             cameraRollAccessSwitch.hidden = true
             loadButton.hidden = true
             accessLabel?.hidden = true
-            containerViewLeadingConstraint?.constant -= view.frame.width
+            containerViewLeadingConstraint?.constant -= view.frame.width - 16
         }
     }
     

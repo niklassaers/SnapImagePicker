@@ -257,7 +257,8 @@ extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
             }
             selectedImageView?.contentMode = .ScaleAspectFit
             selectedImage = mainImage
-            selectedImageScrollView?.centerFullImageInImageView(selectedImageView)
+            //selectedImageScrollView?.centerFullImageInImageView(selectedImageView)
+            //selectedImageScrollView?.setZoomScale(1.5, animated: true)
             selectedImageRotation = .Up
         }
         
@@ -400,6 +401,11 @@ extension SnapImagePickerViewController: UIScrollViewDelegate {
                 if image.size.height > image.size.width {
                     let ratio = min(1, imageView.frame.width / scrollView.frame.height)
                     selectedImageWidthConstraint = selectedImageWidthConstraint?.changeMultiplier(ratio)
+                } else if image.size.width > image.size.height {
+                    let ratio = min(1, imageView.frame.width / scrollView.frame.height)
+                    let zoomScaleRatio = selectedImageWidthConstraint!.multiplier / ratio
+                    selectedImageViewAspectRationConstraint = selectedImageViewAspectRationConstraint?.changeMultiplier(ratio)
+                    scrollView.setZoomScale(scrollView.zoomScale / zoomScaleRatio, animated: false)
                 }
             }
         }
