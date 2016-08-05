@@ -249,6 +249,9 @@ extension SnapImagePickerViewController {
 extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
     func displayMainImage(mainImage: SnapImagePickerImage) {
         if selectedImage == nil || mainImage.localIdentifier != selectedImage!.localIdentifier || mainImage.image.size.height > selectedImage!.image.size.height {
+            selectedImageView?.contentMode = .ScaleAspectFit
+            selectedImage = mainImage
+            selectedImageRotation = .Up
             if (mainImage.image.size.width < mainImage.image.size.height) {
                 selectedImageWidthConstraint = selectedImageWidthConstraint?.changeMultiplier(mainImage.image.size.width / mainImage.image.size.height * currentDisplay.SelectedImageWidthMultiplier)
                 selectedImageViewAspectRationConstraint = selectedImageViewAspectRationConstraint?.changeMultiplier(mainImage.image.size.width/mainImage.image.size.height)
@@ -259,10 +262,8 @@ extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
                 selectedImageWidthConstraint = selectedImageWidthConstraint?.changeMultiplier(1)
                 selectedImageViewAspectRationConstraint = selectedImageViewAspectRationConstraint?.changeMultiplier(ratio)
                 selectedImageScrollView?.minimumZoomScale = mainImage.image.size.height / mainImage.image.size.width
+                selectedImageScrollView?.centerFullImageInImageView(selectedImageView)
             }
-            selectedImageView?.contentMode = .ScaleAspectFit
-            selectedImage = mainImage
-            selectedImageRotation = .Up
         }
         
         if state != .Image {
