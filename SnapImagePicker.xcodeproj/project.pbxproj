@@ -20,6 +20,7 @@
 		D82825C71D2E72CE00F6A5BD /* SnapImagePickerImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82825C61D2E72CE00F6A5BD /* SnapImagePickerImage.swift */; };
 		D8359FCF1D2BDFCC00C042A2 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8359FCE1D2BDFCC00C042A2 /* ImageLoader.swift */; };
 		D8359FD21D2BE01300C042A2 /* AlbumLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8359FD11D2BE01300C042A2 /* AlbumLoader.swift */; };
+		D83849341D54A7EB00A70EA8 /* UIImageView+translateCoordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83849331D54A7EB00A70EA8 /* UIImageView+translateCoordinates.swift */; };
 		D83B8C2A1D0EE4D700C6995A /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83B8C291D0EE4D700C6995A /* ImageCell.swift */; };
 		D83E55FE1D2BFB9E00338F5D /* UIImage+rotate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83E55FD1D2BFB9E00338F5D /* UIImage+rotate.swift */; };
 		D847B4191D1D20FC00D58E2C /* ImageGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D847B4181D1D20FC00D58E2C /* ImageGridView.swift */; };
@@ -159,6 +160,7 @@
 		D82825C61D2E72CE00F6A5BD /* SnapImagePickerImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapImagePickerImage.swift; sourceTree = "<group>"; };
 		D8359FCE1D2BDFCC00C042A2 /* ImageLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		D8359FD11D2BE01300C042A2 /* AlbumLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumLoader.swift; sourceTree = "<group>"; };
+		D83849331D54A7EB00A70EA8 /* UIImageView+translateCoordinates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+translateCoordinates.swift"; sourceTree = "<group>"; };
 		D83B8C291D0EE4D700C6995A /* ImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		D83E55FD1D2BFB9E00338F5D /* UIImage+rotate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+rotate.swift"; sourceTree = "<group>"; };
 		D84614001D368B5E00B2A71D /* SnapImagePicker_UI_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SnapImagePicker_UI_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -505,6 +507,7 @@
 				D8BF9CA41D266BA100DC1F02 /* UIScrollView+correction.swift */,
 				D87999F51D23CCF400683406 /* UIScrollView+fakeBounce.swift */,
 				D824685C1D22A55F009DB2A4 /* UIScrollView+getBounds.swift */,
+				D83849331D54A7EB00A70EA8 /* UIImageView+translateCoordinates.swift */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -1128,6 +1131,7 @@
 				D82468591D215D09009DB2A4 /* PhotoLoader.swift in Sources */,
 				D8CB05C81D3F6F4300002745 /* Strings.swift in Sources */,
 				D847B4451D1D373800D58E2C /* AlbumSelectorInteractorProtocol.swift in Sources */,
+				D83849341D54A7EB00A70EA8 /* UIImageView+translateCoordinates.swift in Sources */,
 				D847B44F1D1D3AE100D58E2C /* AlbumSelectorEntityGatewayProtocol.swift in Sources */,
 				D88FD29B1D410CA700C7290F /* Range+rangeDifference.swift in Sources */,
 				D8BF9CAB1D26B3DA00DC1F02 /* DownwardsArrowView.swift in Sources */,

@@ -66,14 +66,10 @@ public class SnapImagePickerNavigationControllerDelegate: NSObject, UINavigation
     }
     
     public func navigationController(navigationController: UINavigationController, animationControllerForOperation operation: UINavigationControllerOperation, fromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        if (fromVC is AlbumSelectorViewController  && toVC is SnapImagePickerViewController) ||
-            (fromVC is SnapImagePickerViewController && toVC is AlbumSelectorViewController)  {
-            switch operation {
-            case .None: return nil
-            case .Push: return VerticalSlideTransitionManager(action: .Push)
-            case .Pop: return VerticalSlideTransitionManager(action: .Pop)
-            }
+        switch operation {
+        case .None: return nil
+        case .Push: return VerticalSlideTransitionManager(action: .Push)
+        case .Pop: return VerticalSlideTransitionManager(action: .Pop)
         }
-        return nil
     }
 }

@@ -15,6 +15,13 @@ public class SnapImagePickerViewController: UIViewController {
         }
     }
     @IBOutlet weak var selectedImageView: UIImageView?
+    private var selectedImage: SnapImagePickerImage? {
+        didSet {
+            if let selectedImage = selectedImage {
+                selectedImageView?.image = selectedImage.image
+            }
+        }
+    }
     
     @IBOutlet weak var albumCollectionView: UICollectionView? {
         didSet {
@@ -49,7 +56,6 @@ public class SnapImagePickerViewController: UIViewController {
     @IBAction func flipImageButtonPressed(sender: UIButton) {
         UIView.animateWithDuration(0.3, animations: {
             self.selectedImageRotation = self.selectedImageRotation.next()
-            self.selectedImageScrollView?.transform = CGAffineTransformMakeRotation(CGFloat(self.selectedImageRotation.toCGAffineTransformRadians()))
             
             sender.enabled = false
             }, completion: {
@@ -105,7 +111,11 @@ public class SnapImagePickerViewController: UIViewController {
         }
     }
     
-    private var selectedImageRotation = UIImageOrientation.Up
+    private var selectedImageRotation = UIImageOrientation.Up {
+        didSet {
+            self.selectedImageScrollView?.transform = CGAffineTransformMakeRotation(CGFloat(self.selectedImageRotation.toCGAffineTransformRadians()))
+        }
+    }
     
     private var state: DisplayState = .Image {
         didSet {
@@ -180,7 +190,8 @@ public class SnapImagePickerViewController: UIViewController {
                 }, completion: nil)
         }
     }
-    
+}
+extension SnapImagePickerViewController {
     private func setupSelectButton() {
         navigationItem.rightBarButtonItem = UIBarButtonItem()
         navigationItem.rightBarButtonItem?.title = L10n.SelectButtonLabelText.string
@@ -236,7 +247,7 @@ public class SnapImagePickerViewController: UIViewController {
 
 extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
     func displayMainImage(mainImage: SnapImagePickerImage) {
-        if mainImage.image != selectedImageView?.image {
+        if selectedImage == nil || mainImage.localIdentifier != selectedImage!.localIdentifier || mainImage.image.size.height > selectedImage!.image.size.height {
             if (mainImage.image.size.width < mainImage.image.size.height) {
                 selectedImageWidthConstraint = selectedImageWidthConstraint?.changeMultiplier(mainImage.image.size.width / mainImage.image.size.height * currentDisplay.SelectedImageWidthMultiplier)
                 selectedImageViewAspectRationConstraint = selectedImageViewAspectRationConstraint?.changeMultiplier(mainImage.image.size.width/mainImage.image.size.height)
@@ -245,8 +256,9 @@ extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
                 selectedImageViewAspectRationConstraint = selectedImageViewAspectRationConstraint?.changeMultiplier(1)
             }
             selectedImageView?.contentMode = .ScaleAspectFit
-            selectedImageView?.image = mainImage.image
+            selectedImage = mainImage
             selectedImageScrollView?.centerFullImageInImageView(selectedImageView)
+            selectedImageRotation = .Up
         }
         
         if state != .Image {
