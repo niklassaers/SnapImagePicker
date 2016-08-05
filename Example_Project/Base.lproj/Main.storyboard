@@ -22,7 +22,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GCU-tf-qQA">
-                                <rect key="frame" x="600" y="66" width="600" height="556"/>
+                                <rect key="frame" x="580" y="66" width="600" height="556"/>
                                 <connections>
                                     <segue destination="wlu-ng-gZB" kind="embed" id="tdU-u8-rK4"/>
                                 </connections>
@@ -40,7 +40,7 @@
                                     <action selector="openImagePicker:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hvT-nX-YSg"/>
                                 </connections>
                             </button>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9N9-XU-MV2">
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="9N9-XU-MV2">
                                 <rect key="frame" x="237" y="418" width="51" height="31"/>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Access" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rHQ-rx-YiK">
@@ -76,7 +76,7 @@
                             <constraint firstItem="uj3-HN-l9z" firstAttribute="top" secondItem="16c-bc-axl" secondAttribute="bottom" constant="8" id="llk-Ud-fqv"/>
                             <constraint firstItem="uj3-HN-l9z" firstAttribute="centerY" secondItem="Nlb-an-iIC" secondAttribute="centerY" id="qAO-Dg-nyv"/>
                             <constraint firstItem="9N9-XU-MV2" firstAttribute="bottom" secondItem="rHQ-rx-YiK" secondAttribute="bottom" id="rM5-ZH-ayn"/>
-                            <constraint firstItem="GCU-tf-qQA" firstAttribute="leading" secondItem="Nlb-an-iIC" secondAttribute="trailingMargin" constant="20" id="rcO-zs-Vxl"/>
+                            <constraint firstItem="GCU-tf-qQA" firstAttribute="leading" secondItem="Nlb-an-iIC" secondAttribute="trailingMargin" id="rcO-zs-Vxl"/>
                             <constraint firstItem="9N9-XU-MV2" firstAttribute="leading" secondItem="uj3-HN-l9z" secondAttribute="leading" id="tAM-aN-2jH"/>
                             <constraint firstItem="lgb-QJ-SCR" firstAttribute="centerX" secondItem="uj3-HN-l9z" secondAttribute="centerX" id="yQ6-Xt-GlK"/>
                         </constraints>
@@ -88,6 +88,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="5AJ-DJ-Q5E"/>
                     <connections>
+                        <outlet property="accessLabel" destination="rHQ-rx-YiK" id="emj-Jy-JUW"/>
                         <outlet property="button" destination="uj3-HN-l9z" id="iAn-x6-2ec"/>
                         <outlet property="cameraRollAccessSwitch" destination="9N9-XU-MV2" id="FsA-jh-wQr"/>
                         <outlet property="containerView" destination="GCU-tf-qQA" id="bAA-Ox-xT6"/>

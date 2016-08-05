@@ -17,6 +17,7 @@ class ViewController: UIViewController {
         (self.vc as? SnapImagePickerViewController)?.loadAlbum()
     }
     
+    @IBOutlet weak var accessLabel: UILabel?
     @IBOutlet weak var cameraRollAccessSwitch: UISwitch!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,16 +25,31 @@ class ViewController: UIViewController {
             addChildViewController(vc)
             containerView?.addSubview(vc.view)
             self.vc = vc
-            navigationController?.navigationBar.pushNavigationItem(vc.navigationItem, animated: true)
         }
     }
     @IBAction func openImagePicker(sender: UIButton) {
-        imageView.hidden = true
-        button.hidden = true
-        cameraRollAccessSwitch.hidden = true
-        loadButton.hidden = true
-        containerViewLeadingConstraint?.constant -= view.frame.width
-        
+        if let navigationItem = vc?.navigationItem {
+            let backButton = navigationItem.backBarButtonItem
+            backButton?.target = "self"
+            backButton?.action = #selector(back)
+            navigationItem.backBarButtonItem = backButton
+            navigationController?.navigationBar.pushNavigationItem(navigationItem, animated: true)
+            imageView.hidden = true
+            button.hidden = true
+            cameraRollAccessSwitch.hidden = true
+            loadButton.hidden = true
+            accessLabel?.hidden = true
+            containerViewLeadingConstraint?.constant -= view.frame.width
+        }
+    }
+    
+    func back() {
+        imageView.hidden = false
+        button.hidden = false
+        cameraRollAccessSwitch.hidden = false
+        loadButton.hidden = false
+        accessLabel?.hidden = false
+        containerViewLeadingConstraint?.constant = 0
     }
 
     override func didReceiveMemoryWarning() {
@@ -44,17 +60,8 @@ class ViewController: UIViewController {
 
 extension ViewController: SnapImagePickerDelegate {
     func pickedImage(image: UIImage, withImageOptions options: ImageOptions) {
-        print("Picked image")
         imageView?.contentMode = .ScaleAspectFit
         imageView?.image = UIImage(CGImage: CGImageCreateWithImageInRect(image.CGImage, options.cropRect)!, scale: 1, orientation: options.rotation)
-        imageView.hidden = false
-        button.hidden = false
-        cameraRollAccessSwitch.hidden = false
-        loadButton.hidden = false
-        containerViewLeadingConstraint?.constant = 0
-    }
-    
-    func requestPhotosAccessForImagePicker(callbackDelegate: SnapImagePicker) {
-        print("Need to request access to photos")
+        back()
     }
 }

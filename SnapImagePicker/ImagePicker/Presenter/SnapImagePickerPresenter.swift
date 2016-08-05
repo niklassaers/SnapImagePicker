@@ -128,7 +128,7 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
     }
 
     func albumImageClicked(index: Int) {
-        if index < albumSize  && index != selectedIndex {
+        if cameraRollAvailable && index < albumSize  && index != selectedIndex {
             if let image = images[index] {
                 view?.displayMainImage(image)
             }
@@ -141,7 +141,9 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
     }
 
     func albumTitlePressed(navigationController: UINavigationController?) {
-        connector?.segueToAlbumSelector(navigationController)
+        if cameraRollAvailable {
+            connector?.segueToAlbumSelector(navigationController)
+        }
     }
 
     func selectButtonPressed(image: UIImage, withImageOptions options: ImageOptions) {
@@ -190,7 +192,9 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
             images.removeValueForKey(i)
         }
         
-        interactor?.loadAlbumImagesFromAlbum(albumType, inRange: toBeFetched, withTargetSize: cellSize)
-        currentRange = range
+        if cameraRollAvailable {
+            interactor?.loadAlbumImagesFromAlbum(albumType, inRange: toBeFetched, withTargetSize: cellSize)
+            currentRange = range
+        }
     }
 }

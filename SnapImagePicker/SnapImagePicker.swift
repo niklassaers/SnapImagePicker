@@ -5,7 +5,6 @@ protocol SnapImagePickerConnectorProtocol: class {
     func segueToAlbumSelector(navigationController: UINavigationController?)
     func segueToImagePicker(albumType: AlbumType, inNavigationController: UINavigationController?)
     func setImage(image: UIImage, withImageOptions: ImageOptions)
-    func requestPhotosAccess()
 }
 
 public class SnapImagePicker {
@@ -97,9 +96,5 @@ extension SnapImagePicker: SnapImagePickerConnectorProtocol {
     func setImage(image: UIImage, withImageOptions options: ImageOptions) {
         navigationController?.delegate = previousTransitionDelegate
         delegate?.pickedImage(image, withImageOptions: options)
-    }
-    
-    func requestPhotosAccess() {
-        delegate?.requestPhotosAccessForImagePicker(self)
     }
 }
