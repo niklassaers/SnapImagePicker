@@ -23,8 +23,15 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         if let vc = SnapImagePicker(delegate: self).initializeViewControllerWithPhotosAccess(cameraRollAccessSwitch.on) {
             addChildViewController(vc)
+            vc.view.translatesAutoresizingMaskIntoConstraints = false
             containerView?.addSubview(vc.view)
             self.vc = vc
+            
+            let leading = NSLayoutConstraint(item: vc.view, attribute: NSLayoutAttribute.Leading, relatedBy: NSLayoutRelation.Equal, toItem: containerView, attribute: NSLayoutAttribute.Leading, multiplier: 1, constant: 0)
+            let trailing = NSLayoutConstraint(item: vc.view, attribute: NSLayoutAttribute.Trailing, relatedBy: NSLayoutRelation.Equal, toItem: containerView, attribute: NSLayoutAttribute.Trailing, multiplier: 1, constant: 0)
+            let top = NSLayoutConstraint(item: vc.view, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: containerView, attribute: NSLayoutAttribute.Top, multiplier: 1, constant: 0)
+            let bottom = NSLayoutConstraint(item: vc.view, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: containerView, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: 0)
+            containerView?.addConstraints([leading, trailing, top, bottom])
         }
     }
     @IBAction func openImagePicker(sender: UIButton) {
