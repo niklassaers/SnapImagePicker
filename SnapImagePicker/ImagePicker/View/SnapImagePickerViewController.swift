@@ -1,7 +1,7 @@
 import UIKit
 
 public class SnapImagePickerViewController: UIViewController {
-    @IBOutlet weak var mainScrollView: UIScrollView? {
+    @IBOutlet public weak var mainScrollView: UIScrollView? {
         didSet {
             mainScrollView?.delegate = self
         }
@@ -29,7 +29,7 @@ public class SnapImagePickerViewController: UIViewController {
             albumCollectionView?.dataSource = self
         }
     }
-    
+    // First: Selected image scroll view height, second: super.width
     @IBOutlet weak var selectedImageScrollViewHeightToFrameWidthAspectRatioConstraint: NSLayoutConstraint?
     
     @IBOutlet weak var imageGridView: ImageGridView? {
@@ -44,12 +44,12 @@ public class SnapImagePickerViewController: UIViewController {
         }
     }
 
+    // First: Selected image view width, second: Selected image view height
     @IBOutlet weak var selectedImageViewAspectRationConstraint: NSLayoutConstraint?
     @IBOutlet weak var imageGridViewWidthConstraint: NSLayoutConstraint?
     @IBOutlet weak var albumCollectionViewHeightConstraint: NSLayoutConstraint?
     @IBOutlet weak var albumCollectionWidthConstraint: NSLayoutConstraint?
     @IBOutlet weak var selectedImageWidthConstraint: NSLayoutConstraint?
-    @IBOutlet weak var selectedImageScrollViewTopConstraint: NSLayoutConstraint?
     @IBOutlet weak var mainImageLoadIndicator: UIActivityIndicatorView?
     
     @IBOutlet weak var rotateButton: UIButton?

@@ -11,14 +11,15 @@ class ViewController: UIViewController {
     @IBOutlet weak var loadButton: UIButton!
     @IBOutlet weak var containerViewLeadingConstraint: NSLayoutConstraint?
     @IBOutlet weak var containerView: UIView?
+    @IBOutlet weak var accessLabel: UILabel?
+    @IBOutlet weak var cameraRollAccessSwitch: UISwitch!
     
     @IBAction func loadButtonClicked(sender: UIButton) {
         (self.vc as? SnapImagePickerViewController)?.cameraRollAvailable = cameraRollAccessSwitch.on
         (self.vc as? SnapImagePickerViewController)?.loadAlbum()
     }
-    
-    @IBOutlet weak var accessLabel: UILabel?
-    @IBOutlet weak var cameraRollAccessSwitch: UISwitch!
+
+    var constraintCount = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         if let vc = SnapImagePicker(delegate: self).initializeViewControllerWithPhotosAccess(cameraRollAccessSwitch.on) {
@@ -26,12 +27,20 @@ class ViewController: UIViewController {
             vc.view.translatesAutoresizingMaskIntoConstraints = false
             containerView?.addSubview(vc.view)
             self.vc = vc
+            automaticallyAdjustsScrollViewInsets = false
             
-            let leading = NSLayoutConstraint(item: vc.view, attribute: NSLayoutAttribute.Leading, relatedBy: NSLayoutRelation.Equal, toItem: containerView, attribute: NSLayoutAttribute.Leading, multiplier: 1, constant: 0)
-            let trailing = NSLayoutConstraint(item: vc.view, attribute: NSLayoutAttribute.Trailing, relatedBy: NSLayoutRelation.Equal, toItem: containerView, attribute: NSLayoutAttribute.Trailing, multiplier: 1, constant: 0)
-            let top = NSLayoutConstraint(item: vc.view, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: containerView, attribute: NSLayoutAttribute.Top, multiplier: 1, constant: 0)
+            let width = NSLayoutConstraint(item: vc.view, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: containerView, attribute: NSLayoutAttribute.Width, multiplier: 1, constant: 0)
+            let height = NSLayoutConstraint(item: vc.view, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: containerView, attribute: NSLayoutAttribute.Height, multiplier: 1, constant: 0)
             let bottom = NSLayoutConstraint(item: vc.view, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: containerView, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: 0)
-            containerView?.addConstraints([leading, trailing, top, bottom])
+            let centerX = NSLayoutConstraint(item: vc.view, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: containerView, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0)
+            
+            containerView?.addConstraints([width, centerX, height, bottom])
+            vc.view.userInteractionEnabled = true
+            // BREAKING: <NSLayoutConstraint:0x7fe321d57b40 UIScrollView:0x7fe32284a400.bottom == UIView:0x7fe321f38bb0.bottom>
+            // ADDING: "<NSAutoresizingMaskLayoutConstraint:0x7fe321f46e60 h=--& v=--& UIScrollView:0x7fe32284a400.midY == + 333.5>
+            
+            /*
+             */
         }
     }
     @IBAction func openImagePicker(sender: UIButton) {
@@ -39,8 +48,8 @@ class ViewController: UIViewController {
             let backButton = navigationItem.backBarButtonItem
             backButton?.target = self
             backButton?.action = #selector(back)
-            navigationItem.backBarButtonItem = backButton
             navigationController?.navigationBar.pushNavigationItem(navigationItem, animated: true)
+            navigationItem.backBarButtonItem = backButton
             imageView.hidden = true
             button.hidden = true
             cameraRollAccessSwitch.hidden = true
@@ -70,5 +79,7 @@ extension ViewController: SnapImagePickerDelegate {
         imageView?.contentMode = .ScaleAspectFit
         imageView?.image = UIImage(CGImage: CGImageCreateWithImageInRect(image.CGImage, options.cropRect)!, scale: 1, orientation: options.rotation)
         back()
+        
+        print("Frame: \(vc!.view.frame)")
     }
 }
