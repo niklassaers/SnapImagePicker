@@ -413,7 +413,7 @@ extension SnapImagePickerViewController: UIScrollViewDelegate {
                     let diff = (scrollView.frame.height - imageView.frame.height) / 2
                     if diff > 0 {
                         selectedImageScrollViewTopConstraint?.constant = 16 + diff
-                        albumCollectionViewTopConstraint?.constant = -diff
+                        albumCollectionViewTopConstraint?.constant = -(16 + diff)
                     }
                 }
             }

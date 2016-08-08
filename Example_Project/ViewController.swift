@@ -35,12 +35,6 @@ class ViewController: UIViewController {
             let centerX = NSLayoutConstraint(item: vc.view, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: containerView, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0)
             
             containerView?.addConstraints([width, centerX, height, bottom])
-            vc.view.userInteractionEnabled = true
-            // BREAKING: <NSLayoutConstraint:0x7fe321d57b40 UIScrollView:0x7fe32284a400.bottom == UIView:0x7fe321f38bb0.bottom>
-            // ADDING: "<NSAutoresizingMaskLayoutConstraint:0x7fe321f46e60 h=--& v=--& UIScrollView:0x7fe32284a400.midY == + 333.5>
-            
-            /*
-             */
         }
     }
     @IBAction func openImagePicker(sender: UIButton) {
@@ -79,7 +73,5 @@ extension ViewController: SnapImagePickerDelegate {
         imageView?.contentMode = .ScaleAspectFit
         imageView?.image = UIImage(CGImage: CGImageCreateWithImageInRect(image.CGImage, options.cropRect)!, scale: 1, orientation: options.rotation)
         back()
-        
-        print("Frame: \(vc!.view.frame)")
     }
 }
