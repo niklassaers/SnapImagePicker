@@ -148,6 +148,11 @@ public class SnapImagePickerViewController: UIViewController {
     private var userIsScrolling = false
     private var enqueuedBounce: (() -> Void)?
     
+    override public func viewDidLoad() {
+        setupTitleButton()
+        setupSelectButton()
+    }
+    
     override public func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
