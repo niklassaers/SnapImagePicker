@@ -23,9 +23,6 @@
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GCU-tf-qQA">
                                 <rect key="frame" x="580" y="66" width="600" height="556"/>
-                                <connections>
-                                    <segue destination="wlu-ng-gZB" kind="embed" id="tdU-u8-rK4"/>
-                                </connections>
                             </containerView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="16c-bc-axl">
                                 <rect key="frame" x="150" y="72" width="300" height="300"/>
@@ -118,35 +115,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ShP-lA-MAl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="379" y="453"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="lfE-z7-5pZ">
-            <objects>
-                <viewController id="wlu-ng-gZB" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="RtB-EK-DIj"/>
-                        <viewControllerLayoutGuide type="bottom" id="aCh-rx-axU"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="qUj-G5-Ucn">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kP6-W4-gyY">
-                                <rect key="frame" x="0.0" y="0.0" width="608" height="556"/>
-                            </scrollView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="kP6-W4-gyY" firstAttribute="leading" secondItem="qUj-G5-Ucn" secondAttribute="leading" id="R4C-p3-BJU"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="kP6-W4-gyY" secondAttribute="trailing" constant="-28" id="nzT-et-mFV"/>
-                            <constraint firstItem="kP6-W4-gyY" firstAttribute="bottom" secondItem="aCh-rx-axU" secondAttribute="top" id="p6j-2B-42f"/>
-                            <constraint firstItem="kP6-W4-gyY" firstAttribute="top" secondItem="RtB-EK-DIj" secondAttribute="bottom" id="qNd-oy-0Ya"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="PYi-ng-wpV" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1293" y="-351"/>
         </scene>
     </scenes>
 </document>
