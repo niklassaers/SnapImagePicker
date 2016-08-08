@@ -49,7 +49,7 @@ class ViewController: UIViewController {
             cameraRollAccessSwitch.hidden = true
             loadButton.hidden = true
             accessLabel?.hidden = true
-            containerViewLeadingConstraint?.constant -= view.frame.width - 16
+            containerViewLeadingConstraint?.constant = -containerView!.frame.width
         }
     }
     
