@@ -149,8 +149,12 @@ public class SnapImagePickerViewController: UIViewController {
     private var enqueuedBounce: (() -> Void)?
     
     override public func viewDidLoad() {
+        super.viewDidLoad()
+        calculateViewSizes()
+        setupGestureRecognizers()
         setupTitleButton()
         setupSelectButton()
+        automaticallyAdjustsScrollViewInsets = false
     }
     
     override public func viewWillAppear(animated: Bool) {
@@ -160,11 +164,6 @@ public class SnapImagePickerViewController: UIViewController {
         let width = currentDisplay.CellWidthInViewWithWidth(view.bounds.width)
         eventHandler?.viewWillAppearWithCellSize(CGSize(width: width, height: width))
         
-        calculateViewSizes()
-        setupGestureRecognizers()
-        automaticallyAdjustsScrollViewInsets = false
-        setupTitleButton()
-        setupSelectButton()
         selectedImageScrollView?.userInteractionEnabled = true
     }
     
