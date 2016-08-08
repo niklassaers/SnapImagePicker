@@ -160,11 +160,13 @@
                         <outlet property="blackOverlayView" destination="imo-zl-yiM" id="sc9-9d-mZt"/>
                         <outlet property="imageGridView" destination="srr-K0-dFE" id="8Hk-Kk-DCs"/>
                         <outlet property="imageGridViewWidthConstraint" destination="RS0-5E-RfY" id="hnY-Il-4HU"/>
+                        <outlet property="mainImageLoadIndicator" destination="I60-ZY-pni" id="xcA-Yk-a3b"/>
                         <outlet property="mainScrollView" destination="zns-gV-aen" id="1Fo-tk-el1"/>
                         <outlet property="rotateButton" destination="9GN-to-QvH" id="pjA-eY-NEb"/>
                         <outlet property="selectedImageScrollView" destination="Z4e-Zg-oMg" id="hRG-a4-pcx"/>
                         <outlet property="selectedImageView" destination="XKY-Yf-eRj" id="X8I-ob-Mti"/>
                         <outlet property="selectedImageViewAspectRationConstraint" destination="DhF-NS-tQ8" id="yAX-FZ-BSz"/>
+                        <outlet property="selectedImageWidthConstraint" destination="Xtn-at-Kic" id="bhw-gS-QEF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oTR-km-0vK" userLabel="First Responder" sceneMemberID="firstResponder"/>
