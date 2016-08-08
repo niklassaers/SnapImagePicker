@@ -23,6 +23,7 @@ public class SnapImagePickerViewController: UIViewController {
         }
     }
     
+    @IBOutlet weak var selectedImageScrollViewTopConstraint: NSLayoutConstraint?
     @IBOutlet weak var albumCollectionView: UICollectionView? {
         didSet {
             albumCollectionView?.delegate = self
@@ -51,6 +52,7 @@ public class SnapImagePickerViewController: UIViewController {
     @IBOutlet weak var albumCollectionWidthConstraint: NSLayoutConstraint?
     @IBOutlet weak var selectedImageWidthConstraint: NSLayoutConstraint?
     @IBOutlet weak var mainImageLoadIndicator: UIActivityIndicatorView?
+    @IBOutlet weak var albumCollectionViewTopConstraint: NSLayoutConstraint?
     
     @IBOutlet weak var rotateButton: UIButton?
     
@@ -249,6 +251,8 @@ extension SnapImagePickerViewController {
 extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
     func displayMainImage(mainImage: SnapImagePickerImage) {
         if selectedImage == nil || mainImage.localIdentifier != selectedImage!.localIdentifier || mainImage.image.size.height > selectedImage!.image.size.height {
+            selectedImageScrollViewTopConstraint?.constant = 0
+            albumCollectionViewTopConstraint?.constant = 0
             selectedImageView?.contentMode = .ScaleAspectFit
             selectedImage = mainImage
             selectedImageRotation = .Up
@@ -406,7 +410,11 @@ extension SnapImagePickerViewController: UIScrollViewDelegate {
                     let ratio = min(1, imageView.frame.width / scrollView.frame.height)
                     selectedImageWidthConstraint = selectedImageWidthConstraint?.changeMultiplier(ratio)
                 } else if image.size.width > image.size.height {
-                    
+                    let diff = (scrollView.frame.height - imageView.frame.height) / 2
+                    if diff > 0 {
+                        selectedImageScrollViewTopConstraint?.constant = 16 + diff
+                        albumCollectionViewTopConstraint?.constant = -diff
+                    }
                 }
             }
         }
