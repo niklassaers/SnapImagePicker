@@ -123,7 +123,6 @@
                                     <constraint firstItem="imo-zl-yiM" firstAttribute="height" secondItem="Z4e-Zg-oMg" secondAttribute="height" id="0vy-N1-O4G"/>
                                     <constraint firstItem="9GN-to-QvH" firstAttribute="bottom" secondItem="rbP-BJ-ehV" secondAttribute="top" constant="-16" id="1js-3R-F0E"/>
                                     <constraint firstItem="I60-ZY-pni" firstAttribute="centerX" secondItem="Z4e-Zg-oMg" secondAttribute="centerX" id="4Q5-0F-nsu"/>
-                                    <constraint firstItem="Z4e-Zg-oMg" firstAttribute="bottom" secondItem="9GN-to-QvH" secondAttribute="bottom" constant="10" id="8ua-mU-vOh"/>
                                     <constraint firstItem="imo-zl-yiM" firstAttribute="width" secondItem="zns-gV-aen" secondAttribute="width" id="A7t-HL-U90"/>
                                     <constraint firstItem="9GN-to-QvH" firstAttribute="leading" secondItem="zns-gV-aen" secondAttribute="leading" constant="24" id="D3d-jM-fhs"/>
                                     <constraint firstItem="srr-K0-dFE" firstAttribute="centerX" secondItem="zns-gV-aen" secondAttribute="centerX" id="H8m-SV-YLj"/>
@@ -135,16 +134,9 @@
                                     <constraint firstItem="rbP-BJ-ehV" firstAttribute="width" secondItem="zns-gV-aen" secondAttribute="width" id="mgR-qE-Yk8"/>
                                     <constraint firstItem="Z4e-Zg-oMg" firstAttribute="centerX" secondItem="zns-gV-aen" secondAttribute="centerX" id="mzD-j0-TF0"/>
                                     <constraint firstItem="rbP-BJ-ehV" firstAttribute="top" secondItem="Z4e-Zg-oMg" secondAttribute="bottom" id="pCJ-LR-G2S"/>
-                                    <constraint firstItem="Z4e-Zg-oMg" firstAttribute="leading" secondItem="9GN-to-QvH" secondAttribute="leading" constant="-10" id="pwX-2e-xU6"/>
                                     <constraint firstItem="imo-zl-yiM" firstAttribute="centerY" secondItem="Z4e-Zg-oMg" secondAttribute="centerY" id="rGz-fq-goz"/>
                                     <constraint firstItem="I60-ZY-pni" firstAttribute="centerY" secondItem="Z4e-Zg-oMg" secondAttribute="centerY" id="zL8-0k-ePc"/>
                                 </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="8ua-mU-vOh"/>
-                                        <exclude reference="pwX-2e-xU6"/>
-                                    </mask>
-                                </variation>
                                 <variation key="widthClass=regular" ambiguous="YES">
                                     <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
                                 </variation>
@@ -171,8 +163,10 @@
                         <outlet property="imageGridViewWidthConstraint" destination="RS0-5E-RfY" id="hnY-Il-4HU"/>
                         <outlet property="mainImageLoadIndicator" destination="I60-ZY-pni" id="xcA-Yk-a3b"/>
                         <outlet property="mainScrollView" destination="zns-gV-aen" id="1Fo-tk-el1"/>
+                        <outlet property="mainScrollViewLeadingConstraint" destination="DTP-oN-d3g" id="RdT-n5-Hnu"/>
                         <outlet property="rotateButton" destination="9GN-to-QvH" id="pjA-eY-NEb"/>
                         <outlet property="selectedImageScrollView" destination="Z4e-Zg-oMg" id="hRG-a4-pcx"/>
+                        <outlet property="selectedImageScrollViewHeightToFrameWidthAspectRatioConstraint" destination="Nbr-gY-GPs" id="N5f-u3-oCT"/>
                         <outlet property="selectedImageScrollViewTopConstraint" destination="lPp-hU-un2" id="CqD-6Q-hK7"/>
                         <outlet property="selectedImageView" destination="XKY-Yf-eRj" id="X8I-ob-Mti"/>
                         <outlet property="selectedImageViewAspectRationConstraint" destination="DhF-NS-tQ8" id="yAX-FZ-BSz"/>

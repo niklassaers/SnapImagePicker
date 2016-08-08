@@ -1,6 +1,7 @@
 import UIKit
 
 public class SnapImagePickerViewController: UIViewController {
+    @IBOutlet weak var mainScrollViewLeadingConstraint: NSLayoutConstraint?
     @IBOutlet public weak var mainScrollView: UIScrollView? {
         didSet {
             mainScrollView?.delegate = self
@@ -194,7 +195,7 @@ public class SnapImagePickerViewController: UIViewController {
                     self?.selectedImageScrollView?.setContentOffset(newOffset, animated: true)
                     self?.calculateViewSizes()
                 }
-                }, completion: nil)
+                }, completion: {_ in print("Leading: \(self.mainScrollViewLeadingConstraint?.constant)")})
         }
     }
 }
