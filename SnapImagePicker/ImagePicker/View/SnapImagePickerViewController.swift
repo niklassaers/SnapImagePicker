@@ -1,7 +1,6 @@
 import UIKit
 
 public class SnapImagePickerViewController: UIViewController {
-    @IBOutlet weak var mainScrollViewLeadingConstraint: NSLayoutConstraint?
     @IBOutlet public weak var mainScrollView: UIScrollView? {
         didSet {
             mainScrollView?.delegate = self
@@ -15,7 +14,12 @@ public class SnapImagePickerViewController: UIViewController {
             selectedImageScrollView?.maximumZoomScale = currentDisplay.MaxZoomScale
         }
     }
+    @IBOutlet weak var selectedImageScrollViewTopConstraint: NSLayoutConstraint?
+    @IBOutlet weak var selectedImageScrollViewHeightToFrameWidthAspectRatioConstraint: NSLayoutConstraint?
+    @IBOutlet weak var selectedImageScrollViewWidthToHeightAspectRatioConstraint: NSLayoutConstraint?
+    
     @IBOutlet weak var selectedImageView: UIImageView?
+    @IBOutlet weak var selectedImageViewWidthToHeightAspectRatioConstraint: NSLayoutConstraint?
     private var selectedImage: SnapImagePickerImage? {
         didSet {
             if let selectedImage = selectedImage {
@@ -24,21 +28,23 @@ public class SnapImagePickerViewController: UIViewController {
         }
     }
     
-    @IBOutlet weak var selectedImageScrollViewTopConstraint: NSLayoutConstraint?
     @IBOutlet weak var albumCollectionView: UICollectionView? {
         didSet {
             albumCollectionView?.delegate = self
             albumCollectionView?.dataSource = self
         }
     }
-    // First: Selected image scroll view height, second: super.width
-    @IBOutlet weak var selectedImageScrollViewHeightToFrameWidthAspectRatioConstraint: NSLayoutConstraint?
+    @IBOutlet weak var albumCollectionViewHeightConstraint: NSLayoutConstraint?
+    @IBOutlet weak var albumCollectionWidthConstraint: NSLayoutConstraint?
+    @IBOutlet weak var albumCollectionViewTopConstraint: NSLayoutConstraint?
     
     @IBOutlet weak var imageGridView: ImageGridView? {
         didSet {
             imageGridView?.userInteractionEnabled = false
         }
     }
+    @IBOutlet weak var imageGridViewWidthConstraint: NSLayoutConstraint?
+    
     @IBOutlet weak var blackOverlayView: UIView? {
         didSet {
             blackOverlayView?.userInteractionEnabled = false
@@ -46,37 +52,38 @@ public class SnapImagePickerViewController: UIViewController {
         }
     }
 
-    // First: Selected image view width, second: Selected image view height
-    @IBOutlet weak var selectedImageViewAspectRationConstraint: NSLayoutConstraint?
-    @IBOutlet weak var imageGridViewWidthConstraint: NSLayoutConstraint?
-    @IBOutlet weak var albumCollectionViewHeightConstraint: NSLayoutConstraint?
-    @IBOutlet weak var albumCollectionWidthConstraint: NSLayoutConstraint?
-    @IBOutlet weak var selectedImageWidthConstraint: NSLayoutConstraint?
     @IBOutlet weak var mainImageLoadIndicator: UIActivityIndicatorView?
-    @IBOutlet weak var albumCollectionViewTopConstraint: NSLayoutConstraint?
     
     @IBOutlet weak var rotateButton: UIButton?
+    
+    // Used for storing the constant for the top layout constraint when an oblong image is rotated
+    var nextRotationOffset: CGFloat = 0.0
     
     @IBAction func flipImageButtonPressed(sender: UIButton) {
         UIView.animateWithDuration(0.3, animations: {
             self.selectedImageRotation = self.selectedImageRotation.next()
+            if let image = self.selectedImage?.image
+               where image.size.width > image.size.height,
+               let scrollView = self.selectedImageScrollView,
+               let imageView = self.selectedImageView
+               where imageView.frame.height < scrollView.frame.height,
+               let constraint = self.selectedImageScrollViewTopConstraint {
+                if self.selectedImageRotation.isHorizontal() {
+                    self.nextRotationOffset = constraint.constant
+                    constraint.constant = 0
+                    self.albumCollectionViewTopConstraint?.constant = 0
+                } else {
+                    constraint.constant = self.nextRotationOffset
+                    self.albumCollectionViewTopConstraint?.constant = -self.nextRotationOffset
+                    self.nextRotationOffset = 0
+                }
+                self.view.setNeedsLayout()
+            }
             
             sender.enabled = false
             }, completion: {
                 _ in sender.enabled = true
         })
-    }
-    
-    func selectButtonPressed() {
-        if let cropRect = selectedImageScrollView?.getImageBoundsForImageView(selectedImageView),
-           let image = selectedImageView?.image {
-           let options = ImageOptions(cropRect: cropRect, rotation: selectedImageRotation)
-            eventHandler?.selectButtonPressed(image, withImageOptions: options)
-        }
-    }
-    
-    func albumTitlePressed() {
-        eventHandler?.albumTitlePressed(self.navigationController)
     }
 
     var eventHandler: SnapImagePickerEventHandlerProtocol?
@@ -146,6 +153,7 @@ public class SnapImagePickerViewController: UIViewController {
         }
     }
 
+    private var nextOffset = 0
     private var userIsScrolling = false
     private var enqueuedBounce: (() -> Void)?
     
@@ -195,10 +203,25 @@ public class SnapImagePickerViewController: UIViewController {
                     self?.selectedImageScrollView?.setContentOffset(newOffset, animated: true)
                     self?.calculateViewSizes()
                 }
-                }, completion: {_ in print("Leading: \(self.mainScrollViewLeadingConstraint?.constant)")})
+                }, completion: nil)
         }
     }
 }
+
+extension SnapImagePickerViewController {
+    func selectButtonPressed() {
+        if let cropRect = selectedImageScrollView?.getImageBoundsForImageView(selectedImageView),
+            let image = selectedImageView?.image {
+            let options = ImageOptions(cropRect: cropRect, rotation: selectedImageRotation)
+            eventHandler?.selectButtonPressed(image, withImageOptions: options)
+        }
+    }
+    
+    func albumTitlePressed() {
+        eventHandler?.albumTitlePressed(self.navigationController)
+    }
+}
+
 extension SnapImagePickerViewController {
     private func setupSelectButton() {
         navigationItem.rightBarButtonItem = UIBarButtonItem()
@@ -262,14 +285,14 @@ extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
             selectedImage = mainImage
             selectedImageRotation = .Up
             if (mainImage.image.size.width < mainImage.image.size.height) {
-                selectedImageWidthConstraint = selectedImageWidthConstraint?.changeMultiplier(mainImage.image.size.width / mainImage.image.size.height * currentDisplay.SelectedImageWidthMultiplier)
-                selectedImageViewAspectRationConstraint = selectedImageViewAspectRationConstraint?.changeMultiplier(mainImage.image.size.width/mainImage.image.size.height)
+                selectedImageScrollViewWidthToHeightAspectRatioConstraint = selectedImageScrollViewWidthToHeightAspectRatioConstraint?.changeMultiplier(mainImage.image.size.width / mainImage.image.size.height * currentDisplay.SelectedImageWidthMultiplier)
+                selectedImageViewWidthToHeightAspectRatioConstraint = selectedImageViewWidthToHeightAspectRatioConstraint?.changeMultiplier(mainImage.image.size.width/mainImage.image.size.height)
                 selectedImageScrollView?.minimumZoomScale = 1
                 selectedImageScrollView?.centerFullImageInImageView(selectedImageView)
             } else {
                 let ratio = mainImage.image.size.width / mainImage.image.size.height
-                selectedImageWidthConstraint = selectedImageWidthConstraint?.changeMultiplier(1)
-                selectedImageViewAspectRationConstraint = selectedImageViewAspectRationConstraint?.changeMultiplier(ratio)
+                selectedImageScrollViewWidthToHeightAspectRatioConstraint = selectedImageScrollViewWidthToHeightAspectRatioConstraint?.changeMultiplier(1)
+                selectedImageViewWidthToHeightAspectRatioConstraint = selectedImageViewWidthToHeightAspectRatioConstraint?.changeMultiplier(ratio)
                 selectedImageScrollView?.minimumZoomScale = mainImage.image.size.height / mainImage.image.size.width
                 selectedImageScrollView?.centerFullImageInImageView(selectedImageView)
             }
@@ -411,10 +434,10 @@ extension SnapImagePickerViewController: UIScrollViewDelegate {
         if scrollView == selectedImageScrollView {
             if let imageView = selectedImageView,
                let image = imageView.image {
-                if image.size.height > image.size.width {
+                if image.size.height > image.size.width  && selectedImageRotation.isHorizontal() {
                     let ratio = min(1, imageView.frame.width / scrollView.frame.height)
-                    selectedImageWidthConstraint = selectedImageWidthConstraint?.changeMultiplier(ratio)
-                } else if image.size.width > image.size.height {
+                    selectedImageScrollViewWidthToHeightAspectRatioConstraint = selectedImageScrollViewWidthToHeightAspectRatioConstraint?.changeMultiplier(ratio)
+                } else if image.size.width > image.size.height && !selectedImageRotation.isHorizontal(){
                     let diff = (scrollView.frame.height - imageView.frame.height) / 2
                     if diff > 0 {
                         selectedImageScrollViewTopConstraint?.constant = diff
