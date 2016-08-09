@@ -119,7 +119,7 @@
                                             </mask>
                                         </variation>
                                         <connections>
-                                            <action selector="flipImageButtonPressed:" destination="vJD-BW-ayr" eventType="touchUpInside" id="BZN-yy-1ki"/>
+                                            <action selector="rotateButtonPressed:" destination="vJD-BW-ayr" eventType="touchUpInside" id="K3I-nt-jVo"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -176,6 +176,7 @@
                         <outlet property="mainImageLoadIndicator" destination="I60-ZY-pni" id="xcA-Yk-a3b"/>
                         <outlet property="mainScrollView" destination="zns-gV-aen" id="1Fo-tk-el1"/>
                         <outlet property="rotateButton" destination="9GN-to-QvH" id="pjA-eY-NEb"/>
+                        <outlet property="rotateButtonLeadingConstraint" destination="D3d-jM-fhs" id="J6c-ip-TNZ"/>
                         <outlet property="selectedImageScrollView" destination="Z4e-Zg-oMg" id="hRG-a4-pcx"/>
                         <outlet property="selectedImageScrollViewHeightToFrameWidthAspectRatioConstraint" destination="Nbr-gY-GPs" id="N5f-u3-oCT"/>
                         <outlet property="selectedImageScrollViewTopConstraint" destination="lPp-hU-un2" id="CqD-6Q-hK7"/>

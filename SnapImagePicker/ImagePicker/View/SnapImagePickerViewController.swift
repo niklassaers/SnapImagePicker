@@ -56,11 +56,12 @@ public class SnapImagePickerViewController: UIViewController {
     @IBOutlet weak var mainImageLoadIndicator: UIActivityIndicatorView?
     
     @IBOutlet weak var rotateButton: UIButton?
+    @IBOutlet weak var rotateButtonLeadingConstraint: NSLayoutConstraint?
     
     // Used for storing the constant for the top layout constraint when an oblong image is rotated
     var nextRotationOffset: CGFloat = 0.0
     
-    @IBAction func flipImageButtonPressed(sender: UIButton) {
+    @IBAction func rotateButtonPressed(sender: UIButton) {
         UIView.animateWithDuration(0.3, animations: {
             self.selectedImageRotation = self.selectedImageRotation.next()
             if let image = self.selectedImage?.image
@@ -121,7 +122,17 @@ public class SnapImagePickerViewController: UIViewController {
             albumCollectionView?.reloadData()
             selectedImageScrollViewHeightToFrameWidthAspectRatioConstraint = selectedImageScrollViewHeightToFrameWidthAspectRatioConstraint?.changeMultiplier(currentDisplay.SelectedImageWidthMultiplier)
             imageGridViewWidthConstraint = imageGridViewWidthConstraint?.changeMultiplier(currentDisplay.SelectedImageWidthMultiplier)
+
+            setRotateButtonConstraint()
         }
+    }
+    
+    private func setRotateButtonConstraint() {
+        let ratioNotCoveredByImage = (1 - currentDisplay.SelectedImageWidthMultiplier)
+        let widthNotCoveredByImage = ratioNotCoveredByImage * view.frame.width
+        let selectedImageStart = widthNotCoveredByImage / 2
+        
+        rotateButtonLeadingConstraint?.constant = selectedImageStart + 20
     }
     
     private var visibleCells: Range<Int>? {
