@@ -20,8 +20,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zns-gV-aen">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zns-gV-aen">
+                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z4e-Zg-oMg">
                                         <rect key="frame" x="0.0" y="16" width="600" height="600"/>
@@ -104,15 +104,20 @@
                                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="I60-ZY-pni">
                                         <rect key="frame" x="290" y="306" width="20" height="20"/>
                                     </activityIndicatorView>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9GN-to-QvH">
-                                        <rect key="frame" x="10" y="571" width="35" height="35"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9GN-to-QvH">
+                                        <rect key="frame" x="20" y="528" width="72" height="72"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="9GN-to-QvH" secondAttribute="height" multiplier="1:1" id="0je-bD-1Sa"/>
                                             <constraint firstAttribute="width" constant="35" id="uLj-JA-8nJ"/>
                                         </constraints>
-                                        <state key="normal" title="Rotate" image="circular_leftwards_arrow.png">
+                                        <state key="normal" title="Rotate" image="btn_photo_rotate">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="uLj-JA-8nJ"/>
+                                            </mask>
+                                        </variation>
                                         <connections>
                                             <action selector="flipImageButtonPressed:" destination="vJD-BW-ayr" eventType="touchUpInside" id="BZN-yy-1ki"/>
                                         </connections>
@@ -123,7 +128,8 @@
                                     <constraint firstItem="9GN-to-QvH" firstAttribute="bottom" secondItem="rbP-BJ-ehV" secondAttribute="top" constant="-16" id="1js-3R-F0E"/>
                                     <constraint firstItem="I60-ZY-pni" firstAttribute="centerX" secondItem="Z4e-Zg-oMg" secondAttribute="centerX" id="4Q5-0F-nsu"/>
                                     <constraint firstItem="imo-zl-yiM" firstAttribute="width" secondItem="zns-gV-aen" secondAttribute="width" id="A7t-HL-U90"/>
-                                    <constraint firstItem="9GN-to-QvH" firstAttribute="leading" secondItem="zns-gV-aen" secondAttribute="leading" constant="24" id="D3d-jM-fhs"/>
+                                    <constraint firstItem="9GN-to-QvH" firstAttribute="width" secondItem="zns-gV-aen" secondAttribute="width" multiplier="0.12" id="BTL-IK-5NH"/>
+                                    <constraint firstItem="9GN-to-QvH" firstAttribute="leading" secondItem="zns-gV-aen" secondAttribute="leading" constant="20" id="D3d-jM-fhs"/>
                                     <constraint firstItem="srr-K0-dFE" firstAttribute="centerX" secondItem="zns-gV-aen" secondAttribute="centerX" id="H8m-SV-YLj"/>
                                     <constraint firstItem="Z4e-Zg-oMg" firstAttribute="height" secondItem="zns-gV-aen" secondAttribute="width" id="Nbr-gY-GPs"/>
                                     <constraint firstItem="srr-K0-dFE" firstAttribute="width" secondItem="zns-gV-aen" secondAttribute="width" id="RS0-5E-RfY"/>
@@ -135,8 +141,14 @@
                                     <constraint firstItem="Z4e-Zg-oMg" firstAttribute="centerX" secondItem="zns-gV-aen" secondAttribute="centerX" id="mzD-j0-TF0"/>
                                     <constraint firstItem="rbP-BJ-ehV" firstAttribute="top" secondItem="Z4e-Zg-oMg" secondAttribute="bottom" id="pCJ-LR-G2S"/>
                                     <constraint firstItem="imo-zl-yiM" firstAttribute="centerY" secondItem="Z4e-Zg-oMg" secondAttribute="centerY" id="rGz-fq-goz"/>
+                                    <constraint firstItem="9GN-to-QvH" firstAttribute="width" secondItem="Z4e-Zg-oMg" secondAttribute="width" multiplier="0.12" id="xxn-Yi-2Ro"/>
                                     <constraint firstItem="I60-ZY-pni" firstAttribute="centerY" secondItem="Z4e-Zg-oMg" secondAttribute="centerY" id="zL8-0k-ePc"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="BTL-IK-5NH"/>
+                                    </mask>
+                                </variation>
                                 <variation key="widthClass=regular" ambiguous="YES">
                                     <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
                                 </variation>
@@ -247,6 +259,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="circular_leftwards_arrow.png" width="24" height="24"/>
+        <image name="btn_photo_rotate" width="44" height="44"/>
     </resources>
 </document>

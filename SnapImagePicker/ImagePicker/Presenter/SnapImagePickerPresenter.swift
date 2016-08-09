@@ -100,7 +100,7 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
         }
     }
 
-    func albumImageClicked(index: Int) {
+    func albumImageClicked(index: Int) -> Bool {
         if cameraRollAvailable && index < albumSize  && index != selectedIndex {
             if let image = images[index] {
                 view?.displayMainImage(image)
@@ -110,6 +110,10 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
             interactor?.loadMainImageFromAlbum(albumType, atIndex: index)
             let indexes = [oldSelectedIndex, index]
             view?.reloadCellAtIndexes(indexes)
+            
+            return true
+        } else {
+            return false
         }
     }
 
