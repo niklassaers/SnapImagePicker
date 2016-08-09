@@ -89,9 +89,11 @@ extension SnapImagePickerPresenterSpy: SnapImagePickerEventHandlerProtocol {
         viewWillAppearWithCellSizeSize = cellSize
     }
     
-    func albumImageClicked(index: Int) {
+    func albumImageClicked(index: Int) -> Bool {
         albumImageClickedCount += 1
         albumImageClickedIndex = index
+        
+        return true
     }
     
     func numberOfItemsInSection(section: Int) -> Int {
