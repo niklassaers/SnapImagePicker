@@ -42,6 +42,7 @@ class SnapImagePickerEventHandlerTests: XCTestCase {
     }
 
     func testViewWillAppearWithCellSizeShouldSetCellSize() {
+        eventHandler?.cameraRollAvailable = true
         let cellSize = CGSize(width: 20, height: 20)
         
         eventHandler?.viewWillAppearWithCellSize(cellSize)
@@ -54,6 +55,7 @@ class SnapImagePickerEventHandlerTests: XCTestCase {
         presentAlbum(albumSize: albumSize)
         presentAlbumImages(albumSize: albumSize)
         
+        eventHandler?.cameraRollAvailable = true
         eventHandler?.albumImageClicked(1)
         XCTAssertEqual(1, interactor?.loadMainImageFromAlbumCount)
         XCTAssertEqual(.AllPhotos, interactor?.loadMainImageFromAlbumType)
@@ -66,6 +68,7 @@ class SnapImagePickerEventHandlerTests: XCTestCase {
         presentAlbumImages(albumSize: albumSize)
         
         let precedingCount = viewController!.reloadCellAtIndexesCount
+        eventHandler?.cameraRollAvailable = true
         eventHandler?.albumImageClicked(1)
         XCTAssertEqual(precedingCount + 1, viewController?.reloadCellAtIndexesCount)
         XCTAssertNotNil(viewController?.reloadCellAtIndexesIndexes)
@@ -89,6 +92,7 @@ class SnapImagePickerEventHandlerTests: XCTestCase {
     
     func testPresentCellShouldSetImage() {
         if let image = UIImage(named: "dummy", inBundle: NSBundle(forClass: SnapImagePickerEventHandlerTests.self), compatibleWithTraitCollection: nil) {
+            eventHandler?.cameraRollAvailable = true
             presentAlbum(image: image)
             eventHandler?.scrolledToCells(0..<2, increasing: true)
             presentAlbumImages(image: image)
@@ -104,6 +108,7 @@ class SnapImagePickerEventHandlerTests: XCTestCase {
     }
     
     func testPresentSelectedIndexShouldSetSpacing() {
+        eventHandler?.cameraRollAvailable = true
         presentAlbum()
         eventHandler?.scrolledToCells(0..<2, increasing: true)
         presentAlbumImages()
@@ -114,6 +119,7 @@ class SnapImagePickerEventHandlerTests: XCTestCase {
     }
     
     func testScrolledToCellsShouldTriggerLoadImages() {
+        eventHandler?.cameraRollAvailable = true
         presentAlbum()
         presentAlbumImages()
         let range = 0..<10
@@ -124,7 +130,8 @@ class SnapImagePickerEventHandlerTests: XCTestCase {
     }
     
     func testAlbumTitlePressedShouldTriggerSegue() {
-        eventHandler?.albumTitlePressed()
+        eventHandler?.cameraRollAvailable = true
+        eventHandler?.albumTitlePressed(nil)
         XCTAssertEqual(1, connector?.segueToAlbumSelectorCount)
     }
     

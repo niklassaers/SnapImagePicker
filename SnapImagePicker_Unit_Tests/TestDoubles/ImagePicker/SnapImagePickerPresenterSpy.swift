@@ -42,6 +42,10 @@ class SnapImagePickerPresenterSpy {
     var selectButtonPressedOptions: ImageOptions?
     
     var dismissCount = 0
+    
+    var _cameraRollAvailable = false
+    var cameraRollAvailableGetCount = 0
+    var cameraRollAvailableSetCount = 0
 }
 
 extension SnapImagePickerPresenterSpy: SnapImagePickerPresenterProtocol {
@@ -66,6 +70,16 @@ extension SnapImagePickerPresenterSpy: SnapImagePickerPresenterProtocol {
 }
 
 extension SnapImagePickerPresenterSpy: SnapImagePickerEventHandlerProtocol {
+    var cameraRollAvailable: Bool {
+        get {
+            cameraRollAvailableGetCount += 1
+            return _cameraRollAvailable
+        }
+        set {
+            cameraRollAvailableSetCount += 1
+            _cameraRollAvailable = newValue
+        }
+    }
     func viewDidLoad() {
         viewDidLoadCount += 1
     }
@@ -101,7 +115,7 @@ extension SnapImagePickerPresenterSpy: SnapImagePickerEventHandlerProtocol {
         scrolledToCellsIncreasing = increasing
     }
     
-    func albumTitlePressed() {
+    func albumTitlePressed(navigationController: UINavigationController?) {
         albumTitlePressedCount += 1
     }
     
