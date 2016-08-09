@@ -132,9 +132,7 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
     
 
     func presentCell(cell: ImageCell, atIndex index: Int) -> ImageCell {
-        print("Presenting cell")
         if let image = images[index] {
-            print("Found image")
             if index == selectedIndex {
                 cell.backgroundColor = SnapImagePicker.Theme.color
                 cell.spacing = 2
@@ -144,7 +142,6 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
 
             cell.imageView?.contentMode = .ScaleAspectFit
             cell.imageView?.image = image.image.square()
-            print("Sat image to \(cell.imageView?.image)")
         }
         
         return cell

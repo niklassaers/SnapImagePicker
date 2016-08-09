@@ -434,7 +434,7 @@ extension SnapImagePickerViewController: UIScrollViewDelegate {
         if scrollView == selectedImageScrollView {
             if let imageView = selectedImageView,
                let image = imageView.image {
-                if image.size.height > image.size.width  && selectedImageRotation.isHorizontal() {
+                if image.size.height > image.size.width  && !selectedImageRotation.isHorizontal() {
                     let ratio = min(1, imageView.frame.width / scrollView.frame.height)
                     selectedImageScrollViewWidthToHeightAspectRatioConstraint = selectedImageScrollViewWidthToHeightAspectRatioConstraint?.changeMultiplier(ratio)
                 } else if image.size.width > image.size.height && !selectedImageRotation.isHorizontal(){
