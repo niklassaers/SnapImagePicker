@@ -1,7 +1,7 @@
 import UIKit
 
 public class SnapImagePickerViewController: UIViewController {
-    @IBOutlet public weak var mainScrollView: UIScrollView? {
+    @IBOutlet weak var mainScrollView: UIScrollView? {
         didSet {
             mainScrollView?.bounces = false
             mainScrollView?.delegate = self
@@ -59,7 +59,7 @@ public class SnapImagePickerViewController: UIViewController {
     @IBOutlet weak var rotateButtonLeadingConstraint: NSLayoutConstraint?
     
     // Used for storing the constant for the top layout constraint when an oblong image is rotated
-    var nextRotationOffset: CGFloat = 0.0
+    private var nextRotationOffset: CGFloat = 0.0
     
     @IBAction func rotateButtonPressed(sender: UIButton) {
         UIView.animateWithDuration(0.3, animations: {
@@ -87,12 +87,14 @@ public class SnapImagePickerViewController: UIViewController {
                 _ in sender.enabled = true
         })
     }
-
+    
+    private var _delegate: SnapImagePickerDelegate?
     var eventHandler: SnapImagePickerEventHandlerProtocol?
     
     var albumTitle = L10n.AllPhotosAlbumName.string {
         didSet {
             visibleCells = nil
+            setupTitleButton()
         }
     }
 
@@ -152,7 +154,6 @@ public class SnapImagePickerViewController: UIViewController {
         calculateViewSizes()
         setupGestureRecognizers()
         setupTitleButton()
-        setupSelectButton()
         automaticallyAdjustsScrollViewInsets = false
     }
     
@@ -198,13 +199,36 @@ public class SnapImagePickerViewController: UIViewController {
     }
 }
 
-extension SnapImagePickerViewController {
-    public var cameraRollAvailable: Bool {
+extension SnapImagePickerViewController: SnapImagePickerProtocol {
+    public var delegate: SnapImagePickerDelegate? {
         get {
-            return eventHandler?.cameraRollAvailable ?? false
+            return _delegate
         }
         set {
-            eventHandler?.cameraRollAvailable = newValue
+            _delegate = newValue
+        }
+    }
+    
+    public static func initializeWithCameraRollAccess(cameraRollAccess: Bool) -> SnapImagePickerViewController? {
+        let bundle = NSBundle(forClass: SnapImagePickerViewController.self)
+        let storyboard = UIStoryboard(name: SnapImagePickerConnector.Names.SnapImagePickerStoryboard.rawValue, bundle: bundle)
+        if let snapImagePickerViewController = storyboard.instantiateInitialViewController() as? SnapImagePickerViewController {
+            let presenter = SnapImagePickerPresenter(view: snapImagePickerViewController)
+            snapImagePickerViewController.eventHandler = presenter
+            snapImagePickerViewController.cameraRollAccess = cameraRollAccess
+            
+            return snapImagePickerViewController
+        }
+        
+        return nil
+    }
+    
+    public var cameraRollAccess: Bool {
+        get {
+            return eventHandler?.cameraRollAccess ?? false
+        }
+        set {
+            eventHandler?.cameraRollAccess = newValue
             if !newValue {
                 selectedImageView?.image = nil
                 albumCollectionView?.reloadData()
@@ -212,8 +236,8 @@ extension SnapImagePickerViewController {
         }
     }
     
-    public func loadAlbum() {
-        let width = currentDisplay.CellWidthInViewWithWidth(view.bounds.width)
+    public func reload() {
+        let width = self.currentDisplay.CellWidthInViewWithWidth(view.bounds.width)
         eventHandler?.viewWillAppearWithCellSize(CGSize(width: width, height: width))
         if let visibleCells = visibleCells {
             eventHandler?.scrolledToCells(visibleCells, increasing: true)
@@ -221,33 +245,25 @@ extension SnapImagePickerViewController {
             setVisibleCellsInAlbumCollectionView()
         }
     }
-}
-
-extension SnapImagePickerViewController {
-    func selectButtonPressed() {
+    
+    public func getCurrentImage() -> (image: UIImage, options: ImageOptions)? {
         if let cropRect = selectedImageScrollView?.getImageBoundsForImageView(selectedImageView),
             let image = selectedImageView?.image {
             let options = ImageOptions(cropRect: cropRect, rotation: selectedImageRotation)
-            eventHandler?.selectButtonPressed(image, withImageOptions: options)
+            return (image: image, options: options)
         }
+        
+        return nil
     }
-    
+}
+
+extension SnapImagePickerViewController {
     func albumTitlePressed() {
         eventHandler?.albumTitlePressed(self.navigationController)
     }
 }
 
 extension SnapImagePickerViewController {
-    private func setupSelectButton() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem()
-        navigationItem.rightBarButtonItem?.title = L10n.SelectButtonLabelText.string
-        if let font = SnapImagePicker.Theme.font?.fontWithSize(18) {
-            navigationItem.rightBarButtonItem?.setTitleTextAttributes([NSFontAttributeName: font],forState: .Normal)
-        }
-        navigationItem.rightBarButtonItem?.target = self
-        navigationItem.rightBarButtonItem?.action = #selector(selectButtonPressed)
-    }
-    
     private func setupTitleButton() {
         var title = albumTitle
         if albumTitle == AlbumType.AllPhotos.getAlbumName() {
@@ -255,15 +271,16 @@ extension SnapImagePickerViewController {
         } else if albumTitle == AlbumType.Favorites.getAlbumName() {
             title = L10n.FavoritesAlbumName.string
         }
+        print("Creating button with \(title)")
         let button = UIButton()
         
-        button.titleLabel?.font = SnapImagePicker.Theme.font
+        button.titleLabel?.font = SnapImagePickerTheme.font
         button.setTitle(title, forState: .Normal)
         button.setTitleColor(UIColor.blackColor(), forState: .Normal)
         button.setTitleColor(UIColor.init(red: 0xB8/0xFF, green: 0xB8/0xFF, blue: 0xB8/0xFF, alpha: 1), forState: .Highlighted)
-        if let mainImage = UIImage(named: "open_downwards_arrow", inBundle: NSBundle(forClass: SnapImagePicker.self), compatibleWithTraitCollection: nil),
+        if let mainImage = UIImage(named: "open_downwards_arrow", inBundle: NSBundle(forClass: SnapImagePickerViewController.self), compatibleWithTraitCollection: nil),
            let mainCgImage = mainImage.CGImage,
-           let highlightedImage = UIImage(named: "open_downwards_arrow_highlighted", inBundle: NSBundle(forClass: SnapImagePicker.self), compatibleWithTraitCollection: nil),
+           let highlightedImage = UIImage(named: "open_downwards_arrow_highlighted", inBundle: NSBundle(forClass: SnapImagePickerViewController.self), compatibleWithTraitCollection: nil),
            let highlightedCgImage = highlightedImage.CGImage,
            let navBarHeight = navigationController?.navigationBar.frame.height {
             let scale = mainImage.size.height / navBarHeight * 2
@@ -276,7 +293,7 @@ extension SnapImagePickerViewController {
         }
         button.addTarget(self, action: #selector(albumTitlePressed), forControlEvents: .TouchUpInside)
         
-        self.navigationItem.titleView = button
+        delegate?.setTitleView(button)
     }
     
     private func calculateViewSizes() {

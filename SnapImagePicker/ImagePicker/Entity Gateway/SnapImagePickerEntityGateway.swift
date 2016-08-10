@@ -56,7 +56,7 @@ extension SnapImagePickerEntityGateway: SnapImagePickerEntityGatewayProtocol {
         if let fetchResult = imageLoader?.fetchAssetsFromCollectionWithType(type)
             where fetchResult.count > index {
             if let asset = fetchResult.objectAtIndex(index) as? PHAsset {
-                imageLoader?.loadImageFromAsset(asset, isPreview: false, withPreviewSize: CGSize(width: SnapImagePicker.Theme.maxImageSize, height: SnapImagePicker.Theme.maxImageSize)) {
+                imageLoader?.loadImageFromAsset(asset, isPreview: false, withPreviewSize: CGSize(width: SnapImagePickerTheme.maxImageSize, height: SnapImagePickerTheme.maxImageSize)) {
                     [weak self] (image: SnapImagePickerImage) in
                     
                     dispatch_async(dispatch_get_main_queue()) {

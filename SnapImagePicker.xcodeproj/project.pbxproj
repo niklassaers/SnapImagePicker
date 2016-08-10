@@ -52,6 +52,8 @@
 		D88300841D06C72600399612 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D88300831D06C72600399612 /* Assets.xcassets */; };
 		D88300871D06C72600399612 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D88300851D06C72600399612 /* LaunchScreen.storyboard */; };
 		D88FD29B1D410CA700C7290F /* Range+rangeDifference.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88FD29A1D410CA700C7290F /* Range+rangeDifference.swift */; };
+		D8932B191D5B5A9C006776B2 /* SnapImagePickerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8932B181D5B5A9C006776B2 /* SnapImagePickerProtocol.swift */; };
+		D8932B1B1D5B5AE3006776B2 /* SnapImagePickerTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8932B1A1D5B5AE3006776B2 /* SnapImagePickerTheme.swift */; };
 		D893FA741D2D329600E71429 /* NSLayoutConstraint+changeMultiplier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D893FA731D2D329600E71429 /* NSLayoutConstraint+changeMultiplier.swift */; };
 		D893FA761D2D40E000E71429 /* UIScrollView+centerFullImageInImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D893FA751D2D40E000E71429 /* UIScrollView+centerFullImageInImageView.swift */; };
 		D893FA781D2D446400E71429 /* ImageOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D893FA771D2D446400E71429 /* ImageOptions.swift */; };
@@ -60,7 +62,7 @@
 		D893FA801D2E4CE400E71429 /* CGSize+displayType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D893FA7F1D2E4CE400E71429 /* CGSize+displayType.swift */; };
 		D89D6FE91D06CC06007DD132 /* SnapImagePicker.h in Headers */ = {isa = PBXBuildFile; fileRef = D89D6FE81D06CC06007DD132 /* SnapImagePicker.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D89D6FFC1D06CC06007DD132 /* SnapImagePicker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D89D6FE61D06CC06007DD132 /* SnapImagePicker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		D89D70051D06CEF1007DD132 /* SnapImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89D70041D06CEF1007DD132 /* SnapImagePicker.swift */; };
+		D89D70051D06CEF1007DD132 /* SnapImagePickerConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89D70041D06CEF1007DD132 /* SnapImagePickerConnector.swift */; };
 		D89D70071D06CF2E007DD132 /* SnapImagePickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89D70061D06CF2E007DD132 /* SnapImagePickerDelegate.swift */; };
 		D89D70091D06CFAC007DD132 /* SnapImagePicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D89D70081D06CFAC007DD132 /* SnapImagePicker.storyboard */; };
 		D8A479991D3E75C1008FA721 /* UIImageOrientation+next.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A479981D3E75C1008FA721 /* UIImageOrientation+next.swift */; };
@@ -85,7 +87,6 @@
 		D8F4F1B11D4F683700FF9550 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8F4F1B01D4F683700FF9550 /* Assets.xcassets */; };
 		D8F4F1B31D4F6EBF00FF9550 /* SnapImagePickerInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F4F1B21D4F6EBF00FF9550 /* SnapImagePickerInteractorTests.swift */; };
 		D8F4F1B51D4F79EC00FF9550 /* SnapImagePickerEntityGatewayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F4F1B41D4F79EC00FF9550 /* SnapImagePickerEntityGatewayTests.swift */; };
-		D8F4F1B71D4F7DF000FF9550 /* SnapImagePickerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F4F1B61D4F7DF000FF9550 /* SnapImagePickerProtocol.swift */; };
 		D8F4F1B91D4F818000FF9550 /* PhotoLoaderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F4F1B81D4F818000FF9550 /* PhotoLoaderMock.swift */; };
 		DC5E6A232D8A7569CD69D127 /* Pods_SnapImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47C9FCC71EEABB51CCCDB5FD /* Pods_SnapImagePicker.framework */; };
 		EC41EB6B64D95570695B4AB8 /* Pods_SnapImagePicker_Snapshot_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D126DA0F57807701D299D742 /* Pods_SnapImagePicker_Snapshot_Tests.framework */; };
@@ -99,19 +100,19 @@
 			remoteGlobalIDString = D88300781D06C72600399612;
 			remoteInfo = Example_Project;
 		};
-		D84614051D368B5E00B2A71D /* PBXContainerItemProxy */ = {
+		D8240C501D5B685C00B52BFD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D88300711D06C72600399612 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = D88300781D06C72600399612;
 			remoteInfo = Example_Project;
 		};
-		D89D6FF11D06CC06007DD132 /* PBXContainerItemProxy */ = {
+		D84614051D368B5E00B2A71D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D88300711D06C72600399612 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = D89D6FE51D06CC06007DD132;
-			remoteInfo = SnapImagePicker;
+			remoteGlobalIDString = D88300781D06C72600399612;
+			remoteInfo = Example_Project;
 		};
 		D89D6FF91D06CC06007DD132 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -197,6 +198,8 @@
 		D88300861D06C72600399612 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D88300881D06C72600399612 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D88FD29A1D410CA700C7290F /* Range+rangeDifference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Range+rangeDifference.swift"; sourceTree = "<group>"; };
+		D8932B181D5B5A9C006776B2 /* SnapImagePickerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapImagePickerProtocol.swift; sourceTree = "<group>"; };
+		D8932B1A1D5B5AE3006776B2 /* SnapImagePickerTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapImagePickerTheme.swift; sourceTree = "<group>"; };
 		D893FA731D2D329600E71429 /* NSLayoutConstraint+changeMultiplier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSLayoutConstraint+changeMultiplier.swift"; sourceTree = "<group>"; };
 		D893FA751D2D40E000E71429 /* UIScrollView+centerFullImageInImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+centerFullImageInImageView.swift"; sourceTree = "<group>"; };
 		D893FA771D2D446400E71429 /* ImageOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageOptions.swift; sourceTree = "<group>"; };
@@ -209,7 +212,7 @@
 		D89D6FEA1D06CC06007DD132 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D89D6FEF1D06CC06007DD132 /* SnapImagePicker_Unit_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SnapImagePicker_Unit_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D89D6FF81D06CC06007DD132 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D89D70041D06CEF1007DD132 /* SnapImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapImagePicker.swift; sourceTree = "<group>"; };
+		D89D70041D06CEF1007DD132 /* SnapImagePickerConnector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapImagePickerConnector.swift; sourceTree = "<group>"; };
 		D89D70061D06CF2E007DD132 /* SnapImagePickerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapImagePickerDelegate.swift; sourceTree = "<group>"; };
 		D89D70081D06CFAC007DD132 /* SnapImagePicker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SnapImagePicker.storyboard; sourceTree = "<group>"; };
 		D8A479981D3E75C1008FA721 /* UIImageOrientation+next.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageOrientation+next.swift"; sourceTree = "<group>"; };
@@ -244,7 +247,6 @@
 		D8F4F1B01D4F683700FF9550 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D8F4F1B21D4F6EBF00FF9550 /* SnapImagePickerInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapImagePickerInteractorTests.swift; sourceTree = "<group>"; };
 		D8F4F1B41D4F79EC00FF9550 /* SnapImagePickerEntityGatewayTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapImagePickerEntityGatewayTests.swift; sourceTree = "<group>"; };
-		D8F4F1B61D4F7DF000FF9550 /* SnapImagePickerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapImagePickerProtocol.swift; sourceTree = "<group>"; };
 		D8F4F1B81D4F818000FF9550 /* PhotoLoaderMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLoaderMock.swift; sourceTree = "<group>"; };
 		DF84CAF8E107A5EC8FBD7A20 /* Pods_SnapImagePicker_Unit_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SnapImagePicker_Unit_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E127869A7774F2307FDE67AF /* Pods_Example_Project.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Example_Project.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -554,6 +556,15 @@
 			path = Example_Project;
 			sourceTree = "<group>";
 		};
+		D8932B171D5B5A83006776B2 /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				D89D6FE81D06CC06007DD132 /* SnapImagePicker.h */,
+				D82468471D2158F8009DB2A4 /* SnapImagePickerTransition.swift */,
+			);
+			name = Legacy;
+			sourceTree = "<group>";
+		};
 		D89D6FE71D06CC06007DD132 /* SnapImagePicker */ = {
 			isa = PBXGroup;
 			children = (
@@ -568,11 +579,11 @@
 				D855BAD81D456BE900D80237 /* Assets.xcassets */,
 				D893FA771D2D446400E71429 /* ImageOptions.swift */,
 				D89D6FEA1D06CC06007DD132 /* Info.plist */,
-				D89D6FE81D06CC06007DD132 /* SnapImagePicker.h */,
-				D89D70041D06CEF1007DD132 /* SnapImagePicker.swift */,
+				D8932B171D5B5A83006776B2 /* Legacy */,
+				D8932B181D5B5A9C006776B2 /* SnapImagePickerProtocol.swift */,
+				D89D70041D06CEF1007DD132 /* SnapImagePickerConnector.swift */,
 				D89D70061D06CF2E007DD132 /* SnapImagePickerDelegate.swift */,
-				D8F4F1B61D4F7DF000FF9550 /* SnapImagePickerProtocol.swift */,
-				D82468471D2158F8009DB2A4 /* SnapImagePickerTransition.swift */,
+				D8932B1A1D5B5AE3006776B2 /* SnapImagePickerTheme.swift */,
 			);
 			path = SnapImagePicker;
 			sourceTree = "<group>";
@@ -748,7 +759,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				D89D6FF21D06CC06007DD132 /* PBXTargetDependency */,
+				D8240C511D5B685C00B52BFD /* PBXTargetDependency */,
 			);
 			name = SnapImagePicker_Unit_Tests;
 			productName = SnapImagePickerTests;
@@ -1129,7 +1140,7 @@
 				D893FA7E1D2D545500E71429 /* Display.swift in Sources */,
 				D893FA781D2D446400E71429 /* ImageOptions.swift in Sources */,
 				D8BF9CA51D266BA100DC1F02 /* UIScrollView+correction.swift in Sources */,
-				D89D70051D06CEF1007DD132 /* SnapImagePicker.swift in Sources */,
+				D89D70051D06CEF1007DD132 /* SnapImagePickerConnector.swift in Sources */,
 				D847B4511D1D3AF400D58E2C /* AlbumSelectorEntityGateway.swift in Sources */,
 				D82468591D215D09009DB2A4 /* PhotoLoader.swift in Sources */,
 				D8CB05C81D3F6F4300002745 /* Strings.swift in Sources */,
@@ -1140,6 +1151,7 @@
 				D8BF9CAB1D26B3DA00DC1F02 /* DownwardsArrowView.swift in Sources */,
 				D893FA7A1D2D528600E71429 /* DisplayState.swift in Sources */,
 				D824685D1D22A55F009DB2A4 /* UIScrollView+getBounds.swift in Sources */,
+				D8932B1B1D5B5AE3006776B2 /* SnapImagePickerTheme.swift in Sources */,
 				D83E55FE1D2BFB9E00338F5D /* UIImage+rotate.swift in Sources */,
 				D893FA741D2D329600E71429 /* NSLayoutConstraint+changeMultiplier.swift in Sources */,
 				D847B41F1D1D24A900D58E2C /* SnapImagePickerViewControllerProtocol.swift in Sources */,
@@ -1157,10 +1169,10 @@
 				D847B4291D1D298900D58E2C /* SnapImagePickerPresenter.swift in Sources */,
 				D847B45A1D1D644000D58E2C /* UIImage+square.swift in Sources */,
 				D847B43D1D1D35EE00D58E2C /* SnapImagePickerViewController.swift in Sources */,
+				D8932B191D5B5A9C006776B2 /* SnapImagePickerProtocol.swift in Sources */,
 				D83B8C2A1D0EE4D700C6995A /* ImageCell.swift in Sources */,
 				D847B43F1D1D368400D58E2C /* AlbumSelectorPresenterProtocol.swift in Sources */,
 				D8A4799B1D3E76BD008FA721 /* UIImageOrientation+toCGAffineTransformRadians.swift in Sources */,
-				D8F4F1B71D4F7DF000FF9550 /* SnapImagePickerProtocol.swift in Sources */,
 				D82468541D215A90009DB2A4 /* AlbumCell.swift in Sources */,
 				D8F4237B1D59C47C00391B81 /* UIImageOrientation+isHorizontal.swift in Sources */,
 				D8A479A11D3E8020008FA721 /* PHFetchResultMock.swift in Sources */,
@@ -1195,15 +1207,15 @@
 			target = D88300781D06C72600399612 /* Example_Project */;
 			targetProxy = D812DDF21D362C9200F0E488 /* PBXContainerItemProxy */;
 		};
+		D8240C511D5B685C00B52BFD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D88300781D06C72600399612 /* Example_Project */;
+			targetProxy = D8240C501D5B685C00B52BFD /* PBXContainerItemProxy */;
+		};
 		D84614061D368B5E00B2A71D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D88300781D06C72600399612 /* Example_Project */;
 			targetProxy = D84614051D368B5E00B2A71D /* PBXContainerItemProxy */;
-		};
-		D89D6FF21D06CC06007DD132 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D89D6FE51D06CC06007DD132 /* SnapImagePicker */;
-			targetProxy = D89D6FF11D06CC06007DD132 /* PBXContainerItemProxy */;
 		};
 		D89D6FFA1D06CC06007DD132 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

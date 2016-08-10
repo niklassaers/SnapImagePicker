@@ -43,9 +43,9 @@ class SnapImagePickerPresenterSpy {
     
     var dismissCount = 0
     
-    var _cameraRollAvailable = false
-    var cameraRollAvailableGetCount = 0
-    var cameraRollAvailableSetCount = 0
+    var _cameraRollAccess = false
+    var cameraRollAccessGetCount = 0
+    var cameraRollAccessSetCount = 0
 }
 
 extension SnapImagePickerPresenterSpy: SnapImagePickerPresenterProtocol {
@@ -70,14 +70,14 @@ extension SnapImagePickerPresenterSpy: SnapImagePickerPresenterProtocol {
 }
 
 extension SnapImagePickerPresenterSpy: SnapImagePickerEventHandlerProtocol {
-    var cameraRollAvailable: Bool {
+    var cameraRollAccess: Bool {
         get {
-            cameraRollAvailableGetCount += 1
-            return _cameraRollAvailable
+            cameraRollAccessGetCount += 1
+            return _cameraRollAccess
         }
         set {
-            cameraRollAvailableSetCount += 1
-            _cameraRollAvailable = newValue
+            cameraRollAccessSetCount += 1
+            _cameraRollAccess = newValue
         }
     }
     func viewDidLoad() {

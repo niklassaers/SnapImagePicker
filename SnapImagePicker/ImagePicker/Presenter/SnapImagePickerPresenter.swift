@@ -27,6 +27,7 @@ class SnapImagePickerPresenter {
   
     init(view: SnapImagePickerViewControllerProtocol) {
         self.view = view
+        connector = SnapImagePickerConnector(presenter: self)
     }
 }
 
@@ -72,7 +73,7 @@ extension SnapImagePickerPresenter: SnapImagePickerPresenterProtocol {
 }
 
 extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
-    var cameraRollAvailable: Bool {
+    var cameraRollAccess: Bool {
         get {
             return _cameraRollAvailable
         }
@@ -85,7 +86,7 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
         images = [Int: SnapImagePickerImage]()
         currentRange = nil
         viewIsReady = false
-        if cameraRollAvailable {
+        if cameraRollAccess {
             interactor?.loadAlbum(albumType)
         }
     }
@@ -101,7 +102,7 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
     }
 
     func albumImageClicked(index: Int) -> Bool {
-        if cameraRollAvailable && index < albumSize  && index != selectedIndex {
+        if cameraRollAccess && index < albumSize  && index != selectedIndex {
             if let image = images[index] {
                 view?.displayMainImage(image)
             }
@@ -118,13 +119,9 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
     }
 
     func albumTitlePressed(navigationController: UINavigationController?) {
-        if cameraRollAvailable {
+        if cameraRollAccess {
             connector?.segueToAlbumSelector(navigationController)
         }
-    }
-
-    func selectButtonPressed(image: UIImage, withImageOptions options: ImageOptions) {
-        connector?.setImage(image, withImageOptions: options)
     }
 
     func numberOfItemsInSection(section: Int) -> Int {
@@ -138,7 +135,7 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
     func presentCell(cell: ImageCell, atIndex index: Int) -> ImageCell {
         if let image = images[index] {
             if index == selectedIndex {
-                cell.backgroundColor = SnapImagePicker.Theme.color
+                cell.backgroundColor = SnapImagePickerTheme.color
                 cell.spacing = 2
             } else {
                 cell.spacing = 0
@@ -169,7 +166,7 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
             images.removeValueForKey(i)
         }
         
-        if cameraRollAvailable {
+        if cameraRollAccess {
             interactor?.loadAlbumImagesFromAlbum(albumType, inRange: toBeFetched, withTargetSize: cellSize)
             currentRange = range
         }

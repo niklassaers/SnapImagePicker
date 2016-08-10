@@ -46,7 +46,7 @@ extension L10n: CustomStringConvertible {
   }
 
   private static func tr(key: String, _ args: CVarArgType...) -> String {
-    let format = NSLocalizedString(key, bundle: NSBundle(forClass: SnapImagePicker.self), comment: "")
+    let format = NSLocalizedString(key, bundle: NSBundle(forClass: SnapImagePickerViewController.self), comment: "")
     return String(format: format, locale: NSLocale.currentLocale(), arguments: args)
   }
 }

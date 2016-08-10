@@ -13,15 +13,20 @@ class SnapImagePickerUITests: XCTestCase {
     }
 
     func testSegue() {
+        
         let app = XCUIApplication()
-        app.buttons["Load"].tap()
         app.buttons["Start image picker"].tap()
         
         let allPhotosButton = app.navigationBars["All Photos"].buttons["All Photos"]
         allPhotosButton.tap()
         app.navigationBars["Cameraroll"].buttons["Cameraroll"].tap()
         allPhotosButton.tap()
-        app.tables.staticTexts["247 images"].tap()
+        
+        let tablesQuery = app.tables
+        tablesQuery.staticTexts["19 images"].tap()
+        allPhotosButton.tap()
+        tablesQuery.buttons["Recently Added"].tap()
+        
     }
     
     func testSelectImage() {
@@ -40,25 +45,28 @@ class SnapImagePickerUITests: XCTestCase {
     }
     
     func testChooseImages() {
+        
         let app = XCUIApplication()
-        app.buttons["Load"].tap()
         app.buttons["Start image picker"].tap()
         
         let collectionViewsQuery = app.collectionViews
-        collectionViewsQuery.childrenMatchingType(.Cell).elementBoundByIndex(4).images["Album Image Preview"].tap()
+        collectionViewsQuery.childrenMatchingType(.Cell).elementBoundByIndex(3).images["Album Image Preview"].tap()
+        collectionViewsQuery.childrenMatchingType(.Cell).elementBoundByIndex(7).images["Album Image Preview"].tap()
         collectionViewsQuery.childrenMatchingType(.Cell).elementBoundByIndex(9).images["Album Image Preview"].tap()
-        collectionViewsQuery.childrenMatchingType(.Cell).elementBoundByIndex(13).images["Album Image Preview"].tap()
+        app.navigationBars["All Photos"].buttons["Select"].tap()
+        
     }
     
     func testRotateImage() {
+        
         let app = XCUIApplication()
-        app.buttons["Load"].tap()
         app.buttons["Start image picker"].tap()
         
-        let rotateButton = app.buttons["Rotate"]
-        rotateButton.tap()
-        rotateButton.tap()
-        rotateButton.tap()
-        rotateButton.tap()
+        let btnPhotoRotateButton = app.buttons["btn photo rotate"]
+        btnPhotoRotateButton.tap()
+        btnPhotoRotateButton.tap()
+        btnPhotoRotateButton.tap()
+        btnPhotoRotateButton.tap()
+        
     }
 }

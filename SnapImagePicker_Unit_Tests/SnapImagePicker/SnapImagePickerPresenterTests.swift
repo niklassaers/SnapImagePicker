@@ -47,7 +47,7 @@ class SnapImagePickerPresenterTests: XCTestCase {
     }
     
     func testPresentMainImageShouldTriggerDisplayMainImage() {
-        presenter?.cameraRollAvailable = true
+        presenter?.cameraRollAccess = true
         let localIdentifier = "local"
         let albumType = AlbumType.AllPhotos
         let mainImage = createSnapImagePickerImage(localIdentifier: localIdentifier)
@@ -68,7 +68,7 @@ class SnapImagePickerPresenterTests: XCTestCase {
             images[i] = image
             indexes.append(i)
         }
-        presenter?.cameraRollAvailable = true
+        presenter?.cameraRollAccess = true
         
         // Sets up viewIsReady
         presentAlbum()

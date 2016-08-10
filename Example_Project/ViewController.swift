@@ -5,8 +5,8 @@ import Foundation
 class ViewController: UIViewController {
     @IBOutlet weak var button: UIButton!
     @IBOutlet weak var imageView: UIImageView!
-    var delegate = SnapImagePickerNavigationControllerDelegate()
-    private var vc: UIViewController?
+    private let delegate = SnapImagePickerNavigationControllerDelegate()
+    private var vc: SnapImagePickerViewController?
     
     @IBOutlet weak var loadButton: UIButton!
     @IBOutlet weak var containerViewLeadingConstraint: NSLayoutConstraint?
@@ -15,14 +15,14 @@ class ViewController: UIViewController {
     @IBOutlet weak var cameraRollAccessSwitch: UISwitch!
     
     @IBAction func loadButtonClicked(sender: UIButton) {
-        (self.vc as? SnapImagePickerViewController)?.cameraRollAvailable = cameraRollAccessSwitch.on
-        (self.vc as? SnapImagePickerViewController)?.loadAlbum()
+        vc?.cameraRollAccess = cameraRollAccessSwitch.on
+        vc?.reload()
     }
 
-    var constraintCount = 0
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let vc = SnapImagePicker(delegate: self).initializeViewControllerWithPhotosAccess(cameraRollAccessSwitch.on) {
+        if let vc = SnapImagePickerViewController.initializeWithCameraRollAccess(cameraRollAccessSwitch.on) {
+            vc.delegate = self
             addChildViewController(vc)
             vc.view.translatesAutoresizingMaskIntoConstraints = false
             containerView?.addSubview(vc.view)
@@ -36,42 +36,50 @@ class ViewController: UIViewController {
             
             containerView?.addConstraints([width, centerX, height, bottom])
         }
+        let backButton = UIBarButtonItem()
+        backButton.title = "Back"
+        backButton.target = self
+        backButton.action = #selector(backButtonPressed)
+        navigationItem.leftBarButtonItem = backButton
+        
+        let selectButton = UIBarButtonItem()
+        selectButton.title = "Select"
+        selectButton.target = self
+        selectButton.action = #selector(selectButtonPressed)
+        navigationItem.rightBarButtonItem = selectButton
     }
     @IBAction func openImagePicker(sender: UIButton) {
-        if let navigationItem = vc?.navigationItem {
-            let backButton = navigationItem.backBarButtonItem
-            backButton?.target = self
-            backButton?.action = #selector(back)
-            navigationController?.navigationBar.pushNavigationItem(navigationItem, animated: true)
-            navigationItem.backBarButtonItem = backButton
-            imageView.hidden = true
-            button.hidden = true
-            cameraRollAccessSwitch.hidden = true
-            loadButton.hidden = true
-            accessLabel?.hidden = true
-            containerViewLeadingConstraint?.constant = -containerView!.frame.width
-        }
+        imageView.hidden = true
+        button.hidden = true
+        cameraRollAccessSwitch.hidden = true
+        loadButton.hidden = true
+        accessLabel?.hidden = true
+        containerViewLeadingConstraint?.constant = -containerView!.frame.width
+        navigationController?.delegate = delegate
     }
     
-    func back() {
+    func backButtonPressed() {
         imageView.hidden = false
         button.hidden = false
         cameraRollAccessSwitch.hidden = false
         loadButton.hidden = false
         accessLabel?.hidden = false
         containerViewLeadingConstraint?.constant = 0
+        navigationController?.delegate = nil
     }
+    
+    func selectButtonPressed() {
+        if let (image, options) = vc?.getCurrentImage() {
+            imageView?.contentMode = .ScaleAspectFit
+            imageView?.image = UIImage(CGImage: CGImageCreateWithImageInRect(image.CGImage, options.cropRect)!, scale: 1, orientation: options.rotation)
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        }
+        backButtonPressed()
     }
 }
 
 extension ViewController: SnapImagePickerDelegate {
-    func pickedImage(image: UIImage, withImageOptions options: ImageOptions) {
-        imageView?.contentMode = .ScaleAspectFit
-        imageView?.image = UIImage(CGImage: CGImageCreateWithImageInRect(image.CGImage, options.cropRect)!, scale: 1, orientation: options.rotation)
-        back()
+    func setTitleView(titleView: UIView) {
+        navigationItem.titleView = titleView
     }
 }

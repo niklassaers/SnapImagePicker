@@ -10,7 +10,7 @@ class ImageLoaderMock: ImageLoaderProtocol {
     }
     
     func loadImageFromAsset(asset: PHAsset, isPreview: Bool, withPreviewSize previewSize: CGSize , handler: (SnapImagePickerImage) -> Void) -> PHImageRequestID {
-        if let image = UIImage(named: "dummy.jpeg", inBundle: NSBundle(forClass: SnapImagePicker.self), compatibleWithTraitCollection: nil) {
+        if let image = UIImage(named: "dummy.jpeg", inBundle: NSBundle(forClass: SnapImagePickerViewController.self), compatibleWithTraitCollection: nil) {
             handler(SnapImagePickerImage(image: image, localIdentifier: "testImage", createdDate: nil))
         }
         return PHImageRequestID()
@@ -18,7 +18,7 @@ class ImageLoaderMock: ImageLoaderProtocol {
     
     func loadImagesFromAssets(assets: [Int: PHAsset], withTargetSize targetSize: CGSize, handler: ([Int: SnapImagePickerImage]) -> Void) {
         var results = [Int: SnapImagePickerImage]()
-        if let image = UIImage(named: "dummy.jpeg", inBundle: NSBundle(forClass: SnapImagePicker.self), compatibleWithTraitCollection: nil) {
+        if let image = UIImage(named: "dummy.jpeg", inBundle: NSBundle(forClass: SnapImagePickerViewController.self), compatibleWithTraitCollection: nil) {
             for i in 0..<30 {
                 results[i] = SnapImagePickerImage(image: image, localIdentifier: "testImage", createdDate: nil)
             }

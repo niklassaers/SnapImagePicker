@@ -6,13 +6,13 @@ class AlbumSelectorViewController: UITableViewController {
     private struct Header {
         static let Height = CGFloat(40)
         static let FontSize = CGFloat(18)
-        static let Font = SnapImagePicker.Theme.font?.fontWithSize(FontSize)
+        static let Font = SnapImagePickerTheme.font?.fontWithSize(FontSize)
         static let Indentation = CGFloat(8)
     }
     
     private struct Cell {
         static let FontSize = CGFloat(15)
-        static let Font = SnapImagePicker.Theme.font?.fontWithSize(FontSize)
+        static let Font = SnapImagePickerTheme.font?.fontWithSize(FontSize)
     }
     
     private var collections: [(title: String, albums: [Album])]? {
@@ -33,14 +33,14 @@ class AlbumSelectorViewController: UITableViewController {
     
     private func setupTitleButton() {
         let button = UIButton()
-        button.titleLabel?.font = SnapImagePicker.Theme.font
+        button.titleLabel?.font = SnapImagePickerTheme.font
         button.setTitle(L10n.GeneralCollectionName.string, forState: .Normal)
         button.setTitleColor(UIColor.blackColor(), forState: .Normal)
         button.setTitleColor(UIColor.init(red: 0xB8/0xFF, green: 0xB8/0xFF, blue: 0xB8/0xFF, alpha: 1), forState: .Highlighted)
         button.addTarget(self, action: #selector(titleButtonPressed), forControlEvents: .TouchUpInside)
-        if let mainImage = UIImage(named: "open_downwards_arrow", inBundle: NSBundle(forClass: SnapImagePicker.self), compatibleWithTraitCollection: nil),
+        if let mainImage = UIImage(named: "open_downwards_arrow", inBundle: NSBundle(forClass: SnapImagePickerViewController.self), compatibleWithTraitCollection: nil),
             let mainCgImage = mainImage.CGImage,
-            let highlightedImage = UIImage(named: "open_downwards_arrow_highlighted", inBundle: NSBundle(forClass: SnapImagePicker.self), compatibleWithTraitCollection: nil),
+            let highlightedImage = UIImage(named: "open_downwards_arrow_highlighted", inBundle: NSBundle(forClass: SnapImagePickerViewController.self), compatibleWithTraitCollection: nil),
             let highlightedCgImage = highlightedImage.CGImage,
             let navBarHeight = navigationController?.navigationBar.frame.height {
             let scale = mainImage.size.height / navBarHeight * 2
