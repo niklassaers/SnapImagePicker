@@ -72,6 +72,7 @@ class ViewController: UIViewController {
         if let (image, options) = vc?.getCurrentImage() {
             imageView?.contentMode = .ScaleAspectFit
             imageView?.image = UIImage(CGImage: CGImageCreateWithImageInRect(image.CGImage, options.cropRect)!, scale: 1, orientation: options.rotation)
+            print("CropRect: \(options.cropRect)")
 
         }
         backButtonPressed()

@@ -271,7 +271,6 @@ extension SnapImagePickerViewController {
         } else if albumTitle == AlbumType.Favorites.getAlbumName() {
             title = L10n.FavoritesAlbumName.string
         }
-        print("Creating button with \(title)")
         let button = UIButton()
         
         button.titleLabel?.font = SnapImagePickerTheme.font
