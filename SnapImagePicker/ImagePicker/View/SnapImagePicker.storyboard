@@ -105,9 +105,10 @@
                                         <rect key="frame" x="290" y="306" width="20" height="20"/>
                                     </activityIndicatorView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9GN-to-QvH">
-                                        <rect key="frame" x="20" y="528" width="72" height="72"/>
+                                        <rect key="frame" x="20" y="556" width="44" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="9GN-to-QvH" secondAttribute="height" multiplier="1:1" id="0je-bD-1Sa"/>
+                                            <constraint firstAttribute="width" constant="44" id="XLY-Mh-qfl"/>
                                             <constraint firstAttribute="width" constant="35" id="uLj-JA-8nJ"/>
                                         </constraints>
                                         <state key="normal" image="btn_photo_rotate">
@@ -147,6 +148,7 @@
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="BTL-IK-5NH"/>
+                                        <exclude reference="xxn-Yi-2Ro"/>
                                     </mask>
                                 </variation>
                                 <variation key="widthClass=regular" ambiguous="YES">
