@@ -15,7 +15,7 @@ extension UIScrollView  {
     private func translateBoundsToCoordinatesForView(imageView: UIImageView) -> CGRect {
         var height = frame.height
         if zoomScale < 1 {
-            height = frame.height / zoomScale
+            height = frame.height * zoomScale
         }
         return CGRect(x: contentOffset.x,
                       y: contentOffset.y,

@@ -21,6 +21,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        SnapImagePickerTheme.color = UIColor.blueColor()
         if let vc = SnapImagePickerViewController.initializeWithCameraRollAccess(cameraRollAccessSwitch.on) {
             vc.delegate = self
             addChildViewController(vc)
@@ -72,6 +73,7 @@ class ViewController: UIViewController {
         if let (image, options) = vc?.getCurrentImage() {
             imageView?.contentMode = .ScaleAspectFit
             imageView?.image = UIImage(CGImage: CGImageCreateWithImageInRect(image.CGImage, options.cropRect)!, scale: 1, orientation: options.rotation)
+            print("Image.size: \(image.size)")
             print("CropRect: \(options.cropRect)")
 
         }
