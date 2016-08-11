@@ -142,7 +142,7 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
             }
 
             cell.imageView?.contentMode = .ScaleAspectFit
-            cell.imageView?.image = image.image.square()
+            cell.imageView?.image = image.image
         }
         
         return cell
@@ -163,9 +163,9 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
         }
         
         for i in toBeRemoved {
-            interactor?.deleteImageRequestsInRange(toBeRemoved)
             images.removeValueForKey(i)
         }
+        interactor?.deleteImageRequestsInRange(toBeRemoved)
         
         if cameraRollAccess {
             interactor?.loadAlbumImagesFromAlbum(albumType, inRange: toBeFetched, withTargetSize: cellSize)

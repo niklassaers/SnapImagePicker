@@ -41,7 +41,6 @@ extension PhotoLoader: ImageLoaderProtocol {
     
     func loadImagesFromAssets(assets: [Int: PHAsset], withTargetSize targetSize: CGSize, handler: ([Int: SnapImagePickerImage]) -> ()) -> [Int: PHImageRequestID] {
         
-        //TODO, should return a ([Int: SnapImagePickerImage]) -> ()
         let options = PHImageRequestOptions()
         options.networkAccessAllowed = true
         options.synchronous = false
@@ -53,8 +52,9 @@ extension PhotoLoader: ImageLoaderProtocol {
             let fetchId = imageManager.requestImageForAsset(asset, targetSize: targetSize, contentMode: .Default, options: options) {
                 (image, _) in
                 
-                if let image = image {
-                    let pickerImage = SnapImagePickerImage(image: image, localIdentifier: asset.localIdentifier, createdDate: asset.creationDate)
+                if let image = image,
+                   let squaredImage = image.square() {
+                    let pickerImage = SnapImagePickerImage(image: squaredImage, localIdentifier: asset.localIdentifier, createdDate: asset.creationDate)
                     self.batchImageResponses(pickerImage, index: index, handler: handler)
                 }
             }
