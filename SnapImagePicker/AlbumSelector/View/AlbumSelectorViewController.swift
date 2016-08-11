@@ -38,18 +38,22 @@ class AlbumSelectorViewController: UITableViewController {
         button.setTitleColor(UIColor.blackColor(), forState: .Normal)
         button.setTitleColor(UIColor.init(red: 0xB8/0xFF, green: 0xB8/0xFF, blue: 0xB8/0xFF, alpha: 1), forState: .Highlighted)
         button.addTarget(self, action: #selector(titleButtonPressed), forControlEvents: .TouchUpInside)
-        if let mainImage = UIImage(named: "icon_s_arrow_down_red", inBundle: NSBundle(forClass: SnapImagePickerViewController.self), compatibleWithTraitCollection: nil),
-            let mainCgImage = mainImage.CGImage,
-            let navBarHeight = navigationController?.navigationBar.frame.height {
-            let scale = mainImage.size.height / (navBarHeight / 5)
-            let scaledMainImage = UIImage(CGImage: mainCgImage, scale: scale, orientation: .Down)
-            let scaledHighlightedImage = scaledMainImage.setAlpha(0.3)
-            
-            if let highlightedCgImage = scaledHighlightedImage.CGImage {
-                let highlightedImage = UIImage(CGImage: highlightedCgImage, scale: scale, orientation: .Down)
+        if let image = UIImage(named: "icon_s_arrow_down_red", inBundle: NSBundle(forClass: SnapImagePickerViewController.self), compatibleWithTraitCollection: nil),
+            let cgImage = image.CGImage {
+            let rotatedImage = UIImage(CGImage: cgImage, scale: 1.0, orientation: .Down)
+            let highlightedImage = rotatedImage.setAlpha(0.3)
+            if let mainCgImage = rotatedImage.CGImage,
+               let highlightedCgImage = highlightedImage.CGImage,
+               let navBarHeight = navigationController?.navigationBar.frame.height {
+                let scale = image.findRoundedScale(image.size.height / (navBarHeight / 5))
+                let scaledMainImage = UIImage(CGImage: mainCgImage, scale: scale, orientation: .Up)
+                let scaledHighlightedImage = UIImage(CGImage: highlightedCgImage, scale: scale * 2, orientation: .Up)
+                
                 button.setImage(scaledMainImage, forState: .Normal)
-                button.setImage(highlightedImage, forState: .Highlighted)
+                button.setImage(scaledHighlightedImage, forState: .Highlighted)
                 button.frame = CGRect(x: 0, y: 0, width: scaledMainImage.size.width, height: scaledMainImage.size.height)
+                
+                button.rightAlignImage(scaledMainImage)
             }
         }
         navigationController?.navigationBar.topItem?.titleView = button

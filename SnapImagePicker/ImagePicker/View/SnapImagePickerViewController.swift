@@ -278,13 +278,15 @@ extension SnapImagePickerViewController {
         if let mainImage = UIImage(named: "icon_s_arrow_down_red", inBundle: NSBundle(forClass: SnapImagePickerViewController.self), compatibleWithTraitCollection: nil),
            let mainCgImage = mainImage.CGImage,
            let navBarHeight = navigationController?.navigationBar.frame.height {
-            let scale = mainImage.size.height / (navBarHeight / 5)
+            let scale = mainImage.findRoundedScale(mainImage.size.height / (navBarHeight / 5))
             let scaledMainImage = UIImage(CGImage: mainCgImage, scale: scale, orientation: .Up)
             let scaledHighlightedImage = scaledMainImage.setAlpha(0.3)
             
             button.setImage(scaledMainImage, forState: .Normal)
             button.setImage(scaledHighlightedImage, forState: .Highlighted)
-            button.frame = CGRect(x: 0, y: 0, width: scaledMainImage.size.width, height: scaledMainImage.size.height)
+            button.frame = CGRect(x: 0, y: 0, width: scaledHighlightedImage.size.width, height: scaledHighlightedImage.size.height)
+            
+            button.rightAlignImage(scaledHighlightedImage)
         }
         button.addTarget(self, action: #selector(albumTitlePressed), forControlEvents: .TouchUpInside)
         

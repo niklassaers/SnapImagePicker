@@ -6,7 +6,6 @@ extension UIImage {
         
         let context = UIGraphicsGetCurrentContext();
         let rect = CGRectMake(0, 0, self.size.width, self.size.height);
-        
         CGContextScaleCTM(context, 1, -1);
         CGContextTranslateCTM(context, 0, -rect.size.height);
         
@@ -17,7 +16,6 @@ extension UIImage {
         CGContextDrawImage(context, rect, self.CGImage);
         
         let image = UIGraphicsGetImageFromCurrentImageContext();
-        
         UIGraphicsEndImageContext();
         
         return image;
