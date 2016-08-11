@@ -38,18 +38,19 @@ class AlbumSelectorViewController: UITableViewController {
         button.setTitleColor(UIColor.blackColor(), forState: .Normal)
         button.setTitleColor(UIColor.init(red: 0xB8/0xFF, green: 0xB8/0xFF, blue: 0xB8/0xFF, alpha: 1), forState: .Highlighted)
         button.addTarget(self, action: #selector(titleButtonPressed), forControlEvents: .TouchUpInside)
-        if let mainImage = UIImage(named: "open_downwards_arrow", inBundle: NSBundle(forClass: SnapImagePickerViewController.self), compatibleWithTraitCollection: nil),
+        if let mainImage = UIImage(named: "icon_s_arrow_down_red", inBundle: NSBundle(forClass: SnapImagePickerViewController.self), compatibleWithTraitCollection: nil),
             let mainCgImage = mainImage.CGImage,
-            let highlightedImage = UIImage(named: "open_downwards_arrow_highlighted", inBundle: NSBundle(forClass: SnapImagePickerViewController.self), compatibleWithTraitCollection: nil),
-            let highlightedCgImage = highlightedImage.CGImage,
             let navBarHeight = navigationController?.navigationBar.frame.height {
-            let scale = mainImage.size.height / navBarHeight * 2
+            let scale = mainImage.size.height / (navBarHeight / 5)
             let scaledMainImage = UIImage(CGImage: mainCgImage, scale: scale, orientation: .Down)
-            let scaledHighlightedImage = UIImage(CGImage: highlightedCgImage, scale: scale, orientation: .Down)
+            let scaledHighlightedImage = scaledMainImage.setAlpha(0.3)
             
-            button.setImage(scaledMainImage, forState: .Normal)
-            button.setImage(scaledHighlightedImage, forState: .Highlighted)
-            button.frame = CGRect(x: 0, y: 0, width: scaledMainImage.size.width, height: scaledMainImage.size.height)
+            if let highlightedCgImage = scaledHighlightedImage.CGImage {
+                let highlightedImage = UIImage(CGImage: highlightedCgImage, scale: scale, orientation: .Down)
+                button.setImage(scaledMainImage, forState: .Normal)
+                button.setImage(highlightedImage, forState: .Highlighted)
+                button.frame = CGRect(x: 0, y: 0, width: scaledMainImage.size.width, height: scaledMainImage.size.height)
+            }
         }
         navigationController?.navigationBar.topItem?.titleView = button
     }
