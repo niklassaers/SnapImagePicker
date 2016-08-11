@@ -55,7 +55,6 @@ extension SnapImagePickerPresenter: SnapImagePickerPresenterProtocol {
         if !_cameraRollAvailable {
             return
         }
-        
         if album == albumType {
             var indexes = [Int]()
             for (index, image) in results {
@@ -64,7 +63,6 @@ extension SnapImagePickerPresenter: SnapImagePickerPresenterProtocol {
                     indexes.append(index)
                 }
             }
-        
             if viewIsReady {
                 view?.reloadCellAtIndexes(indexes)
             }

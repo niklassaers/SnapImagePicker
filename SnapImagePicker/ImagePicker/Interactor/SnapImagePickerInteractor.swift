@@ -20,10 +20,7 @@ extension SnapImagePickerInteractor: SnapImagePickerInteractorProtocol {
     }
     
     func loadAlbumImagesFromAlbum(type: AlbumType, inRange range: Range<Int>, withTargetSize targetSize: CGSize) {
-        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)) {
-            self.entityGateway?.fetchAlbumImagesFromAlbum(type, inRange: range, withTargetSize: targetSize)
-        }
-
+        self.entityGateway?.fetchAlbumImagesFromAlbum(type, inRange: range, withTargetSize: targetSize)
     }
     
     func loadedAlbumImagesResult(results: [Int:SnapImagePickerImage], fromAlbum album: AlbumType) {

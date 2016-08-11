@@ -348,8 +348,10 @@ extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
         for index in indexes {
             indexPaths.append(arrayIndexToIndexPath(index))
         }
-        UIView.performWithoutAnimation() {
-            self.albumCollectionView?.reloadItemsAtIndexPaths(indexPaths)
+        if indexes.count > 0 {
+            UIView.performWithoutAnimation() {
+                self.albumCollectionView?.reloadItemsAtIndexPaths(indexPaths)
+            }
         }
     }
 }
@@ -408,8 +410,7 @@ extension SnapImagePickerViewController: UICollectionViewDelegate {
     public func collectionView(collectionView: UICollectionView,
     willDisplayCell cell: UICollectionViewCell,
     forItemAtIndexPath indexPath: NSIndexPath){
-        if let visibleCells = visibleCells
-           where indexPath.item % currentDisplay.NumberOfColumns == (currentDisplay.NumberOfColumns - 1) && !(visibleCells ~= indexPath.item) {
+        if visibleCells == nil || indexPath.item % currentDisplay.NumberOfColumns == (currentDisplay.NumberOfColumns - 1) && !(visibleCells! ~= indexPath.item) {
             self.setVisibleCellsInAlbumCollectionView()
         }
     }
