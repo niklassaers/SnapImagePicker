@@ -64,6 +64,7 @@ extension SnapImagePickerEntityGateway: SnapImagePickerEntityGatewayProtocol {
     }
     
     func deleteImageRequestsInRange(range: Range<Int>) {
+        print("Deleting range \(range)")
         var requestIds = [PHImageRequestID]()
         for i in range {
             if let id = requests[i] {

@@ -384,7 +384,7 @@ extension SnapImagePickerViewController: UICollectionViewDataSource {
             let row = index / currentDisplay.NumberOfColumns
             let offset = CGFloat(row) * (currentDisplay.CellWidthInView(albumCollectionView) + currentDisplay.Spacing)
             
-            // Does not scroll to index if 
+            // Does not scroll to index if there is not enough content to fill the screen
             if offset + albumCollectionView.frame.height > albumCollectionView.contentSize.height {
                 return
             }
@@ -407,7 +407,10 @@ extension SnapImagePickerViewController: UICollectionViewDelegate {
     public func collectionView(collectionView: UICollectionView,
     willDisplayCell cell: UICollectionViewCell,
     forItemAtIndexPath indexPath: NSIndexPath){
-        print("Displaying index path: \(indexPath)")
+        if let visibleCells = visibleCells
+           where !(visibleCells ~= indexPath.item) {
+            setVisibleCellsInAlbumCollectionView()
+        }
     }
     
     public func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
