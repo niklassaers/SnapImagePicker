@@ -7,4 +7,5 @@ protocol SnapImagePickerInteractorProtocol: class {
     func loadMainImageFromAlbum(type: AlbumType, atIndex: Int)
     func loadedAlbumImagesResult(results: [Int:SnapImagePickerImage], fromAlbum: AlbumType)
     func loadedMainImage(image: SnapImagePickerImage, fromAlbum: AlbumType)
+    func deleteImageRequestsInRange(range: Range<Int>)
 }

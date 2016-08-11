@@ -404,6 +404,12 @@ extension SnapImagePickerViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension SnapImagePickerViewController: UICollectionViewDelegate {
+    public func collectionView(collectionView: UICollectionView,
+    willDisplayCell cell: UICollectionViewCell,
+    forItemAtIndexPath indexPath: NSIndexPath){
+        print("Displaying index path: \(indexPath)")
+    }
+    
     public func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let index = indexPathToArrayIndex(indexPath)
         if eventHandler?.albumImageClicked(index) == true {
@@ -502,8 +508,6 @@ extension SnapImagePickerViewController {
     }
     
     private func albumCollectionViewDidScroll(scrollView: UIScrollView) {
-        setVisibleCellsInAlbumCollectionView()
-        
         if let mainScrollView = mainScrollView
             where scrollView.contentOffset.y < 0 {
             if userIsScrolling {

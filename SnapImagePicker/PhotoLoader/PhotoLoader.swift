@@ -32,7 +32,14 @@ extension PhotoLoader: ImageLoaderProtocol {
         return requestId
     }
     
-    func loadImagesFromAssets(assets: [Int: PHAsset], withTargetSize targetSize: CGSize, handler: ([Int: SnapImagePickerImage]) -> ()) {
+    func deleteRequests(requestIds: [PHImageRequestID]) {
+        let imageManager = PHImageManager.defaultManager()
+        for id in requestIds {
+            imageManager.cancelImageRequest(id)
+        }
+    }
+    
+    func loadImagesFromAssets(assets: [Int: PHAsset], withTargetSize targetSize: CGSize, handler: ([Int: SnapImagePickerImage]) -> ()) -> [Int: PHImageRequestID] {
         
         //TODO, should return a ([Int: SnapImagePickerImage]) -> ()
         let options = PHImageRequestOptions()
@@ -41,8 +48,9 @@ extension PhotoLoader: ImageLoaderProtocol {
         options.deliveryMode = .Opportunistic
         
         let imageManager = PHImageManager.defaultManager()
+        var fetchIds = [Int: PHImageRequestID]()
         for (index, asset) in assets {
-            imageManager.requestImageForAsset(asset, targetSize: targetSize, contentMode: .Default, options: options) {
+            let fetchId = imageManager.requestImageForAsset(asset, targetSize: targetSize, contentMode: .Default, options: options) {
                 (image, _) in
                 
                 if let image = image {
@@ -50,7 +58,10 @@ extension PhotoLoader: ImageLoaderProtocol {
                     self.batchImageResponses(pickerImage, index: index, handler: handler)
                 }
             }
+            fetchIds[index] = fetchId
         }
+        
+        return fetchIds
     }
     
     private func batchImageResponses(pickerImage: SnapImagePickerImage, index: Int, handler: ([Int: SnapImagePickerImage]) -> ()) {

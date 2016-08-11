@@ -5,6 +5,8 @@ class SnapImagePickerEntityGateway {
     private weak var interactor: SnapImagePickerInteractorProtocol?
     private weak var imageLoader: ImageLoaderProtocol?
     
+    private var requests = [Int: PHImageRequestID]()
+    
     init(interactor: SnapImagePickerInteractorProtocol, imageLoader: ImageLoaderProtocol?) {
         self.interactor = interactor
         self.imageLoader = imageLoader
@@ -43,13 +45,34 @@ extension SnapImagePickerEntityGateway: SnapImagePickerEntityGatewayProtocol {
     
     func fetchAlbumImagesFromAlbum(type: AlbumType, inRange range: Range<Int>, withTargetSize targetSize: CGSize)  {
         let assets = loadAssetsFromAlbum(type, inRange: range)
-        imageLoader?.loadImagesFromAssets(assets, withTargetSize: targetSize) {
+        let fetchIds = imageLoader?.loadImagesFromAssets(assets, withTargetSize: targetSize) {
             [weak self] (results) in
             
             dispatch_async(dispatch_get_main_queue()) {
                 self?.interactor?.loadedAlbumImagesResult(results, fromAlbum: type)
             }
+            for (index, _) in results {
+                self?.requests[index] = nil
+            }
         }
+        
+        if let fetchIds = fetchIds {
+            for (index, id) in fetchIds {
+                requests[index] = id
+            }
+        }
+    }
+    
+    func deleteImageRequestsInRange(range: Range<Int>) {
+        var requestIds = [PHImageRequestID]()
+        for i in range {
+            if let id = requests[i] {
+                requestIds.append(id)
+                requests[i] = nil
+            }
+        }
+        
+        imageLoader?.deleteRequests(requestIds)
     }
     
     func fetchMainImageFromAlbum(type: AlbumType, atIndex index: Int) {

@@ -163,6 +163,7 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
         }
         
         for i in toBeRemoved {
+            interactor?.deleteImageRequestsInRange(toBeRemoved)
             images.removeValueForKey(i)
         }
         

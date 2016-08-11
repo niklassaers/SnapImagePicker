@@ -67,8 +67,6 @@
 		D89D70091D06CFAC007DD132 /* SnapImagePicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D89D70081D06CFAC007DD132 /* SnapImagePicker.storyboard */; };
 		D8A479991D3E75C1008FA721 /* UIImageOrientation+next.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A479981D3E75C1008FA721 /* UIImageOrientation+next.swift */; };
 		D8A4799B1D3E76BD008FA721 /* UIImageOrientation+toCGAffineTransformRadians.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A4799A1D3E76BD008FA721 /* UIImageOrientation+toCGAffineTransformRadians.swift */; };
-		D8A4799E1D3E7FF8008FA721 /* ImageLoaderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A4799D1D3E7FF8008FA721 /* ImageLoaderMock.swift */; };
-		D8A479A11D3E8020008FA721 /* PHFetchResultMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A479A01D3E8020008FA721 /* PHFetchResultMock.swift */; };
 		D8A49FAE1D4F86CD00B3D574 /* PHFetchResultMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A49FAD1D4F86CD00B3D574 /* PHFetchResultMock.swift */; };
 		D8A49FB01D4F873400B3D574 /* PHAssetMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A49FAF1D4F873400B3D574 /* PHAssetMock.swift */; };
 		D8A86A501D5C7E0F00CAA47D /* UIImage+setAlpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A86A4F1D5C7E0F00CAA47D /* UIImage+setAlpha.swift */; };
@@ -220,8 +218,6 @@
 		D89D70081D06CFAC007DD132 /* SnapImagePicker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SnapImagePicker.storyboard; sourceTree = "<group>"; };
 		D8A479981D3E75C1008FA721 /* UIImageOrientation+next.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageOrientation+next.swift"; sourceTree = "<group>"; };
 		D8A4799A1D3E76BD008FA721 /* UIImageOrientation+toCGAffineTransformRadians.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageOrientation+toCGAffineTransformRadians.swift"; sourceTree = "<group>"; };
-		D8A4799D1D3E7FF8008FA721 /* ImageLoaderMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageLoaderMock.swift; sourceTree = "<group>"; };
-		D8A479A01D3E8020008FA721 /* PHFetchResultMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PHFetchResultMock.swift; sourceTree = "<group>"; };
 		D8A49FAD1D4F86CD00B3D574 /* PHFetchResultMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PHFetchResultMock.swift; sourceTree = "<group>"; };
 		D8A49FAF1D4F873400B3D574 /* PHAssetMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PHAssetMock.swift; sourceTree = "<group>"; };
 		D8A86A4F1D5C7E0F00CAA47D /* UIImage+setAlpha.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+setAlpha.swift"; sourceTree = "<group>"; };
@@ -582,7 +578,6 @@
 				D82468551D215B85009DB2A4 /* Data */,
 				D8CB05C61D3F6F3700002745 /* Helpers */,
 				D82468491D2159C7009DB2A4 /* ImagePicker */,
-				D8A4799C1D3E7FEA008FA721 /* Mock */,
 				D8359FCD1D2BDFB700C042A2 /* PhotoLoader */,
 				D8CB05B51D3F6D0300002745 /* Resources */,
 				D855BAD81D456BE900D80237 /* Assets.xcassets */,
@@ -606,15 +601,6 @@
 				D89D6FF81D06CC06007DD132 /* Info.plist */,
 			);
 			path = SnapImagePicker_Unit_Tests;
-			sourceTree = "<group>";
-		};
-		D8A4799C1D3E7FEA008FA721 /* Mock */ = {
-			isa = PBXGroup;
-			children = (
-				D8A4799D1D3E7FF8008FA721 /* ImageLoaderMock.swift */,
-				D8A479A01D3E8020008FA721 /* PHFetchResultMock.swift */,
-			);
-			path = Mock;
 			sourceTree = "<group>";
 		};
 		D8BB94921D4F4A2400E0BB4F /* ImagePicker */ = {
@@ -1138,7 +1124,6 @@
 				D82468481D2158F8009DB2A4 /* SnapImagePickerTransition.swift in Sources */,
 				D847B4471D1D375500D58E2C /* AlbumSelectorInteractor.swift in Sources */,
 				D87999F61D23CCF400683406 /* UIScrollView+fakeBounce.swift in Sources */,
-				D8A4799E1D3E7FF8008FA721 /* ImageLoaderMock.swift in Sources */,
 				D847B4231D1D281D00D58E2C /* AlbumSelectorViewControllerProtocol.swift in Sources */,
 				D8359FCF1D2BDFCC00C042A2 /* ImageLoader.swift in Sources */,
 				D847B4311D1D2B7500D58E2C /* SnapImagePickerEventHandlerProtocol.swift in Sources */,
@@ -1187,7 +1172,6 @@
 				D8A86A501D5C7E0F00CAA47D /* UIImage+setAlpha.swift in Sources */,
 				D82468541D215A90009DB2A4 /* AlbumCell.swift in Sources */,
 				D8F4237B1D59C47C00391B81 /* UIImageOrientation+isHorizontal.swift in Sources */,
-				D8A479A11D3E8020008FA721 /* PHFetchResultMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
