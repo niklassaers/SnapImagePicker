@@ -17,16 +17,14 @@ class PhotoLoaderMock: PhotoLoaderSpy {
         return 0
     }
     
-    override func loadImagesFromAssets(assets: [Int: PHAsset], withTargetSize targetSize: CGSize, handler: ([Int: SnapImagePickerImage]) -> ()) {
-        super.loadImagesFromAssets(assets, withTargetSize: targetSize, handler: handler)
-        
+    override func loadImagesFromAssets(assets: [Int: PHAsset], withTargetSize targetSize: CGSize, handler: ([Int: SnapImagePickerImage]) -> ()) -> [Int: PHImageRequestID]{
         var images = [Int: SnapImagePickerImage]()
         for (id, _) in assets {
             images[id] = SnapImagePickerImage(image: UIImage(), localIdentifier: "localIdentifier", createdDate: nil)
         }
         
-        print("Calling handler with \(images.count)")
         handler(images)
+        return super.loadImagesFromAssets(assets, withTargetSize: targetSize, handler: handler)
     }
     
     override func fetchAssetsFromCollectionWithType(type: AlbumType) -> PHFetchResult? {

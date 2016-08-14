@@ -31,6 +31,10 @@ extension SnapImagePickerInteractor: SnapImagePickerInteractorProtocol {
         entityGateway?.fetchMainImageFromAlbum(type, atIndex: index)
     }
     
+    func loadMainImageWithLocalIdentifier(localIdentifier: String, fromAlbum album: AlbumType) {
+        entityGateway?.fetchImageWithLocalIdentifier(localIdentifier, fromAlbum: album)
+    }
+    
     func loadedMainImage(image: SnapImagePickerImage, fromAlbum album: AlbumType) {
         presenter?.presentMainImage(image, fromAlbum: album)
     }

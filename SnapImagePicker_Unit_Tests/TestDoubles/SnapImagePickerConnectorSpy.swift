@@ -17,6 +17,11 @@ class SnapImagePickerConnectorSpy {
 }
 
 extension SnapImagePickerConnectorSpy: SnapImagePickerConnectorProtocol {
+    var cameraRollAvailable: Bool {
+        get { return true }
+        set {}
+    }
+    
     func segueToAlbumSelector(navigationController: UINavigationController?) {
         segueToAlbumSelectorCount += 1
     }

@@ -13,7 +13,7 @@ class SnapImagePickerEventHandlerTests: XCTestCase {
         interactor = SnapImagePickerInteractorSpy()
         connector = SnapImagePickerConnectorSpy()
         
-        eventHandler = SnapImagePickerPresenter(view: viewController!)
+        eventHandler = SnapImagePickerPresenter(view: viewController!, cameraRollAccess: true)
         eventHandler?.interactor = interactor
         eventHandler?.connector = connector
     }

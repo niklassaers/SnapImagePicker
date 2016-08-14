@@ -149,6 +149,28 @@ extension PhotoLoader: ImageLoaderProtocol {
         
         return nil
     }
+    
+    func loadImageWithLocalIdentifier(identifier: String, handler: (SnapImagePickerImage -> Void)) {
+        let assetOptions = PHFetchOptions()
+        let assets = PHAsset.fetchAssetsWithLocalIdentifiers([identifier], options: assetOptions)
+        if let asset = assets.firstObject as? PHAsset {
+            let targetSize = CGSize(width: SnapImagePickerTheme.maxImageSize, height: SnapImagePickerTheme.maxImageSize)
+            
+            let imageOptions = PHImageRequestOptions()
+            imageOptions.networkAccessAllowed = true
+            imageOptions.synchronous = false
+            imageOptions.deliveryMode = .HighQualityFormat
+            
+            PHImageManager.defaultManager().requestImageForAsset(asset, targetSize: targetSize, contentMode: .Default, options: imageOptions) {
+                (image, _) in
+                
+                if let image = image {
+                    let pickerImage = SnapImagePickerImage(image: image, localIdentifier: asset.localIdentifier, createdDate: asset.creationDate)
+                    handler(pickerImage)
+                }
+            }
+        }
+    }
 }
 
 extension PhotoLoader: AlbumLoaderProtocol {

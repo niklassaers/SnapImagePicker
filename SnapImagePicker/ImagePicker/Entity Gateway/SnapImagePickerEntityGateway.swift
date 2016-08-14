@@ -3,7 +3,7 @@ import Photos
 
 class SnapImagePickerEntityGateway {
     private weak var interactor: SnapImagePickerInteractorProtocol?
-    private weak var imageLoader: ImageLoaderProtocol?
+    weak var imageLoader: ImageLoaderProtocol?
     
     private var requests = [Int: PHImageRequestID]()
     
@@ -86,6 +86,15 @@ extension SnapImagePickerEntityGateway: SnapImagePickerEntityGatewayProtocol {
                         self?.interactor?.loadedMainImage(image, fromAlbum: type)
                     }
                 }
+            }
+        }
+    }
+    
+    func fetchImageWithLocalIdentifier(localIdentifier: String, fromAlbum type: AlbumType) {
+        imageLoader?.loadImageWithLocalIdentifier(localIdentifier) {
+            [weak self] (image) in
+            dispatch_async(dispatch_get_main_queue()) {
+                self?.interactor?.loadedMainImage(image, fromAlbum: type)
             }
         }
     }

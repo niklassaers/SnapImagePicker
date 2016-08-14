@@ -32,6 +32,8 @@ class SnapImagePickerInteractorSpy {
 }
 
 extension SnapImagePickerInteractorSpy: SnapImagePickerInteractorProtocol {
+    func loadMainImageWithLocalIdentifier(localIdentifier: String, fromAlbum album: AlbumType) {}
+    
     func loadAlbum(type: AlbumType) {
         loadAlbumCount += 1
         loadAlbumType = type
@@ -74,4 +76,6 @@ extension SnapImagePickerInteractorSpy: SnapImagePickerInteractorProtocol {
         
         expectation?.fulfill()
     }
+    
+    func deleteImageRequestsInRange(range: Range<Int>) {}
 }

@@ -41,12 +41,14 @@ class PhotoLoaderSpy: ImageLoaderProtocol, AlbumLoaderProtocol {
         
         return PHImageRequestID()
     }
-    
-    func loadImagesFromAssets(assets: [Int: PHAsset], withTargetSize targetSize: CGSize, handler: ([Int: SnapImagePickerImage]) -> ()) {
+
+    func loadImagesFromAssets(assets: [Int: PHAsset], withTargetSize targetSize: CGSize, handler: ([Int: SnapImagePickerImage]) -> ()) -> [Int: PHImageRequestID] {
         loadImagesFromAssetsCount += 1
         loadImagesFromAssetsAssets = assets
         loadImagesFromAssetsSize = targetSize
         loadImagesFromAssetsHandler = handler
+        
+        return [Int: PHImageRequestID]()
     }
     
     func fetchAssetsFromCollectionWithType(type: AlbumType) -> PHFetchResult? {
@@ -79,4 +81,7 @@ class PhotoLoaderSpy: ImageLoaderProtocol, AlbumLoaderProtocol {
         fetchSmartAlbumPreviewsTargetSize = targetSize
         fetchSmartAlbumPreviewsHandler = handler
     }
+    
+    func loadImageWithLocalIdentifier(identifier: String, handler: (SnapImagePickerImage -> Void)) {}
+    func deleteRequests(requestIds: [PHImageRequestID]) {}
 }

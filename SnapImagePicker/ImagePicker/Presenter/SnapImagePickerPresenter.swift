@@ -23,11 +23,16 @@ class SnapImagePickerPresenter {
     private var currentRange: Range<Int>?
     private var viewIsReady = false
     private var selectedIndex = 0
-    private var _cameraRollAvailable = false
+    private var _cameraRollAvailable = false {
+        didSet {
+            connector?.cameraRollAvailable = _cameraRollAvailable
+        }
+    }
   
-    init(view: SnapImagePickerViewControllerProtocol) {
+    init(view: SnapImagePickerViewControllerProtocol, cameraRollAccess: Bool) {
         self.view = view
-        connector = SnapImagePickerConnector(presenter: self)
+        _cameraRollAvailable = cameraRollAccess
+        connector = SnapImagePickerConnector(presenter: self, cameraRollAvailable: cameraRollAccess)
     }
 }
 
@@ -103,10 +108,12 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
         if cameraRollAccess && index < albumSize  && index != selectedIndex {
             if let image = images[index] {
                 view?.displayMainImage(image)
+                interactor?.loadMainImageWithLocalIdentifier(image.localIdentifier, fromAlbum: albumType)
+            } else {
+                interactor?.loadMainImageFromAlbum(albumType, atIndex: index)
             }
             let oldSelectedIndex = selectedIndex
             selectedIndex = index
-            interactor?.loadMainImageFromAlbum(albumType, atIndex: index)
             let indexes = [oldSelectedIndex, index]
             view?.reloadCellAtIndexes(indexes)
             
@@ -163,10 +170,10 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
         for i in toBeRemoved {
             images.removeValueForKey(i)
         }
-        interactor?.deleteImageRequestsInRange(toBeRemoved)
         
         if cameraRollAccess {
             interactor?.loadAlbumImagesFromAlbum(albumType, inRange: toBeFetched, withTargetSize: cellSize)
+            interactor?.deleteImageRequestsInRange(toBeRemoved)
             currentRange = range
         }
     }

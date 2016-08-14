@@ -213,7 +213,7 @@ extension SnapImagePickerViewController: SnapImagePickerProtocol {
         let bundle = NSBundle(forClass: SnapImagePickerViewController.self)
         let storyboard = UIStoryboard(name: SnapImagePickerConnector.Names.SnapImagePickerStoryboard.rawValue, bundle: bundle)
         if let snapImagePickerViewController = storyboard.instantiateInitialViewController() as? SnapImagePickerViewController {
-            let presenter = SnapImagePickerPresenter(view: snapImagePickerViewController)
+            let presenter = SnapImagePickerPresenter(view: snapImagePickerViewController, cameraRollAccess: cameraRollAccess)
             snapImagePickerViewController.eventHandler = presenter
             snapImagePickerViewController.cameraRollAccess = cameraRollAccess
             
@@ -231,6 +231,7 @@ extension SnapImagePickerViewController: SnapImagePickerProtocol {
             eventHandler?.cameraRollAccess = newValue
             if !newValue {
                 selectedImageView?.image = nil
+                selectedImage = nil
                 albumCollectionView?.reloadData()
             }
         }

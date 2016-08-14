@@ -8,7 +8,7 @@ class SnapImagePickerPresenterTests: XCTestCase {
     override func setUp() {
         super.setUp()
         viewController = SnapImagePickerViewControllerSpy()
-        presenter = SnapImagePickerPresenter(view: viewController!)
+        presenter = SnapImagePickerPresenter(view: viewController!, cameraRollAccess: true)
     }
     
     override func tearDown() {

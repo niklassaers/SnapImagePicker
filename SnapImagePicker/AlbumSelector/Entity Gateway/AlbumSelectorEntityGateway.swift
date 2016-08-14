@@ -2,9 +2,9 @@ import Photos
 
 class AlbumSelectorEntityGateway {
     private weak var interactor: AlbumSelectorInteractorProtocol?
-    private weak var albumLoader: AlbumLoaderProtocol?
+    weak var albumLoader: AlbumLoaderProtocol?
     
-    init(interactor: AlbumSelectorInteractorProtocol, albumLoader: AlbumLoaderProtocol) {
+    init(interactor: AlbumSelectorInteractorProtocol, albumLoader: AlbumLoaderProtocol?) {
         self.interactor = interactor
         self.albumLoader = albumLoader
     }

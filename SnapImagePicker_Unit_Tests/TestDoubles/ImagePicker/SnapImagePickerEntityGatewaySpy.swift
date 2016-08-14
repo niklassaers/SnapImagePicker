@@ -19,6 +19,8 @@ class SnapImagePickerEntityGatewaySpy {
 }
 
 extension SnapImagePickerEntityGatewaySpy: SnapImagePickerEntityGatewayProtocol {
+    func fetchImageWithLocalIdentifier(localIdentifier: String, fromAlbum type: AlbumType) {}
+    
     func fetchAlbum(type: AlbumType) {
         fetchAlbumCount += 1
         fetchAlbumType = type
@@ -42,4 +44,6 @@ extension SnapImagePickerEntityGatewaySpy: SnapImagePickerEntityGatewayProtocol 
         
         expectation?.fulfill()
     }
+    
+    func deleteImageRequestsInRange(range: Range<Int>) {}
 }
