@@ -291,6 +291,7 @@ extension SnapImagePickerViewController {
         }
         button.addTarget(self, action: #selector(albumTitlePressed), forControlEvents: .TouchUpInside)
         
+        navigationItem.titleView = button
         delegate?.setTitleView(button)
     }
     
