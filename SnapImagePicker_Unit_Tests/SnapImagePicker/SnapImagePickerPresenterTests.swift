@@ -81,4 +81,27 @@ class SnapImagePickerPresenterTests: XCTestCase {
         XCTAssertNotNil(viewController?.reloadCellAtIndexesIndexes)
         XCTAssertEqual(indexes.sort(), viewController!.reloadCellAtIndexesIndexes!.sort())
     }
+    
+    // cameraRollAccess && index < albumSize  && index != selectedIndex
+    func testSetAlbumShouldResetSelectedImage() {
+        presenter?.cameraRollAccess = true
+        presentAlbum()
+        presenter?.scrolledToCells(0..<3, increasing: true)
+        presenter?.presentAlbumImages([0: createSnapImagePickerImage(), 2: createSnapImagePickerImage()], fromAlbum: .AllPhotos)
+        
+        let cell = ImageCell()
+        presenter?.presentCell(cell, atIndex: 0)
+        XCTAssertEqual(2, cell.spacing)
+        
+        presenter?.albumImageClicked(2)
+        presenter?.presentCell(cell, atIndex: 2)
+        XCTAssertEqual(2, cell.spacing)
+        
+        presenter?.albumType = .Favorites
+        presenter?.scrolledToCells(0..<3, increasing: true)
+        presenter?.presentAlbumImages([0: createSnapImagePickerImage()], fromAlbum: .Favorites)
+        
+        presenter?.presentCell(cell, atIndex: 0)
+        XCTAssertEqual(2, cell.spacing)
+    }
 }

@@ -561,15 +561,6 @@
 			path = Example_Project;
 			sourceTree = "<group>";
 		};
-		D8932B171D5B5A83006776B2 /* Legacy */ = {
-			isa = PBXGroup;
-			children = (
-				D89D6FE81D06CC06007DD132 /* SnapImagePicker.h */,
-				D82468471D2158F8009DB2A4 /* SnapImagePickerTransition.swift */,
-			);
-			name = Legacy;
-			sourceTree = "<group>";
-		};
 		D89D6FE71D06CC06007DD132 /* SnapImagePicker */ = {
 			isa = PBXGroup;
 			children = (
@@ -583,11 +574,12 @@
 				D855BAD81D456BE900D80237 /* Assets.xcassets */,
 				D893FA771D2D446400E71429 /* ImageOptions.swift */,
 				D89D6FEA1D06CC06007DD132 /* Info.plist */,
-				D8932B171D5B5A83006776B2 /* Legacy */,
 				D8932B181D5B5A9C006776B2 /* SnapImagePickerProtocol.swift */,
+				D89D6FE81D06CC06007DD132 /* SnapImagePicker.h */,
 				D89D70041D06CEF1007DD132 /* SnapImagePickerConnector.swift */,
 				D89D70061D06CF2E007DD132 /* SnapImagePickerDelegate.swift */,
 				D8932B1A1D5B5AE3006776B2 /* SnapImagePickerTheme.swift */,
+				D82468471D2158F8009DB2A4 /* SnapImagePickerTransition.swift */,
 			);
 			path = SnapImagePicker;
 			sourceTree = "<group>";
@@ -1491,6 +1483,7 @@
 			baseConfigurationReference = E46A04D19BECC3EDEF73F577 /* Pods-SnapImagePicker_Unit_Tests.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = SnapImagePicker_Unit_Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.snapsale.SnapImagePickerTests;
@@ -1505,6 +1498,7 @@
 			baseConfigurationReference = D4107D64144A6F2592CFC6AA /* Pods-SnapImagePicker_Unit_Tests.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = SnapImagePicker_Unit_Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.snapsale.SnapImagePickerTests;

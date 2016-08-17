@@ -88,6 +88,7 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
     private func loadAlbum() {
         images = [Int: SnapImagePickerImage]()
         currentRange = nil
+        selectedIndex = 0
         viewIsReady = false
         if cameraRollAccess {
             interactor?.loadAlbum(albumType)
