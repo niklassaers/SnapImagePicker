@@ -120,6 +120,7 @@ public class SnapImagePickerViewController: UIViewController {
     
     private var currentDisplay = Display.Portrait {
         didSet {
+            print("SAT CURRENT DISPLAY TO \(currentDisplay)")
             albumCollectionWidthConstraint = albumCollectionWidthConstraint?.changeMultiplier(currentDisplay.AlbumCollectionWidthMultiplier)
             albumCollectionView?.reloadData()
             selectedImageScrollViewHeightToFrameWidthAspectRatioConstraint = selectedImageScrollViewHeightToFrameWidthAspectRatioConstraint?.changeMultiplier(currentDisplay.SelectedImageWidthMultiplier)
@@ -159,7 +160,7 @@ public class SnapImagePickerViewController: UIViewController {
     
     override public func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-
+        print("Setting displayType for size: \(view.frame.size)")
         currentDisplay = view.frame.size.displayType()
         let width = currentDisplay.CellWidthInViewWithWidth(view.bounds.width)
         eventHandler?.viewWillAppearWithCellSize(CGSize(width: width, height: width))
@@ -547,11 +548,11 @@ extension SnapImagePickerViewController {
             let topVisibleRow = Int(albumCollectionView.contentOffset.y / (currentDisplay.CellWidthInView(albumCollectionView) + currentDisplay.Spacing))
             let firstVisibleCell = topVisibleRow * currentDisplay.NumberOfColumns
             let visibleAreaOfAlbumCollectionView = mainScrollView!.frame.height - selectedImageScrollView!.frame.height * CGFloat(1 - state.offset)
-            let numberOfVisibleRows = Int(ceil(visibleAreaOfAlbumCollectionView / (currentDisplay.CellWidthInView(albumCollectionView) + currentDisplay.Spacing)))
+            let numberOfVisibleRows = Int(ceil(visibleAreaOfAlbumCollectionView / (currentDisplay.CellWidthInView(albumCollectionView) + currentDisplay.Spacing))) + 1
             let numberOfVisibleCells = numberOfVisibleRows * currentDisplay.NumberOfColumns
             let lastVisibleCell = firstVisibleCell + numberOfVisibleCells
             if (lastVisibleCell > firstVisibleCell) {
-                visibleCells = firstVisibleCell...lastVisibleCell
+                visibleCells = firstVisibleCell..<lastVisibleCell
             }
         }
     }
@@ -572,6 +573,12 @@ extension SnapImagePickerViewController {
 
 extension SnapImagePickerViewController {
     private func setupGestureRecognizers() {
+        removeMainScrollViewPanRecognizers()
+        setupPanGestureRecognizerForScrollView(mainScrollView)
+        setupPanGestureRecognizerForScrollView(albumCollectionView)
+    }
+    
+    private func removeMainScrollViewPanRecognizers() {
         if let recognizers = mainScrollView?.gestureRecognizers {
             for recognizer in recognizers {
                 if recognizer is UIPanGestureRecognizer {
@@ -579,35 +586,37 @@ extension SnapImagePickerViewController {
                 }
             }
         }
-        mainScrollView?.panGestureRecognizer.enabled = false
-        let mainScrollViewPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(pan(_:)))
-        mainScrollViewPanGestureRecognizer.delegate = self
-        mainScrollView?.addGestureRecognizer(mainScrollViewPanGestureRecognizer)
-        mainScrollView?.panGestureRecognizer.requireGestureRecognizerToFail(mainScrollViewPanGestureRecognizer)
-        let albumCollectionPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(pan(_:)))
-        albumCollectionPanGestureRecognizer.delegate = self
-        albumCollectionView?.addGestureRecognizer(albumCollectionPanGestureRecognizer)
+    }
+    
+    private func setupPanGestureRecognizerForScrollView(scrollView: UIScrollView?) {
+        let recognizer = UIPanGestureRecognizer(target: self, action: #selector(pan(_:)))
+        recognizer.delegate = self
+        scrollView?.addGestureRecognizer(recognizer)
     }
     
     func pan(recognizer: UIPanGestureRecognizer) {
         switch recognizer.state {
         case .Changed:
-            let translation = recognizer.translationInView(mainScrollView)
-            if let mainScrollView = mainScrollView {
-                let old = mainScrollView.contentOffset.y
-                let offset = old - translation.y
-                
-                mainScrollView.setContentOffset(CGPoint(x: 0, y: offset), animated: false)
-                recognizer.setTranslation(CGPointZero, inView: mainScrollView)
-                if let height = selectedImageView?.frame.height {
-                    let alpha = (offset / height) * currentDisplay.MaxImageFadeRatio
-                    blackOverlayView?.alpha = alpha
-                    rotateButton?.alpha = 1 - alpha
-                }
-            }
+            panMainScrollViewWithRecognizer(recognizer)
         case .Ended, .Cancelled, .Failed:
             panEnded()
         default: break
+        }
+    }
+    
+    private func panMainScrollViewWithRecognizer(recognizer: UIPanGestureRecognizer) {
+        let translation = recognizer.translationInView(mainScrollView)
+        if let mainScrollView = mainScrollView {
+            let old = mainScrollView.contentOffset.y
+            let offset = old - translation.y
+        
+            mainScrollView.setContentOffset(CGPoint(x: 0, y: offset), animated: false)
+            recognizer.setTranslation(CGPointZero, inView: mainScrollView)
+            if let height = selectedImageView?.frame.height {
+                let alpha = (offset / height) * currentDisplay.MaxImageFadeRatio
+                blackOverlayView?.alpha = alpha
+                rotateButton?.alpha = 1 - alpha
+            }
         }
     }
     
@@ -625,15 +634,17 @@ extension SnapImagePickerViewController {
         let offset = (height * CGFloat(state.offset))
         if animated {
             UIView.animateWithDuration(0.3) {
-                self.mainScrollView?.contentOffset = CGPoint(x: 0, y: offset)
-                self.blackOverlayView?.alpha = (offset / height) * self.currentDisplay.MaxImageFadeRatio
-                self.rotateButton?.alpha = state.rotateButtonAlpha
+                [weak self] in self?.displayViewStateForOffset(offset, withHeight: height)
             }
         } else {
-            self.mainScrollView?.contentOffset = CGPoint(x: 0, y: offset)
-            self.blackOverlayView?.alpha = (offset / height) * self.currentDisplay.MaxImageFadeRatio
-            self.rotateButton?.alpha = state.rotateButtonAlpha
+            displayViewStateForOffset(offset, withHeight: height)
         }
+    }
+    
+    private func displayViewStateForOffset(offset: CGFloat, withHeight height: CGFloat) {
+        mainScrollView?.contentOffset = CGPoint(x: 0, y: offset)
+        blackOverlayView?.alpha = (offset / height) * self.currentDisplay.MaxImageFadeRatio
+        rotateButton?.alpha = state.rotateButtonAlpha
     }
 }
 

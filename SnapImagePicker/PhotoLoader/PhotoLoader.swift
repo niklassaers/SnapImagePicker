@@ -51,7 +51,6 @@ extension PhotoLoader: ImageLoaderProtocol {
         for (index, asset) in assets {
             let fetchId = imageManager.requestImageForAsset(asset, targetSize: targetSize, contentMode: .Default, options: options) {
                 (image, _) in
-                
                 if let image = image,
                    let squaredImage = image.square() {
                     let pickerImage = SnapImagePickerImage(image: squaredImage, localIdentifier: asset.localIdentifier, createdDate: asset.creationDate)

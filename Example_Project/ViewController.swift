@@ -1,6 +1,15 @@
 import UIKit
 import SnapImagePicker
 import Foundation
+import MapKit
+
+class Annotation: NSObject, MKAnnotation {
+    @objc var coordinate: CLLocationCoordinate2D {
+        get {
+            return CLLocationCoordinate2D(latitude: 10, longitude: 10)
+        }
+    }
+}
 
 class ViewController: UIViewController {
     @IBOutlet weak var button: UIButton!

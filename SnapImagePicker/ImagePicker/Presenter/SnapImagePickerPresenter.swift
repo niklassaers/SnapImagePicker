@@ -60,12 +60,15 @@ extension SnapImagePickerPresenter: SnapImagePickerPresenterProtocol {
         if !_cameraRollAvailable {
             return
         }
+        
         if album == albumType {
             var indexes = [Int]()
             for (index, image) in results {
                 if let currentRange = currentRange where currentRange.contains(index) {
-                    images[index] = image
-                    indexes.append(index)
+                    if images[index] == nil || images[index]!.image.size.width < image.image.size.width {
+                        images[index] = image
+                        indexes.append(index)
+                    }
                 }
             }
             if viewIsReady {
@@ -96,7 +99,7 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
     }
     
     func viewWillAppearWithCellSize(cellSize: CGSize) {
-        self.cellSize = cellSize
+        self.cellSize = CGSize(width: cellSize.width * 2, height: cellSize.height * 2)
         
         if let image = images[selectedIndex] {
             view?.displayMainImage(image)
@@ -155,7 +158,7 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
     }
     
     func scrolledToCells(range: Range<Int>, increasing: Bool) {
-        var toBeRemoved = 0...0
+        var toBeRemoved: Range<Int>? = nil
         var toBeFetched = range
 
         if let oldRange = currentRange where span(range) == span(oldRange) {
@@ -168,13 +171,17 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
             }
         }
         
-        for i in toBeRemoved {
-            images.removeValueForKey(i)
+        if let toBeRemoved = toBeRemoved {
+            for i in toBeRemoved {
+                images.removeValueForKey(i)
+            }
         }
         
         if cameraRollAccess {
             interactor?.loadAlbumImagesFromAlbum(albumType, inRange: toBeFetched, withTargetSize: cellSize)
-            interactor?.deleteImageRequestsInRange(toBeRemoved)
+            if let toBeRemoved = toBeRemoved {
+                interactor?.deleteImageRequestsInRange(toBeRemoved)
+            }
             currentRange = range
         }
     }

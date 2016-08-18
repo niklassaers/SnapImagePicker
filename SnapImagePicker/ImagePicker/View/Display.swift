@@ -52,7 +52,7 @@ enum Display: CustomStringConvertible {
     }
     
     func CellWidthInViewWithWidth(width: CGFloat) -> CGFloat {
-        return (width - (Spacing * CGFloat(NumberOfColumns - 1))) / CGFloat(NumberOfColumns)
+        return ((width - (Spacing * CGFloat(NumberOfColumns - 1))) / CGFloat(NumberOfColumns))
     }
     
     var description: String {
