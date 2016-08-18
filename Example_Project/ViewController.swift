@@ -2,6 +2,7 @@ import UIKit
 import SnapImagePicker
 import Foundation
 import MapKit
+import SnapFonts_iOS
 
 class Annotation: NSObject, MKAnnotation {
     @objc var coordinate: CLLocationCoordinate2D {
@@ -30,7 +31,6 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        SnapImagePickerTheme.color = UIColor.blueColor()
         if let vc = SnapImagePickerViewController.initializeWithCameraRollAccess(cameraRollAccessSwitch.on) {
             vc.delegate = self
             addChildViewController(vc)
@@ -47,13 +47,22 @@ class ViewController: UIViewController {
             containerView?.addConstraints([width, centerX, height, bottom])
         }
         let backButton = UIBarButtonItem()
-        backButton.title = "Back"
+        //backButton.title = "Back"
         backButton.target = self
         backButton.action = #selector(backButtonPressed)
         navigationItem.leftBarButtonItem = backButton
         
         let selectButton = UIBarButtonItem()
-        selectButton.title = "Select"
+        selectButton.title = "NESTE"
+        if let font = SnapFonts.gothamRoundedMediumOfSize(SnapImagePickerTheme.fontSize - 5) {
+            let attributes: [String: AnyObject] = [
+                NSFontAttributeName: font,
+                NSForegroundColorAttributeName: SnapImagePickerTheme.color
+            ]
+            
+            selectButton.setTitleTextAttributes(attributes, forState: .Normal)
+            selectButton.setTitleTextAttributes(attributes, forState: .Highlighted)
+        }
         selectButton.target = self
         selectButton.action = #selector(selectButtonPressed)
         navigationItem.rightBarButtonItem = selectButton

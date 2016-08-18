@@ -120,7 +120,6 @@ public class SnapImagePickerViewController: UIViewController {
     
     private var currentDisplay = Display.Portrait {
         didSet {
-            print("SAT CURRENT DISPLAY TO \(currentDisplay)")
             albumCollectionWidthConstraint = albumCollectionWidthConstraint?.changeMultiplier(currentDisplay.AlbumCollectionWidthMultiplier)
             albumCollectionView?.reloadData()
             selectedImageScrollViewHeightToFrameWidthAspectRatioConstraint = selectedImageScrollViewHeightToFrameWidthAspectRatioConstraint?.changeMultiplier(currentDisplay.SelectedImageWidthMultiplier)
@@ -160,7 +159,6 @@ public class SnapImagePickerViewController: UIViewController {
     
     override public func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        print("Setting displayType for size: \(view.frame.size)")
         currentDisplay = view.frame.size.displayType()
         let width = currentDisplay.CellWidthInViewWithWidth(view.bounds.width)
         eventHandler?.viewWillAppearWithCellSize(CGSize(width: width, height: width))
@@ -277,10 +275,10 @@ extension SnapImagePickerViewController {
         button.setTitle(title, forState: .Normal)
         button.setTitleColor(UIColor.blackColor(), forState: .Normal)
         button.setTitleColor(UIColor.init(red: 0xB8/0xFF, green: 0xB8/0xFF, blue: 0xB8/0xFF, alpha: 1), forState: .Highlighted)
-        if let mainImage = UIImage(named: "icon_s_arrow_down_red", inBundle: NSBundle(forClass: SnapImagePickerViewController.self), compatibleWithTraitCollection: nil),
+        if let mainImage = UIImage(named: "icon_s_arrow_down_gray", inBundle: NSBundle(forClass: SnapImagePickerViewController.self), compatibleWithTraitCollection: nil),
            let mainCgImage = mainImage.CGImage,
            let navBarHeight = navigationController?.navigationBar.frame.height {
-            let scale = mainImage.findRoundedScale(mainImage.size.height / (navBarHeight / 5))
+            let scale = mainImage.findRoundedScale(mainImage.size.height / (navBarHeight / 6))
             let scaledMainImage = UIImage(CGImage: mainCgImage, scale: scale, orientation: .Up)
             let scaledHighlightedImage = scaledMainImage.setAlpha(0.3)
             

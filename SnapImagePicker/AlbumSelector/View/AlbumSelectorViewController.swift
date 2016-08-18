@@ -38,7 +38,7 @@ class AlbumSelectorViewController: UITableViewController {
         button.setTitleColor(UIColor.blackColor(), forState: .Normal)
         button.setTitleColor(UIColor.init(red: 0xB8/0xFF, green: 0xB8/0xFF, blue: 0xB8/0xFF, alpha: 1), forState: .Highlighted)
         button.addTarget(self, action: #selector(titleButtonPressed), forControlEvents: .TouchUpInside)
-        if let image = UIImage(named: "icon_s_arrow_down_red", inBundle: NSBundle(forClass: SnapImagePickerViewController.self), compatibleWithTraitCollection: nil),
+        if let image = UIImage(named: "icon_s_arrow_up_gray", inBundle: NSBundle(forClass: SnapImagePickerViewController.self), compatibleWithTraitCollection: nil),
             let cgImage = image.CGImage {
             let rotatedImage = UIImage(CGImage: cgImage, scale: 1.0, orientation: .Down)
             let highlightedImage = rotatedImage.setAlpha(0.3)
