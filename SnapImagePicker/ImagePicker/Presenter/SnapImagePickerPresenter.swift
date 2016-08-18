@@ -137,6 +137,7 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
         if section == 0 {
             return albumSize
         }
+        
         return 0
     }
     

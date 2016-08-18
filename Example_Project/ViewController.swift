@@ -47,7 +47,7 @@ class ViewController: UIViewController {
             containerView?.addConstraints([width, centerX, height, bottom])
         }
         let backButton = UIBarButtonItem()
-        //backButton.title = "Back"
+        backButton.title = "Back"
         backButton.target = self
         backButton.action = #selector(backButtonPressed)
         navigationItem.leftBarButtonItem = backButton
@@ -91,9 +91,6 @@ class ViewController: UIViewController {
         if let (image, options) = vc?.getCurrentImage() {
             imageView?.contentMode = .ScaleAspectFit
             imageView?.image = UIImage(CGImage: CGImageCreateWithImageInRect(image.CGImage, options.cropRect)!, scale: 1, orientation: options.rotation)
-            print("Image.size: \(image.size)")
-            print("CropRect: \(options.cropRect)")
-
         }
         backButtonPressed()
     }
