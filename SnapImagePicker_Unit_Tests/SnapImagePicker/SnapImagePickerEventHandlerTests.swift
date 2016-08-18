@@ -44,10 +44,11 @@ class SnapImagePickerEventHandlerTests: XCTestCase {
     func testViewWillAppearWithCellSizeShouldSetCellSize() {
         eventHandler?.cameraRollAccess = true
         let cellSize = CGSize(width: 20, height: 20)
+        let targetSize = CGSize(width: cellSize.width * 2, height: cellSize.height * 2)
         
         eventHandler?.viewWillAppearWithCellSize(cellSize)
         eventHandler?.scrolledToCells(0..<2, increasing: true)
-        XCTAssertEqual(cellSize, interactor?.loadAlbumImagesFromAlbumTargetSize)
+        XCTAssertEqual(targetSize, interactor?.loadAlbumImagesFromAlbumTargetSize)
     }
     
     func testAlbumImageClickedShouldTriggerLoadMainImage() {
