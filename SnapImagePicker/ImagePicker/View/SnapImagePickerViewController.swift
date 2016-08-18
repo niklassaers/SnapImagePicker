@@ -112,7 +112,9 @@ public class SnapImagePickerViewController: UIViewController {
     
     private var state: DisplayState = .Image {
         didSet {
-            selectedImageScrollView?.userInteractionEnabled = state == .Image
+            let imageInteractionEnabled = (state == .Image)
+            rotateButton?.enabled = imageInteractionEnabled
+            selectedImageScrollView?.userInteractionEnabled = imageInteractionEnabled
             setVisibleCellsInAlbumCollectionView()
             setMainOffsetForState(state)
         }
@@ -143,7 +145,8 @@ public class SnapImagePickerViewController: UIViewController {
     private var visibleCells: Range<Int>? {
         didSet {
             if let visibleCells = visibleCells where oldValue != visibleCells {
-                eventHandler?.scrolledToCells(visibleCells, increasing: oldValue?.startIndex < visibleCells.startIndex)
+                let increasing = oldValue?.startIndex < visibleCells.startIndex
+                eventHandler?.scrolledToCells(visibleCells, increasing: increasing)
             }
         }
     }
