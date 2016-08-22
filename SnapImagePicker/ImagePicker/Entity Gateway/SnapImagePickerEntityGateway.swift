@@ -51,8 +51,13 @@ extension SnapImagePickerEntityGateway: SnapImagePickerEntityGatewayProtocol {
             dispatch_async(dispatch_get_main_queue()) {
                 self?.interactor?.loadedAlbumImagesResult(results, fromAlbum: type)
             }
-            for (index, _) in results {
-                self?.requests[index] = nil
+            
+            if var tempRequests = self?.requests {
+                for (index, _) in results {
+                    tempRequests.removeValueForKey(index)
+                }
+            
+                self?.requests = tempRequests
             }
         }
         
