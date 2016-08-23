@@ -16,7 +16,6 @@
 		D82468571D215B91009DB2A4 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82468561D215B91009DB2A4 /* Album.swift */; };
 		D82468591D215D09009DB2A4 /* PhotoLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82468581D215D09009DB2A4 /* PhotoLoader.swift */; };
 		D824685B1D215F0B009DB2A4 /* AlbumSelectorEventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D824685A1D215F0B009DB2A4 /* AlbumSelectorEventHandler.swift */; };
-		D824685D1D22A55F009DB2A4 /* UIScrollView+getBounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = D824685C1D22A55F009DB2A4 /* UIScrollView+getBounds.swift */; };
 		D82825C71D2E72CE00F6A5BD /* SnapImagePickerImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82825C61D2E72CE00F6A5BD /* SnapImagePickerImage.swift */; };
 		D8359FCF1D2BDFCC00C042A2 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8359FCE1D2BDFCC00C042A2 /* ImageLoader.swift */; };
 		D8359FD21D2BE01300C042A2 /* AlbumLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8359FD11D2BE01300C042A2 /* AlbumLoader.swift */; };
@@ -71,7 +70,7 @@
 		D8A86A521D5C840900CAA47D /* UIButton+rightAlignImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A86A511D5C840900CAA47D /* UIButton+rightAlignImage.swift */; };
 		D8A86A541D5C92F900CAA47D /* UIImage+findRoundedScale.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A86A531D5C92F900CAA47D /* UIImage+findRoundedScale.swift */; };
 		D8B8F9471D6C71BB00C2AA74 /* UIEdgeInset+addInset.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B8F9461D6C71BB00C2AA74 /* UIEdgeInset+addInset.swift */; };
-		D8B8F9491D6C784300C2AA74 /* UIImageView+translateRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B8F9481D6C784300C2AA74 /* UIImageView+translateRect.swift */; };
+		D8B8F94B1D6C7E6000C2AA74 /* CGRect+scale.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B8F94A1D6C7E6000C2AA74 /* CGRect+scale.swift */; };
 		D8BB94911D4F489000E0BB4F /* PhotoLoaderSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BB94901D4F489000E0BB4F /* PhotoLoaderSpy.swift */; };
 		D8BB94941D4F4A3D00E0BB4F /* SnapImagePickerEntityGatewaySpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BB94931D4F4A3D00E0BB4F /* SnapImagePickerEntityGatewaySpy.swift */; };
 		D8BB94961D4F4BB800E0BB4F /* SnapImagePickerInteractorSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BB94951D4F4BB800E0BB4F /* SnapImagePickerInteractorSpy.swift */; };
@@ -158,7 +157,6 @@
 		D82468561D215B91009DB2A4 /* Album.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
 		D82468581D215D09009DB2A4 /* PhotoLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLoader.swift; sourceTree = "<group>"; };
 		D824685A1D215F0B009DB2A4 /* AlbumSelectorEventHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumSelectorEventHandler.swift; sourceTree = "<group>"; };
-		D824685C1D22A55F009DB2A4 /* UIScrollView+getBounds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+getBounds.swift"; sourceTree = "<group>"; };
 		D82825C61D2E72CE00F6A5BD /* SnapImagePickerImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapImagePickerImage.swift; sourceTree = "<group>"; };
 		D8359FCE1D2BDFCC00C042A2 /* ImageLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		D8359FD11D2BE01300C042A2 /* AlbumLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumLoader.swift; sourceTree = "<group>"; };
@@ -221,7 +219,7 @@
 		D8A86A511D5C840900CAA47D /* UIButton+rightAlignImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+rightAlignImage.swift"; sourceTree = "<group>"; };
 		D8A86A531D5C92F900CAA47D /* UIImage+findRoundedScale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+findRoundedScale.swift"; sourceTree = "<group>"; };
 		D8B8F9461D6C71BB00C2AA74 /* UIEdgeInset+addInset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIEdgeInset+addInset.swift"; sourceTree = "<group>"; };
-		D8B8F9481D6C784300C2AA74 /* UIImageView+translateRect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+translateRect.swift"; sourceTree = "<group>"; };
+		D8B8F94A1D6C7E6000C2AA74 /* CGRect+scale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGRect+scale.swift"; sourceTree = "<group>"; };
 		D8BB94901D4F489000E0BB4F /* PhotoLoaderSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLoaderSpy.swift; sourceTree = "<group>"; };
 		D8BB94931D4F4A3D00E0BB4F /* SnapImagePickerEntityGatewaySpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapImagePickerEntityGatewaySpy.swift; sourceTree = "<group>"; };
 		D8BB94951D4F4BB800E0BB4F /* SnapImagePickerInteractorSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapImagePickerInteractorSpy.swift; sourceTree = "<group>"; };
@@ -509,13 +507,12 @@
 				D8A479981D3E75C1008FA721 /* UIImageOrientation+next.swift */,
 				D8A4799A1D3E76BD008FA721 /* UIImageOrientation+toCGAffineTransformRadians.swift */,
 				D87999F51D23CCF400683406 /* UIScrollView+fakeBounce.swift */,
-				D824685C1D22A55F009DB2A4 /* UIScrollView+getBounds.swift */,
 				D8F4237A1D59C47C00391B81 /* UIImageOrientation+isHorizontal.swift */,
 				D8A86A4F1D5C7E0F00CAA47D /* UIImage+setAlpha.swift */,
 				D8A86A511D5C840900CAA47D /* UIButton+rightAlignImage.swift */,
 				D8A86A531D5C92F900CAA47D /* UIImage+findRoundedScale.swift */,
 				D8B8F9461D6C71BB00C2AA74 /* UIEdgeInset+addInset.swift */,
-				D8B8F9481D6C784300C2AA74 /* UIImageView+translateRect.swift */,
+				D8B8F94A1D6C7E6000C2AA74 /* CGRect+scale.swift */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -1113,6 +1110,7 @@
 				D89D70071D06CF2E007DD132 /* SnapImagePickerDelegate.swift in Sources */,
 				D82468481D2158F8009DB2A4 /* SnapImagePickerTransition.swift in Sources */,
 				D847B4471D1D375500D58E2C /* AlbumSelectorInteractor.swift in Sources */,
+				D8B8F94B1D6C7E6000C2AA74 /* CGRect+scale.swift in Sources */,
 				D87999F61D23CCF400683406 /* UIScrollView+fakeBounce.swift in Sources */,
 				D847B4231D1D281D00D58E2C /* AlbumSelectorViewControllerProtocol.swift in Sources */,
 				D8359FCF1D2BDFCC00C042A2 /* ImageLoader.swift in Sources */,
@@ -1126,7 +1124,6 @@
 				D89D70051D06CEF1007DD132 /* SnapImagePickerConnector.swift in Sources */,
 				D847B4511D1D3AF400D58E2C /* AlbumSelectorEntityGateway.swift in Sources */,
 				D82468591D215D09009DB2A4 /* PhotoLoader.swift in Sources */,
-				D8B8F9491D6C784300C2AA74 /* UIImageView+translateRect.swift in Sources */,
 				D8CB05C81D3F6F4300002745 /* Strings.swift in Sources */,
 				D847B4451D1D373800D58E2C /* AlbumSelectorInteractorProtocol.swift in Sources */,
 				D8A86A521D5C840900CAA47D /* UIButton+rightAlignImage.swift in Sources */,
@@ -1135,7 +1132,6 @@
 				D8A86A541D5C92F900CAA47D /* UIImage+findRoundedScale.swift in Sources */,
 				D8BF9CAB1D26B3DA00DC1F02 /* DownwardsArrowView.swift in Sources */,
 				D893FA7A1D2D528600E71429 /* DisplayState.swift in Sources */,
-				D824685D1D22A55F009DB2A4 /* UIScrollView+getBounds.swift in Sources */,
 				D8932B1B1D5B5AE3006776B2 /* SnapImagePickerTheme.swift in Sources */,
 				D893FA741D2D329600E71429 /* NSLayoutConstraint+changeMultiplier.swift in Sources */,
 				D847B41F1D1D24A900D58E2C /* SnapImagePickerViewControllerProtocol.swift in Sources */,

@@ -230,10 +230,31 @@ extension SnapImagePickerViewController: SnapImagePickerProtocol {
     }
     
     public func getCurrentImage() -> (image: UIImage, options: ImageOptions)? {
-        if let cropRect = selectedImageScrollView?.getImageBoundsForImageView(selectedImageView),
-            let image = selectedImageView?.image {
-            let options = ImageOptions(cropRect: cropRect, rotation: selectedImageRotation)
-            return (image: image, options: options)
+        if let scrollView = selectedImageScrollView,
+            let image = selectedImage?.image {
+            if image.size.height > image.size.width {
+                let viewRatio = image.size.width / scrollView.contentSize.width
+                let diff = (image.size.height - image.size.width) / 2
+                
+                let cropRect = CGRect(x: scrollView.contentOffset.x * viewRatio,
+                                      y: (scrollView.contentOffset.y * viewRatio) + diff,
+                                      width: scrollView.bounds.width * viewRatio,
+                                      height: scrollView.bounds.height * viewRatio)
+
+                let options = ImageOptions(cropRect: cropRect, rotation: selectedImageRotation)
+                return (image: image, options: options)
+            } else {
+                let viewRatio = image.size.height / scrollView.contentSize.height
+                let diff = (image.size.width - image.size.height) / 2
+                
+                let cropRect = CGRect(x: (scrollView.contentOffset.x * viewRatio) + diff,
+                                      y: (scrollView.contentOffset.y * viewRatio),
+                                      width: scrollView.bounds.width * viewRatio,
+                                      height: scrollView.bounds.height * viewRatio)
+                
+                let options = ImageOptions(cropRect: cropRect, rotation: selectedImageRotation)
+                return (image: image, options: options)
+            }
         }
         
         return nil
