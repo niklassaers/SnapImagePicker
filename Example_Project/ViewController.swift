@@ -67,6 +67,17 @@ class ViewController: UIViewController {
         selectButton.action = #selector(selectButtonPressed)
         navigationItem.rightBarButtonItem = selectButton
     }
+    
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        coordinator.animateAlongsideTransition({
+            _ in
+            if self.containerViewLeadingConstraint?.constant != 0 {
+                self.containerViewLeadingConstraint?.constant = -self.containerView!.frame.width
+            }
+        }, completion: nil)
+    }
+    
     @IBAction func openImagePicker(sender: UIButton) {
         imageView.hidden = true
         button.hidden = true

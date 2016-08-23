@@ -160,7 +160,6 @@ public class SnapImagePickerViewController: UIViewController {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
         let newDisplay = size.displayType()
         if newDisplay != currentDisplay {
-            let ratio = newDisplay.SelectedImageWidthMultiplier / currentDisplay.SelectedImageWidthMultiplier
             coordinator.animateAlongsideTransition({
                 [weak self] _ in
                 
@@ -171,12 +170,20 @@ public class SnapImagePickerViewController: UIViewController {
                     let newHeight = height * ratio
                     
                     strongSelf.setMainOffsetForState(strongSelf.state, withHeight: newHeight, animated: false)
-                    strongSelf.currentDisplay = newDisplay
-                    
-                    self?.setVisibleCellsInAlbumCollectionView()
-                    self?.calculateViewSizes()
                 }
-                }, completion: nil)
+                
+                self?.currentDisplay = newDisplay
+                self?.setVisibleCellsInAlbumCollectionView()
+                self?.calculateViewSizes()
+                }, completion: {
+                    [weak self] _ in
+                    
+                    if let size = self?.selectedImage?.image.size {
+                        let zoomScale = self?.selectedImageScrollView?.zoomScale ?? 1.0
+                        let insets = self?.getInsetsForSize(size, withZoomScale: zoomScale) ?? UIEdgeInsetsZero
+                        self?.selectedImageScrollView?.contentInset = insets
+                    }
+            })
         }
     }
 }
@@ -355,35 +362,42 @@ extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
     }
     
     private func getInsetsForTallRectangle(size: CGSize, withZoomScale zoomScale: CGFloat = 1) -> UIEdgeInsets {
-        let ratio = view.frame.width / size.width
-        let imageHeight = size.height * ratio
-        let diff = imageHeight - view.frame.width
-        let inset = diff / 2
+        if let scrollView = selectedImageScrollView {
+            let ratio = scrollView.frame.width / size.width
+            let imageHeight = size.height * ratio
+            let diff = imageHeight - scrollView.frame.width
+            let inset = diff / 2
         
-        var insets = UIEdgeInsets(top: inset * zoomScale, left: 0, bottom: inset * zoomScale, right: 0)
-        if let contentWidth = selectedImageScrollView?.contentSize.width
-           where contentWidth > 0 && contentWidth < view.frame.width {
-            let padding = CGFloat(view.frame.width - contentWidth) / 2
-            insets = insets.addHorizontalInset(padding)
+            var insets = UIEdgeInsets(top: inset * zoomScale, left: 0, bottom: inset * zoomScale, right: 0)
+            let contentWidth = scrollView.contentSize.width
+            if contentWidth > 0 && contentWidth < scrollView.frame.width {
+                let padding = CGFloat(scrollView.frame.width - contentWidth) / 2
+                insets = insets.addHorizontalInset(padding)
+            }
+
+            return insets
         }
         
-        return insets
+        return UIEdgeInsetsZero
     }
     
     private func getInsetsForWideRectangle(size: CGSize, withZoomScale zoomScale: CGFloat = 1) -> UIEdgeInsets {
-        let ratio = view.frame.width / size.height
-        let imageWidth = size.width * ratio
-        let diff = imageWidth - view.frame.width
-        let inset = diff / 2
+        if let scrollView = selectedImageScrollView {
+            let ratio = scrollView.frame.width / size.height
+            let imageWidth = size.width * ratio
+            let diff = imageWidth - scrollView.frame.width
+            let inset = diff / 2
         
-        var insets = UIEdgeInsets(top: 0, left: inset * zoomScale, bottom: 0, right: inset * zoomScale)
-        if let contentHeight = selectedImageScrollView?.contentSize.height
-           where contentHeight > 0 && contentHeight < view.frame.width {
-            let padding = CGFloat(view.frame.width - contentHeight) / 2
-            insets = insets.addVerticalInset(padding)
+            var insets = UIEdgeInsets(top: 0, left: inset * zoomScale, bottom: 0, right: inset * zoomScale)
+            let contentHeight = scrollView.contentSize.height
+            if contentHeight > 0 && contentHeight < scrollView.frame.width {
+                let padding = CGFloat(scrollView.frame.width - contentHeight) / 2
+                insets = insets.addVerticalInset(padding)
+            }
+        
+            return insets
         }
-        
-        return insets
+        return UIEdgeInsetsZero
     }
     
     func reloadAlbum() {
@@ -470,6 +484,7 @@ extension SnapImagePickerViewController: UICollectionViewDelegate {
     
     public func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let index = indexPathToArrayIndex(indexPath)
+        print("Contentoffset: \(selectedImageScrollView?.contentOffset)")
         if eventHandler?.albumImageClicked(index) == true {
             scrollToIndex(index)
             mainImageLoadIndicator?.startAnimating()
