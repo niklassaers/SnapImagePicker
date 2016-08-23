@@ -28,7 +28,6 @@
                                         <subviews>
                                             <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XKY-Yf-eRj">
                                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                                <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="Selected Image">
                                                     <bool key="isElement" value="YES"/>
                                                 </accessibility>
@@ -37,7 +36,6 @@
                                                 </constraints>
                                             </imageView>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstItem="XKY-Yf-eRj" firstAttribute="height" secondItem="Z4e-Zg-oMg" secondAttribute="height" id="4fa-2M-6lQ"/>
                                             <constraint firstItem="XKY-Yf-eRj" firstAttribute="centerY" secondItem="Z4e-Zg-oMg" secondAttribute="centerY" id="G5A-dL-KS4"/>
@@ -131,7 +129,6 @@
                                     <constraint firstItem="9GN-to-QvH" firstAttribute="bottom" secondItem="rbP-BJ-ehV" secondAttribute="top" constant="-16" id="1js-3R-F0E"/>
                                     <constraint firstItem="I60-ZY-pni" firstAttribute="centerX" secondItem="Z4e-Zg-oMg" secondAttribute="centerX" id="4Q5-0F-nsu"/>
                                     <constraint firstItem="imo-zl-yiM" firstAttribute="width" secondItem="zns-gV-aen" secondAttribute="width" id="A7t-HL-U90"/>
-                                    <constraint firstItem="9GN-to-QvH" firstAttribute="width" secondItem="zns-gV-aen" secondAttribute="width" multiplier="0.12" id="BTL-IK-5NH"/>
                                     <constraint firstItem="9GN-to-QvH" firstAttribute="leading" secondItem="zns-gV-aen" secondAttribute="leading" constant="20" id="D3d-jM-fhs"/>
                                     <constraint firstItem="srr-K0-dFE" firstAttribute="centerX" secondItem="zns-gV-aen" secondAttribute="centerX" id="H8m-SV-YLj"/>
                                     <constraint firstItem="Z4e-Zg-oMg" firstAttribute="height" secondItem="zns-gV-aen" secondAttribute="width" id="Nbr-gY-GPs"/>
@@ -144,15 +141,8 @@
                                     <constraint firstItem="Z4e-Zg-oMg" firstAttribute="centerX" secondItem="zns-gV-aen" secondAttribute="centerX" id="mzD-j0-TF0"/>
                                     <constraint firstItem="rbP-BJ-ehV" firstAttribute="top" secondItem="Z4e-Zg-oMg" secondAttribute="bottom" id="pCJ-LR-G2S"/>
                                     <constraint firstItem="imo-zl-yiM" firstAttribute="centerY" secondItem="Z4e-Zg-oMg" secondAttribute="centerY" id="rGz-fq-goz"/>
-                                    <constraint firstItem="9GN-to-QvH" firstAttribute="width" secondItem="Z4e-Zg-oMg" secondAttribute="width" multiplier="0.12" id="xxn-Yi-2Ro"/>
                                     <constraint firstItem="I60-ZY-pni" firstAttribute="centerY" secondItem="Z4e-Zg-oMg" secondAttribute="centerY" id="zL8-0k-ePc"/>
                                 </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="BTL-IK-5NH"/>
-                                        <exclude reference="xxn-Yi-2Ro"/>
-                                    </mask>
-                                </variation>
                                 <variation key="widthClass=regular" ambiguous="YES">
                                     <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
                                 </variation>
@@ -172,7 +162,6 @@
                     <connections>
                         <outlet property="albumCollectionView" destination="rbP-BJ-ehV" id="JyQ-mn-fcO"/>
                         <outlet property="albumCollectionViewHeightConstraint" destination="F90-wE-w2T" id="j8V-YF-dP1"/>
-                        <outlet property="albumCollectionViewTopConstraint" destination="pCJ-LR-G2S" id="gME-bP-fi9"/>
                         <outlet property="albumCollectionWidthConstraint" destination="mgR-qE-Yk8" id="UnA-G2-99T"/>
                         <outlet property="blackOverlayView" destination="imo-zl-yiM" id="sc9-9d-mZt"/>
                         <outlet property="imageGridView" destination="srr-K0-dFE" id="8Hk-Kk-DCs"/>
@@ -183,7 +172,6 @@
                         <outlet property="rotateButtonLeadingConstraint" destination="D3d-jM-fhs" id="J6c-ip-TNZ"/>
                         <outlet property="selectedImageScrollView" destination="Z4e-Zg-oMg" id="hRG-a4-pcx"/>
                         <outlet property="selectedImageScrollViewHeightToFrameWidthAspectRatioConstraint" destination="Nbr-gY-GPs" id="N5f-u3-oCT"/>
-                        <outlet property="selectedImageScrollViewTopConstraint" destination="lPp-hU-un2" id="CqD-6Q-hK7"/>
                         <outlet property="selectedImageView" destination="XKY-Yf-eRj" id="X8I-ob-Mti"/>
                     </connections>
                 </viewController>

@@ -15,7 +15,6 @@ public class SnapImagePickerViewController: UIViewController {
             selectedImageScrollView?.maximumZoomScale = currentDisplay.MaxZoomScale
         }
     }
-    @IBOutlet weak var selectedImageScrollViewTopConstraint: NSLayoutConstraint?
     @IBOutlet weak var selectedImageScrollViewHeightToFrameWidthAspectRatioConstraint: NSLayoutConstraint?
     
     @IBOutlet weak var selectedImageView: UIImageView?
@@ -35,7 +34,6 @@ public class SnapImagePickerViewController: UIViewController {
     }
     @IBOutlet weak var albumCollectionViewHeightConstraint: NSLayoutConstraint?
     @IBOutlet weak var albumCollectionWidthConstraint: NSLayoutConstraint?
-    @IBOutlet weak var albumCollectionViewTopConstraint: NSLayoutConstraint?
     
     @IBOutlet weak var imageGridView: ImageGridView? {
         didSet {
@@ -55,9 +53,6 @@ public class SnapImagePickerViewController: UIViewController {
     
     @IBOutlet weak var rotateButton: UIButton?
     @IBOutlet weak var rotateButtonLeadingConstraint: NSLayoutConstraint?
-    
-    // Used for storing the constant for the top layout constraint when an oblong image is rotated
-    private var nextRotationOffset: CGFloat = 0.0
     
     @IBAction func rotateButtonPressed(sender: UIButton) {
         UIView.animateWithDuration(0.3, animations: {
@@ -132,7 +127,6 @@ public class SnapImagePickerViewController: UIViewController {
         }
     }
 
-    private var nextOffset = 0
     private var userIsScrolling = false
     private var enqueuedBounce: (() -> Void)?
     
@@ -156,6 +150,10 @@ public class SnapImagePickerViewController: UIViewController {
     override public func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         setVisibleCellsInAlbumCollectionView()
+        if let selectedImage = selectedImage {
+            self.selectedImage = nil
+            displayMainImage(selectedImage)
+        }
     }
 
     override public func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
@@ -163,8 +161,6 @@ public class SnapImagePickerViewController: UIViewController {
         let newDisplay = size.displayType()
         if newDisplay != currentDisplay {
             let ratio = newDisplay.SelectedImageWidthMultiplier / currentDisplay.SelectedImageWidthMultiplier
-            let newOffset = CGPoint(x: selectedImageScrollView!.contentOffset.x * ratio * ((newDisplay == .Landscape) ? 1 * 1.33 : 1 / 1.33),
-                                    y: selectedImageScrollView!.contentOffset.y * ratio * ((newDisplay == .Landscape) ? 1 * 1.33 : 1 / 1.33))
             coordinator.animateAlongsideTransition({
                 [weak self] _ in
                 
@@ -178,7 +174,6 @@ public class SnapImagePickerViewController: UIViewController {
                     strongSelf.currentDisplay = newDisplay
                     
                     self?.setVisibleCellsInAlbumCollectionView()
-                    self?.selectedImageScrollView?.setContentOffset(newOffset, animated: true)
                     self?.calculateViewSizes()
                 }
                 }, completion: nil)
@@ -309,10 +304,9 @@ extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
         if selectedImage == nil
            || mainImage.localIdentifier != selectedImage!.localIdentifier
            || size.height > selectedImage!.image.size.height {
-            let insets = getInsetsForSize(size)
-            
             setMainImage(mainImage)
-            selectedImageScrollView?.contentInset = insets
+            
+            selectedImageScrollView?.contentInset = getInsetsForSize(size)
             selectedImageScrollView?.minimumZoomScale = min(size.width, size.height) / max(size.width, size.height)
             selectedImageScrollView?.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
             selectedImageScrollView?.setZoomScale(1, animated: false)
@@ -347,7 +341,7 @@ extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
         
         var insets = UIEdgeInsets(top: inset * zoomScale, left: 0, bottom: inset * zoomScale, right: 0)
         if let contentWidth = selectedImageScrollView?.contentSize.width
-           where contentWidth < view.frame.width {
+           where contentWidth > 0 && contentWidth < view.frame.width {
             let padding = CGFloat(view.frame.width - contentWidth) / 2
             insets = insets.addHorizontalInset(padding)
         }
@@ -361,9 +355,9 @@ extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
         let diff = imageWidth - view.frame.width
         let inset = diff / 2
         
-        var insets = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
+        var insets = UIEdgeInsets(top: 0, left: inset * zoomScale, bottom: 0, right: inset * zoomScale)
         if let contentHeight = selectedImageScrollView?.contentSize.height
-           where contentHeight < view.frame.width {
+           where contentHeight > 0 && contentHeight < view.frame.width {
             let padding = CGFloat(view.frame.width - contentHeight) / 2
             insets = insets.addVerticalInset(padding)
         }
