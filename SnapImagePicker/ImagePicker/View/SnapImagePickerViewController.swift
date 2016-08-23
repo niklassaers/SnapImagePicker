@@ -17,10 +17,8 @@ public class SnapImagePickerViewController: UIViewController {
     }
     @IBOutlet weak var selectedImageScrollViewTopConstraint: NSLayoutConstraint?
     @IBOutlet weak var selectedImageScrollViewHeightToFrameWidthAspectRatioConstraint: NSLayoutConstraint?
-    @IBOutlet weak var selectedImageScrollViewWidthToHeightAspectRatioConstraint: NSLayoutConstraint?
     
     @IBOutlet weak var selectedImageView: UIImageView?
-    @IBOutlet weak var selectedImageViewWidthToHeightAspectRatioConstraint: NSLayoutConstraint?
     private var selectedImage: SnapImagePickerImage? {
         didSet {
             if let selectedImage = selectedImage {
@@ -64,25 +62,8 @@ public class SnapImagePickerViewController: UIViewController {
     @IBAction func rotateButtonPressed(sender: UIButton) {
         UIView.animateWithDuration(0.3, animations: {
             self.selectedImageRotation = self.selectedImageRotation.next()
-            if let image = self.selectedImage?.image
-               where image.size.width > image.size.height,
-               let scrollView = self.selectedImageScrollView,
-               let imageView = self.selectedImageView
-               where imageView.frame.height < scrollView.frame.height,
-               let constraint = self.selectedImageScrollViewTopConstraint {
-                if self.selectedImageRotation.isHorizontal() {
-                    self.nextRotationOffset = constraint.constant
-                    constraint.constant = 0
-                    self.albumCollectionViewTopConstraint?.constant = 0
-                } else {
-                    constraint.constant = -self.nextRotationOffset
-                    self.albumCollectionViewTopConstraint?.constant = self.nextRotationOffset
-                    self.nextRotationOffset = 0
-                }
-                self.view.setNeedsLayout()
-            }
-            
             sender.enabled = false
+            
             }, completion: {
                 _ in sender.enabled = true
         })
@@ -325,17 +306,16 @@ extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
     func displayMainImage(mainImage: SnapImagePickerImage) {
         let size = mainImage.image.size
         
-        if let selectedImageView = selectedImageView
-            where selectedImage == nil
-                || mainImage.localIdentifier != selectedImage!.localIdentifier
-                || size.height > selectedImage!.image.size.height {
+        if selectedImage == nil
+           || mainImage.localIdentifier != selectedImage!.localIdentifier
+           || size.height > selectedImage!.image.size.height {
+            let insets = getInsetsForSize(size)
+            
             setMainImage(mainImage)
-            if (size.width < size.height) {
-                setupTallImage(size)
-            } else {
-                setupWideImage(size)
-            }
-            selectedImageScrollView?.centerFullImageInImageView(selectedImageView)
+            selectedImageScrollView?.contentInset = insets
+            selectedImageScrollView?.minimumZoomScale = min(size.width, size.height) / max(size.width, size.height)
+            selectedImageScrollView?.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
+            selectedImageScrollView?.setZoomScale(1, animated: false)
         }
         
         if state != .Image {
@@ -346,32 +326,49 @@ extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
     }
     
     private func setMainImage(mainImage: SnapImagePickerImage) {
-        selectedImageScrollViewTopConstraint?.constant = 0
-        albumCollectionViewTopConstraint?.constant = 0
-        selectedImageView?.contentMode = .ScaleAspectFit
+        selectedImageView?.contentMode = .ScaleAspectFill
         selectedImage = mainImage
         selectedImageRotation = .Up
     }
     
-    private func setupTallImage(size: CGSize) {
-        let internalAspectRatioMultiplier = size.width/size.height
-        selectedImageViewWidthToHeightAspectRatioConstraint =
-            selectedImageViewWidthToHeightAspectRatioConstraint?.changeMultiplier(internalAspectRatioMultiplier)
-        
-        let externalAspectRatioMultiplier = size.width / size.height * currentDisplay.SelectedImageWidthMultiplier
-        selectedImageScrollViewWidthToHeightAspectRatioConstraint =
-            selectedImageScrollViewWidthToHeightAspectRatioConstraint?.changeMultiplier(externalAspectRatioMultiplier)
-        
-        selectedImageScrollView?.minimumZoomScale = 1
+    private func getInsetsForSize(size: CGSize, withZoomScale zoomScale: CGFloat = 1) -> UIEdgeInsets{
+        if (size.height > size.width) {
+            return getInsetsForTallRectangle(size, withZoomScale: zoomScale)
+        } else {
+            return getInsetsForWideRectangle(size, withZoomScale: zoomScale)
+        }
     }
     
-    private func setupWideImage(size: CGSize) {
-        let ratio = size.width / size.height
-        selectedImageScrollViewWidthToHeightAspectRatioConstraint =
-            selectedImageScrollViewWidthToHeightAspectRatioConstraint?.changeMultiplier(1)
-        selectedImageViewWidthToHeightAspectRatioConstraint =
-            selectedImageViewWidthToHeightAspectRatioConstraint?.changeMultiplier(ratio)
-        selectedImageScrollView?.minimumZoomScale = size.height / size.width
+    private func getInsetsForTallRectangle(size: CGSize, withZoomScale zoomScale: CGFloat = 1) -> UIEdgeInsets {
+        let ratio = view.frame.width / size.width
+        let imageHeight = size.height * ratio
+        let diff = imageHeight - view.frame.width
+        let inset = diff / 2
+        
+        var insets = UIEdgeInsets(top: inset * zoomScale, left: 0, bottom: inset * zoomScale, right: 0)
+        if let contentWidth = selectedImageScrollView?.contentSize.width
+           where contentWidth < view.frame.width {
+            let padding = CGFloat(view.frame.width - contentWidth) / 2
+            insets = insets.addHorizontalInset(padding)
+        }
+        
+        return insets
+    }
+    
+    private func getInsetsForWideRectangle(size: CGSize, withZoomScale zoomScale: CGFloat = 1) -> UIEdgeInsets {
+        let ratio = view.frame.width / size.height
+        let imageWidth = size.width * ratio
+        let diff = imageWidth - view.frame.width
+        let inset = diff / 2
+        
+        var insets = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: inset)
+        if let contentHeight = selectedImageScrollView?.contentSize.height
+           where contentHeight < view.frame.width {
+            let padding = CGFloat(view.frame.width - contentHeight) / 2
+            insets = insets.addVerticalInset(padding)
+        }
+        
+        return insets
     }
     
     func reloadAlbum() {
@@ -520,21 +517,9 @@ extension SnapImagePickerViewController: UIScrollViewDelegate {
     }
     
     public func scrollViewDidZoom(scrollView: UIScrollView) {
-        if scrollView == selectedImageScrollView {
-            if let imageView = selectedImageView,
-               let image = imageView.image {
-                if image.size.height > image.size.width  && !selectedImageRotation.isHorizontal() {
-                    let ratio = min(1, imageView.frame.width / scrollView.frame.height)
-                    selectedImageScrollViewWidthToHeightAspectRatioConstraint =
-                        selectedImageScrollViewWidthToHeightAspectRatioConstraint?.changeMultiplier(ratio)
-                } else if image.size.width > image.size.height && !selectedImageRotation.isHorizontal(){
-                    let diff = (scrollView.frame.height - imageView.frame.height) / 2
-                    if diff > 0 {
-                        selectedImageScrollViewTopConstraint?.constant = diff
-                        albumCollectionViewTopConstraint?.constant = -diff
-                    }
-                }
-            }
+        if let size = selectedImage?.image.size {
+            let zoomScale = selectedImageScrollView?.zoomScale ?? 1.0
+            selectedImageScrollView?.contentInset = getInsetsForSize(size, withZoomScale: zoomScale)
         }
     }
     
