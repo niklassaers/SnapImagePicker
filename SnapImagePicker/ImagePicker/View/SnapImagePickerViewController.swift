@@ -160,18 +160,21 @@ public class SnapImagePickerViewController: UIViewController {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
         let newDisplay = size.displayType()
         if newDisplay != currentDisplay {
+            let ratio = newDisplay.SelectedImageWidthMultiplier / currentDisplay.SelectedImageWidthMultiplier
+            let offsetRatio = ratio * ((newDisplay == .Landscape) ? 1 * 1.33 : 1 / 1.33)
+            let newOffset = selectedImageScrollView!.contentOffset * offsetRatio
             coordinator.animateAlongsideTransition({
                 [weak self] _ in
                 
                 if let strongSelf = self,
                     let selectedImageScrollView = strongSelf.selectedImageScrollView {
-                    let ratio = newDisplay.SelectedImageWidthMultiplier / strongSelf.currentDisplay.SelectedImageWidthMultiplier
                     let height = selectedImageScrollView.frame.height
                     let newHeight = height * ratio
                     
                     strongSelf.setMainOffsetForState(strongSelf.state, withHeight: newHeight, animated: false)
                 }
                 
+                self?.selectedImageScrollView?.setContentOffset(newOffset, animated: true)
                 self?.currentDisplay = newDisplay
                 self?.setVisibleCellsInAlbumCollectionView()
                 self?.calculateViewSizes()
