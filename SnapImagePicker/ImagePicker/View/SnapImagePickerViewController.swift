@@ -150,10 +150,6 @@ public class SnapImagePickerViewController: UIViewController {
     override public func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         setVisibleCellsInAlbumCollectionView()
-        if let selectedImage = selectedImage {
-            self.selectedImage = nil
-            displayMainImage(selectedImage)
-        }
     }
 
     override public func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
