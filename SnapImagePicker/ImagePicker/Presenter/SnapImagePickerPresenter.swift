@@ -16,6 +16,8 @@ class SnapImagePickerPresenter {
         }
     }
     
+    private let prefetchSize = 20
+    
     private var albumSize = 0
     private var requestedMainImage = 0
     private var cellSize = CGSize(width: 64, height: 64)

@@ -19,3 +19,7 @@ func findTrailingElementsOfRange(first: Range<Int>, other: Range<Int>) -> Range<
 func span(range: Range<Int>) -> Int {
     return range.endIndex - range.startIndex
 }
+
+func expandRange(range: Range<Int>, byAmount amount: Int, withLowerBound lowerBound: Int, andUpperBound upperBound: Int) -> Range<Int> {
+    return max(lowerBound, range.startIndex - amount)..<min(upperBound, range.endIndex + amount)
+}
