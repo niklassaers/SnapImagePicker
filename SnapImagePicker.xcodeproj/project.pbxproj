@@ -49,6 +49,7 @@
 		D88300821D06C72600399612 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D88300801D06C72600399612 /* Main.storyboard */; };
 		D88300841D06C72600399612 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D88300831D06C72600399612 /* Assets.xcassets */; };
 		D88300871D06C72600399612 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D88300851D06C72600399612 /* LaunchScreen.storyboard */; };
+		D8855E711D6D897200829B0E /* SnapImagePickerViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8855E701D6D897200829B0E /* SnapImagePickerViewControllerTests.swift */; };
 		D88FD29B1D410CA700C7290F /* Range+rangeDifference.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88FD29A1D410CA700C7290F /* Range+rangeDifference.swift */; };
 		D8932B191D5B5A9C006776B2 /* SnapImagePickerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8932B181D5B5A9C006776B2 /* SnapImagePickerProtocol.swift */; };
 		D8932B1B1D5B5AE3006776B2 /* SnapImagePickerTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8932B1A1D5B5AE3006776B2 /* SnapImagePickerTheme.swift */; };
@@ -195,6 +196,7 @@
 		D88300831D06C72600399612 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D88300861D06C72600399612 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D88300881D06C72600399612 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D8855E701D6D897200829B0E /* SnapImagePickerViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapImagePickerViewControllerTests.swift; sourceTree = "<group>"; };
 		D88FD29A1D410CA700C7290F /* Range+rangeDifference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Range+rangeDifference.swift"; sourceTree = "<group>"; };
 		D8932B181D5B5A9C006776B2 /* SnapImagePickerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapImagePickerProtocol.swift; sourceTree = "<group>"; };
 		D8932B1A1D5B5AE3006776B2 /* SnapImagePickerTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapImagePickerTheme.swift; sourceTree = "<group>"; };
@@ -611,6 +613,7 @@
 				D8F4F1AE1D4F636100FF9550 /* SnapImagePickerEventHandlerTests.swift */,
 				D8F4F1B21D4F6EBF00FF9550 /* SnapImagePickerInteractorTests.swift */,
 				D8BB94A21D4F526600E0BB4F /* SnapImagePickerPresenterTests.swift */,
+				D8855E701D6D897200829B0E /* SnapImagePickerViewControllerTests.swift */,
 			);
 			path = SnapImagePicker;
 			sourceTree = "<group>";
@@ -1167,6 +1170,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8855E711D6D897200829B0E /* SnapImagePickerViewControllerTests.swift in Sources */,
 				D8BB94941D4F4A3D00E0BB4F /* SnapImagePickerEntityGatewaySpy.swift in Sources */,
 				D8A49FAE1D4F86CD00B3D574 /* PHFetchResultMock.swift in Sources */,
 				D8BB94A31D4F526600E0BB4F /* SnapImagePickerPresenterTests.swift in Sources */,

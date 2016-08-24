@@ -406,7 +406,9 @@ extension SnapImagePickerViewController: SnapImagePickerViewControllerProtocol {
     func reloadCellAtIndexes(indexes: [Int]) {
         var indexPaths = [NSIndexPath]()
         for index in indexes {
-            indexPaths.append(arrayIndexToIndexPath(index))
+            if index < albumCollectionView?.numberOfItemsInSection(0) {
+                indexPaths.append(arrayIndexToIndexPath(index))
+            }
         }
         if indexes.count > 0 {
             UIView.performWithoutAnimation() {
@@ -483,7 +485,7 @@ extension SnapImagePickerViewController: UICollectionViewDelegate {
     
     public func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let index = indexPathToArrayIndex(indexPath)
-        print("Contentoffset: \(selectedImageScrollView?.contentOffset)")
+        
         if eventHandler?.albumImageClicked(index) == true {
             scrollToIndex(index)
             mainImageLoadIndicator?.startAnimating()
