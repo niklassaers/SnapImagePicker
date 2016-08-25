@@ -98,15 +98,17 @@ public class SnapImagePickerViewController: UIViewController {
     
     private var currentDisplay = Display.Portrait {
         didSet {
-            albumCollectionWidthConstraint =
-                albumCollectionWidthConstraint?.changeMultiplier(currentDisplay.AlbumCollectionWidthMultiplier)
-            albumCollectionView?.reloadData()
-            selectedImageScrollViewHeightToFrameWidthAspectRatioConstraint =
-                selectedImageScrollViewHeightToFrameWidthAspectRatioConstraint?.changeMultiplier(currentDisplay.SelectedImageWidthMultiplier)
-            imageGridViewWidthConstraint =
-                imageGridViewWidthConstraint?.changeMultiplier(currentDisplay.SelectedImageWidthMultiplier)
+            if currentDisplay != oldValue {
+                albumCollectionWidthConstraint =
+                    albumCollectionWidthConstraint?.changeMultiplier(currentDisplay.AlbumCollectionWidthMultiplier)
+                albumCollectionView?.reloadData()
+                selectedImageScrollViewHeightToFrameWidthAspectRatioConstraint =
+                    selectedImageScrollViewHeightToFrameWidthAspectRatioConstraint?.changeMultiplier(currentDisplay.SelectedImageWidthMultiplier)
+                imageGridViewWidthConstraint =
+                    imageGridViewWidthConstraint?.changeMultiplier(currentDisplay.SelectedImageWidthMultiplier)
 
-            setRotateButtonConstraint()
+                setRotateButtonConstraint()
+            }
         }
     }
     
