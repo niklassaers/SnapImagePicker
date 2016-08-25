@@ -1,5 +1,4 @@
 import UIKit
-import SnapFonts_iOS
 
 protocol SnapImagePickerConnectorProtocol: class {
     var cameraRollAvailable: Bool { get set }

@@ -100,7 +100,6 @@ class ViewController: UIViewController {
     
     func selectButtonPressed() {
         if let (image, options) = vc?.getCurrentImage() {
-            print("Rect: \(options.cropRect)")
             imageView?.contentMode = .ScaleAspectFit
             imageView?.image = UIImage(CGImage: CGImageCreateWithImageInRect(image.CGImage, options.cropRect)!, scale: 1, orientation: options.rotation)
         }
