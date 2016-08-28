@@ -27,8 +27,8 @@ class VerticalSlideTransitionManager : NSObject, UIViewControllerAnimatedTransit
     }
     
     func push(transitionContext: UIViewControllerContextTransitioning) {
-        if let containerView = transitionContext.containerView(),
-           let toView = transitionContext.viewForKey(UITransitionContextToViewKey) {
+        let containerView = transitionContext.containerView()
+        if let toView = transitionContext.viewForKey(UITransitionContextToViewKey) {
             containerView.addSubview(toView)
             
             let size = containerView.bounds.size
@@ -43,8 +43,8 @@ class VerticalSlideTransitionManager : NSObject, UIViewControllerAnimatedTransit
     }
     
     func pop(transitionContext: UIViewControllerContextTransitioning) {
-        if let containerView = transitionContext.containerView(),
-           let fromView = transitionContext.viewForKey(UITransitionContextFromViewKey),
+        let containerView = transitionContext.containerView()
+        if let fromView = transitionContext.viewForKey(UITransitionContextFromViewKey),
            let toView = transitionContext.viewForKey(UITransitionContextToViewKey) {
             
             let size = containerView.bounds.size

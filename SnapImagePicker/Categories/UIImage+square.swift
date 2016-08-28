@@ -8,7 +8,7 @@ extension UIImage {
         let height = width
         let cropRect = CGRect(x: x * self.scale, y: y * self.scale, width: width * self.scale, height: height * self.scale)
 
-        if let cgImage = CGImageCreateWithImageInRect(self.CGImage, cropRect) {
+        if let cgImage = CGImageCreateWithImageInRect(self.CGImage!, cropRect) {
             return UIImage(CGImage: cgImage)
         }
 

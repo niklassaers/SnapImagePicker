@@ -6,18 +6,18 @@ extension UIImage {
         
         let context = UIGraphicsGetCurrentContext();
         let rect = CGRectMake(0, 0, self.size.width, self.size.height);
-        CGContextScaleCTM(context, 1, -1);
-        CGContextTranslateCTM(context, 0, -rect.size.height);
+        CGContextScaleCTM(context!, 1, -1);
+        CGContextTranslateCTM(context!, 0, -rect.size.height);
         
-        CGContextSetBlendMode(context, .Multiply);
+        CGContextSetBlendMode(context!, .Multiply);
         
-        CGContextSetAlpha(context, alpha);
+        CGContextSetAlpha(context!, alpha);
         
-        CGContextDrawImage(context, rect, self.CGImage);
+        CGContextDrawImage(context!, rect, self.CGImage!);
         
         let image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
         
-        return image;
+        return image!;
     }
 }
