@@ -271,6 +271,7 @@ extension SnapImagePickerViewController: SnapImagePickerProtocol {
 
 extension SnapImagePickerViewController {
     func albumTitlePressed() {
+        delegate?.prepareForTransition()
         eventHandler?.albumTitlePressed(self.navigationController)
     }
     
