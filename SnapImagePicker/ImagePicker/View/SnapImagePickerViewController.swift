@@ -64,7 +64,7 @@ public class SnapImagePickerViewController: UIViewController {
         })
     }
     
-    private var _delegate: SnapImagePickerDelegate?
+    public weak var delegate: SnapImagePickerDelegate?
     var eventHandler: SnapImagePickerEventHandlerProtocol?
     
     var albumTitle = L10n.AllPhotosAlbumName.string {
@@ -190,15 +190,6 @@ public class SnapImagePickerViewController: UIViewController {
 }
 
 extension SnapImagePickerViewController: SnapImagePickerProtocol {
-    public var delegate: SnapImagePickerDelegate? {
-        get {
-            return _delegate
-        }
-        set {
-            _delegate = newValue
-        }
-    }
-    
     public static func initializeWithCameraRollAccess(cameraRollAccess: Bool) -> SnapImagePickerViewController? {
         let bundle = NSBundle(forClass: SnapImagePickerViewController.self)
         let storyboard = UIStoryboard(name: SnapImagePickerConnector.Names.SnapImagePickerStoryboard.rawValue, bundle: bundle)
