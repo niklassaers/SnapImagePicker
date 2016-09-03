@@ -78,14 +78,19 @@ extension PhotoLoader: ImageLoaderProtocol {
         }
         
         RateLimit.throttle("batchImageResponses-throttle", threshold: 0.2, trailing: true) {
-            dispatch_async(self.batchQueue) {
-                let responses = self.imageResponses
-                self.imageResponses = [Int:SnapImagePickerImage]()
-                
-                handler(responses)
+            [weak self] in
+            if let strongSelf = self {
+                dispatch_async(strongSelf.batchQueue) {
+                    [weak self] in
+                    let responses = self?.imageResponses
+                    self?.imageResponses = [Int:SnapImagePickerImage]()
+                    
+                    if let responses = responses {
+                        handler(responses)
+                    }
+                }
             }
         }
-
     }
     
     func fetchAssetsFromCollectionWithType(type: AlbumType) -> PHFetchResult? {

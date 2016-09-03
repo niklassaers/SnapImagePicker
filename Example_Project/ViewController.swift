@@ -111,4 +111,8 @@ extension ViewController: SnapImagePickerDelegate {
     func setTitleView(titleView: UIView) {
         navigationItem.titleView = titleView
     }
+    
+    func prepareForTransition() {
+        print("Preparing for transition")
+    }
 }
