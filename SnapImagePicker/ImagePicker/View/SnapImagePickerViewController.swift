@@ -64,6 +64,29 @@ public class SnapImagePickerViewController: UIViewController {
         })
     }
     
+    private var zoomedIn = false
+    private var prevRect = CGRectNull
+    
+    @IBAction func selectedImageDoubleTapped(sender: UIGestureRecognizer) {
+        print(selectedImageScrollView!.bounds)
+        if (zoomedIn) {
+            selectedImageScrollView?.zoomToRect(prevRect, animated: true)
+        }
+        else {
+            prevRect = selectedImageScrollView!.bounds
+            
+            var location = sender.locationInView(self.selectedImageView)
+            let zoomWidth = selectedImageScrollView!.bounds.width / 5
+            let zoomHeight = selectedImageScrollView!.bounds.height / 5
+            
+            let zoomRect = CGRectMake(location.x - zoomWidth / 2, location.y - zoomHeight / 2, zoomWidth, zoomHeight)
+            
+            selectedImageScrollView?.zoomToRect(zoomRect, animated: true)
+        }
+        
+        zoomedIn = !zoomedIn
+    }
+    
     public weak var delegate: SnapImagePickerDelegate?
     var eventHandler: SnapImagePickerEventHandlerProtocol?
     
