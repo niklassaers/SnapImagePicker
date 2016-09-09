@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vJD-BW-ayr">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vJD-BW-ayr">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -26,7 +26,7 @@
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z4e-Zg-oMg">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                         <subviews>
-                                            <imageView autoresizesSubviews="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XKY-Yf-eRj">
+                                            <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XKY-Yf-eRj">
                                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                                 <accessibility key="accessibilityConfiguration" identifier="Selected Image">
                                                     <bool key="isElement" value="YES"/>
@@ -36,7 +36,6 @@
                                                 </constraints>
                                             </imageView>
                                         </subviews>
-                                        <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstItem="XKY-Yf-eRj" firstAttribute="height" secondItem="Z4e-Zg-oMg" secondAttribute="height" id="4fa-2M-6lQ"/>
                                             <constraint firstItem="XKY-Yf-eRj" firstAttribute="centerY" secondItem="Z4e-Zg-oMg" secondAttribute="centerY" id="G5A-dL-KS4"/>
@@ -44,9 +43,6 @@
                                             <constraint firstAttribute="width" secondItem="Z4e-Zg-oMg" secondAttribute="height" multiplier="1:1" id="Xtn-at-Kic"/>
                                             <constraint firstAttribute="trailing" secondItem="XKY-Yf-eRj" secondAttribute="trailing" id="f7W-Nc-baR"/>
                                         </constraints>
-                                        <connections>
-                                            <outletCollection property="gestureRecognizers" destination="Ruf-29-fWl" appends="YES" id="Yx4-Pd-gdY"/>
-                                        </connections>
                                     </scrollView>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="rbP-BJ-ehV">
                                         <rect key="frame" x="0.0" y="600" width="600" height="128"/>
@@ -96,22 +92,20 @@
                                     </collectionView>
                                     <view userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="imo-zl-yiM">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                        <subviews>
-                                            <view userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="srr-K0-dFE" customClass="ImageGridView" customModule="SnapImagePicker" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" secondItem="srr-K0-dFE" secondAttribute="height" multiplier="1:1" id="Kmw-th-UkX"/>
-                                                </constraints>
-                                            </view>
-                                        </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="srr-K0-dFE" customClass="ImageGridView" customModule="SnapImagePicker" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="srr-K0-dFE" secondAttribute="height" multiplier="1:1" id="Kmw-th-UkX"/>
+                                        </constraints>
                                     </view>
                                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="I60-ZY-pni">
                                         <rect key="frame" x="290" y="290" width="20" height="20"/>
                                     </activityIndicatorView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9GN-to-QvH">
-                                        <rect key="frame" x="15" y="541" width="44" height="44"/>
+                                        <rect key="frame" x="20" y="540" width="44" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="9GN-to-QvH" secondAttribute="height" multiplier="1:1" id="0je-bD-1Sa"/>
                                             <constraint firstAttribute="width" constant="44" id="XLY-Mh-qfl"/>
@@ -132,13 +126,16 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="imo-zl-yiM" firstAttribute="height" secondItem="Z4e-Zg-oMg" secondAttribute="height" id="0vy-N1-O4G"/>
-                                    <constraint firstItem="9GN-to-QvH" firstAttribute="bottom" secondItem="rbP-BJ-ehV" secondAttribute="top" constant="-15" id="1js-3R-F0E"/>
+                                    <constraint firstItem="9GN-to-QvH" firstAttribute="bottom" secondItem="rbP-BJ-ehV" secondAttribute="top" constant="-16" id="1js-3R-F0E"/>
                                     <constraint firstItem="I60-ZY-pni" firstAttribute="centerX" secondItem="Z4e-Zg-oMg" secondAttribute="centerX" id="4Q5-0F-nsu"/>
                                     <constraint firstItem="imo-zl-yiM" firstAttribute="width" secondItem="zns-gV-aen" secondAttribute="width" id="A7t-HL-U90"/>
-                                    <constraint firstItem="9GN-to-QvH" firstAttribute="leading" secondItem="zns-gV-aen" secondAttribute="leading" constant="15" id="D3d-jM-fhs"/>
+                                    <constraint firstItem="9GN-to-QvH" firstAttribute="leading" secondItem="zns-gV-aen" secondAttribute="leading" constant="20" id="D3d-jM-fhs"/>
+                                    <constraint firstItem="srr-K0-dFE" firstAttribute="centerX" secondItem="zns-gV-aen" secondAttribute="centerX" id="H8m-SV-YLj"/>
                                     <constraint firstItem="Z4e-Zg-oMg" firstAttribute="height" secondItem="zns-gV-aen" secondAttribute="width" id="Nbr-gY-GPs"/>
+                                    <constraint firstItem="srr-K0-dFE" firstAttribute="width" secondItem="zns-gV-aen" secondAttribute="width" id="RS0-5E-RfY"/>
                                     <constraint firstItem="rbP-BJ-ehV" firstAttribute="centerX" secondItem="zns-gV-aen" secondAttribute="centerX" id="VEi-tL-rxy"/>
                                     <constraint firstItem="imo-zl-yiM" firstAttribute="centerX" secondItem="Z4e-Zg-oMg" secondAttribute="centerX" id="Z9o-NV-V6Z"/>
+                                    <constraint firstItem="srr-K0-dFE" firstAttribute="top" secondItem="zns-gV-aen" secondAttribute="top" id="cuo-gw-Zwk"/>
                                     <constraint firstItem="Z4e-Zg-oMg" firstAttribute="top" secondItem="zns-gV-aen" secondAttribute="top" id="lPp-hU-un2"/>
                                     <constraint firstItem="rbP-BJ-ehV" firstAttribute="width" secondItem="zns-gV-aen" secondAttribute="width" id="mgR-qE-Yk8"/>
                                     <constraint firstItem="Z4e-Zg-oMg" firstAttribute="centerX" secondItem="zns-gV-aen" secondAttribute="centerX" id="mzD-j0-TF0"/>
@@ -168,6 +165,7 @@
                         <outlet property="albumCollectionWidthConstraint" destination="mgR-qE-Yk8" id="UnA-G2-99T"/>
                         <outlet property="blackOverlayView" destination="imo-zl-yiM" id="sc9-9d-mZt"/>
                         <outlet property="imageGridView" destination="srr-K0-dFE" id="8Hk-Kk-DCs"/>
+                        <outlet property="imageGridViewWidthConstraint" destination="RS0-5E-RfY" id="hnY-Il-4HU"/>
                         <outlet property="mainImageLoadIndicator" destination="I60-ZY-pni" id="xcA-Yk-a3b"/>
                         <outlet property="mainScrollView" destination="zns-gV-aen" id="1Fo-tk-el1"/>
                         <outlet property="rotateButton" destination="9GN-to-QvH" id="pjA-eY-NEb"/>
@@ -178,11 +176,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oTR-km-0vK" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer numberOfTapsRequired="2" id="Ruf-29-fWl">
-                    <connections>
-                        <action selector="selectedImageDoubleTapped:" destination="vJD-BW-ayr" id="W1f-Cm-N1T"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="3505" y="-524"/>
         </scene>
