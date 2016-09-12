@@ -73,15 +73,14 @@ public class SnapFonts: NSObject {
         }
         
         let fontData = NSData(contentsOfURL: fontURL)
-        let fontDataProvider = CGDataProviderCreateWithCFData(fontData)
+        let fontDataProvider = CGDataProviderCreateWithCFData(fontData!)
         
-        if let font = CGFontCreateWithDataProvider(fontDataProvider) {
-            var error: Unmanaged<CFError>?
-            CTFontManagerRegisterGraphicsFont(font, &error)
-            
-            if error != nil {
-                print(error.debugDescription)
-            }
+        let font = CGFontCreateWithDataProvider(fontDataProvider!)
+        var error: Unmanaged<CFError>?
+        CTFontManagerRegisterGraphicsFont(font, &error)
+        
+        if error != nil {
+            print(error.debugDescription)
         }
     }
     

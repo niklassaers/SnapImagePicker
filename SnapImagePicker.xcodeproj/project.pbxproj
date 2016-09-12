@@ -778,21 +778,26 @@
 				TargetAttributes = {
 					D812DDEC1D362C9200F0E488 = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
 						TestTargetID = D88300781D06C72600399612;
 					};
 					D84613FF1D368B5E00B2A71D = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
 						TestTargetID = D88300781D06C72600399612;
 					};
 					D88300781D06C72600399612 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = 8PNE4S25Z7;
+						LastSwiftMigration = 0800;
 					};
 					D89D6FE51D06CC06007DD132 = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
 					};
 					D89D6FEE1D06CC06007DD132 = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
 						TestTargetID = D88300781D06C72600399612;
 					};
 				};
@@ -1277,6 +1282,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.snapsale.SnapImagePicker-Snapshot-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Example_Project.app/Example_Project";
 			};
 			name = Debug;
@@ -1292,6 +1298,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.snapsale.SnapImagePicker-Snapshot-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Example_Project.app/Example_Project";
 			};
 			name = Release;
@@ -1307,6 +1314,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.snapsale.SnapImagePicker-UI-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 2.3;
 				TEST_TARGET_NAME = Example_Project;
 			};
 			name = Debug;
@@ -1321,6 +1329,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.snapsale.SnapImagePicker-UI-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 				TEST_TARGET_NAME = Example_Project;
 			};
 			name = Release;
@@ -1426,6 +1435,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.snapsale.SnapImagePicker.ExampleProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "92dc7c83-aaf9-4133-bf1a-fccad74c9497";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
@@ -1443,6 +1453,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.snapsale.SnapImagePicker.ExampleProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
 		};
@@ -1464,6 +1475,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 2.3;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -1486,6 +1498,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.snapsale.SnapImagePicker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -1502,6 +1515,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.snapsale.SnapImagePickerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 2.3;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Example_Project.app/Example_Project";
 			};
 			name = Debug;
@@ -1516,6 +1530,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.snapsale.SnapImagePickerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Example_Project.app/Example_Project";
 			};
 			name = Release;

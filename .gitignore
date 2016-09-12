@@ -1,1 +1,4 @@
 SnapImagePicker.xcodeproj/xcuserdata/*.xcuserdatad
+/.DS_Store
+/SnapImagePicker.xcworkspace/xcuserdata/xcodeserver.xcuserdatad
+/Pods/Pods.xcodeproj/xcuserdata/xcodeserver.xcuserdatad
