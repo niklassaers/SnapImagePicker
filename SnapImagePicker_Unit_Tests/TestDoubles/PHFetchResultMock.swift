@@ -1,6 +1,6 @@
 import Photos
 
-class PHFetchResultMock: PHFetchResult {
+class PHFetchResultMock: PHFetchResult<PHAsset> {
     let numberOfImages: Int
     
     init(numberOfImages: Int) {
@@ -13,13 +13,13 @@ class PHFetchResultMock: PHFetchResult {
         }
     }
     
-    override var firstObject: AnyObject? {
+    override var firstObject: PHAsset? {
         get {
             return PHAssetMock()
         }
     }
     
-    override func objectAtIndex(index: Int) -> AnyObject {
+    override open func object(at index: Int) -> PHAsset {
         return PHAssetMock()
     }
 }

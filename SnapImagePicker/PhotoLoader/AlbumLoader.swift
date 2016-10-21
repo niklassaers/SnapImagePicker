@@ -1,8 +1,8 @@
 import UIKit
 
 protocol AlbumLoaderProtocol: class {
-    func fetchAllPhotosPreview(targetSize: CGSize, handler: Album -> Void)
-    func fetchFavoritesPreview(targetSize: CGSize, handler: Album -> Void)
-    func fetchAllUserAlbumPreviews(targetSize: CGSize, handler: Album -> Void)
-    func fetchAllSmartAlbumPreviews(targetSize: CGSize, handler: Album -> Void)
+    func fetchAllPhotosPreview(_ targetSize: CGSize, handler: @escaping (Album) -> ())
+    func fetchFavoritesPreview(_ targetSize: CGSize, handler: @escaping (Album) -> ())
+    func fetchAllUserAlbumPreviews(_ targetSize: CGSize, handler: @escaping (Album) -> ())
+    func fetchAllSmartAlbumPreviews(_ targetSize: CGSize, handler: @escaping (Album) -> ())
 }

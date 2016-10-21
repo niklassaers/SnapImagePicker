@@ -2,8 +2,8 @@ import XCTest
 @testable import SnapImagePicker
 
 class SnapImagePickerPresenterTests: XCTestCase {
-    private var viewController: SnapImagePickerViewControllerSpy?
-    private var presenter: SnapImagePickerPresenter?
+    fileprivate var viewController: SnapImagePickerViewControllerSpy?
+    fileprivate var presenter: SnapImagePickerPresenter?
     
     override func setUp() {
         super.setUp()
@@ -15,11 +15,11 @@ class SnapImagePickerPresenterTests: XCTestCase {
         super.tearDown()
     }
     
-    private func createSnapImagePickerImage(image: UIImage = UIImage(), localIdentifier: String = "", createdDate: NSDate? = nil) -> SnapImagePickerImage {
-        return SnapImagePickerImage(image: image, localIdentifier: localIdentifier, createdDate: createdDate)
+    fileprivate func createSnapImagePickerImage(_ image: UIImage = UIImage(), localIdentifier: String = "", createdDate: Date? = nil) -> SnapImagePickerImage {
+        return SnapImagePickerImage(image: image, localIdentifier: localIdentifier, createdDate: createdDate as Date?)
     }
     
-    private func presentAlbum(albumType: AlbumType = AlbumType.AllPhotos, image: UIImage = UIImage(), localIdentifier: String = "", createdDate: NSDate? = nil, albumSize: Int = 30) {
+    fileprivate func presentAlbum(_ albumType: AlbumType = AlbumType.allPhotos, image: UIImage = UIImage(), localIdentifier: String = "", createdDate: Date? = nil, albumSize: Int = 30) {
         let mainImage = createSnapImagePickerImage(image, localIdentifier: localIdentifier, createdDate: createdDate)
         presenter?.presentAlbum(albumType, withMainImage: mainImage, albumSize: albumSize)
     }
@@ -49,7 +49,7 @@ class SnapImagePickerPresenterTests: XCTestCase {
     func testPresentMainImageShouldTriggerDisplayMainImage() {
         presenter?.cameraRollAccess = true
         let localIdentifier = "local"
-        let albumType = AlbumType.AllPhotos
+        let albumType = AlbumType.allPhotos
         let mainImage = createSnapImagePickerImage(localIdentifier: localIdentifier)
 
         presenter?.albumType = albumType
@@ -76,10 +76,10 @@ class SnapImagePickerPresenterTests: XCTestCase {
         // Sets up currentRange
         presenter?.scrolledToCells(0..<10, increasing: true)
         
-        presenter?.presentAlbumImages(images, fromAlbum: .AllPhotos)
+        presenter?.presentAlbumImages(images, fromAlbum: .allPhotos)
         XCTAssertEqual(1, viewController?.reloadCellAtIndexesCount)
         XCTAssertNotNil(viewController?.reloadCellAtIndexesIndexes)
-        XCTAssertEqual(indexes.sort(), viewController!.reloadCellAtIndexesIndexes!.sort())
+        XCTAssertEqual(indexes.sorted(), viewController!.reloadCellAtIndexesIndexes!.sorted())
     }
     
     // cameraRollAccess && index < albumSize  && index != selectedIndex
@@ -87,21 +87,21 @@ class SnapImagePickerPresenterTests: XCTestCase {
         presenter?.cameraRollAccess = true
         presentAlbum()
         presenter?.scrolledToCells(0..<3, increasing: true)
-        presenter?.presentAlbumImages([0: createSnapImagePickerImage(), 2: createSnapImagePickerImage()], fromAlbum: .AllPhotos)
+        presenter?.presentAlbumImages([0: createSnapImagePickerImage(), 2: createSnapImagePickerImage()], fromAlbum: .allPhotos)
         
         let cell = ImageCell()
-        presenter?.presentCell(cell, atIndex: 0)
+        let _ = presenter?.presentCell(cell, atIndex: 0)
         XCTAssertEqual(2, cell.spacing)
         
-        presenter?.albumImageClicked(2)
-        presenter?.presentCell(cell, atIndex: 2)
+        let _ = presenter?.albumImageClicked(2)
+        let _ = presenter?.presentCell(cell, atIndex: 2)
         XCTAssertEqual(2, cell.spacing)
         
-        presenter?.albumType = .Favorites
+        presenter?.albumType = .favorites
         presenter?.scrolledToCells(0..<3, increasing: true)
-        presenter?.presentAlbumImages([0: createSnapImagePickerImage()], fromAlbum: .Favorites)
+        presenter?.presentAlbumImages([0: createSnapImagePickerImage()], fromAlbum: .favorites)
         
-        presenter?.presentCell(cell, atIndex: 0)
+        let _ = presenter?.presentCell(cell, atIndex: 0)
         XCTAssertEqual(2, cell.spacing)
     }
 }

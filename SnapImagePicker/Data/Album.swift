@@ -17,10 +17,10 @@ struct Album {
 }
 
 enum AlbumType {
-    case AllPhotos
-    case Favorites
-    case UserDefined(title: String)
-    case SmartAlbum(title: String)
+    case allPhotos
+    case favorites
+    case userDefined(title: String)
+    case smartAlbum(title: String)
     
     struct AlbumNames {
         static let AllPhotos = "All Photos"
@@ -29,10 +29,10 @@ enum AlbumType {
     
     func getAlbumName() -> String {
         switch self {
-        case .AllPhotos: return AlbumNames.AllPhotos
-        case .Favorites: return AlbumNames.Favorites
-        case .UserDefined(let title): return title
-        case .SmartAlbum(let title): return title
+        case .allPhotos: return AlbumNames.AllPhotos
+        case .favorites: return AlbumNames.Favorites
+        case .userDefined(let title): return title
+        case .smartAlbum(let title): return title
         }
     }
     
@@ -44,10 +44,10 @@ enum AlbumType {
     
     func getCollectionName() -> String {
         switch self {
-        case .AllPhotos: return CollectionNames.General
-        case .Favorites: return CollectionNames.General
-        case .UserDefined(_): return CollectionNames.UserDefined
-        case .SmartAlbum(_): return CollectionNames.SmartAlbums
+        case .allPhotos: return CollectionNames.General
+        case .favorites: return CollectionNames.General
+        case .userDefined(_): return CollectionNames.UserDefined
+        case .smartAlbum(_): return CollectionNames.SmartAlbums
         }
     }
 }

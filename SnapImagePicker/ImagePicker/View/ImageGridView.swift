@@ -2,9 +2,9 @@ import UIKit
 
 class ImageGridView: UIView {
     static let LineWidth = CGFloat(2.0)
-    static let LineColor = UIColor.blackColor()
+    static let LineColor = UIColor.black
     
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
         let oneThirdWidth = rect.size.width / 3
         let oneThirdHeight = rect.size.height / 3
         ImageGridView.LineColor.set()
@@ -16,10 +16,10 @@ class ImageGridView: UIView {
         }
     }
     
-    func drawStraightLineFrom(from: CGPoint, to: CGPoint) -> UIBezierPath {
+    func drawStraightLineFrom(_ from: CGPoint, to: CGPoint) -> UIBezierPath {
         let path = UIBezierPath()
-        path.moveToPoint(from)
-        path.addLineToPoint(to)
+        path.move(to: from)
+        path.addLine(to: to)
         path.lineWidth = ImageGridView.LineWidth
         
         return path

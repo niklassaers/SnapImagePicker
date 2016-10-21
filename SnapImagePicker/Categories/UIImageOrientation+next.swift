@@ -3,10 +3,10 @@ import UIKit
 extension UIImageOrientation {
     func next() -> UIImageOrientation {
         switch self {
-        case .Up, .DownMirrored: return .Left
-        case .Right, .LeftMirrored: return .Up
-        case .Down, .UpMirrored: return .Right
-        case .Left, .RightMirrored: return .Down
+        case .up, .downMirrored: return .left
+        case .right, .leftMirrored: return .up
+        case .down, .upMirrored: return .right
+        case .left, .rightMirrored: return .down
         }
     }
 }

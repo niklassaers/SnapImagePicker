@@ -6,7 +6,7 @@ class SnapImagePickerEntityGatewayTests: XCTestCase {
     var interactor: SnapImagePickerInteractorSpy?
     var entityGateway: SnapImagePickerEntityGateway?
     
-    private let numberOfImages = 30
+    fileprivate let numberOfImages = 30
     
     override func setUp() {
         super.setUp()
@@ -20,21 +20,21 @@ class SnapImagePickerEntityGatewayTests: XCTestCase {
     }
     
     func testFetchAlbumShouldTriggerFetchAssetCollectionWithType() {
-        let albumType = AlbumType.AllPhotos
+        let albumType = AlbumType.allPhotos
         entityGateway?.fetchAlbum(albumType)
         
         XCTAssertEqual(1, photoLoader?.fetchAssetsFromCollectionWithTypeCount)
     }
     
     func testFetchAlbumShouldFetchFirstImage() {
-        let albumType = AlbumType.AllPhotos
+        let albumType = AlbumType.allPhotos
         entityGateway?.fetchAlbum(albumType)
         
         XCTAssertEqual(1, photoLoader?.loadImageFromAssetCount)
     }
     
     func testFetchAlbumShouldTriggerLoadedAlbum() {
-        let albumType = AlbumType.AllPhotos
+        let albumType = AlbumType.allPhotos
         entityGateway?.fetchAlbum(albumType)
         
         XCTAssertEqual(1, interactor?.loadedAlbumCount)
@@ -43,9 +43,9 @@ class SnapImagePickerEntityGatewayTests: XCTestCase {
     }
     
     func testFetchAlbumImagesShouldTriggerLoadImagesFromAssets() {
-        let albumType = AlbumType.AllPhotos
+        let albumType = AlbumType.allPhotos
         let range = 0..<numberOfImages
-        let targetSize = CGSizeZero
+        let targetSize = CGSize.zero
         entityGateway?.fetchAlbumImagesFromAlbum(albumType, inRange: range, withTargetSize: targetSize)
         
         XCTAssertEqual(1, photoLoader?.loadImagesFromAssetsCount)
@@ -54,15 +54,15 @@ class SnapImagePickerEntityGatewayTests: XCTestCase {
     }
     
     func testFetchAlbumImagesShouldTriggerLoadedAlbumImagesResult() {
-        let expectation = self.expectationWithDescription("Waiting for interactor.loadedAlbumImagesResult")
+        let expectation = self.expectation(description: "Waiting for interactor.loadedAlbumImagesResult")
         interactor?.expectation = expectation
         
-        let albumType = AlbumType.AllPhotos
+        let albumType = AlbumType.allPhotos
         let range = 0..<numberOfImages
-        let targetSize = CGSizeZero
+        let targetSize = CGSize.zero
         entityGateway?.fetchAlbumImagesFromAlbum(albumType, inRange: range, withTargetSize: targetSize)
         
-        self.waitForExpectationsWithTimeout(5.0) {
+        self.waitForExpectations(timeout: 5.0) {
             _ in
             XCTAssertEqual(1, self.interactor?.loadedAlbumImagesResultCount)
             XCTAssertEqual(self.numberOfImages, self.interactor?.loadedAlbumImagesResultResults?.count)
@@ -71,7 +71,7 @@ class SnapImagePickerEntityGatewayTests: XCTestCase {
     }
     
     func fetchMainImageShouldTriggerFetchAssetCollectionWithType() {
-        let albumType = AlbumType.AllPhotos
+        let albumType = AlbumType.allPhotos
         let index = 5
         entityGateway?.fetchMainImageFromAlbum(albumType, atIndex: index)
         
@@ -79,7 +79,7 @@ class SnapImagePickerEntityGatewayTests: XCTestCase {
     }
     
     func fetchMainImageShouldTriggerLoadImageFromAsset() {
-        let albumType = AlbumType.AllPhotos
+        let albumType = AlbumType.allPhotos
         let index = 5
         entityGateway?.fetchMainImageFromAlbum(albumType, atIndex: index)
         
@@ -87,14 +87,14 @@ class SnapImagePickerEntityGatewayTests: XCTestCase {
     }
     
     func fetchMainImageShouldTriggerLoadedMainImage() {
-        let expectation = self.expectationWithDescription("Waiting for loaded main image")
+        let expectation = self.expectation(description: "Waiting for loaded main image")
         interactor?.expectation = expectation
         
-        let albumType = AlbumType.AllPhotos
+        let albumType = AlbumType.allPhotos
         let index = 5
         entityGateway?.fetchMainImageFromAlbum(albumType, atIndex: index)
         
-        self.waitForExpectationsWithTimeout(5.0) {
+        self.waitForExpectations(timeout: 5.0) {
             _ in
             XCTAssertEqual(1, self.interactor?.loadedMainImageCount)
             XCTAssertEqual(albumType, self.interactor?.loadedMainImageType)

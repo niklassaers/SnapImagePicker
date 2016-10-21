@@ -8,8 +8,8 @@ extension UIImage {
         let height = width
         let cropRect = CGRect(x: x * self.scale, y: y * self.scale, width: width * self.scale, height: height * self.scale)
 
-        if let cgImage = CGImageCreateWithImageInRect(self.CGImage!, cropRect) {
-            return UIImage(CGImage: cgImage)
+        if let cgImage = self.cgImage!.cropping(to: cropRect) {
+            return UIImage(cgImage: cgImage)
         }
 
         return nil
@@ -21,7 +21,7 @@ extension UIImage {
         return max(size.width, size.height)/min(size.width, size.height)
     }
     
-    func findCenteredOffsetForImageWithZoomScale(zoomScale: CGFloat) -> CGFloat {
+    func findCenteredOffsetForImageWithZoomScale(_ zoomScale: CGFloat) -> CGFloat {
         return abs(size.height - size.width) * zoomScale / 2
     }
 }

@@ -1,7 +1,7 @@
 source 'https://github.com/cocoaPods/Specs.git'
 source 'https://github.com/skylib/SnapPods.git'
 
-platform :ios, '8.0'
+platform :ios, '9.0'
 use_frameworks!
 
 target 'SnapImagePicker' do

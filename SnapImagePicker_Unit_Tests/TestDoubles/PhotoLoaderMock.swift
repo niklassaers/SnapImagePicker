@@ -9,15 +9,15 @@ class PhotoLoaderMock: PhotoLoaderSpy {
         self.numberOfImages = numberOfImages
     }
     
-    override func loadImageFromAsset(asset: PHAsset, isPreview: Bool, withPreviewSize previewSize: CGSize , handler: (SnapImagePickerImage) -> ()) -> PHImageRequestID {
-        super.loadImageFromAsset(asset, isPreview: isPreview, withPreviewSize: previewSize, handler: handler)
+    override func loadImageFromAsset(_ asset: PHAsset, isPreview: Bool, withPreviewSize previewSize: CGSize , handler: @escaping (SnapImagePickerImage) -> ()) -> PHImageRequestID {
+        let _ = super.loadImageFromAsset(asset, isPreview: isPreview, withPreviewSize: previewSize, handler: handler)
         
         handler(SnapImagePickerImage(image: UIImage(), localIdentifier: "localIdentifier", createdDate: nil))
         
         return 0
     }
     
-    override func loadImagesFromAssets(assets: [Int: PHAsset], withTargetSize targetSize: CGSize, handler: ([Int: SnapImagePickerImage]) -> ()) -> [Int: PHImageRequestID]{
+    override func loadImagesFromAssets(_ assets: [Int: PHAsset], withTargetSize targetSize: CGSize, handler: @escaping ([Int: SnapImagePickerImage]) -> ()) -> [Int: PHImageRequestID]{
         var images = [Int: SnapImagePickerImage]()
         for (id, _) in assets {
             images[id] = SnapImagePickerImage(image: UIImage(), localIdentifier: "localIdentifier", createdDate: nil)
@@ -27,8 +27,8 @@ class PhotoLoaderMock: PhotoLoaderSpy {
         return super.loadImagesFromAssets(assets, withTargetSize: targetSize, handler: handler)
     }
     
-    override func fetchAssetsFromCollectionWithType(type: AlbumType) -> PHFetchResult? {
-        super.fetchAssetsFromCollectionWithType(type)
+    override func fetchAssetsFromCollectionWithType(_ type: AlbumType) -> PHFetchResult<PHAsset>? {
+        let _ = super.fetchAssetsFromCollectionWithType(type)
         return PHFetchResultMock(numberOfImages: numberOfImages)
     }
 }

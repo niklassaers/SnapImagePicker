@@ -1,3 +1,3 @@
 protocol AlbumSelectorPresenterProtocol: class {
-    func presentAlbumPreview(album: Album)
+    func presentAlbumPreview(_ album: Album)
 }

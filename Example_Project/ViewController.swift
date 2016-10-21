@@ -15,8 +15,8 @@ class Annotation: NSObject, MKAnnotation {
 class ViewController: UIViewController {
     @IBOutlet weak var button: UIButton!
     @IBOutlet weak var imageView: UIImageView!
-    private let delegate = SnapImagePickerNavigationControllerDelegate()
-    private var vc: SnapImagePickerViewController?
+    fileprivate let delegate = SnapImagePickerNavigationControllerDelegate()
+    fileprivate var vc: SnapImagePickerViewController?
     
     @IBOutlet weak var loadButton: UIButton!
     @IBOutlet weak var containerViewLeadingConstraint: NSLayoutConstraint?
@@ -24,14 +24,14 @@ class ViewController: UIViewController {
     @IBOutlet weak var accessLabel: UILabel?
     @IBOutlet weak var cameraRollAccessSwitch: UISwitch!
     
-    @IBAction func loadButtonClicked(sender: UIButton) {
-        vc?.cameraRollAccess = cameraRollAccessSwitch.on
+    @IBAction func loadButtonClicked(_ sender: UIButton) {
+        vc?.cameraRollAccess = cameraRollAccessSwitch.isOn
         vc?.reload()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let vc = SnapImagePickerViewController.initializeWithCameraRollAccess(cameraRollAccessSwitch.on) {
+        if let vc = SnapImagePickerViewController.initializeWithCameraRollAccess(cameraRollAccessSwitch.isOn) {
             vc.delegate = self
             addChildViewController(vc)
             vc.view.translatesAutoresizingMaskIntoConstraints = false
@@ -39,10 +39,10 @@ class ViewController: UIViewController {
             self.vc = vc
             automaticallyAdjustsScrollViewInsets = false
             
-            let width = NSLayoutConstraint(item: vc.view, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: containerView, attribute: NSLayoutAttribute.Width, multiplier: 1, constant: 0)
-            let height = NSLayoutConstraint(item: vc.view, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: containerView, attribute: NSLayoutAttribute.Height, multiplier: 1, constant: 0)
-            let bottom = NSLayoutConstraint(item: vc.view, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: containerView, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: 0)
-            let centerX = NSLayoutConstraint(item: vc.view, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: containerView, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0)
+            let width = NSLayoutConstraint(item: vc.view, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: containerView, attribute: NSLayoutAttribute.width, multiplier: 1, constant: 0)
+            let height = NSLayoutConstraint(item: vc.view, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: containerView, attribute: NSLayoutAttribute.height, multiplier: 1, constant: 0)
+            let bottom = NSLayoutConstraint(item: vc.view, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: containerView, attribute: NSLayoutAttribute.bottom, multiplier: 1, constant: 0)
+            let centerX = NSLayoutConstraint(item: vc.view, attribute: NSLayoutAttribute.centerX, relatedBy: NSLayoutRelation.equal, toItem: containerView, attribute: NSLayoutAttribute.centerX, multiplier: 1, constant: 0)
             
             containerView?.addConstraints([width, centerX, height, bottom])
         }
@@ -60,17 +60,17 @@ class ViewController: UIViewController {
                 NSForegroundColorAttributeName: SnapImagePickerTheme.color
             ]
             
-            selectButton.setTitleTextAttributes(attributes, forState: .Normal)
-            selectButton.setTitleTextAttributes(attributes, forState: .Highlighted)
+            selectButton.setTitleTextAttributes(attributes, for: UIControlState())
+            selectButton.setTitleTextAttributes(attributes, for: .highlighted)
         }
         selectButton.target = self
         selectButton.action = #selector(selectButtonPressed)
         navigationItem.rightBarButtonItem = selectButton
     }
     
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-        coordinator.animateAlongsideTransition({
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        coordinator.animate(alongsideTransition: {
             _ in
             if self.containerViewLeadingConstraint?.constant != 0 {
                 self.containerViewLeadingConstraint?.constant = -self.containerView!.frame.width
@@ -78,38 +78,38 @@ class ViewController: UIViewController {
         }, completion: nil)
     }
     
-    @IBAction func openImagePicker(sender: UIButton) {
-        imageView.hidden = true
-        button.hidden = true
-        cameraRollAccessSwitch.hidden = true
-        loadButton.hidden = true
-        accessLabel?.hidden = true
+    @IBAction func openImagePicker(_ sender: UIButton) {
+        imageView.isHidden = true
+        button.isHidden = true
+        cameraRollAccessSwitch.isHidden = true
+        loadButton.isHidden = true
+        accessLabel?.isHidden = true
         containerViewLeadingConstraint?.constant = -containerView!.frame.width
         navigationController?.delegate = delegate
     }
     
     func backButtonPressed() {
-        imageView.hidden = false
-        button.hidden = false
-        cameraRollAccessSwitch.hidden = false
-        loadButton.hidden = false
-        accessLabel?.hidden = false
+        imageView.isHidden = false
+        button.isHidden = false
+        cameraRollAccessSwitch.isHidden = false
+        loadButton.isHidden = false
+        accessLabel?.isHidden = false
         containerViewLeadingConstraint?.constant = 0
         navigationController?.delegate = nil
     }
     
     func selectButtonPressed() {
         if let (image, options) = vc?.getCurrentImage(),
-           let cgImage = image.CGImage {
-            imageView?.contentMode = .ScaleAspectFit
-            imageView?.image = UIImage(CGImage: CGImageCreateWithImageInRect(cgImage, options.cropRect)!, scale: 1, orientation: options.rotation)
+           let cgImage = image.cgImage {
+            imageView?.contentMode = .scaleAspectFit
+            imageView?.image = UIImage(cgImage: cgImage.cropping(to: options.cropRect)!, scale: 1, orientation: options.rotation)
         }
         backButtonPressed()
     }
 }
 
 extension ViewController: SnapImagePickerDelegate {
-    func setTitleView(titleView: UIView) {
+    func setTitleView(_ titleView: UIView) {
         navigationItem.titleView = titleView
     }
     

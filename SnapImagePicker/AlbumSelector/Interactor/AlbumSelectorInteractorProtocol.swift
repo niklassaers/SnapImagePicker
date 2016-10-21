@@ -1,5 +1,5 @@
 import UIKit
 
 protocol AlbumSelectorInteractorProtocol: class {
-    func fetchAlbumPreviewsWithTargetSize(targetSize: CGSize)
+    func fetchAlbumPreviewsWithTargetSize(_ targetSize: CGSize)
 }
