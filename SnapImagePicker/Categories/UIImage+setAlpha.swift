@@ -1,23 +1,23 @@
 import UIKit
 
 extension UIImage {
-    func setAlpha(alpha: CGFloat) -> UIImage {
+    func setAlpha(_ alpha: CGFloat) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(self.size, false, 0);
         
         let context = UIGraphicsGetCurrentContext();
-        let rect = CGRectMake(0, 0, self.size.width, self.size.height);
-        CGContextScaleCTM(context, 1, -1);
-        CGContextTranslateCTM(context, 0, -rect.size.height);
+        let rect = CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height);
+        context!.scaleBy(x: 1, y: -1);
+        context!.translateBy(x: 0, y: -rect.size.height);
         
-        CGContextSetBlendMode(context, .Multiply);
+        context!.setBlendMode(.multiply);
         
-        CGContextSetAlpha(context, alpha);
+        context!.setAlpha(alpha);
         
-        CGContextDrawImage(context, rect, self.CGImage);
+        context!.draw(self.cgImage!, in: rect);
         
         let image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
         
-        return image;
+        return image!;
     }
 }

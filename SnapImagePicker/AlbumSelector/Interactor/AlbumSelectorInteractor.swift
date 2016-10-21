@@ -1,7 +1,7 @@
 import UIKit
 
 class AlbumSelectorInteractor {
-    private weak var presenter: AlbumSelectorPresenterProtocol?
+    fileprivate weak var presenter: AlbumSelectorPresenterProtocol?
     
     var entityGateway: AlbumSelectorEntityGatewayProtocol?
     
@@ -11,7 +11,7 @@ class AlbumSelectorInteractor {
 }
 
 extension AlbumSelectorInteractor: AlbumSelectorInteractorProtocol {
-    func fetchAlbumPreviewsWithTargetSize(targetSize: CGSize) {
+    func fetchAlbumPreviewsWithTargetSize(_ targetSize: CGSize) {
         entityGateway?.fetchAlbumPreviewsWithTargetSize(targetSize) {
             [weak self] (album: Album) in
             self?.presenter?.presentAlbumPreview(album)

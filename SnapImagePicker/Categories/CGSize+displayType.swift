@@ -5,12 +5,12 @@ extension CGSize {
         switch width {
         case 1024:
             if height < width {
-                return .Landscape
+                return .landscape
             } else {
-                return .Portrait
+                return .portrait
             }
-        case 1366: return .Landscape
-        default: return .Portrait
+        case 1366: return .landscape
+        default: return .portrait
         }
     }
 }

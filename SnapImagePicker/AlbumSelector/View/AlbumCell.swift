@@ -3,7 +3,7 @@ import UIKit
 class AlbumCell: UITableViewCell {
     @IBOutlet weak var albumPreviewImageView: UIImageView? {
         didSet {
-            albumPreviewImageView?.contentMode = .ScaleAspectFill
+            albumPreviewImageView?.contentMode = .scaleAspectFill
         }
     }
     @IBOutlet weak var albumNameLabel: UILabel?
@@ -20,10 +20,10 @@ class AlbumCell: UITableViewCell {
             if let album = album {
                 albumPreviewImageView?.image = album.image.square()
                 albumSizeLabel?.text = formatSizeLabelText(album.size)
-                if album.albumName == AlbumType.AllPhotos.getAlbumName() {
-                    albumNameLabel?.text = L10n.AllPhotosAlbumName.string
-                } else if album.albumName == AlbumType.Favorites.getAlbumName() {
-                    albumNameLabel?.text = L10n.FavoritesAlbumName.string
+                if album.albumName == AlbumType.allPhotos.getAlbumName() {
+                    albumNameLabel?.text = L10n.allPhotosAlbumName.string
+                } else if album.albumName == AlbumType.favorites.getAlbumName() {
+                    albumNameLabel?.text = L10n.favoritesAlbumName.string
                 } else {
                     albumNameLabel?.text = album.albumName
                 }
@@ -31,7 +31,7 @@ class AlbumCell: UITableViewCell {
         }
     }
         
-    private func formatSizeLabelText(size: Int) -> String {
-        return String(size) + " " + ((size == 1) ?  L10n.ImageLabelText.string : L10n.SeveralImagesLabelText.string)
+    fileprivate func formatSizeLabelText(_ size: Int) -> String {
+        return String(size) + " " + ((size == 1) ?  L10n.imageLabelText.string : L10n.severalImagesLabelText.string)
     }
 }

@@ -1,25 +1,25 @@
 //TODO: FIND A BETTER SOLUTION (Extensions) (talk to niklas)
 
-func findPrecedingElementsOfRange(first: Range<Int>, other: Range<Int>) -> Range<Int> {
-    if other.startIndex < first.startIndex {
-        return other.startIndex..<first.startIndex
+func findPrecedingElementsOfRange(_ first: CountableRange<Int>, other: CountableRange<Int>) -> CountableRange<Int> {
+    if other.lowerBound < first.lowerBound {
+        return other.lowerBound..<first.lowerBound
     } else {
-        return other.startIndex...other.startIndex
+        return other.startIndex..<other.startIndex.advanced(by: 1)
     }
 }
     
-func findTrailingElementsOfRange(first: Range<Int>, other: Range<Int>) -> Range<Int> {
-    if other.endIndex > first.endIndex {
-        return first.endIndex - 1..<other.endIndex
+func findTrailingElementsOfRange(_ first: CountableRange<Int>, other: CountableRange<Int>) -> CountableRange<Int> {
+    if other.upperBound > first.upperBound {
+        return first.upperBound - 1..<other.upperBound
     } else {
-        return other.endIndex...other.endIndex
+        return other.endIndex..<other.endIndex.advanced(by: 1)
     }
 }
 
-func span(range: Range<Int>) -> Int {
-    return range.endIndex - range.startIndex
+func span(_ range: CountableRange<Int>) -> Int {
+    return range.upperBound - range.lowerBound
 }
 
-func expandRange(range: Range<Int>, byAmount amount: Int, withLowerBound lowerBound: Int, andUpperBound upperBound: Int) -> Range<Int> {
-    return max(lowerBound, range.startIndex - amount)..<min(upperBound, range.endIndex + amount)
+func expandRange(_ range: CountableRange<Int>, byAmount amount: Int, withLowerBound lowerBound: Int, andUpperBound upperBound: Int) -> CountableRange<Int> {
+    return max(lowerBound, range.lowerBound - amount)..<min(upperBound, range.upperBound + amount)
 }

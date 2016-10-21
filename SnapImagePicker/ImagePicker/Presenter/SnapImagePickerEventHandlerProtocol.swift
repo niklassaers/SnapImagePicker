@@ -2,10 +2,10 @@ import UIKit
 
 protocol SnapImagePickerEventHandlerProtocol: class {
     var cameraRollAccess: Bool { get set }
-    func viewWillAppearWithCellSize(cellSize: CGSize)
-    func albumImageClicked(index: Int) -> Bool
-    func numberOfItemsInSection(section: Int) -> Int
-    func presentCell(cell: ImageCell, atIndex: Int) -> ImageCell
-    func scrolledToCells(range: Range<Int>, increasing: Bool)
-    func albumTitlePressed(navigationController: UINavigationController?)
+    func viewWillAppearWithCellSize(_ cellSize: CGSize)
+    func albumImageClicked(_ index: Int) -> Bool
+    func numberOfItemsInSection(_ section: Int) -> Int
+    func presentCell(_ cell: ImageCell, atIndex: Int) -> ImageCell
+    func scrolledToCells(_ range: CountableRange<Int>, increasing: Bool)
+    func albumTitlePressed(_ navigationController: UINavigationController?)
 }

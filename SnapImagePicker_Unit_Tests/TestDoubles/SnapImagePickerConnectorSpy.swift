@@ -22,16 +22,16 @@ extension SnapImagePickerConnectorSpy: SnapImagePickerConnectorProtocol {
         set {}
     }
     
-    func segueToAlbumSelector(navigationController: UINavigationController?) {
+    func segueToAlbumSelector(_ navigationController: UINavigationController?) {
         segueToAlbumSelectorCount += 1
     }
     
-    func segueToImagePicker(albumType: AlbumType, inNavigationController: UINavigationController?) {
+    func segueToImagePicker(_ albumType: AlbumType, inNavigationController: UINavigationController?) {
         segueToImagePickerCount += 1
         segueToImagePickerType = albumType
     }
     
-    func setImage(image: UIImage, withImageOptions: ImageOptions) {
+    func setImage(_ image: UIImage, withImageOptions: ImageOptions) {
         setImageCount += 1
         setImageImage = image
         setImageOptions = withImageOptions

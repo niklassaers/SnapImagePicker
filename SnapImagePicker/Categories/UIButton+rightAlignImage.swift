@@ -1,7 +1,7 @@
 import UIKit
 
 extension UIButton {
-    func rightAlignImage(image: UIImage) {
+    func rightAlignImage(_ image: UIImage) {
         if let titleLabel = titleLabel {
             titleLabel.sizeToFit()
             imageEdgeInsets = UIEdgeInsetsMake(2, titleLabel.frame.width + 4, -2, -(titleLabel.frame.width + 4));

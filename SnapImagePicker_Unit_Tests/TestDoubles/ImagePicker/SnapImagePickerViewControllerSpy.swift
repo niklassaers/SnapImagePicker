@@ -26,12 +26,12 @@ extension SnapImagePickerViewControllerSpy: SnapImagePickerViewControllerProtoco
         }
     }
     
-    func displayMainImage(mainImage: SnapImagePickerImage) {
+    func displayMainImage(_ mainImage: SnapImagePickerImage) {
         displayMainImageCount += 1
         displayMainImageImage = mainImage
     }
     
-    func reloadCellAtIndexes(index: [Int]) {
+    func reloadCellAtIndexes(_ index: [Int]) {
         reloadCellAtIndexesCount += 1
         reloadCellAtIndexesIndexes = index
     }

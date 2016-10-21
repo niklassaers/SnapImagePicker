@@ -2,6 +2,6 @@ import UIKit
 
 extension UIImageOrientation {
     func isHorizontal() -> Bool {
-        return self == .Left || self == .LeftMirrored || self == .Right || self == .RightMirrored
+        return self == .left || self == .leftMirrored || self == .right || self == .rightMirrored
     }
 }

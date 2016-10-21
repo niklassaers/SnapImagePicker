@@ -1,14 +1,14 @@
 import UIKit
 
 enum Display: CustomStringConvertible {
-    case Portrait
-    case Landscape
+    case portrait
+    case landscape
     
     var Spacing: CGFloat {
         return 2
     }
     var BackgroundColor: UIColor {
-        return UIColor.whiteColor()
+        return UIColor.white
     }
     var MaxZoomScale: CGFloat {
         return 5
@@ -22,43 +22,43 @@ enum Display: CustomStringConvertible {
     var MaxImageFadeRatio: CGFloat {
         return 1.2
     }
-    var OffsetThreshold: ClosedInterval<Double> {
+    var OffsetThreshold: ClosedRange<Double> {
         return Double(0.2)...Double(0.7)
     }
     
     var NumberOfColumns: Int {
         switch self {
-        case Portrait: return 4
-        case Landscape: return 8
+        case .portrait: return 4
+        case .landscape: return 8
         }
     }
     
     var SelectedImageWidthMultiplier: CGFloat {
         switch self {
-        case Portrait: return 1
-        case Landscape: return 0.5
+        case .portrait: return 1
+        case .landscape: return 0.5
         }
     }
     
     var AlbumCollectionWidthMultiplier: CGFloat {
         switch self {
-        case Portrait: return 1
-        case Landscape: return 1
+        case .portrait: return 1
+        case .landscape: return 1
         }
     }
         
-    func CellWidthInView(collectionView: UICollectionView) -> CGFloat {
+    func CellWidthInView(_ collectionView: UICollectionView) -> CGFloat {
         return CellWidthInViewWithWidth(collectionView.bounds.width)
     }
     
-    func CellWidthInViewWithWidth(width: CGFloat) -> CGFloat {
+    func CellWidthInViewWithWidth(_ width: CGFloat) -> CGFloat {
         return ((width - (Spacing * CGFloat(NumberOfColumns - 1))) / CGFloat(NumberOfColumns))
     }
     
     var description: String {
         switch self {
-        case .Portrait: return "Portrait"
-        case .Landscape: return "Landscape"
+        case .portrait: return "Portrait"
+        case .landscape: return "Landscape"
         }
     }
 }

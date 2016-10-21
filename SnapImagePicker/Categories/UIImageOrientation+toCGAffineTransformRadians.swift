@@ -3,10 +3,10 @@ import UIKit
 extension UIImageOrientation {
     func toCGAffineTransformRadians() -> Double {
         switch self {
-        case .Up, .DownMirrored: return 0
-        case .Right, .LeftMirrored: return M_PI/2
-        case .Down, .UpMirrored: return M_PI
-        case .Left, .RightMirrored: return M_PI*1.5
+        case .up, .downMirrored: return 0
+        case .right, .leftMirrored: return M_PI/2
+        case .down, .upMirrored: return M_PI
+        case .left, .rightMirrored: return M_PI*1.5
         }
     }
 }

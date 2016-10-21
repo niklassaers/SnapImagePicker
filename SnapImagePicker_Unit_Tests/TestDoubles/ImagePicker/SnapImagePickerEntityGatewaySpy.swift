@@ -8,7 +8,7 @@ class SnapImagePickerEntityGatewaySpy {
     
     var fetchAlbumImagesFromAlbumCount = 0
     var fetchAlbumImagesFromAlbumType: AlbumType?
-    var fetchAlbumImagesFromAlbumRange: Range<Int>?
+    var fetchAlbumImagesFromAlbumRange: CountableRange<Int>?
     var fetchAlbumImagesFromAlbumSize: CGSize?
     
     var fetchMainImageFromAlbumCount = 0
@@ -19,16 +19,16 @@ class SnapImagePickerEntityGatewaySpy {
 }
 
 extension SnapImagePickerEntityGatewaySpy: SnapImagePickerEntityGatewayProtocol {
-    func fetchImageWithLocalIdentifier(localIdentifier: String, fromAlbum type: AlbumType) {}
+    func fetchImageWithLocalIdentifier(_ localIdentifier: String, fromAlbum type: AlbumType) {}
     
-    func fetchAlbum(type: AlbumType) {
+    func fetchAlbum(_ type: AlbumType) {
         fetchAlbumCount += 1
         fetchAlbumType = type
         
         expectation?.fulfill()
     }
     
-    func fetchAlbumImagesFromAlbum(type: AlbumType, inRange: Range<Int>, withTargetSize: CGSize) {
+    func fetchAlbumImagesFromAlbum(_ type: AlbumType, inRange: CountableRange<Int>, withTargetSize: CGSize) {
         fetchAlbumImagesFromAlbumCount += 1
         fetchAlbumImagesFromAlbumType = type
         fetchAlbumImagesFromAlbumRange = inRange
@@ -37,7 +37,7 @@ extension SnapImagePickerEntityGatewaySpy: SnapImagePickerEntityGatewayProtocol 
         expectation?.fulfill()
     }
     
-    func fetchMainImageFromAlbum(type: AlbumType, atIndex: Int) {
+    func fetchMainImageFromAlbum(_ type: AlbumType, atIndex: Int) {
         fetchMainImageFromAlbumCount += 1
         fetchMainImageFromAlbumType = type
         fetchMainImageFromAlbumIndex = atIndex
@@ -45,5 +45,5 @@ extension SnapImagePickerEntityGatewaySpy: SnapImagePickerEntityGatewayProtocol 
         expectation?.fulfill()
     }
     
-    func deleteImageRequestsInRange(range: Range<Int>) {}
+    func deleteImageRequestsInRange(_ range: CountableRange<Int>) {}
 }

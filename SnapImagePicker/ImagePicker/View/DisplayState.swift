@@ -1,20 +1,20 @@
 import UIKit
 
 enum DisplayState {
-    case Image
-    case Album
+    case image
+    case album
         
     var offset: Double {
         switch self {
-        case .Image: return 0.0
-        case .Album: return 0.85
+        case .image: return 0.0
+        case .album: return 0.85
         }
     }
     
     var rotateButtonAlpha: CGFloat {
         switch self {
-        case .Image: return 1.0
-        case .Album: return 0.3
+        case .image: return 1.0
+        case .album: return 0.3
         }
     }
 }

@@ -1,5 +1,5 @@
 import UIKit
 
 protocol AlbumSelectorEntityGatewayProtocol {
-    func fetchAlbumPreviewsWithTargetSize(targetSize: CGSize, handler: Album -> Void)
+    func fetchAlbumPreviewsWithTargetSize(_ targetSize: CGSize, handler: @escaping (Album) -> Void)
 }

@@ -1,9 +1,9 @@
 PODS:
   - DORateLimit (0.1.4)
-  - FBSnapshotTestCase (2.1.2):
-    - FBSnapshotTestCase/SwiftSupport (= 2.1.2)
-  - FBSnapshotTestCase/Core (2.1.2)
-  - FBSnapshotTestCase/SwiftSupport (2.1.2):
+  - FBSnapshotTestCase (2.1.4):
+    - FBSnapshotTestCase/SwiftSupport (= 2.1.4)
+  - FBSnapshotTestCase/Core (2.1.4)
+  - FBSnapshotTestCase/SwiftSupport (2.1.4):
     - FBSnapshotTestCase/Core
   - SnapFBSnapshotBase (1.1.0):
     - FBSnapshotTestCase
@@ -16,10 +16,10 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   DORateLimit: 32ec9f4f3233d8f9ebf784775feb01600cb0e1bb
-  FBSnapshotTestCase: 918c55861356ee83aee7843d759f55a18ff6982b
+  FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
   SnapFBSnapshotBase: 41e9522e1c57f06b4b8683c36c6e03431a40abb6
   SnapFonts-iOS: d6eb7e76f92c78bfbe0830c706c66b631157d77e
 
-PODFILE CHECKSUM: ce136811a44e625b8b5b6753edba4ea0b88b7eaa
+PODFILE CHECKSUM: 672342c8d3f0e039fdaa5e10c9c57d7def07121f
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.1.1

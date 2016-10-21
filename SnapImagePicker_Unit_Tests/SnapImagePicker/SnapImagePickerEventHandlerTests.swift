@@ -22,16 +22,16 @@ class SnapImagePickerEventHandlerTests: XCTestCase {
         super.tearDown()
     }
     
-    private func createSnapImagePickerImage(image: UIImage = UIImage(), localIdentifier: String = "", createdDate: NSDate? = nil) -> SnapImagePickerImage {
-        return SnapImagePickerImage(image: image, localIdentifier: localIdentifier, createdDate: createdDate)
+    fileprivate func createSnapImagePickerImage(_ image: UIImage = UIImage(), localIdentifier: String = "", createdDate: Date? = nil) -> SnapImagePickerImage {
+        return SnapImagePickerImage(image: image, localIdentifier: localIdentifier, createdDate: createdDate as Date?)
     }
     
-    private func presentAlbum(albumType: AlbumType = AlbumType.AllPhotos, image: UIImage = UIImage(), localIdentifier: String = "", createdDate: NSDate? = nil, albumSize: Int = 30) {
+    fileprivate func presentAlbum(_ albumType: AlbumType = AlbumType.allPhotos, image: UIImage = UIImage(), localIdentifier: String = "", createdDate: Date? = nil, albumSize: Int = 30) {
         let mainImage = createSnapImagePickerImage(image, localIdentifier: localIdentifier, createdDate: createdDate)
         eventHandler?.presentAlbum(albumType, withMainImage: mainImage, albumSize: albumSize)
     }
     
-    private func presentAlbumImages(albumType: AlbumType = AlbumType.AllPhotos, image: UIImage = UIImage(), localIdentifier: String = "", createdDate: NSDate? = nil, albumSize: Int = 30) {
+    fileprivate func presentAlbumImages(_ albumType: AlbumType = AlbumType.allPhotos, image: UIImage = UIImage(), localIdentifier: String = "", createdDate: Date? = nil, albumSize: Int = 30) {
         let image = createSnapImagePickerImage(image, localIdentifier: localIdentifier, createdDate: createdDate)
         var results = [Int: SnapImagePickerImage]()
         for i in 0..<albumSize {
@@ -57,9 +57,9 @@ class SnapImagePickerEventHandlerTests: XCTestCase {
         presentAlbumImages(albumSize: albumSize)
         
         eventHandler?.cameraRollAccess = true
-        eventHandler?.albumImageClicked(1)
+        let _ = eventHandler?.albumImageClicked(1)
         XCTAssertEqual(1, interactor?.loadMainImageFromAlbumCount)
-        XCTAssertEqual(.AllPhotos, interactor?.loadMainImageFromAlbumType)
+        XCTAssertEqual(AlbumType.allPhotos, interactor?.loadMainImageFromAlbumType)
         XCTAssertEqual(1, interactor?.loadMainImageFromAlbumIndex)
     }
     
@@ -70,10 +70,10 @@ class SnapImagePickerEventHandlerTests: XCTestCase {
         
         let precedingCount = viewController!.reloadCellAtIndexesCount
         eventHandler?.cameraRollAccess = true
-        eventHandler?.albumImageClicked(1)
+        let _ = eventHandler?.albumImageClicked(1)
         XCTAssertEqual(precedingCount + 1, viewController?.reloadCellAtIndexesCount)
         XCTAssertNotNil(viewController?.reloadCellAtIndexesIndexes)
-        XCTAssertEqual([0, 1], viewController!.reloadCellAtIndexesIndexes!.sort())
+        XCTAssertEqual([0, 1], viewController!.reloadCellAtIndexesIndexes!.sorted())
     }
     
     func testNumberOfItemsInSectionShouldEqualAlbumSize() {
@@ -87,12 +87,12 @@ class SnapImagePickerEventHandlerTests: XCTestCase {
     func testPresentCellShouldDoNothingForInvalidIndex() {
         let cell = ImageCell()
         
-        eventHandler?.presentCell(cell, atIndex: 10)
+        let _ = eventHandler?.presentCell(cell, atIndex: 10)
         XCTAssertNil(cell.imageView?.image)
     }
     
     func testPresentCellShouldSetImage() {
-        if let image = UIImage(named: "dummy", inBundle: NSBundle(forClass: SnapImagePickerEventHandlerTests.self), compatibleWithTraitCollection: nil) {
+        if let image = UIImage(named: "dummy", in: Bundle(for: SnapImagePickerEventHandlerTests.self), compatibleWith: nil) {
             eventHandler?.cameraRollAccess = true
             presentAlbum(image: image)
             eventHandler?.scrolledToCells(0..<2, increasing: true)
@@ -101,7 +101,7 @@ class SnapImagePickerEventHandlerTests: XCTestCase {
             let cell = ImageCell()
             let imageView = UIImageView()
             cell.imageView = imageView
-            eventHandler?.presentCell(cell, atIndex: 1)
+            let _ = eventHandler?.presentCell(cell, atIndex: 1)
             XCTAssertNotNil(imageView.image)
         } else {
             XCTFail("Unable to load image dummy for testing")
@@ -115,7 +115,7 @@ class SnapImagePickerEventHandlerTests: XCTestCase {
         presentAlbumImages()
         
         let cell = ImageCell()
-        eventHandler?.presentCell(cell, atIndex: 0)
+        let _ = eventHandler?.presentCell(cell, atIndex: 0)
         XCTAssertEqual(2, cell.spacing)
     }
     

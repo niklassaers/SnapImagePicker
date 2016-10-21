@@ -4,21 +4,21 @@ import Foundation
 
 enum L10n {
   /// image
-  case ImageLabelText
+  case imageLabelText
   /// images
-  case SeveralImagesLabelText
+  case severalImagesLabelText
   /// Cameraroll
-  case GeneralCollectionName
+  case generalCollectionName
   /// Albums
-  case UserDefinedAlbumsCollectionName
+  case userDefinedAlbumsCollectionName
   /// Smart Albums
-  case SmartAlbumsCollectionName
+  case smartAlbumsCollectionName
   /// All Photos
-  case AllPhotosAlbumName
+  case allPhotosAlbumName
   /// Favorites
-  case FavoritesAlbumName
+  case favoritesAlbumName
   /// Select
-  case SelectButtonLabelText
+  case selectButtonLabelText
 }
 
 extension L10n: CustomStringConvertible {
@@ -26,32 +26,32 @@ extension L10n: CustomStringConvertible {
 
   var string: String {
     switch self {
-      case .ImageLabelText:
+      case .imageLabelText:
         return L10n.tr("imageLabelText")
-      case .SeveralImagesLabelText:
+      case .severalImagesLabelText:
         return L10n.tr("severalImagesLabelText")
-      case .GeneralCollectionName:
+      case .generalCollectionName:
         return L10n.tr("generalCollectionName")
-      case .UserDefinedAlbumsCollectionName:
+      case .userDefinedAlbumsCollectionName:
         return L10n.tr("userDefinedAlbumsCollectionName")
-      case .SmartAlbumsCollectionName:
+      case .smartAlbumsCollectionName:
         return L10n.tr("smartAlbumsCollectionName")
-      case .AllPhotosAlbumName:
+      case .allPhotosAlbumName:
         return L10n.tr("allPhotosAlbumName")
-      case .FavoritesAlbumName:
+      case .favoritesAlbumName:
         return L10n.tr("favoritesAlbumName")
-      case .SelectButtonLabelText:
+      case .selectButtonLabelText:
         return L10n.tr("selectButtonLabelText")
     }
   }
 
-  private static func tr(key: String, _ args: CVarArgType...) -> String {
-    let format = NSLocalizedString(key, bundle: NSBundle(forClass: SnapImagePickerViewController.self), comment: "")
-    return String(format: format, locale: NSLocale.currentLocale(), arguments: args)
+  fileprivate static func tr(_ key: String, _ args: CVarArg...) -> String {
+    let format = NSLocalizedString(key, bundle: Bundle(for: SnapImagePickerViewController.self), comment: "")
+    return String(format: format, locale: Locale.current, arguments: args)
   }
 }
 
-func tr(key: L10n) -> String {
+func tr(_ key: L10n) -> String {
   return key.string
 }
 

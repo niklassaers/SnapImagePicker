@@ -23,7 +23,7 @@ class SnapImagePickerUITests: XCTestCase {
         let camerarollNavigationBar = app.navigationBars["Cameraroll"]
         camerarollNavigationBar.buttons["Cameraroll"].tap()
         allPhotosButton.tap()
-        camerarollNavigationBar.childrenMatchingType(.Button).matchingIdentifier("Back").elementBoundByIndex(0).tap()
+        camerarollNavigationBar.children(matching: .button).matching(identifier: "Back").element(boundBy: 0).tap()
         allPhotosButton.tap()
         app.tables.buttons["Album name"].tap()
         
@@ -43,11 +43,11 @@ class SnapImagePickerUITests: XCTestCase {
         app.buttons["Start image picker"].tap()
         
         let collectionViewsQuery = app.collectionViews
-        let albumImagePreviewImage = collectionViewsQuery.childrenMatchingType(.Cell).elementBoundByIndex(1).images["Album Image Preview"]
+        let albumImagePreviewImage = collectionViewsQuery.children(matching: .cell).element(boundBy: 1).images["Album Image Preview"]
         albumImagePreviewImage.tap()
         app.scrollViews.images["Selected Image"].tap()
         albumImagePreviewImage.tap()
-        collectionViewsQuery.childrenMatchingType(.Cell).elementBoundByIndex(3).images["Album Image Preview"].tap()
+        collectionViewsQuery.children(matching: .cell).element(boundBy: 3).images["Album Image Preview"].tap()
         
     }
     
@@ -57,9 +57,9 @@ class SnapImagePickerUITests: XCTestCase {
         app.buttons["Start image picker"].tap()
         
         let collectionViewsQuery = app.collectionViews
-        collectionViewsQuery.childrenMatchingType(.Cell).elementBoundByIndex(3).images["Album Image Preview"].tap()
-        collectionViewsQuery.childrenMatchingType(.Cell).elementBoundByIndex(7).images["Album Image Preview"].tap()
-        collectionViewsQuery.childrenMatchingType(.Cell).elementBoundByIndex(8).images["Album Image Preview"].tap()
+        collectionViewsQuery.children(matching: .cell).element(boundBy: 3).images["Album Image Preview"].tap()
+        collectionViewsQuery.children(matching: .cell).element(boundBy: 7).images["Album Image Preview"].tap()
+        collectionViewsQuery.children(matching: .cell).element(boundBy: 8).images["Album Image Preview"].tap()
         
     }
     

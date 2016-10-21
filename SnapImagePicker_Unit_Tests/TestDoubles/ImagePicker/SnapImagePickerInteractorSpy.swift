@@ -13,7 +13,7 @@ class SnapImagePickerInteractorSpy {
     
     var loadAlbumImagesFromAlbumCount = 0
     var loadAlbumImagesFromAlbumType: AlbumType?
-    var loadAlbumImagesFromAlbumRange: Range<Int>?
+    var loadAlbumImagesFromAlbumRange: CountableRange<Int>?
     var loadAlbumImagesFromAlbumTargetSize: CGSize?
     
     var loadMainImageFromAlbumCount = 0
@@ -32,14 +32,14 @@ class SnapImagePickerInteractorSpy {
 }
 
 extension SnapImagePickerInteractorSpy: SnapImagePickerInteractorProtocol {
-    func loadMainImageWithLocalIdentifier(localIdentifier: String, fromAlbum album: AlbumType) {}
+    func loadMainImageWithLocalIdentifier(_ localIdentifier: String, fromAlbum album: AlbumType) {}
     
-    func loadAlbum(type: AlbumType) {
+    func loadAlbum(_ type: AlbumType) {
         loadAlbumCount += 1
         loadAlbumType = type
     }
     
-    func loadedAlbum(type: AlbumType, withMainImage mainImage: SnapImagePickerImage, albumSize: Int) {
+    func loadedAlbum(_ type: AlbumType, withMainImage mainImage: SnapImagePickerImage, albumSize: Int) {
         loadedAlbumCount += 1
         loadedAlbumType = type
         loadedAlbumMainImage = mainImage
@@ -48,20 +48,20 @@ extension SnapImagePickerInteractorSpy: SnapImagePickerInteractorProtocol {
         expectation?.fulfill()
     }
     
-    func loadAlbumImagesFromAlbum(type: AlbumType, inRange range: Range<Int>, withTargetSize targetSize: CGSize) {
+    func loadAlbumImagesFromAlbum(_ type: AlbumType, inRange range: CountableRange<Int>, withTargetSize targetSize: CGSize) {
         loadAlbumImagesFromAlbumCount += 1
         loadAlbumImagesFromAlbumType = type
         loadAlbumImagesFromAlbumRange = range
         loadAlbumImagesFromAlbumTargetSize = targetSize
     }
     
-    func loadMainImageFromAlbum(type: AlbumType, atIndex index: Int) {
+    func loadMainImageFromAlbum(_ type: AlbumType, atIndex index: Int) {
         loadMainImageFromAlbumCount += 1
         loadMainImageFromAlbumType = type
         loadMainImageFromAlbumIndex = index
     }
     
-    func loadedAlbumImagesResult(results: [Int:SnapImagePickerImage], fromAlbum album: AlbumType) {
+    func loadedAlbumImagesResult(_ results: [Int:SnapImagePickerImage], fromAlbum album: AlbumType) {
         loadedAlbumImagesResultCount += 1
         loadedAlbumImagesResultResults = results
         loadedAlbumImagesResultType = album
@@ -69,7 +69,7 @@ extension SnapImagePickerInteractorSpy: SnapImagePickerInteractorProtocol {
         expectation?.fulfill()
     }
     
-    func loadedMainImage(image: SnapImagePickerImage, fromAlbum album: AlbumType) {
+    func loadedMainImage(_ image: SnapImagePickerImage, fromAlbum album: AlbumType) {
         loadedMainImageCount += 1
         loadedMainImageImage = image
         loadedMainImageType = album
@@ -77,5 +77,5 @@ extension SnapImagePickerInteractorSpy: SnapImagePickerInteractorProtocol {
         expectation?.fulfill()
     }
     
-    func deleteImageRequestsInRange(range: Range<Int>) {}
+    func deleteImageRequestsInRange(_ range: CountableRange<Int>) {}
 }

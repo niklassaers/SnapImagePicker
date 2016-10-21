@@ -17,8 +17,8 @@ class SnapImagePickerViewControllerTests: XCTestCase {
         super.tearDown()
     }
     
-    private func setupViewController() -> SnapImagePickerViewController? {
-        let bundle = NSBundle(forClass: SnapImagePickerViewController.self)
+    fileprivate func setupViewController() -> SnapImagePickerViewController? {
+        let bundle = Bundle(for: SnapImagePickerViewController.self)
         let storyboard = UIStoryboard(name: SnapImagePickerConnector.Names.SnapImagePickerStoryboard.rawValue, bundle: bundle)
         if let snapImagePickerViewController = storyboard.instantiateInitialViewController() as? SnapImagePickerViewController {
             return snapImagePickerViewController

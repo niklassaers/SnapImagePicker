@@ -2,5 +2,5 @@ import UIKit
 
 protocol AlbumSelectorEventHandler: class {
     func viewWillAppear()
-    func albumClicked(albumtype: AlbumType, inNavigationController: UINavigationController?)
+    func albumClicked(_ albumtype: AlbumType, inNavigationController: UINavigationController?)
 }

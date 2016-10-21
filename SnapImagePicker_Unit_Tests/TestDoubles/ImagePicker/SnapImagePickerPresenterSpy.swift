@@ -32,7 +32,7 @@ class SnapImagePickerPresenterSpy {
     var presentCellIndex: Int?
     
     var scrolledToCellsCount = 0
-    var scrolledToCellsRange: Range<Int>?
+    var scrolledToCellsRange: CountableRange<Int>?
     var scrolledToCellsIncreasing: Bool?
     
     var albumTitlePressedCount = 0
@@ -49,20 +49,20 @@ class SnapImagePickerPresenterSpy {
 }
 
 extension SnapImagePickerPresenterSpy: SnapImagePickerPresenterProtocol {
-    func presentAlbum(album: AlbumType, withMainImage mainImage: SnapImagePickerImage, albumSize: Int) {
+    func presentAlbum(_ album: AlbumType, withMainImage mainImage: SnapImagePickerImage, albumSize: Int) {
         presentAlbumCount += 1
         presentAlbumType = album
         presentAlbumImage = mainImage
         presentAlbumSize = albumSize
     }
     
-    func presentMainImage(image: SnapImagePickerImage, fromAlbum album: AlbumType) {
+    func presentMainImage(_ image: SnapImagePickerImage, fromAlbum album: AlbumType) {
         presentMainImageCount += 1
         presentMainImageImage = image
         presentMainImageType = album
     }
     
-    func presentAlbumImages(results: [Int: SnapImagePickerImage], fromAlbum album: AlbumType) {
+    func presentAlbumImages(_ results: [Int: SnapImagePickerImage], fromAlbum album: AlbumType) {
         presentAlbumImagesCount += 1
         presentAlbumImagesResults = results
         presentAlbumImagesType = album
@@ -84,26 +84,26 @@ extension SnapImagePickerPresenterSpy: SnapImagePickerEventHandlerProtocol {
         viewDidLoadCount += 1
     }
     
-    func viewWillAppearWithCellSize(cellSize: CGSize) {
+    func viewWillAppearWithCellSize(_ cellSize: CGSize) {
         viewWillAppearWithCellSizeCount += 1
         viewWillAppearWithCellSizeSize = cellSize
     }
     
-    func albumImageClicked(index: Int) -> Bool {
+    func albumImageClicked(_ index: Int) -> Bool {
         albumImageClickedCount += 1
         albumImageClickedIndex = index
         
         return true
     }
     
-    func numberOfItemsInSection(section: Int) -> Int {
+    func numberOfItemsInSection(_ section: Int) -> Int {
         numberOfItemsInSectionCount += 1
         numberOfItemsInSectionSection = section
         
         return 0
     }
     
-    func presentCell(cell: ImageCell, atIndex: Int) -> ImageCell {
+    func presentCell(_ cell: ImageCell, atIndex: Int) -> ImageCell {
         presentCellCount += 1
         presentCellCell = cell
         presentCellIndex = atIndex
@@ -111,17 +111,17 @@ extension SnapImagePickerPresenterSpy: SnapImagePickerEventHandlerProtocol {
         return cell
     }
     
-    func scrolledToCells(range: Range<Int>, increasing: Bool) {
+    func scrolledToCells(_ range: CountableRange<Int>, increasing: Bool) {
         scrolledToCellsCount += 1
         scrolledToCellsRange = range
         scrolledToCellsIncreasing = increasing
     }
     
-    func albumTitlePressed(navigationController: UINavigationController?) {
+    func albumTitlePressed(_ navigationController: UINavigationController?) {
         albumTitlePressedCount += 1
     }
     
-    func selectButtonPressed(image: UIImage, withImageOptions options: ImageOptions) {
+    func selectButtonPressed(_ image: UIImage, withImageOptions options: ImageOptions) {
         selectButtonPressedCount += 1
         selectButtonPressedImage = image
         selectButtonPressedOptions = options

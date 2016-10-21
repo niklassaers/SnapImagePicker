@@ -1,7 +1,7 @@
 import Photos
 
 class AlbumSelectorEntityGateway {
-    private weak var interactor: AlbumSelectorInteractorProtocol?
+    fileprivate weak var interactor: AlbumSelectorInteractorProtocol?
     weak var albumLoader: AlbumLoaderProtocol?
     
     init(interactor: AlbumSelectorInteractorProtocol, albumLoader: AlbumLoaderProtocol?) {
@@ -11,7 +11,7 @@ class AlbumSelectorEntityGateway {
 }
 
 extension AlbumSelectorEntityGateway: AlbumSelectorEntityGatewayProtocol {
-    func fetchAlbumPreviewsWithTargetSize(targetSize: CGSize, handler: Album -> Void) {
+    func fetchAlbumPreviewsWithTargetSize(_ targetSize: CGSize, handler: @escaping (Album) -> Void) {
         albumLoader?.fetchAllPhotosPreview(targetSize, handler: handler)
         albumLoader?.fetchFavoritesPreview(targetSize, handler: handler)
         albumLoader?.fetchAllUserAlbumPreviews(targetSize, handler: handler)
