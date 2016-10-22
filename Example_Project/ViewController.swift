@@ -54,7 +54,7 @@ class ViewController: UIViewController {
         
         let selectButton = UIBarButtonItem()
         selectButton.title = "NESTE"
-        if let font = SnapFonts.gothamRoundedMediumOfSize(SnapImagePickerTheme.fontSize - 5) {
+        if let font = SnapFonts.gothamRoundedMedium(ofSize: SnapImagePickerTheme.fontSize - 5) {
             let attributes: [String: AnyObject] = [
                 NSFontAttributeName: font,
                 NSForegroundColorAttributeName: SnapImagePickerTheme.color

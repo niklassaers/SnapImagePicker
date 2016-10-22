@@ -39,53 +39,44 @@ open class SnapFonts: NSObject {
     static let gothamRoundedMedium = SnapFont(fileName: "GothamRnd-Medium", postScriptName: "GothamRounded-Medium")
     static let gothamRoundedMediumItalic = SnapFont(fileName: "GothamRnd-MedIta", postScriptName: "GothamRounded-MediumItalic")
     
-    open static func gothamRoundedBoldOfSize(_ size: CGFloat) -> UIFont? {
-        struct Token { static var token = Int() }
-        return loadFontOnce(gothamRoundedBold, size: size, token: &Token.token)
+    open static func gothamRoundedBold(ofSize size: CGFloat) -> UIFont? {
+        return loadFontOnce(gothamRoundedBold, size: size)
     }
     
-    open static func gothamRoundedBoldItalicOfSize(_ size: CGFloat) -> UIFont? {
-        struct Token { static var token = Int() }
-        return loadFontOnce(gothamRoundedBoldItalic, size: size, token: &Token.token)
+    open static func gothamRoundedBoldItalic(ofSize size: CGFloat) -> UIFont? {
+        return loadFontOnce(gothamRoundedBoldItalic, size: size)
     }
     
-    open static func gothamRoundedBookOfSize(_ size: CGFloat) -> UIFont? {
-        struct Token { static var token = Int() }
-        return loadFontOnce(gothamRoundedBook, size: size, token: &Token.token)
+    open static func gothamRoundedBook(ofSize size: CGFloat) -> UIFont? {
+        return loadFontOnce(gothamRoundedBook, size: size)
     }
     
-    open static func gothamRoundedBookItalicOfSize(_ size: CGFloat) -> UIFont? {
-        struct Token { static var token = Int() }
-        return loadFontOnce(gothamRoundedBookItalic, size: size, token: &Token.token)
+    open static func gothamRoundedBookItalic(ofSize size: CGFloat) -> UIFont? {
+        return loadFontOnce(gothamRoundedBookItalic, size: size)
     }
     
-    open static func gothamRoundedLightOfSize(_ size: CGFloat) -> UIFont? {
-        struct Token { static var token = Int() }
-        return loadFontOnce(gothamRoundedLight, size: size, token: &Token.token)
+    open static func gothamRoundedLight(ofSize size: CGFloat) -> UIFont? {
+        return loadFontOnce(gothamRoundedLight, size: size)
     }
     
-    open static func gothamRoundedLightItalicOfSize(_ size: CGFloat) -> UIFont? {
-        struct Token { static var token = Int() }
-        return loadFontOnce(gothamRoundedLightItalic, size: size, token: &Token.token)
+    open static func gothamRoundedLightItalic(ofSize size: CGFloat) -> UIFont? {
+        return loadFontOnce(gothamRoundedLightItalic, size: size)
     }
     
-    open static func gothamRoundedMediumOfSize(_ size: CGFloat) -> UIFont? {
-        struct Token { static var token = Int() }
-        return loadFontOnce(gothamRoundedMedium, size: size, token: &Token.token)
+    open static func gothamRoundedMedium(ofSize size: CGFloat) -> UIFont? {
+        return loadFontOnce(gothamRoundedMedium, size: size)
     }
     
-    open static func gothamRoundedMediumItalicOfSize(_ size: CGFloat) -> UIFont? {
-        struct Token { static var token = Int() }
-        return loadFontOnce(gothamRoundedMediumItalic, size: size, token: &Token.token)
+    open static func gothamRoundedMediumItalic(ofSize size: CGFloat) -> UIFont? {
+        return loadFontOnce(gothamRoundedMediumItalic, size: size)
     }
     
     fileprivate static var loadedFonts = [String]()
-    internal static func loadFontOnce(_ font: SnapFont, size: CGFloat, token: inout Int) -> UIFont? {
-        if loadedFonts.contains(font.postScriptName) {
-            return nil
+    internal static func loadFontOnce(_ font: SnapFont, size: CGFloat) -> UIFont? {
+        if loadedFonts.contains(font.postScriptName) == false {
+            loadFont(font: font)
+            loadedFonts.append(font.postScriptName)
         }
-        
-        loadFont(font: font)
         
         return UIFont(name: font.postScriptName, size: size)
     }

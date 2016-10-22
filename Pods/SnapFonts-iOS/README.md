@@ -6,7 +6,7 @@ A Swift port of https://github.com/CocoaPods-Fonts/OpenSans, encapsulating the f
 ###Usage
 
 ```swift
-import SnapFonts
+import SnapFonts_iOS
 
 let font = SnapFonts.gothamRoundedBoldOfSize(20)
 ```
