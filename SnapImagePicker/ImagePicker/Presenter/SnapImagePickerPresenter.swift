@@ -87,9 +87,9 @@ extension SnapImagePickerPresenter: SnapImagePickerEventHandlerProtocol {
         }
         set {
             _cameraRollAvailable = newValue
-            loadAlbum()
         }
     }
+
     fileprivate func loadAlbum() {
         images = [Int: SnapImagePickerImage]()
         currentRange = nil
